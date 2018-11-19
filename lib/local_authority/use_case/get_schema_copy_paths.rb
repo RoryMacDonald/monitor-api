@@ -21,7 +21,7 @@ class LocalAuthority::UseCase::GetSchemaCopyPaths
       end
 
       unless value[:sourceKey].nil?
-        paths << { to: node_path, from: value[:sourceKey] }
+        paths << { to: node_path, from: value[:sourceKey].map(&:to_sym) }
       end
     end
 

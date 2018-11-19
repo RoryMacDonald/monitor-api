@@ -43,6 +43,44 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
     end
   end
 
+  context 'simple schema with string paths' do
+    context 'example 1' do
+      let(:template_schema) do
+        {
+          type: 'object',
+          properties:
+          {
+            noise:
+            {
+              sourceKey: ["cats"]
+            }
+          }
+        }
+      end
+      it 'gets paths' do
+        expect(use_case).to eq(paths: [{ to: [:noise], from: [:cats] }])
+      end
+    end
+
+    context 'example 2' do
+      let(:template_schema) do
+        {
+          type: 'object',
+          properties:
+          {
+            sounds:
+            {
+              sourceKey: ["dogs","woof"]
+            }
+          }
+        }
+      end
+      it 'gets paths' do
+        expect(use_case).to eq(paths: [{ to: [:sounds], from: [:dogs, :woof] }])
+      end
+    end
+  end
+
   context 'single level multi item schema' do
     let(:template_schema) do
       {
