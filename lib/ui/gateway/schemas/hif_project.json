@@ -281,6 +281,7 @@
                       "consents": {
                         "title": "Consents",
                         "type": "array",
+                        "addable": true,
                         "items": {
                           "title": "Statutory Consent",
                           "type": "object",
