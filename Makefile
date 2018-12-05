@@ -26,4 +26,12 @@ test: docker-down docker-build
 
 .PHONY: lint
 lint: docker-down docker-build
-	$(DOCKER_COMPOSE) run --rm web rubocop
+	$(DOCKER_COMPOSE) run --rm web rubocop --parallel
+
+.PHONY: lint-styling
+lint-styling: docker-down docker-build
+	$(DOCKER_COMPOSE) run --rm web rubocop --only Style,Layout,Lint --parallel
+
+.PHONY: lint-complexity
+lint-complexity: docker-down docker-build
+	$(DOCKER_COMPOSE) run --rm web rubocop --except Style,Layout,Lint --parallel
