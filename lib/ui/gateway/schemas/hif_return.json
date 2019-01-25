@@ -597,7 +597,7 @@
                             "type": "array",
                             "items": {
                               "type": "object",
-                              "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn'))); set(formData, 'varianceAgainstLastReturn', weeksPassed(get(formData, 'previousReturn'), get(formData, 'currentReturn')));",
+                              "variance": true,
                               "properties": {
                                 "detailsOfConsent": {
                                   "title": "Details of Consent",
