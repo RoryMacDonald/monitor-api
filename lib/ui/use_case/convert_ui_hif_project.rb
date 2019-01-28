@@ -100,11 +100,22 @@ class UI::UseCase::ConvertUIHIFProject
         unless infrastructure[:planningStatus][:statutoryConsents].nil?
           unless infrastructure[:planningStatus][:statutoryConsents][:consents].nil?
             consents = infrastructure[:planningStatus][:statutoryConsents][:consents].map do |consent|
-              next if :detailsOfConsent.nil?
-              {
-                detailsOfConsent: consent[:detailsOfConsent],
-                targetDateToBeMet: consent[:targetDateToBeMet]
-              }
+              if consent[:detailsOfConsent].nil? && consent[:targetDateToBeMet].nil?
+                {}
+              elsif consent[:detailsOfConsent].nil?
+                {
+                  targetDateToBeMet: consent[:targetDateToBeMet]
+                }
+              elsif consent[:targetDateToBeMet].nil?
+                {
+                  detailsOfConsent: consent[:detailsOfConsent]
+                }
+              else
+                {
+                  detailsOfConsent: consent[:detailsOfConsent],
+                  targetDateToBeMet: consent[:targetDateToBeMet]
+                }
+              end
             end
           end
           converted_infrastructure[:statutoryConsents] = {
@@ -173,6 +184,7 @@ class UI::UseCase::ConvertUIHIFProject
 
     @converted_project[:fundingProfiles] = @project[:fundingProfiles][:profiles].map do |profile|
       next if profile.nil?
+
       {
         period: profile[:period],
         instalment1: profile[:instalment1],
@@ -180,12 +192,13 @@ class UI::UseCase::ConvertUIHIFProject
         instalment3: profile[:instalment3],
         instalment4: profile[:instalment4],
         total: profile[:total]
-    }.compact
+      }.compact
     end
   end
 
   def convert_costs
     return if @project[:costs].nil?
+
     @converted_project[:costs] = []
 
     @converted_project[:costs] = @project[:costs].map do |cost|
@@ -198,7 +211,7 @@ class UI::UseCase::ConvertUIHIFProject
           baselineCashflows: cost[:infrastructure][:baselineCashflows]
         }
         unless cost[:infrastructure][:fundedThroughHif].nil?
-          converted_cost[:infrastructure][:totallyFundedThroughHIF]  = cost[:infrastructure][:fundedThroughHif][:totallyFundedThroughHIF]
+          converted_cost[:infrastructure][:totallyFundedThroughHIF] = cost[:infrastructure][:fundedThroughHif][:totallyFundedThroughHIF]
           converted_cost[:infrastructure][:descriptionOfFundingStack] = cost[:infrastructure][:fundedThroughHif][:descriptionOfFundingStack]
           converted_cost[:infrastructure][:totalPublic] = cost[:infrastructure][:fundedThroughHif][:totalPublic]
           converted_cost[:infrastructure][:totalPrivate] = cost[:infrastructure][:fundedThroughHif][:totalPrivate]
