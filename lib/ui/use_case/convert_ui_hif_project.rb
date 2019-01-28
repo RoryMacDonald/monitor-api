@@ -100,6 +100,7 @@ class UI::UseCase::ConvertUIHIFProject
         unless infrastructure[:planningStatus][:statutoryConsents].nil?
           unless infrastructure[:planningStatus][:statutoryConsents][:consents].nil?
             consents = infrastructure[:planningStatus][:statutoryConsents][:consents].map do |consent|
+              next if :detailsOfConsent.nil?
               {
                 detailsOfConsent: consent[:detailsOfConsent],
                 targetDateToBeMet: consent[:targetDateToBeMet]
