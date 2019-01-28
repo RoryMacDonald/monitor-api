@@ -5257,7 +5257,7 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "horizontal": true,
+                "s151Funding": true,
                 "properties": {
                   "period": {
                     "type": "string",
