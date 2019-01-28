@@ -799,10 +799,10 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:s151Confirmation][:hifFunding][:hifFundingProfile] = @return[:s151Confirmation][:hifFunding][:hifFundingProfile].map do |profile|
         {
           period: profile[:period],
-          instalment1: profile[:instalment1],
-          instalment2: profile[:instalment2],
-          instalment3: profile[:instalment3],
-          instalment4: profile[:instalment4],
+          instalment01: profile[:instalment1],
+          instalment02: profile[:instalment2],
+          instalment03: profile[:instalment3],
+          instalment04: profile[:instalment4],
           total: profile[:total],
           baselineVariance1: profile[:baselineVariance1],
           baselineVariance2: profile[:baselineVariance2],

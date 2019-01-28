@@ -123,6 +123,7 @@ describe 'Interacting with a HIF Return from the UI' do
         }
       }
       return_data[:s151Confirmation][:hifFunding][:hifTotalFundingRequest] = '10000'
+
       dependency_factory.get_use_case(:ui_update_return).execute(return_id: return_id, return_data: return_data)
 
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id, pcs_key: 'api.key.1')[:updates].last

@@ -798,10 +798,10 @@
       "hifFundingProfile": [
         {
           "period": "2018",
-          "instalment1": "1",
-          "instalment2": "2",
-          "instalment3": "3",
-          "instalment4": "4",
+          "instalment01": "1",
+          "instalment02": "2",
+          "instalment03": "3",
+          "instalment04": "4",
           "total": "7689",
           "baselineVariance1": "1st",
           "baselineVariance2": "2nd",
