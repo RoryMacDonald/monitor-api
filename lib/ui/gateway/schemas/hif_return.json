@@ -5316,28 +5316,28 @@
                     "currency": true,
                     "sourceKey": ["baseline_data", "fundingProfiles", "total"]
                   },
-                  "baselineVariance1": {
+                  "instalment1": {
                     "type": "string",
                     "title": "1st Instalment",
                     "readonly": true,
                     "currency": true,
                     "hidden": true
                   },
-                  "baselineVariance2": {
+                  "instalment2": {
                     "type": "string",
                     "title": "2nd Instalment",
                     "readonly": true,
                     "hidden": true,
                     "currency": true
                   },
-                  "baselineVariance3": {
+                  "instalment3": {
                     "type": "string",
                     "title": "3rd Instalment",
                     "readonly": true,
                     "hidden": true,
                     "currency": true
                   },
-                  "baselineVariance4": {
+                  "instalment4": {
                     "type": "string",
                     "title": "4th Instalment",
                     "readonly": true,
