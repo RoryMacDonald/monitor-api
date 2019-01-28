@@ -108,22 +108,14 @@ class UI::UseCase::ConvertCoreHIFProject
     unless infrastructure[:statutoryConsents].nil?
       unless infrastructure[:statutoryConsents][:consents].nil?
         consents = infrastructure[:statutoryConsents][:consents].map do |consent|
-          if consent[:detailsOfConsent].nil? && consent[:targetDateToBeMet].nil?
-            {}
-          elsif consent[:detailsOfConsent].nil?
-            {
-              targetDateToBeMet: consent[:targetDateToBeMet]
-            }
-          elsif consent[:targetDateToBeMet].nil?
-            {
-              detailsOfConsent: consent[:detailsOfConsent]
-            }
-          else
-            {
-              detailsOfConsent: consent[:detailsOfConsent],
-              targetDateToBeMet: consent[:targetDateToBeMet]
-            }
+          consent_item = {}
+          unless consent[:detailsOfConsent].nil?
+            consent_item[:detailsOfConsent] = consent[:detailsOfConsent]
           end
+          unless consent[:targetDateToBeMet].nil?
+            consent_item[:targetDateToBeMet] = consent[:targetDateToBeMet]
+          end
+          consent_item
         end
       end
       converted_infrastructure[:planningStatus][:statutoryConsents] = {
