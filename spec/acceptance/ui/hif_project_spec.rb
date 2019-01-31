@@ -32,7 +32,8 @@ describe 'Interacting with a HIF Project from the UI' do
     dependency_factory.get_use_case(:ui_create_project).execute(
       type: 'hif',
       name: 'Cat Infrastructures',
-      baseline: baseline_data_ui
+      baseline: baseline_data_ui,
+      bid_id: 'HIF/MV/111'
     )[:id]
   end
 
@@ -40,7 +41,8 @@ describe 'Interacting with a HIF Project from the UI' do
     dependency_factory.get_use_case(:ui_create_project).execute(
       type: 'hif',
       name: 'Cat Infrastructures',
-      baseline: empty_baseline_data
+      baseline: empty_baseline_data,
+      bid_id: 'HIF/MV/15'
     )[:id]
   end
 
@@ -66,6 +68,7 @@ describe 'Interacting with a HIF Project from the UI' do
 
       expect(created_project[:type]).to eq('hif')
       expect(created_project[:name]).to eq('Cat Infrastructures')
+      expect(created_project[:bid_id]).to eq('HIF/MV/111')
       expect(created_project[:data]).to eq(baseline_data_ui)
     end
 
@@ -75,6 +78,7 @@ describe 'Interacting with a HIF Project from the UI' do
 
       expect(created_project[:type]).to eq('hif')
       expect(created_project[:name]).to eq('Cat Infrastructures')
+      expect(created_project[:bid_id]).to eq('HIF/MV/15')
       expect(created_project[:data]).to eq(empty_baseline_data)
     end
   end

@@ -17,7 +17,8 @@ describe UI::UseCase::GetProject do
           type: 'hif',
           data: { building1: 'a house' },
           status: 'Draft',
-          timestamp: 0
+          timestamp: 0,
+          bid_id: "HIF/MV/14"
         }
       )
     end
@@ -65,6 +66,10 @@ describe UI::UseCase::GetProject do
       expect(response[:status]).to eq('Draft')
     end
 
+    it 'Return the bid id from find project' do
+      expect(response[:bid_id]).to eq('HIF/MV/14')
+    end
+
     it 'Returns the timestamp from find project' do
       expect(response[:timestamp]).to eq(0)
     end
@@ -102,7 +107,8 @@ describe UI::UseCase::GetProject do
           type: 'hif',
           data: { noise: 'bark' },
           status: 'Barking',
-          timestamp: 345
+          timestamp: 345,
+          bid_id: "HIF/MV/155"
         }
       )
     end
@@ -132,6 +138,10 @@ describe UI::UseCase::GetProject do
       expect(project_schema_gateway_spy).to have_received(:find_by).with(
         type: 'hif'
       )
+    end
+
+    it 'Return the bid id from find project' do
+      expect(response[:bid_id]).to eq('HIF/MV/155')
     end
 
     it 'Returns the schema from the gateway' do

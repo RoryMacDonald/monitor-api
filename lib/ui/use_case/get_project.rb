@@ -18,6 +18,7 @@ class UI::UseCase::GetProject
       name: found_project[:name],
       type: found_project[:type],
       data: found_project[:data],
+      bid_id: found_project[:bid_id],
       status: found_project[:status],
       schema: template.schema,
       timestamp: found_project[:timestamp]

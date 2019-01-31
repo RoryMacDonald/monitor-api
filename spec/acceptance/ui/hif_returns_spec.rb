@@ -65,7 +65,8 @@ describe 'Interacting with a HIF Return from the UI' do
     dependency_factory.get_use_case(:ui_create_project).execute(
       type: 'hif',
       name: 'Cat Infrastructures',
-      baseline: hif_baseline
+      baseline: hif_baseline,
+      bid_id: 'HIF/MV/757'
     )[:id]
   end
 

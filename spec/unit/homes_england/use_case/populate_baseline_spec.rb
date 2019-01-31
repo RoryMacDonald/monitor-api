@@ -13,7 +13,8 @@ describe HomesEngland::UseCase::PopulateBaseline do
           name: "A project",
           type: "HIF",
           data: {},
-          status: "Draft"
+          status: "Draft",
+          bid_id: "HIF/MV/255"
         }
       )
     end
@@ -34,7 +35,8 @@ describe HomesEngland::UseCase::PopulateBaseline do
         name: "A project",
         type: "HIF",
         data: {},
-        status: "Draft"
+        status: "Draft",
+        bid_id: "HIF/MV/255"
       })
     end
   end
@@ -55,7 +57,8 @@ describe HomesEngland::UseCase::PopulateBaseline do
             name: "A project",
             type: "HIF",
             data: {},
-            status: "Draft"
+            status: "Draft",
+            bid_id: "HIF/MV/1119"
           }
         )
       end
@@ -71,7 +74,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
 
       it 'calls the pcs gateway' do
         use_case.execute(project_id: 1)
-        expect(pcs_gateway).to have_received(:get_project).with(bid_id: 1)
+        expect(pcs_gateway).to have_received(:get_project).with(bid_id: "HIF/MV/1119")
       end
 
       it 'calls the find project use case' do
@@ -90,7 +93,8 @@ describe HomesEngland::UseCase::PopulateBaseline do
               sponsor: "MSPC"
             }
           },
-          status: "Draft"
+          status: "Draft",
+          bid_id: "HIF/MV/1119"
         })
       end
     end
@@ -107,7 +111,8 @@ describe HomesEngland::UseCase::PopulateBaseline do
                 misc: {}
               }
             },
-            status: "Draft"
+            status: "Draft",
+            bid_id: "HIF/MV/461"
           }
         )
       end
@@ -123,7 +128,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
 
       it 'calls the pcs gateway' do
         use_case.execute(project_id: 13)
-        expect(pcs_gateway).to have_received(:get_project).with(bid_id: 13)
+        expect(pcs_gateway).to have_received(:get_project).with(bid_id: "HIF/MV/461")
       end
 
       it 'calls the find project use case' do
@@ -144,7 +149,8 @@ describe HomesEngland::UseCase::PopulateBaseline do
               sponsor: "LZMA"
             }
           },
-          status: "Draft"
+          status: "Draft",
+          bid_id: "HIF/MV/461"
         })
       end
     end
