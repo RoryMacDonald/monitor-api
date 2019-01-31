@@ -62,7 +62,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
 
       let(:pcs_gateway) do
         spy(
-          get_project: HomesEngland::Domain::PcsProject.new.tap do |p|
+          get_project: HomesEngland::Domain::PcsBid.new.tap do |p|
             p.project_manager = "Michael"
             p.sponsor = "MSPC"
           end
@@ -114,7 +114,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
 
       let(:pcs_gateway) do
         spy(
-          get_project: HomesEngland::Domain::PcsProject.new.tap do |p|
+          get_project: HomesEngland::Domain::PcsBid.new.tap do |p|
             p.project_manager = "Aaron"
             p.sponsor = "LZMA"
           end

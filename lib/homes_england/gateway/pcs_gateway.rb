@@ -6,7 +6,7 @@ class HomesEngland::Gateway::Pcs
   def get_project(bid_id:)
     received_project = request_project(bid_id)
 
-    HomesEngland::Domain::PcsProject.new.tap do |project|
+    HomesEngland::Domain::PcsBid.new.tap do |project|
       project.project_manager = received_project["ProjectManager"]
       project.sponsor = received_project["Sponsor"]
     end
