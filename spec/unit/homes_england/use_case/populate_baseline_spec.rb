@@ -5,7 +5,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
     before do
       ENV['PCS'] = nil
     end
-    
+
     let(:pcs_gateway) { spy }
     let(:find_project) do
       spy(
@@ -71,7 +71,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
 
       it 'calls the pcs gateway' do
         use_case.execute(project_id: 1)
-        expect(pcs_gateway).to have_received(:get_project).with(project_id: 1)
+        expect(pcs_gateway).to have_received(:get_project).with(bid_id: 1)
       end
 
       it 'calls the find project use case' do
@@ -123,7 +123,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
 
       it 'calls the pcs gateway' do
         use_case.execute(project_id: 13)
-        expect(pcs_gateway).to have_received(:get_project).with(project_id: 13)
+        expect(pcs_gateway).to have_received(:get_project).with(bid_id: 13)
       end
 
       it 'calls the find project use case' do

@@ -17,12 +17,12 @@ describe HomesEngland::Gateway::Pcs do
     end
 
     it 'Calls the PCS endpoint' do
-      gateway.get_project(project_id: 1)
+      gateway.get_project(bid_id: 1)
       expect(pcs_request).to have_been_requested
     end
 
     it 'Returns a domain object' do
-      project = gateway.get_project(project_id: 1)
+      project = gateway.get_project(bid_id: 1)
 
       expect(project.project_manager).to eq("Ed")
       expect(project.sponsor).to eq("FIS")
@@ -47,12 +47,12 @@ describe HomesEngland::Gateway::Pcs do
     end
 
     it 'Calls the PCS endpoint' do
-      gateway.get_project(project_id: 3)
+      gateway.get_project(bid_id: 3)
       expect(pcs_request).to have_been_requested
     end
 
     it 'Returns a domain object' do
-      project = gateway.get_project(project_id: 3)
+      project = gateway.get_project(bid_id: 3)
 
       expect(project.project_manager).to eq("Natalia")
       expect(project.sponsor).to eq("NHN")

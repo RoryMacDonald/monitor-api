@@ -3,8 +3,8 @@ class HomesEngland::Gateway::Pcs
     @pcs_url = ENV['PCS_URL']
   end
 
-  def get_project(project_id:)
-    received_project = request_project(project_id)
+  def get_project(bid_id:)
+    received_project = request_project(bid_id)
 
     HomesEngland::Domain::PcsProject.new.tap do |project|
       project.project_manager = received_project["ProjectManager"]
@@ -12,8 +12,8 @@ class HomesEngland::Gateway::Pcs
     end
   end
 
-  def request_project(project_id)
-    response = Net::HTTP.get(@pcs_url,"/project/#{project_id}")
+  def request_project(bid_id)
+    response = Net::HTTP.get(@pcs_url,"/project/#{bid_id}")
     received_json = JSON.parse(response)
   end
 end
