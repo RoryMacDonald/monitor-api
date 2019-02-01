@@ -101,7 +101,7 @@ describe 'Creating a new HIF FileProject' do
         name: 'a new project', type: 'hif', baseline: project_baseline, bid_id: 'HIF/MV/6'
       )
 
-      request = stub_request(:get, "#{pcs_url}/project/#{response[:id]}").to_return(status: 200, body: {
+      request = stub_request(:get, "#{pcs_url}/project/HIF%2FMV%2F6").to_return(status: 200, body: {
         ProjectManager: 'Jim',
         Sponsor: 'Euler'
       }.to_json)

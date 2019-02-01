@@ -7,7 +7,7 @@ class HomesEngland::UseCase::PopulateBaseline
   def execute(project_id:)
     project_data = @find_project.execute(id: project_id)
 
-    unless ENV['PCS'].nil?
+    unless ENV['PCS'].nil? || project_data[:bid_id].nil?
       pcs_data = @pcs_gateway.get_project(bid_id: project_data[:bid_id])
 
       project_data[:data][:summary] = {} if project_data[:data][:summary].nil?

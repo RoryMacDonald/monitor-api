@@ -1,3 +1,5 @@
+require "erb"
+
 class HomesEngland::Gateway::Pcs
   def initialize
     @pcs_url = ENV['PCS_URL']
@@ -13,7 +15,7 @@ class HomesEngland::Gateway::Pcs
   end
 
   def request_project(bid_id)
-    response = Net::HTTP.get(@pcs_url,"/project/#{bid_id}")
+    response = Net::HTTP.get(@pcs_url,"/project/#{ERB::Util.url_encode(bid_id)}")
     received_json = JSON.parse(response)
   end
 end

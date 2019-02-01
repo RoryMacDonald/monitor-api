@@ -41,7 +41,8 @@ describe 'Performing Return on HIF Project' do
     get_use_case(:create_new_project).execute(
       name: '',
       type: 'hif',
-      baseline: project_baseline
+      baseline: project_baseline,
+      bid_id: 'HIF/MV/16'
     )[:id]
   end
 
@@ -263,7 +264,7 @@ describe 'Performing Return on HIF Project' do
             baselineRisks: [
               {
                 riskMetDate: 'Yes',
-                riskCompletionDate: '01/01/2018' 
+                riskCompletionDate: '01/01/2018'
               }
             ]
           }

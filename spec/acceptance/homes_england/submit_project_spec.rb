@@ -27,7 +27,10 @@ describe 'Submitting a completed draft project' do
         }
       }
       response = get_use_case(:create_new_project).execute(
-        name: 'cat project', type: 'hif', baseline: project_baseline
+        name: 'cat project',
+        type: 'hif',
+        baseline: project_baseline,
+        bid_id: 'HIF/MV/151'
       )
 
       get_use_case(:submit_project).execute(project_id: response[:id])

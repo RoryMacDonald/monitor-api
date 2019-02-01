@@ -2,6 +2,7 @@
 
 require 'rspec'
 
+#We need to add the bid_id to this
 describe HomesEngland::UseCase::FindProject do
   let(:project_gateway) { double(find_by: project) }
   let(:use_case) { described_class.new(project_gateway: project_gateway) }
@@ -16,6 +17,7 @@ describe HomesEngland::UseCase::FindProject do
         p.type = 'hif'
         p.data = { dogs: 'woof' }
         p.status = 'Draft'
+        p.bid_id = 'HIF/MV/155'
         p.timestamp = 0
       end
     end
@@ -31,6 +33,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'returns a hash containing the projects type' do
       expect(response[:type]).to eq('hif')
+    end
+
+    it 'returns a hash containing the bid id' do
+      expect(response[:bid_id]).to eq('HIF/MV/155')
     end
 
     it 'returns a hash containing the projects data' do
@@ -54,6 +60,7 @@ describe HomesEngland::UseCase::FindProject do
         p.data = { cats: 'meow' }
         p.status = 'Submitted'
         p.timestamp = 456
+        p.bid_id = 'AC/MV/256'
       end
     end
     let(:id) { 5 }
@@ -68,6 +75,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'returns a hash containing the projects type' do
       expect(response[:type]).to eq('abc')
+    end
+
+    it 'returns a hash containing the bid id' do
+      expect(response[:bid_id]).to eq('AC/MV/256')
     end
 
     it 'returns a hash containing the projects data' do
