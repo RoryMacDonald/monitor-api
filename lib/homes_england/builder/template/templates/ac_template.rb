@@ -227,6 +227,48 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   }
                 }
               },
+              hiddenMmcCategory: {
+                title: "MMC Category",
+                type: "object",
+                properties: {
+                  catA: {
+                    type: "string",
+                    hidden: true,
+                    title: "Category A - Volumetric",
+                    percentage: true
+                  },
+                  catB: {
+                    type: "string",
+                    hidden: true,
+                    title: "Category B - Hybrid",
+                    percentage: true
+                  },
+                  catC: {
+                    type: "string",
+                    hidden: true,
+                    title: "Category C - Panellised",
+                    percentage: true
+                  },
+                  catD: {
+                    type: "string",
+                    hidden: true,
+                    title: "Category D -  Sub-Assemblies and Components",
+                    percentage: true
+                  },
+                  catE: {
+                    type: "string",
+                    hidden: true,
+                    title: "Category E - Non-OSM/MMC Construction",
+                    percentage: true
+                  }
+                }
+              },
+              hiddenSchemePace: {
+                type: "string",
+                hidden: true,
+                title: "Scheme Pace (units pm)",
+                currencyMaximum: "99999"
+              },
               units: {
                 type: "object",
                 calculation: "set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",

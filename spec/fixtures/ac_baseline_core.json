@@ -32,6 +32,7 @@
           "catD": "40%",
           "catE": "50%"
         },
+        "hiddenSchemePace": "12",
         "hiddenMilestones": {
           "commencementOfDueDiligence": "01-01-2001",
           "completionOfSurveys": "02-02-2002",

@@ -203,6 +203,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                             baseline: {
                               type: 'string',
                               title: 'Baseline',
+                              sourceKey: %i[
+                                baseline_data
+                                summary
+                                sitesSummary
+                                hiddenSchemePace
+                              ],
                               readonly: true
                             },
                             latestEstimate: {

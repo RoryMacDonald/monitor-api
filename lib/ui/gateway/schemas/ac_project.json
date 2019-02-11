@@ -70,6 +70,10 @@
     {
       "from": ["outputs", "mmcCategory"],
       "to": ["summary", "sitesSummary", "#", "hiddenMmcCategory"]
+    },
+    {
+      "from": ["outputs", "keyProgrammeObjectives", "schemePace"],
+      "to": ["summary", "sitesSummary", "#", "hiddenSchemePace"]
     }
   ],
   "properties": {
@@ -238,6 +242,12 @@
                     "percentage": true
                   }
                 }
+              },
+              "hiddenSchemePace": {
+                "type": "string",
+                "hidden": true,
+                "title": "Scheme Pace (units pm)",
+                "currencyMaximum": "99999"
               },
               "innerSummary": {
                 "type": "object",

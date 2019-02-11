@@ -54,7 +54,8 @@
           "catC": "30%",
           "catD": "40%",
           "catE": "50%"
-        }
+        },
+        "hiddenSchemePace": "12"
       }
     ]
   },
