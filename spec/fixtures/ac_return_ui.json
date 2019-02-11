@@ -45,7 +45,8 @@
       "milestonesAndProgress": {
         "commencementOfDueDiligence": {
           "completion": {
-            "completed": "No",
+            "completed": "Yes",
+            "upload": "1dhjfhdkjafhdsa",
             "dateOfCompletion": "23",
             "details": {
               "baselineDate": "12",
@@ -236,7 +237,7 @@
               "reasonForVariance": "risk"
             },
             "reason": "my reason"
-          }  
+          }
         },
         "startOnFirstUnitDate": {
           "completion": {
