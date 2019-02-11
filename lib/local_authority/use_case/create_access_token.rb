@@ -8,13 +8,13 @@ class LocalAuthority::UseCase::CreateAccessToken
     @user_gateway = user_gateway
   end
 
-  def execute(project_id:, email:)
+  def execute(email:)
     found_user = @user_gateway.find_by(email: email)
     return {status: :failure} if found_user.nil?
 
     access_token = LocalAuthority::Domain::AccessToken.new.tap do |token|
       token.uuid = SecureRandom.uuid
-      token.project_id = project_id
+      token.projects = found_user.projects
       token.email = email
       token.role = found_user.role
     end

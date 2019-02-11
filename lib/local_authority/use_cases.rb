@@ -106,6 +106,13 @@ class LocalAuthority::UseCases
       LocalAuthority::UseCase::CreateApiKey.new
     end
 
+    builder.define_use_case :get_user_projects do
+      LocalAuthority::UseCase::GetUserProjects.new(
+        project_gateway: builder.get_gateway(:project),
+        user_gateway: builder.get_gateway(:users)
+      )
+    end
+
     builder.define_use_case :send_notification do
       LocalAuthority::UseCase::SendNotification.new(
         notification_gateway: builder.get_gateway(:notification)

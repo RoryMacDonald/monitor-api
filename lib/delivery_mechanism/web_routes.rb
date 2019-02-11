@@ -53,6 +53,23 @@ module DeliveryMechanism
       end
     end
 
+    get '/user/projects' do
+      guard_access env, params, request do |_|
+        email = @dependency_factory.get_use_case(:check_api_key).execute(
+          api_key: env['HTTP_API_KEY']
+          )[:email]
+          
+        project_list = @dependency_factory.get_use_case(:get_user_projects).execute(email: email)[:project_list]
+
+        content_type 'application/json'
+        response.body = {
+          project_list: project_list
+        }.to_json
+        response.headers['Cache-Control'] = 'no-cache'
+        response.status = 200
+      end
+    end
+
     post '/return/update' do
       guard_access env, params, request do |request_hash|
         if request_hash[:return_data].nil? || request_hash[:return_id].nil?
@@ -362,13 +379,13 @@ module DeliveryMechanism
     end
 
     def check_get_access(env, params)
-      if env['HTTP_API_KEY'].nil? || params['id'].nil?
+      if env['HTTP_API_KEY'].nil? 
         :bad_request
       elsif !@dependency_factory.get_use_case(:check_api_key).execute(
-        api_key: env['HTTP_API_KEY'],
-        project_id: params['id'].to_i
-      )[:valid]
-        :forbidden
+          api_key: env['HTTP_API_KEY'],
+          project_id: params['id'].to_i
+        )[:valid]
+          :forbidden
       else
         :proceed
       end
