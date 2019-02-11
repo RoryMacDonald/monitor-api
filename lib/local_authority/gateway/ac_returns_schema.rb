@@ -593,6 +593,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -697,6 +703,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -801,6 +813,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -905,6 +923,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1013,6 +1037,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                     planningReferenceNumber: {
                                       type: 'string',
                                       title: 'Planning Reference Number'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1121,6 +1151,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                     planningReferenceNumber: {
                                       type: 'string',
                                       title: 'Planning Reference Number'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1225,6 +1261,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1334,6 +1376,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Name(s) of contracted housebuilders',
                                       extendedText: true
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1438,6 +1486,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1542,6 +1596,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1646,6 +1706,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1750,6 +1816,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1854,6 +1926,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       type: 'string',
                                       title: 'Date completed?',
                                       format: 'date'
+                                    },
+                                    upload: {
+                                      type: "string",
+                                      title: "Evidence",
+                                      description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                      uploadFile: "multiple"
                                     }
                                   }
                                 },
@@ -1973,6 +2051,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         type: 'string',
                                         title: 'Date completed?',
                                         format: 'date'
+                                      },
+                                      upload: {
+                                        type: "string",
+                                        title: "Evidence",
+                                        description: "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
+                                        uploadFile: "multiple"
                                       }
                                     }
                                   },
