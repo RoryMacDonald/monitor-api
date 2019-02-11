@@ -39,7 +39,8 @@
         },
         "changesRequired": {
           "changesConfirmation": "Request change to baseline to match latest estimates",
-          "reason": "blah"
+          "reason": "blah",
+          "upload": "fhdjakfhdjkashfjkdas"
         }
       },
       "milestonesAndProgress": {
@@ -236,7 +237,7 @@
               "reasonForVariance": "risk"
             },
             "reason": "my reason"
-          }  
+          }
         },
         "startOnFirstUnitDate": {
           "completion": {
