@@ -6,6 +6,24 @@ require_relative '../shared_context/dependency_factory'
 describe 'Performing Return on HIF Project' do
   include_context 'dependency factory'
 
+  let(:pcs_url) { 'meow.cat' }
+  let(:api_key) { 'C.B.R' }
+
+  def get_return(id:)
+    ENV['PCS_URL'] = pcs_url
+    stub_request(:get, "http://#{pcs_url}/project/#{id}").to_return(
+      status: 200,
+      body: {
+        ProjectManager: "Michael",
+        Sponsor: "MSPC"
+      }.to_json
+    ).with(
+      headers: {'Authorization' => "Bearer #{api_key}" }
+    )
+
+    get_use_case(:get_return).execute(id: id, api_key: api_key)
+  end
+
   def update_return(id:, data:)
     get_use_case(:update_return).execute(return_id: id, data: data[:data])
   end
@@ -19,14 +37,14 @@ describe 'Performing Return on HIF Project' do
   end
 
   def expect_return_with_id_to_equal(id:, expected_return:)
-    found_return = get_use_case(:get_return).execute(id: id)
+    found_return = get_return(id: id)
     expect(found_return[:data]).to eq(expected_return[:data])
     expect(found_return[:status]).to eq(expected_return[:status])
     expect(found_return[:updates]).to eq(expected_return[:updates])
   end
 
   def expect_return_to_be_submitted(id:)
-    found_return = get_use_case(:get_return).execute(id: id)
+    found_return = get_return(id: id)
     expect(found_return[:status]).to eq('Submitted')
   end
 

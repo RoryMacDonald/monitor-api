@@ -6,19 +6,21 @@ class HomesEngland::Gateway::Pcs
   end
 
   def get_project(bid_id:, api_key:)
-    received_project = request_project(bid_id, api_key)
+    actuals_data = request_pcs_data(bid_id, '/actuals', api_key)
+    overview_data = request_pcs_data(bid_id, '', api_key)
 
     HomesEngland::Domain::PcsBid.new.tap do |project|
-      project.project_manager = received_project["ProjectManager"]
-      project.sponsor = received_project["Sponsor"]
+      project.project_manager = overview_data[:ProjectManager]
+      project.sponsor = overview_data[:Sponsor]
+      project.actuals = actuals_data
     end
   end
 
-  def request_project(bid_id, api_key)
+  def request_pcs_data(bid_id, endpoint, api_key)
     pcs_endpoint = Net::HTTP.new(@pcs_url)
-    request = Net::HTTP::Get.new("/project/#{ERB::Util.url_encode(bid_id)}")
+    request = Net::HTTP::Get.new("/project/#{ERB::Util.url_encode(bid_id)}#{endpoint}")
     request['Authorization'] = "Bearer #{api_key}"
     response = pcs_endpoint.request(request)
-    received_json = JSON.parse(response.body)
+    Common::DeepSymbolizeKeys.to_symbolized_hash(JSON.parse(response.body))
   end
 end

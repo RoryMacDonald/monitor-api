@@ -15,7 +15,7 @@ describe UI::UseCase::GetReturn do
       )
     end
     let(:use_case) { described_class.new(get_return: get_return_spy, convert_core_return: convert_core_return_spy) }
-    let(:response) { use_case.execute(id: 1) }
+    let(:response) { use_case.execute(id: 1, api_key: 'U.T.F') }
 
     before { response }
 
@@ -24,7 +24,11 @@ describe UI::UseCase::GetReturn do
     end
 
     it 'Passes the ID to the get return usecase' do
-      expect(get_return_spy).to have_received(:execute).with(id: 1)
+      expect(get_return_spy).to have_received(:execute).with(hash_including(id: 1))
+    end
+
+    it 'Passes the api key to the get return usecase' do
+      expect(get_return_spy).to have_received(:execute).with(hash_including(api_key: 'U.T.F'))
     end
 
     it 'Returns the ID from the get return use case' do
@@ -70,7 +74,7 @@ describe UI::UseCase::GetReturn do
       )
     end
     let(:use_case) { described_class.new(get_return: get_return_spy, convert_core_return: convert_core_return_spy) }
-    let(:response) { use_case.execute(id: 5) }
+    let(:response) { use_case.execute(id: 5, api_key: 'R.M.Q') }
 
     before { response }
 
@@ -79,7 +83,11 @@ describe UI::UseCase::GetReturn do
     end
 
     it 'Passes the ID to the get return usecase' do
-      expect(get_return_spy).to have_received(:execute).with(id: 5)
+      expect(get_return_spy).to have_received(:execute).with(hash_including(id: 5))
+    end
+
+    it 'Passes the api key to the get return usecase' do
+      expect(get_return_spy).to have_received(:execute).with(hash_including(api_key: 'R.M.Q'))
     end
 
     it 'Returns the ID from the get return use case' do
