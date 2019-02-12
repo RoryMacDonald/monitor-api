@@ -21,7 +21,7 @@ describe 'Performing Return on HIF Project' do
       headers: {'Authorization' => "Bearer #{api_key}" }
     )
 
-    get_use_case(:get_return).execute(id: id, api_key: api_key)
+    get_use_case(:get_return).execute(id: id)
   end
 
   def update_return(id:, data:)

@@ -16,6 +16,7 @@ class UI::UseCase::GetReturn
     {
       id: found_return[:id],
       type: found_return[:type],
+      bid_id: found_return[:bid_id],
       project_id: found_return[:project_id],
       status: found_return[:status],
       updates: found_return[:updates]

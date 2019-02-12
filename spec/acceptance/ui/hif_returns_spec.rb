@@ -89,14 +89,14 @@ describe 'Interacting with a HIF Return from the UI' do
       return_data[:s151Confirmation][:hifFunding][:hifTotalFundingRequest] = '10000'
       dependency_factory.get_use_case(:ui_update_return).execute(return_id: return_id, return_data: return_data)
 
-      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
+      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id, api_key: 'api.key.1')[:updates].last
 
       expect(created_return).to eq(expected_updated_return)
     end
 
     it 'Allows you to create a return with all the data in' do
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: full_return_data)[:id]
-      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
+      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id, api_key: 'api.key.1')[:updates].last
 
       expect(created_return).to eq(full_return_data_after_calcs)
     end

@@ -5,10 +5,12 @@ class LocalAuthority::UseCase::PcsPopulateReturn
   end
 
   def execute(id:, api_key:)
-    
     return_data = @get_return.execute(id: id)
 
-    @pcs_gateway.get_project(api_key: api_key, bid_id: return_data[:bid_id])
+    @pcs_gateway.get_project(
+      api_key: api_key, bid_id: return_data[:bid_id]
+    ) unless return_data[:status] == 'Submitted'
 
+    return_data
   end
 end

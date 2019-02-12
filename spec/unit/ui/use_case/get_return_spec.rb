@@ -7,6 +7,7 @@ describe UI::UseCase::GetReturn do
       spy(
         execute: {
           id: 1,
+          bid_id: 'HIF/MV/6',
           type: 'cat',
           project_id: 2,
           status: 'Meow',
@@ -39,6 +40,10 @@ describe UI::UseCase::GetReturn do
       expect(response[:type]).to eq('cat')
     end
 
+    it 'Returns the bid id' do
+      expect(response[:bid_id]).to eq('HIF/MV/6')
+    end
+
     it 'Returns the project id from the get return use case' do
       expect(response[:project_id]).to eq(2)
     end
@@ -66,6 +71,7 @@ describe UI::UseCase::GetReturn do
       spy(
         execute: {
           id: 5,
+          bid_id: 'HIF/MV/7',
           type: 'dog',
           project_id: 7,
           status: 'Woof',
@@ -96,6 +102,10 @@ describe UI::UseCase::GetReturn do
 
     it 'Returns the type from the get return use case' do
       expect(response[:type]).to eq('dog')
+    end
+
+    it 'Returns the bid id' do
+      expect(response[:bid_id]).to eq('HIF/MV/7')
     end
 
     it 'Returns the project id from the get return use case' do

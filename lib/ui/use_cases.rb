@@ -130,6 +130,13 @@ class UI::UseCases
       )
     end
 
+    builder.define_use_case :pcs_populate_return do
+      LocalAuthority::UseCase::PcsPopulateReturn.new(
+        get_return: builder.get_use_case(:ui_get_return),
+        pcs_gateway: builder.get_gateway(:pcs)
+      )
+    end
+
     builder.define_use_case :ui_get_schema_for_return do
       UI::UseCase::GetSchemaForReturn.new(
         get_return: builder.get_use_case(:ui_get_return),
