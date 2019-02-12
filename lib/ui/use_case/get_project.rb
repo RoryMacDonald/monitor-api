@@ -24,10 +24,4 @@ class UI::UseCase::GetProject
       timestamp: found_project[:timestamp]
     }
   end
-
-  private
-
-  def convert_data(project)
-    @convert_core_hif_project.execute(project_data: project[:data])
-  end
 end

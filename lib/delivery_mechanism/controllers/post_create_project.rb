@@ -15,7 +15,6 @@ module DeliveryMechanism
           baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
         )
 
-
         response.body = {
           projectId: id
         }.to_json

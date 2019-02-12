@@ -20,17 +20,17 @@ describe HomesEngland::UseCase::PopulateBaseline do
     end
 
     it 'does not call the PCS gateway' do
-      use_case.execute(project_id: 1)
+      use_case.execute(project_id: 1, api_key: 'A.B.C')
       expect(pcs_gateway).not_to have_received(:get_project)
     end
 
     it 'calls the find project use case' do
-      use_case.execute(project_id: 1)
+      use_case.execute(project_id: 1, api_key: 'A.B.C')
       expect(find_project).to have_received(:execute).with(id: 1)
     end
 
     it 'is inert' do
-      project = use_case.execute(project_id: 1)
+      project = use_case.execute(project_id: 1, api_key: 'A.B.C')
       expect(project).to eq({
         name: "A project",
         type: "HIF",
@@ -66,25 +66,25 @@ describe HomesEngland::UseCase::PopulateBaseline do
 
         let(:pcs_gateway) do
           spy(
-            get_project: HomesEngland::Domain::PcsBid.new.tap do |p|
-              p.project_manager = "Michael"
-              p.sponsor = "MSPC"
+            get_project: HomesEngland::Domain::PcsBid.new.tap do |proj|
+              proj.project_manager = "Michael"
+              proj.sponsor = "MSPC"
             end
           )
         end
 
         it 'calls the pcs gateway' do
-          use_case.execute(project_id: 1)
-          expect(pcs_gateway).to have_received(:get_project).with(bid_id: "HIF/MV/1119")
+          use_case.execute(project_id: 1, api_key: 'X.Y.Z')
+          expect(pcs_gateway).to have_received(:get_project).with(bid_id: "HIF/MV/1119", api_key: 'X.Y.Z')
         end
 
         it 'calls the find project use case' do
-          use_case.execute(project_id: 1)
+          use_case.execute(project_id: 1, api_key: 'X.Y.Z')
           expect(find_project).to have_received(:execute).with(id: 1)
         end
 
         it 'sets the relevant data' do
-          data = use_case.execute(project_id: 1)
+          data = use_case.execute(project_id: 1, api_key: 'X.Y.Z')
           expect(data).to eq({
             name: "A project",
             type: "HIF",
@@ -128,17 +128,17 @@ describe HomesEngland::UseCase::PopulateBaseline do
         end
 
         it 'calls the pcs gateway' do
-          use_case.execute(project_id: 13)
-          expect(pcs_gateway).to have_received(:get_project).with(bid_id: "HIF/MV/461")
+          use_case.execute(project_id: 13, api_key: 'R.P.Q')
+          expect(pcs_gateway).to have_received(:get_project).with(bid_id: "HIF/MV/461", api_key: 'R.P.Q')
         end
 
         it 'calls the find project use case' do
-          use_case.execute(project_id: 13)
+          use_case.execute(project_id: 13, api_key: 'R.P.Q')
           expect(find_project).to have_received(:execute).with(id: 13)
         end
 
         it 'sets the relevant data' do
-          data = use_case.execute(project_id: 1)
+          data = use_case.execute(project_id: 1, api_key: 'R.P.Q')
           expect(data).to eq({
             name: "Another project",
             type: "AC",
@@ -172,17 +172,17 @@ describe HomesEngland::UseCase::PopulateBaseline do
       let(:pcs_gateway) { spy }
 
       it 'does not call the PCS gateway' do
-        use_case.execute(project_id: 1)
+        use_case.execute(project_id: 1, api_key: 'M.L.X')
         expect(pcs_gateway).not_to have_received(:get_project)
       end
 
       it 'calls the find project use case' do
-        use_case.execute(project_id: 1)
+        use_case.execute(project_id: 1, api_key: 'M.L.X')
         expect(find_project).to have_received(:execute).with(id: 1)
       end
 
       it 'is inert' do
-        project = use_case.execute(project_id: 1)
+        project = use_case.execute(project_id: 1, api_key: 'M.L.X')
         expect(project).to eq({
           name: "A project",
           type: "HIF",
