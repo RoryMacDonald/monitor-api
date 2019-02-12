@@ -20,12 +20,14 @@ describe 'Finding a project' do
       'LocalAuthority::UseCase::CheckApiKey',
       double(new: double(execute: { valid: token_valid }))
     )
-
-    header 'API_KEY', 'superSecret'
-    get "/project/find?id=#{project_id}"
   end
 
   context 'with an non existent id' do
+    before do
+      header 'API_KEY', 'superSecret'
+      get "/project/find?id=#{project_id}"
+    end
+
     let(:project_id) { 42 }
     let(:find_project_spy) { spy(execute: nil) }
     let(:get_schema_spy) { spy(execute: nil) }
@@ -36,6 +38,11 @@ describe 'Finding a project' do
   end
 
   context 'with no valid token' do
+    before do
+      header 'API_KEY', 'invalid.api.key'
+      get "/project/find?id=#{project_id}"
+    end
+
     let(:token_valid) { false }
 
     it 'Returns a 401' do
@@ -45,6 +52,11 @@ describe 'Finding a project' do
 
   context 'with an valid id' do
     context 'example one' do
+      before do
+        header 'API_KEY', 'superSecret'
+        get "/project/find?id=#{project_id}"
+      end
+
       let(:project_id) { 42 }
       let(:project) do
         {
@@ -58,7 +70,13 @@ describe 'Finding a project' do
       end
 
       it 'should find the project with the given id' do
-        expect(find_project_spy).to have_received(:execute).with(id: 42)
+        expect(find_project_spy).to have_received(:execute).with(hash_including(id: 42))
+      end
+
+      it 'should find the project with the given api key' do
+        expect(find_project_spy).to have_received(:execute).with(
+          hash_including(api_key: 'superSecret')
+        )
       end
 
       it 'should return 200' do
@@ -90,6 +108,11 @@ describe 'Finding a project' do
     end
 
     context 'example two' do
+      before do
+        header 'API_KEY', 'myapikey'
+        get "/project/find?id=#{project_id}"
+      end
+
       let(:project_id) { 41 }
       let(:project) do
         {
@@ -107,7 +130,13 @@ describe 'Finding a project' do
       let(:find_project_spy) { spy(execute: project) }
 
       it 'should find the project with the given id' do
-        expect(find_project_spy).to have_received(:execute).with(id: 41)
+        expect(find_project_spy).to have_received(:execute).with(hash_including(id: 41))
+      end
+
+      it 'should find the project with the given api key' do
+        expect(find_project_spy).to have_received(:execute).with(
+          hash_including(api_key: 'myapikey')
+        )
       end
 
       it 'should return 200' do

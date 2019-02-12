@@ -189,9 +189,11 @@ module DeliveryMechanism
 
     get '/project/find' do
       guard_access env, params, request do |_|
-        #We need to get the api key to pass down from the env
         return 404 if params['id'].nil?
-        project = @dependency_factory.get_use_case(:ui_get_project).execute(id: params['id'].to_i)
+        project = @dependency_factory.get_use_case(:ui_get_project).execute(
+          id: params['id'].to_i,
+          api_key: env['HTTP_API_KEY']
+        )
 
         return 404 if project.nil?
 
