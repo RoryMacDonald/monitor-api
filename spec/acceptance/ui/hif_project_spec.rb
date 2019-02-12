@@ -54,10 +54,12 @@ describe 'Interacting with a HIF Project from the UI' do
         ProjectManager: "Michael",
         Sponsor: "MSPC"
       }.to_json
+    ).with(
+      headers: {'Authorization' => 'Bearer X.S.I' }
     )
 
     dependency_factory.get_use_case(:ui_get_project).execute(
-      id: id
+      id: id, api_key: 'X.S.I'
     )
   end
 

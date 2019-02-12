@@ -7,8 +7,8 @@ class UI::UseCase::GetProject
     @convert_core_project = convert_core_project
   end
 
-  def execute(id:)
-    found_project = @find_project.execute(project_id: id)
+  def execute(id:, api_key:)
+    found_project = @find_project.execute(project_id: id, api_key: api_key)
 
     template = @project_schema_gateway.find_by(type: found_project[:type])
 

@@ -101,12 +101,19 @@ describe 'Creating a new HIF FileProject' do
         name: 'a new project', type: 'hif', baseline: project_baseline, bid_id: 'HIF/MV/6'
       )
 
-      request = stub_request(:get, "#{pcs_url}/project/HIF%2FMV%2F6").to_return(status: 200, body: {
-        ProjectManager: 'Jim',
-        Sponsor: 'Euler'
-      }.to_json)
+      request = stub_request(
+        :get, "#{pcs_url}/project/HIF%2FMV%2F6"
+      ).to_return(
+        status: 200,
+        body: {
+          ProjectManager: 'Jim',
+          Sponsor: 'Euler'
+        }.to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer F.I.B' }
+      )
 
-      project = get_use_case(:populate_baseline).execute(project_id: response[:id])
+      project = get_use_case(:populate_baseline).execute(project_id: response[:id], api_key: 'F.I.B')
 
       expect(request).to have_been_requested
       expect(project[:data][:summary][:projectManager]).to eq('Jim')

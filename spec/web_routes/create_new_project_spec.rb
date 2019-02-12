@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
-fdescribe 'Creating a new project' do
+describe 'Creating a new project' do
   let(:create_new_project_spy) { spy(execute: project_id) }
   let(:setup_auth_headers) { set_correct_auth_header }
 

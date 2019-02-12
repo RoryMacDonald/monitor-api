@@ -25,7 +25,7 @@ describe 'Finding a project' do
     get "/project/find?id=#{project_id}"
   end
 
-  context 'with an non existant id' do
+  context 'with an non existent id' do
     let(:project_id) { 42 }
     let(:find_project_spy) { spy(execute: nil) }
     let(:get_schema_spy) { spy(execute: nil) }

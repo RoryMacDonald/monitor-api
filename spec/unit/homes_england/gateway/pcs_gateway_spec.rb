@@ -1,4 +1,4 @@
-fdescribe HomesEngland::Gateway::Pcs do
+describe HomesEngland::Gateway::Pcs do
   context 'Example 1' do
     let(:pcs_url) { 'meow.cat' }
     let(:pcs_request) do
