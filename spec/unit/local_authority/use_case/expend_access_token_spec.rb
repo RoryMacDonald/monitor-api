@@ -29,44 +29,30 @@ describe LocalAuthority::UseCase::ExpendAccessToken do
       let(:role) { 'LocalAuthority' }
 
       it 'should run the create api use case' do
-        use_case.execute(access_token: access_token, project_id: 0)
+        use_case.execute(access_token: access_token)
         expect(create_api_key_spy).to have_received(:execute).with(projects: [0, 2], email: 'dogs@dog.com', role: 'LocalAuthority')
       end
 
       it 'searches for the Access Token' do
-        use_case.execute(access_token: access_token, project_id: 0)
+        use_case.execute(access_token: access_token)
         expect(access_token_gateway_spy).to have_received(:find_by).with(uuid: access_token)
       end
 
       it 'removes the Access Token' do
-        use_case.execute(access_token: access_token, project_id: 0)
+        use_case.execute(access_token: access_token)
         expect(access_token_gateway_spy).to have_received(:delete).with(uuid: access_token)
       end
 
       context 'with a valid access token' do
-        context 'for the correct project' do
-          it 'return success' do
-            expect(use_case.execute(access_token: access_token, project_id: 0)).to eq(status: :success, api_key: 'Doggos', role: 'LocalAuthority')
-          end
-        end
-
-        context 'for the incorrect project' do
-          it 'return failure' do
-            expect(use_case.execute(access_token: access_token, project_id: 1)).to eq(status: :failure, api_key: '')
-          end
-        end
-
-        context 'when there is no project ID given' do
-          it 'returns success' do
-            expect(use_case.execute(access_token: access_token)).to eq(status: :success, api_key: 'Doggos', role: 'LocalAuthority')
-          end
+        it 'return success' do
+          expect(use_case.execute(access_token: access_token)).to eq(status: :success, api_key: 'Doggos', role: 'LocalAuthority')
         end
       end
 
       context 'when the token is invalid' do
         let(:access_token_gateway_spy) { spy(find_by: nil) }
         it 'return failure' do
-          expect(use_case.execute(access_token: access_token, project_id: 0)).to eq(status: :failure, api_key: '')
+          expect(use_case.execute(access_token: access_token)).to eq(status: :failure, api_key: '')
         end
       end
     end
@@ -79,31 +65,23 @@ describe LocalAuthority::UseCase::ExpendAccessToken do
       let(:role) { 'HomesEngland' }
 
       it 'should run the create api use case' do
-        use_case.execute(access_token: access_token, project_id: 5)
+        use_case.execute(access_token: access_token)
         expect(create_api_key_spy).to have_received(:execute).with(projects: [5], email: 'cats@cat.com', role: 'HomesEngland')
       end
 
       it 'searches for the Access Token' do
-        use_case.execute(access_token: access_token, project_id: 5)
+        use_case.execute(access_token: access_token)
         expect(access_token_gateway_spy).to have_received(:find_by).with(uuid: access_token)
       end
 
       it 'removes the Access Token' do
-        use_case.execute(access_token: access_token, project_id: 5)
+        use_case.execute(access_token: access_token)
         expect(access_token_gateway_spy).to have_received(:delete).with(uuid: access_token)
       end
 
       context 'with a valid access token' do
-        context 'for the correct project' do
-          it 'return success' do
-            expect(use_case.execute(access_token: access_token, project_id: 5)).to eq(status: :success, api_key: 'Cats', role: 'HomesEngland')
-          end
-        end
-        
-        context 'when there is no project ID given' do
-          it 'returns success' do
-            expect(use_case.execute(access_token: access_token)).to eq(status: :success, api_key: 'Cats', role: 'HomesEngland')
-          end
+        it 'return success' do
+          expect(use_case.execute(access_token: access_token)).to eq(status: :success, api_key: 'Cats', role: 'HomesEngland')
         end
       end
     end

@@ -22,7 +22,7 @@ module DeliveryMechanism
 
       def email_address_valid?
         @check_email.execute(
-          email_address: @request[:email_address], project_id: @request[:project_id].to_i
+          email_address: @request[:email_address]
         )[:valid]
       end
 
@@ -34,7 +34,7 @@ module DeliveryMechanism
       end
 
       def access_token_for_project
-        @create_access_token.execute(project_id: @request[:project_id].to_i, email: @request[:email_address])[:access_token]
+        @create_access_token.execute(email: @request[:email_address])[:access_token]
       end
     end
   end

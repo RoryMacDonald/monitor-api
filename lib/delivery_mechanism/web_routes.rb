@@ -41,8 +41,7 @@ module DeliveryMechanism
     post '/token/expend' do
       request_hash = get_hash(request)
       expend_response = @dependency_factory.get_use_case(:expend_access_token).execute(
-        access_token: request_hash[:access_token],
-        project_id: request_hash[:project_id].to_i
+        access_token: request_hash[:access_token]
       )
       status = expend_response[:status]
       if status == :success
