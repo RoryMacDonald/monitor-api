@@ -198,6 +198,7 @@ module DeliveryMechanism
         response.body = {
           type: project[:type],
           status: project[:status],
+          bid_id: project[:bid_id],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
           schema: project[:schema],
           timestamp: project[:timestamp]
@@ -209,13 +210,13 @@ module DeliveryMechanism
 
     post '/project/create' do
       guard_admin_access env, params, request do |request_hash|
-        contoller = DeliveryMechanism::Controllers::PostCreateProject.new(
+        controller = DeliveryMechanism::Controllers::PostCreateProject.new(
           create_new_project: @dependency_factory.get_use_case(:ui_create_project)
         )
 
         content_type 'application/json'
 
-        contoller.execute(params, request_hash, response)
+        controller.execute(params, request_hash, response)
       end
     end
 

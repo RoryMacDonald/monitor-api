@@ -2,7 +2,6 @@
 
 require 'rspec'
 
-#We need to add the bid_id to this
 describe HomesEngland::UseCase::FindProject do
   let(:project_gateway) { double(find_by: project) }
   let(:use_case) { described_class.new(project_gateway: project_gateway) }
@@ -12,13 +11,13 @@ describe HomesEngland::UseCase::FindProject do
 
   context 'example one' do
     let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.name = 'Dog project'
-        p.type = 'hif'
-        p.data = { dogs: 'woof' }
-        p.status = 'Draft'
-        p.bid_id = 'HIF/MV/155'
-        p.timestamp = 0
+      HomesEngland::Domain::Project.new.tap do |proj|
+        proj.name = 'Dog project'
+        proj.type = 'hif'
+        proj.data = { dogs: 'woof' }
+        proj.status = 'Draft'
+        proj.bid_id = 'HIF/MV/155'
+        proj.timestamp = 0
       end
     end
     let(:id) { 1 }
@@ -54,13 +53,13 @@ describe HomesEngland::UseCase::FindProject do
 
   context 'example two' do
     let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.name = 'meow cats'
-        p.type = 'abc'
-        p.data = { cats: 'meow' }
-        p.status = 'Submitted'
-        p.timestamp = 456
-        p.bid_id = 'AC/MV/256'
+      HomesEngland::Domain::Project.new.tap do |proj|
+        proj.name = 'meow cats'
+        proj.type = 'abc'
+        proj.data = { cats: 'meow' }
+        proj.status = 'Submitted'
+        proj.timestamp = 456
+        proj.bid_id = 'AC/MV/256'
       end
     end
     let(:id) { 5 }
