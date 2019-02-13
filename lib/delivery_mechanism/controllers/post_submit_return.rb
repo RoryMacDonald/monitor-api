@@ -10,7 +10,7 @@ module DeliveryMechanism
       def execute(env, request, request_hash, response)
         actor_email = @check_api_key.execute(
           api_key: env['HTTP_API_KEY'],
-          project_id: request_hash[:project_id].to_i
+          project_id: request_hash[:project_id]
         )[:email]
 
         @submit_return.execute(

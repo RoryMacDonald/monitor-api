@@ -55,7 +55,8 @@ module DeliveryMechanism
     get '/user/projects' do
       guard_access env, params, request do |_|
         email = @dependency_factory.get_use_case(:check_api_key).execute(
-          api_key: env['HTTP_API_KEY']
+          api_key: env['HTTP_API_KEY'],
+          project_id: nil
           )[:email]
           
         project_list = @dependency_factory.get_use_case(:get_user_projects).execute(email: email)[:project_list]
@@ -369,7 +370,7 @@ module DeliveryMechanism
         :bad_request
       elsif !@dependency_factory.get_use_case(:check_api_key).execute(
         api_key: env['HTTP_API_KEY'],
-        project_id: request_hash[:project_id].to_i
+        project_id: request_hash[:project_id]
       )[:valid]
         :forbidden
       else
@@ -382,7 +383,7 @@ module DeliveryMechanism
         :bad_request
       elsif !@dependency_factory.get_use_case(:check_api_key).execute(
           api_key: env['HTTP_API_KEY'],
-          project_id: params['id'].to_i
+          project_id: params['id']
         )[:valid]
           :forbidden
       else
