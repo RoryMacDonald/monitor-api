@@ -57,6 +57,10 @@ describe LocalAuthority::UseCase::GetBaseReturn do
       it 'will return a hash with correct schema' do
         expect(use_case.execute(project_id: project_id)[:base_return]).to include(schema: schema.schema)
       end
+
+      it 'will return a hash with correct number of previous returns' do
+        expect(use_case.execute(project_id: project_id)[:base_return]).to include(no_of_previous_returns: 0)
+      end
     end
 
     context 'example two' do
@@ -97,6 +101,10 @@ describe LocalAuthority::UseCase::GetBaseReturn do
 
       it 'will return a hash with correct schema' do
         expect(use_case.execute(project_id: project_id)[:base_return]).to include(schema: schema.schema)
+      end
+
+      it 'will return a hash with correct number of previous returns' do
+        expect(use_case.execute(project_id: project_id)[:base_return]).to include(no_of_previous_returns: 0)
       end
     end
   end
@@ -155,6 +163,10 @@ describe LocalAuthority::UseCase::GetBaseReturn do
         )
       end
 
+      it 'returns the number of previous returns' do
+        expect(response[:base_return][:no_of_previous_returns]).to eq(1)
+      end
+
       context 'multiple returns' do
         let(:returned_return) do
           {
@@ -199,6 +211,10 @@ describe LocalAuthority::UseCase::GetBaseReturn do
             baseline_data: project.data,
             return_data: second_returned_return[:updates][-1]
           )
+        end
+
+        it 'returns the number of previous returns' do
+          expect(response[:base_return][:no_of_previous_returns]).to eq(2)
         end
 
         context 'multiple updates' do
@@ -252,6 +268,10 @@ describe LocalAuthority::UseCase::GetBaseReturn do
           baseline_data: project.data,
           return_data: returned_return[:updates][-1]
         )
+      end
+
+      it 'returns the number of previous returns' do
+        expect(response[:base_return][:no_of_previous_returns]).to eq(1)
       end
 
       context 'draft returns' do
@@ -345,6 +365,10 @@ describe LocalAuthority::UseCase::GetBaseReturn do
             baseline_data: project.data,
             return_data: second_returned_return[:updates][-1]
           )
+        end
+
+        it 'returns the number of previous returns' do
+          expect(response[:base_return][:no_of_previous_returns]).to eq(2)
         end
 
         context 'multiple updates' do

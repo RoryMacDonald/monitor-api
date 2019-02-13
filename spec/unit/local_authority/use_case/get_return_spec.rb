@@ -73,12 +73,10 @@ describe LocalAuthority::UseCase::GetReturn do
       end
     end
 
-
-
     let(:return_updates) do
       [
         LocalAuthority::Domain::ReturnUpdate.new.tap do |u|
-          u.data = { dogs: 'woof'}
+          u.data = { dogs: 'woof' }
         end
       ]
     end
@@ -143,6 +141,54 @@ describe LocalAuthority::UseCase::GetReturn do
 
     it 'will execute get_returns' do
       expect(get_returns_spy).to have_received(:execute).with(project_id: 0)
+    end
+    context 'given there is a previous submitted return' do
+      let(:get_returns_spy) do
+        spy(execute: {
+          returns:
+            [{
+              id: 1,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 3,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 5,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 9,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 12,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 15,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            }]
+        })
+      end
+      it 'will return the number of previous returns in the response' do
+        expect(response[:no_of_previous_returns]).to eq(
+          4
+        )
+      end
     end
   end
 
@@ -221,6 +267,31 @@ describe LocalAuthority::UseCase::GetReturn do
 
     it 'will execute get_returns' do
       expect(get_returns_spy).to have_received(:execute).with(project_id: 1)
+    end
+    context 'given there are two previous submitted return' do
+      let(:get_returns_spy) do
+        spy(execute: {
+          returns:
+            [{
+              id: 1,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 2,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            }]
+        })
+      end
+
+      it 'will return the number of previous returns in the response' do
+        expect(response[:no_of_previous_returns]).to eq(
+          2
+        )
+      end
     end
   end
 end

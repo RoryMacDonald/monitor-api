@@ -72,9 +72,32 @@ class UI::UseCase::ConvertCoreHIFReturn
         s106Requirement: planning[:section106][:s106Requirement],
         s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement]
       }
-      new_planning[:statutoryConsents] = planning[:section106][:statutoryConsents]
+      unless planning[:section106][:statutoryConsents].nil?
+        new_planning[:statutoryConsents] = {
+          anyStatutoryConsents: planning[:section106][:statutoryConsents][:anyStatutoryConsents]
+        }
+        unless planning[:section106][:statutoryConsents][:statutoryConsents].nil?
+          new_planning[:statutoryConsents][:statutoryConsents] = planning[:section106][:statutoryConsents][:statutoryConsents].map do |consent|
+            next if consent.nil?
+            new_consent = {
+              detailsOfConsent: consent[:detailsOfConsent]
+            }
+            new_consent[:statusOfConsent] = {
+              baseline: consent[:baselineCompletion],
+              status: consent[:statusAgainstLastReturn],
+              percentComplete: consent[:percentComplete],
+              completedDate: consent[:completionDate],
+              current: consent[:currentReturn],
+              previousReturn: consent[:previousReturn],
+              varianceAgainstBaseline: consent[:varianceAgainstBaseline],
+              varianceAgainstLastReturn: consent[:varianceAgainstLastReturn],
+              reason: consent[:varianceReason]
+            }
+            new_consent
+          end
+        end
+      end
     end
-
 
     new_planning
   end

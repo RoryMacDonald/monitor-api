@@ -55,6 +55,13 @@ describe 'Performing Return on HIF Project' do
     )
   end
 
+  let(:ac_project_baseline) do
+    JSON.parse(
+      File.open("#{__dir__}/../../fixtures/ac_baseline_core.json").read,
+      symbolize_names: true
+    )
+  end
+
   let(:project_id) do
     get_use_case(:create_new_project).execute(
       name: '',
@@ -64,9 +71,25 @@ describe 'Performing Return on HIF Project' do
     )[:id]
   end
 
+  let(:ac_project_id) do
+    get_use_case(:create_new_project).execute(
+      name: '',
+      type: 'ac',
+      baseline: ac_project_baseline,
+      bid_id: 'AC/MV/6'
+    )[:id]
+  end
+
   let(:expected_base_return) do
     JSON.parse(
       File.open("#{__dir__}/../../fixtures/base_return.json").read,
+      symbolize_names: true
+    )
+  end
+
+  let(:expected_ac_base_return) do
+    JSON.parse(
+      File.open("#{__dir__}/../../fixtures/ac_base_return.json").read,
       symbolize_names: true
     )
   end
@@ -367,6 +390,12 @@ describe 'Performing Return on HIF Project' do
     second_base_return = get_use_case(:get_base_return).execute(project_id: project_id)
 
     expect(second_base_return[:base_return][:data][:infrastructures]).to eq(expected_second_base_return[:infrastructures])
+  end
+
+  it 'should keep track of LAAC Returns' do
+    base_return = get_use_case(:get_base_return).execute(project_id: ac_project_id)
+
+    expect(base_return[:base_return][:data][:sites]).to eq(expected_ac_base_return[:sites])
   end
 
   def soft_update_return(id:, data:)

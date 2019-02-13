@@ -67,12 +67,43 @@ class UI::UseCase::ConvertUIHIFReturn
       }
     end
 
-    unless planning[:section106].nil?
+    if planning[:section106].nil?
+      new_planning[:section106] = {} 
+    else
       new_planning[:section106] = {
         s106Requirement: planning[:section106][:s106Requirement],
-        s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement],
-        statutoryConsents: planning[:statutoryConsents]
+        s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement]
       }
+    end
+    
+    unless planning[:statutoryConsents].nil?
+      new_planning[:section106][:statutoryConsents] =  {
+        anyStatutoryConsents: planning[:statutoryConsents][:anyStatutoryConsents]
+      }
+
+      unless planning[:statutoryConsents][:statutoryConsents].nil?  
+        new_planning[:section106][:statutoryConsents][:statutoryConsents] = planning[:statutoryConsents][:statutoryConsents].map do |consent|
+          next if consent.nil?
+          new_consent = {}
+
+          new_consent = {
+          detailsOfConsent: consent[:detailsOfConsent]
+          }
+
+          unless consent[:statusOfConsent].nil?
+            new_consent[:baselineCompletion] = consent[:statusOfConsent][:baseline]
+            new_consent[:statusAgainstLastReturn] = consent[:statusOfConsent][:status]
+            new_consent[:percentComplete] = consent[:statusOfConsent][:percentComplete]
+            new_consent[:completionDate] = consent[:statusOfConsent][:completedDate]
+            new_consent[:currentReturn] = consent[:statusOfConsent][:current]
+            new_consent[:previousReturn] = consent[:statusOfConsent][:previousReturn]
+            new_consent[:varianceAgainstBaseline] = consent[:statusOfConsent][:varianceAgainstBaseline]
+            new_consent[:varianceAgainstLastReturn] = consent[:statusOfConsent][:varianceAgainstLastReturn]
+            new_consent[:varianceReason] = consent[:statusOfConsent][:reason]
+          end
+          new_consent
+        end
+      end
     end
 
     new_planning

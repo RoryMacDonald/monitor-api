@@ -50,6 +50,7 @@ class Common::Domain::Template
       error.each do |message|
         next if message.to_s.include? "is not a member of"
         next if message.data.nil?
+        next if message_is_array_index?(message)
 
         path =  message.path
         path.shift
@@ -81,5 +82,11 @@ class Common::Domain::Template
         node
       end
     end
+  end
+
+  private
+
+  def message_is_array_index?(message)
+    message.data.is_a? Integer
   end
 end

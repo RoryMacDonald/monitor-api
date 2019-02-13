@@ -234,7 +234,7 @@
               "reasonForVariance": "risk"
             },
             "reason": "my reason"
-          }  
+          }
         },
         "startOnFirstUnitDate": {
           "completion": {
@@ -351,7 +351,8 @@
       }
     ],
     "changesRequired": "Request change to baseline to match latest estimates",
-    "reasonForChange": "change"
+    "reasonForChange": "change",
+    "evidenceUpload": "blahiuerghiruhfwlsgbvrwgfbouewfn"
   },
   "housingCompletions": [
     {
@@ -411,20 +412,21 @@
       "details": "deliv",
       "riskRating": "Medium High"
     },
-    "overallSummary": { "details": "overall", "riskRating": "Medium Low" }
+    "overallSummary": { "details": "overall", "riskRating": "Medium Low" },
+    "heAuthorisation": "Catty McBooterson"
   },
   "s151GrantClaimApproval": {
     "claimSummary": {
       "TotalFundingRequest": "12,000",
       "SpendToDate": "12,000",
-      "AmountOfThisClaim": "12,000"
+      "AmountOfThisClaim": "12,000",
+      "conditionsToGrantDrawdown": "frguekyjdgfbiaugborfuwhbOEIWiewfhcno"
     },
     "supportingEvidence": {
       "evidenceOfSpendPastQuarter": "a file",
       "breakdownOfNextQuarterSpend": {
         "forecast": "2,333",
-        "descriptionOfSpend": "describe",
-        "evidenceOfSpendNextQuarter": "another file"
+        "descriptionOfSpend": "describe"
       }
     }
   }

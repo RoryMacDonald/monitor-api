@@ -112,7 +112,8 @@ module DeliveryMechanism
           data: return_hash[:updates].last,
           status: return_hash[:status],
           schema: return_schema,
-          type: return_hash[:type]
+          type: return_hash[:type],
+          no_of_previous_returns: return_hash[:no_of_previous_returns]
         }.to_json
         response.headers['Cache-Control'] = 'no-cache'
         response.status = 200

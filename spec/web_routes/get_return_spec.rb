@@ -7,7 +7,7 @@ describe 'Getting a return' do
   let(:get_return_spy) { spy(execute: returned_hash) }
   let(:get_schema_for_return_spy) { spy(execute: returned_schema) }
   let(:type) { '' }
-  let(:returned_hash) { { project_id: 1, type: type, updates: [{ cats: 'Meow' }], status: 'Draft' } }
+  let(:returned_hash) { { project_id: 1, type: type, updates: [{ cats: 'Meow' }], status: 'Draft' , no_of_previous_returns: 2} }
   let(:returned_schema) { { schema: { cats: 'string' } } }
 
   before do
@@ -89,6 +89,10 @@ describe 'Getting a return' do
       it 'returns the correct schema' do
         expect(response_body['status']).to eq('Draft')
       end
+
+      it 'returns the correct schema' do
+        expect(response_body['no_of_previous_returns']).to eq(2)
+      end
     end
 
     context 'example 2' do
@@ -141,6 +145,10 @@ describe 'Getting a return' do
 
       it 'returns the correct schema' do
         expect(response_body['status']).to eq('Draft')
+      end
+
+      it 'returns the correct schema' do
+        expect(response_body['no_of_previous_returns']).to eq(2)
       end
     end
   end

@@ -1,0 +1,164 @@
+{
+  "sites": [{
+    "housingOutputs": {
+      "baselineAffordableHousingUnits": "56",
+      "baselineunits": "115",
+      "modernMethodsOfConstruction": {
+        "categoryA": {"baseline": "10%"},
+        "categoryB": {"baseline": "20%"},
+        "categoryC": {"baseline": "30%"},
+        "categoryD": {"baseline": "40%"},
+        "categoryE": {"baseline": "50%"}
+      }
+    },
+    "milestonesAndProgress": {
+      "commencementOfDueDiligence": {
+        "completion": {
+          "details": {
+            "baselineDate": "01-01-2001"
+          }
+        }
+      },
+      "completionOfSurveys": {
+        "completion": {
+          "details": {
+            "baselineDate": "02-02-2002"
+          }
+        }
+      },
+      "procurementOfWorksCommencementDate": {
+        "completion": {
+          "details": {
+            "baselineDate": "03-03-2003"
+          }
+        }
+      },
+      "provisionOfDetailedWorks": {
+        "completion": {
+          "details": {
+            "baselineDate": "04-04-2004"
+          }
+        }
+      },
+      "commencementDate": {
+        "completion": {
+          "details": {
+            "baselineDate": "05-05-2005"
+          }
+        }
+      },
+      "completionDate": {
+        "completion": {
+          "details": {
+            "baselineDate": "06-06-2006"
+          }
+        }
+      },
+      "outlinePlanningGrantedDate": {
+        "completion": {
+          "details": {
+            "baselineDate": "07-07-2007"
+          }
+        }
+      },
+      "reservedMatterPermissionGrantedDate": {
+        "completion": {
+          "details": {
+            "baselineDate": "08-08-2008"
+          }
+        }
+      },
+      "marketingCommenced": {
+        "completion": {
+          "details": {
+            "baselineDate": "11-11-2011"
+          }
+        }
+      },
+      "conditionalContractSigned": {
+        "completion": {
+          "details": {
+            "baselineDate": "09-09-2009"
+          }
+        }
+      },
+      "unconditionalContractSigned": {
+        "completion": {
+          "details": {
+            "baselineDate": "10-10-2010"
+          }
+        }
+      },
+      "startOnSiteDate": {
+        "completion": {
+          "details": {
+            "baselineDate": "12-12-2012"
+          }
+        }
+      },
+      "startOnFirstUnitDate": {
+        "completion": {
+          "details": {
+            "baselineDate": "13-13-2013"
+          }
+        }
+      },
+      "completionOfFinalUnitData": {
+        "completion": {
+          "details": {
+            "baselineDate": "14-14-2014"
+          }
+        }
+      },
+      "projectCompletionDate": {
+        "completion": {
+          "details": {
+            "baselineDate": "15-15-2015"
+          }
+        }
+      },
+      "customMileStones": [{
+        "milestoneName": "milestone",
+        "completion": {
+          "details": {
+            "baselineDate": "16-16-2016"
+          }
+        }
+      }]
+    },
+    "summary": {
+      "affordableHousingUnits": {
+        "baseline": "56"
+      },
+      "name": "The Consortium",
+      "planningStatus": "Not in allocated for housing in Local Plan",
+      "ref": "HAV/C391/TIM",
+      "totalNoOfUnits": {
+        "baseline": "115"
+      }
+    }
+  }],
+  "grantExpenditure": {
+    "baseline": [{
+      "Q1Amount": "15,000",
+      "Q2Amount": "12,000",
+      "Q3Amount": "20,000",
+      "Q4Amount": "12,000",
+      "year": "2018/19"
+    }],
+    "claimedToDate": [{
+      "year": "2018/19"
+    }],
+    "remainingEstimate": [{
+      "year": "2018/19"
+    }],
+    "riskRating": [{
+      "year": "2018/19"
+    }]
+  },
+  "housingCompletions": [{
+    "details": {
+      "siteName": "The Consortium"
+    }
+  }]
+}

@@ -500,12 +500,23 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             type: 'string',
                                             readonly: true
                                           },
-                                          statusAgainstLastReturn: status_against_last_return,
+                                          statusAgainstLastReturn: {
+                                            title: 'Status against last return?',
+                                            type: 'string',
+                                            radio: true,
+                                            enum: [
+                                              'Completed',
+                                              'On schedule',
+                                              'Delayed - minimal impact',
+                                              'Delayed - moderate impact',
+                                              'Delayed - critical'
+                                            ],
+                                            sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents statusAgainstLastReturn]
+                                          },
                                           currentReturn: {
                                             title: 'Current return',
                                             type: 'string',
-                                            format: 'date',
-                                            sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents currentReturn]
+                                            format: 'date'
                                           },
                                           previousReturn: {
                                             title: 'Previous Return',
@@ -521,13 +532,15 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                           percentComplete: {
                                             title: 'Percentage Complete',
                                             type: 'string',
-                                            percentage: true
+                                            percentage: true,
+                                            sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents percentComplete]
                                           },
                                           completionDate: {
                                             hidden: true,
                                             title: 'Completion Date (Calculated)',
                                             type: 'string',
                                             format: 'date',
+                                            sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents completionDate],
                                             readonly: true
                                           }
                                         }
@@ -5157,20 +5170,6 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
           }
         }
       }
-    }
-  end
-
-  def status_against_last_return
-    {
-      title: 'Status against last return?',
-      type: 'string',
-      radio: true,
-      enum: [
-        'Completed',
-        'On schedule',
-        'Delayed'
-      ],
-      default: 'On schedule'
     }
   end
 

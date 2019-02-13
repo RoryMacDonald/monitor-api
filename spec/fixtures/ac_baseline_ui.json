@@ -13,7 +13,9 @@
           "contacts": {
             "laContact": "havant@la.gov.uk",
             "heContact": "ac@homesegland.gov.uk"
-          }
+          },
+          "incomeReceived": "12345",
+          "finalIncome": "54321"
         },
         "units": {
           "numberOfUnits": {
@@ -23,7 +25,37 @@
             "numberOfUnitsPRS": "1",
             "numberOfUnitsOther": "23"
           },
-          "numberOfUnitsTotal": 115
+          "numberOfUnitsTotal": "115"
+        },
+        "hiddenMilestones": {
+          "commencementOfDueDiligence": "01-01-2001",
+          "completionOfSurveys": "02-02-2002",
+          "procurementOfWorksCommencementDate": "03-03-2003",
+          "provisionOfDetailedWorks": "04-04-2004",
+          "commencementDate": "05-05-2005",
+          "completionDate": "06-06-2006",
+          "outlinePlanningGrantedDate": "07-07-2007",
+          "reservedMatterPermissionGrantedDate": "08-08-2008",
+          "marketingCommenced": "11-11-2011",
+          "conditionalContractSigned": "09-09-2009",
+          "unconditionalContractSigned": "10-10-2010",
+          "startOnSiteDate": "12-12-2012",
+          "startOnFirstUnitDate": "13-13-2013",
+          "completionOfFinalUnitData": "14-14-2014",
+          "projectCompletionDate": "15-15-2015",
+          "customMileStones": [
+            {
+              "customTitle": "milestone",
+              "customDate": "16-16-2016"
+            }
+          ]
+        },
+        "hiddenMmcCategory": {
+          "catA": "10%",
+          "catB": "20%",
+          "catC": "30%",
+          "catD": "40%",
+          "catE": "50%"
         }
       }
     ]
@@ -68,41 +100,63 @@
     }
   },
   "milestones": {
-    "surveysAndDueDiligence": {
-      "commencementOfDueDiligence": "01-01-2001",
-      "completionOfSurveys": "02-02-2002"
-    },
-    "procurementProvision": {
-      "procurementOfWorksCommencementDate": "03-03-2003",
-      "provisionOfDetailedWorks": "04-04-2004"
-    },
-    "worksDate": {
-      "commencementDate": "05-05-2005",
-      "completionDate": "06-06-2006"
-    },
-    "outlinePlanning": {
-      "outlinePlanningGrantedDate": "07-07-2007",
-      "reservedMatterPermissionGrantedDate": "08-08-2008"
-    },
-    "marketingCommenced": "11-11-2011",
-    "contractSigned": {
-      "conditionalContractSigned": "09-09-2009",
-      "unconditionalContractSigned": "10-10-2010"
-    },
-    "workDates": {
-      "startOnSiteDate": "12-12-2012",
-      "startOnFirstUnitDate": "13-13-2013"
-    },
-    "completionDates": {
-      "completionOfFinalUnitDate": "14-14-2014",
-      "projectCompletionDate": "15-15-2015"
-    },
-    "customMileStones": [
-      {
-        "customTitle": "milestone",
-        "customDate": "16-16-2016"
-      }
-    ]
+    "dates": {
+      "surveysAndDueDiligence": {
+        "commencementOfDueDiligence": "01-01-2001",
+        "completionOfSurveysHolder": {
+          "completionOfSurveys": "02-02-2002"
+        }
+      },
+      "procurementProvision": {
+        "procurementOfWorksCommencementDate": "03-03-2003",
+        "provisionOfDetailedWorksHolder": {
+          "provisionOfDetailedWorks": "04-04-2004"
+        }
+      },
+      "worksDate": {
+        "commencementDateHolder": {
+          "commencementDate": "05-05-2005"
+        },
+        "completionDateHolder": {
+          "completionDate": "06-06-2006"
+        }
+      },
+      "outlinePlanning": {
+        "outlinePlanningGrantedDate": "07-07-2007",
+        "reservedMatterPermissionGrantedDateHolder": {
+          "reservedMatterPermissionGrantedDate": "08-08-2008"
+        }
+      },
+      "marketingCommenced": "11-11-2011",
+      "contractSigned": {
+        "conditionalContractSignedHolder": {
+          "conditionalContractSigned": "09-09-2009"
+        },
+        "unconditionalContractSignedHolder": {
+          "unconditionalContractSigned": "10-10-2010"
+        }
+      },
+      "workDates": {
+        "startOnSiteDateHolder": {
+          "startOnSiteDate": "12-12-2012"
+        },
+        "startOnFirstUnitDateHolder": {
+          "startOnFirstUnitDate": "13-13-2013"
+        }
+      },
+      "completionDates": {
+        "completionOfFinalUnitDateHolder": {
+          "completionOfFinalUnitDate": "14-14-2014"
+        },
+        "projectCompletionDate": "15-15-2015"
+      },
+      "customMileStones": [
+        {
+          "customTitle": "milestone",
+          "customDate": "16-16-2016"
+        }
+      ]
+    }
   },
   "outputs": {
     "keyProgrammeObjectives": {

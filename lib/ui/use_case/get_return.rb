@@ -19,7 +19,8 @@ class UI::UseCase::GetReturn
       bid_id: found_return[:bid_id],
       project_id: found_return[:project_id],
       status: found_return[:status],
-      updates: found_return[:updates]
+      updates: found_return[:updates],
+      no_of_previous_returns: found_return[:no_of_previous_returns]
     }
   end
 end
