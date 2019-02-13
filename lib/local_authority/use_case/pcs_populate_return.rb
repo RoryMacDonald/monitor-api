@@ -85,20 +85,20 @@ actuals = [
         api_key: api_key, bid_id: return_data[:bid_id]
       )
 
-      return_data[:updates].last[:grantExpenditure] = {} if return_data.dig(:updates, -1, :grantExpenditure).nil?
+      unless pcs_data.actuals.nil?
+        return_data[:updates].last[:grantExpenditure] = {} if return_data.dig(:updates, -1, :grantExpenditure).nil?
+        existingClaimedToDate = return_data.dig(:updates, -1, :grantExpenditure, :claimedToDate).to_a
+        return_data[:updates].last[:grantExpenditure][:claimedToDate] = pcs_data.actuals.zip(existingClaimedToDate).map do |pcs, claim|
+          pulled_pcs_data = {
+            year: pcs.dig(:dateInfo, :period),
+            Q1Amount: pcs.dig(:payments, :currentYearPayments, 0).to_s,
+            Q2Amount: pcs.dig(:payments, :currentYearPayments, 1).to_s,
+            Q3Amount: pcs.dig(:payments, :currentYearPayments, 2).to_s,
+            Q4Amount: pcs.dig(:payments, :currentYearPayments, 3).to_s
+          }
 
-      existingClaimedToDate = return_data.dig(:updates, -1, :grantExpenditure, :claimedToDate).to_a
-
-      return_data[:updates].last[:grantExpenditure][:claimedToDate] = pcs_data.actuals.zip(existingClaimedToDate).map do |pcs, claim|
-        pulled_pcs_data = {
-          year: pcs.dig(:dateInfo, :period),
-          Q1Amount: pcs.dig(:payments, :currentYearPayments, 0).to_s,
-          Q2Amount: pcs.dig(:payments, :currentYearPayments, 1).to_s,
-          Q3Amount: pcs.dig(:payments, :currentYearPayments, 2).to_s,
-          Q4Amount: pcs.dig(:payments, :currentYearPayments, 3).to_s
-        }
-
-        merge_if_existing(claim, pulled_pcs_data)
+          merge_if_existing(claim, pulled_pcs_data)
+        end
       end
     end
 
