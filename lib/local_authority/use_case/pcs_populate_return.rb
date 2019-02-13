@@ -7,9 +7,11 @@ class LocalAuthority::UseCase::PcsPopulateReturn
   def execute(id:, api_key:)
     return_data = @get_return.execute(id: id)
 
-    @pcs_gateway.get_project(
-      api_key: api_key, bid_id: return_data[:bid_id]
-    ) unless return_data[:status] == 'Submitted'
+    unless return_data[:status] == 'Submitted' || ENV['PCS'].nil?
+      @pcs_gateway.get_project(
+        api_key: api_key, bid_id: return_data[:bid_id]
+      )
+    end
 
     return_data
   end
