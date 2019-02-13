@@ -9,8 +9,17 @@ describe 'Performing Return on HIF Project' do
   let(:pcs_url) { 'meow.cat' }
   let(:api_key) { 'C.B.R' }
 
-  def get_return(id:)
+  before do
+    ENV['PCS'] = 'yes'
     ENV['PCS_URL'] = pcs_url
+  end
+
+  after do
+    ENV['PCS'] = nil
+    ENV['PCS_URL'] = nil
+  end
+
+  def get_return(id:)
     stub_request(:get, "http://#{pcs_url}/project/#{id}").to_return(
       status: 200,
       body: {

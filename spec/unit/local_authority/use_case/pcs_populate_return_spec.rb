@@ -122,7 +122,7 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
           expect(pcs_gateway_spy).to have_received(:get_project).with(api_key: 'M.V.C', bid_id: bid_id)
         end
 
-        xit 'returns the appropriate data' do
+        it 'returns the appropriate data' do
           expect(use_case.execute(id: 3, api_key: 'M.R.W')).to eq(
             {
               id: 1,
@@ -133,22 +133,24 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
               updates: [
                 {
                   dog: 'woof',
-                  grantExpenditure: [
-                    {
-                      year: '2004/5',
-                      Q1Amount: '1',
-                      Q2Amount: '2',
-                      Q3Amount: '4',
-                      Q4Amount: '8'
-                    },
-                    {
-                      year: '2005/6',
-                      Q1Amount: '128',
-                      Q2Amount: '256',
-                      Q3Amount: '512',
-                      Q4Amount: '1024'
-                    }
-                  ]
+                  grantExpenditure: {
+                    claimedToDate: [
+                      {
+                        year: '2004/5',
+                        Q1Amount: '1',
+                        Q2Amount: '2',
+                        Q3Amount: '4',
+                        Q4Amount: '8'
+                      },
+                      {
+                        year: '2005/6',
+                        Q1Amount: '128',
+                        Q2Amount: '256',
+                        Q3Amount: '512',
+                        Q4Amount: '1024'
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -202,11 +204,13 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
             status: 'Draft',
             updates: [{ dog: 'woof' }, {
               dog: 'woof',
-              grantExpenditure: [
-                {
-                  misc: "Value"
-                }
-              ]
+              grantExpenditure: {
+                claimedToDate: [
+                  {
+                    misc: "Value"
+                  }
+                ]
+              }
             }]
           }
         )
@@ -266,16 +270,18 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
                 { dog: 'woof' },
                 {
                   dog: 'woof',
-                  grantExpenditure: [
-                    {
-                      year: '1999/2000',
-                      Q1Amount: '16',
-                      Q2Amount: '32',
-                      Q3Amount: '64',
-                      Q4Amount: '128',
-                      misc: 'Value'
-                    }
-                  ]
+                  grantExpenditure: {
+                    claimedToDate:[
+                      {
+                        year: '1999/2000',
+                        Q1Amount: '16',
+                        Q2Amount: '32',
+                        Q3Amount: '64',
+                        Q4Amount: '128',
+                        misc: 'Value'
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -294,11 +300,13 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
               status: 'Submitted',
               updates: [{ dog: 'woof' }, {
                 dog: 'woof',
-                grantExpenditure: [
-                  {
-                    misc: "Value"
-                  }
-                ]
+                grantExpenditure: {
+                  claimedToDate: [
+                    {
+                      misc: "Value"
+                    }
+                  ]
+                }
               }]
             }
           )
@@ -321,11 +329,13 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
                 { dog: 'woof' },
                 {
                   dog: 'woof',
-                  grantExpenditure: [
-                    {
-                      misc: "Value"
-                    }
-                  ]
+                  grantExpenditure: {
+                    claimedToDate: [
+                      {
+                        misc: "Value"
+                      }
+                    ]
+                  }
                 }
               ]
             }
