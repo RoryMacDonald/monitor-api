@@ -24,6 +24,9 @@ describe HomesEngland::Gateway::Pcs do
         status: 200,
         body: [
           {
+            dateInfo: {
+              period: '2018/19'
+            },
             payments: {
               currentYearPayments:
               [111900, 25565, 14159265]
@@ -61,6 +64,9 @@ describe HomesEngland::Gateway::Pcs do
       expect(project.sponsor).to eq("FIS")
       expect(project.actuals).to eq([
         {
+          dateInfo: {
+            period: '2018/19'
+          },
           payments: {
             currentYearPayments:
             [111900, 25565, 14159265]
@@ -94,9 +100,12 @@ describe HomesEngland::Gateway::Pcs do
         status: 200,
         body: [
           {
+            dateInfo: {
+              period: '2007/2008'
+            },
             payments: {
               currentYearPayments:
-              [800999, 41199]
+              [800999, 41199, 1989, 2012]
             }
           }
         ].to_json
@@ -131,9 +140,12 @@ describe HomesEngland::Gateway::Pcs do
       expect(project.sponsor).to eq("NHN")
       expect(project.actuals).to eq([
         {
+          dateInfo: {
+            period: '2007/2008'
+          },
           payments: {
             currentYearPayments:
-            [800999, 41199]
+            [800999, 41199, 1989, 2012]
           }
         }
       ])
