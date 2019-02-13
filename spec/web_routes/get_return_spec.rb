@@ -25,11 +25,10 @@ describe 'Getting a return' do
       'LocalAuthority::UseCase::CheckApiKey',
       double(new: double(execute: {valid: true}))
     )
-
-    header 'API_KEY', 'superSecret'
   end
 
   it 'response of 400 when id parameter does not exist' do
+    header 'API_KEY', 'superSecret'
     get '/return/get'
     expect(last_response.status).to eq(400)
   end
@@ -41,11 +40,20 @@ describe 'Getting a return' do
       let(:response_body) { JSON.parse(last_response.body) }
 
       before do
+        header 'API_KEY', 'superSecret'
         get '/return/get?id=0&returnId=1'
       end
 
-      it 'passes data to GetReturn' do
-        expect(get_return_spy).to have_received(:execute).with(id: 1)
+      it 'passes id to GetReturn' do
+        expect(get_return_spy).to have_received(:execute).with(
+          hash_including(id: 1)
+        )
+      end
+
+      it 'passes the api key to GetReturn' do
+        expect(get_return_spy).to have_received(:execute).with(
+          hash_including(api_key: 'superSecret')
+        )
       end
 
       it 'passes data to UIGetSchemaForReturn' do
@@ -89,11 +97,20 @@ describe 'Getting a return' do
       let(:response_body) { JSON.parse(last_response.body) }
 
       before do
+        header 'API_KEY', 'verySecret'
         get '/return/get?id=0&returnId=1'
       end
 
       it 'passes data to GetReturn' do
-        expect(get_return_spy).to have_received(:execute).with(id: 1)
+        expect(get_return_spy).to have_received(:execute).with(
+          hash_including(id: 1)
+        )
+      end
+
+      it 'passes the api key to GetReturn' do
+        expect(get_return_spy).to have_received(:execute).with(
+          hash_including(api_key: 'verySecret')
+        )
       end
 
       it 'passes data to GetSchemaForReturn' do
@@ -131,6 +148,7 @@ describe 'Getting a return' do
   context 'Nonexistent return' do
     let(:returned_hash) { {} }
     it 'responds with 404 when id not found' do
+      header 'API_KEY', 'superSecret'
       get '/return/get?id=0&returnId=512'
       expect(last_response.status).to eq(404)
     end

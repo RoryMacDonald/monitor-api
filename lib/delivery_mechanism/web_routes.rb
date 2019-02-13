@@ -96,7 +96,10 @@ module DeliveryMechanism
         return 400 if params[:returnId].nil?
         return_id = params[:returnId].to_i
 
-        return_hash = @dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)
+        return_hash = @dependency_factory.get_use_case(:ui_get_return).execute(
+          id: return_id,
+          api_key: env['HTTP_API_KEY']
+        )
 
         return 404 if return_hash.empty?
 
