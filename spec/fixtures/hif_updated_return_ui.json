@@ -20,15 +20,6 @@
             "baseline": "2020-02-01"
           }
         },
-        "planningNotGranted": {
-          "fieldOne": {
-            "varianceCalculations": {
-              "varianceAgainstLastReturn": {
-                "varianceLastReturnFullPlanningPermissionSubmitted": null
-              }
-            }
-          }
-        },
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",

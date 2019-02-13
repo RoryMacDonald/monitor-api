@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require_relative '../shared_context/dependency_factory'
 
 describe 'Interacting with a HIF Return from the UI' do
@@ -148,7 +147,7 @@ describe 'Interacting with a HIF Return from the UI' do
       ).with(
         headers: {'Authorization' => 'Bearer api.key.1' }
       )
-      
+
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: full_return_data)[:id]
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id, api_key: 'api.key.1')[:updates].last
 

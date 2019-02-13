@@ -82,15 +82,6 @@
               "completionDate": "2022-07-08"
             }
           ]
-        },
-        "planningNotGranted": {
-          "fieldOne": {
-            "varianceCalculations": {
-              "varianceAgainstLastReturn": {
-                "varianceLastReturnFullPlanningPermissionSubmitted": null
-              }
-            }
-          }
         }
       },
       "landOwnership": {
