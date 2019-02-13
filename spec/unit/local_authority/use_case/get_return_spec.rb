@@ -72,6 +72,7 @@ describe LocalAuthority::UseCase::GetReturn do
     let(:return_object) do
       LocalAuthority::Domain::Return.new.tap do |r|
         r.id = 10
+        r.bid_id = 'HIF/MV/26'
         r.type = 'hif'
         r.project_id = 0
       end
@@ -98,6 +99,7 @@ describe LocalAuthority::UseCase::GetReturn do
     it 'will return the return from the gateway' do
       expect(response[:id]).to eq(10)
       expect(response[:type]).to eq('hif')
+      expect(response[:bid_id]).to eq('HIF/MV/26')
       expect(response[:project_id]).to eq(0)
       expect(response[:status]).to eq('Draft')
     end
@@ -197,6 +199,7 @@ describe LocalAuthority::UseCase::GetReturn do
       return_object = LocalAuthority::Domain::Return.new.tap do |r|
         r.id = 50
         r.type = 'ac'
+        r.bid_id = 'AC/MV/1'
         r.project_id = 1
         r.status = 'Submitted'
       end
@@ -221,6 +224,7 @@ describe LocalAuthority::UseCase::GetReturn do
     it 'will return the return from the gateway' do
       expect(response[:id]).to eq(50)
       expect(response[:type]).to eq('ac')
+      expect(response[:bid_id]).to eq('AC/MV/1')
       expect(response[:project_id]).to eq(1)
       expect(response[:status]).to eq('Submitted')
     end

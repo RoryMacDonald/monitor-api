@@ -72,6 +72,33 @@ describe 'Interacting with a HIF Return from the UI' do
 
   context 'Creating a return' do
     it 'Allows you to create and view a return' do
+      stub_request(
+        :get, "http://meow.cat/project/HIF%2FMV%2F757"
+      ).to_return(
+        status: 200,
+        body: {
+          "projectManager": "Max Stevens",
+          "sponsor": "Timothy Turner"
+        }.to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer api.key.1' }
+      )
+      stub_request(
+        :get, "http://meow.cat/project/HIF%2FMV%2F757/actuals"
+      ).to_return(
+        status: 200,
+        body: [
+          {
+            payments: {
+              currentYearPayments:
+              [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+            }
+          }
+        ].to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer api.key.1' }
+      )
+
       base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
 
       return_data = base_return[:data].dup
@@ -95,6 +122,33 @@ describe 'Interacting with a HIF Return from the UI' do
     end
 
     it 'Allows you to create a return with all the data in' do
+      stub_request(
+        :get, "http://meow.cat/project/HIF%2FMV%2F757"
+      ).to_return(
+        status: 200,
+        body: {
+          "projectManager": "Max Stevens",
+          "sponsor": "Timothy Turner"
+        }.to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer api.key.1' }
+      )
+      stub_request(
+        :get, "http://meow.cat/project/HIF%2FMV%2F757/actuals"
+      ).to_return(
+        status: 200,
+        body: [
+          {
+            payments: {
+              currentYearPayments:
+              [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+            }
+          }
+        ].to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer api.key.1' }
+      )
+      
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: full_return_data)[:id]
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id, api_key: 'api.key.1')[:updates].last
 
