@@ -3,6 +3,9 @@
     "housingOutputs": {
       "baselineAffordableHousingUnits": "56",
       "baselineunits": "115",
+      "paceOfConstruction": {
+        "timeBetweenStartAndCompletion": {"baseline": "12"}
+      },
       "modernMethodsOfConstruction": {
         "categoryA": {"baseline": "10%"},
         "categoryB": {"baseline": "20%"},

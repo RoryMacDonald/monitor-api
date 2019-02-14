@@ -1,6 +1,6 @@
 describe LocalAuthority::UseCase::ApiToPcsKey do
   let(:use_case) { described_class.new }
-  
+
   context 'returning a pcs api key' do
     it 'example 1' do
       ENV['HMAC_SECRET'] = 'Meow'
@@ -8,7 +8,7 @@ describe LocalAuthority::UseCase::ApiToPcsKey do
 
       api_key = JWT.encode(
         {
-          project_id: 1,
+          projects: [1],
           exp: 2900000000,
           email: 'admin@airmail',
           role: 'Homes England'
@@ -25,7 +25,7 @@ describe LocalAuthority::UseCase::ApiToPcsKey do
       )[0]
       expect(decoded_pcs_key).to eq(
         {
-          'project_id' => 1,
+          'projects' => [1],
           'exp' => 2900000000,
           'email' => 'admin@airmail',
           'role' => 'Homes England'
@@ -39,7 +39,7 @@ describe LocalAuthority::UseCase::ApiToPcsKey do
 
       api_key = JWT.encode(
         {
-          project_id: 1,
+          projects: [1],
           exp: 2800000000,
           email: 'user@hotmail.cc',
           role: 'Local Authority'
@@ -56,7 +56,7 @@ describe LocalAuthority::UseCase::ApiToPcsKey do
       )[0]
       expect(decoded_pcs_key).to eq(
         {
-          'project_id' => 1,
+          'projects' => [1],
           'exp' => 2800000000,
           'email' => 'user@hotmail.cc',
           'role' => 'Local Authority'

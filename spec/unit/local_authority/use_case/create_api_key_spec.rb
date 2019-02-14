@@ -11,11 +11,11 @@ describe LocalAuthority::UseCase::CreateApiKey do
     end
 
     it 'Returns an API key' do
-      expect(use_case.execute(project_id: 1, email: 'cat@cathouse.com', role: 'LocalAuthority')[:api_key]).not_to be_nil
+      expect(use_case.execute(projects: [1], email: 'cat@cathouse.com', role: 'LocalAuthority')[:api_key]).not_to be_nil
     end
 
     it 'Stores the project id and email within the api key' do
-      api_key = use_case.execute(project_id: 1, email: 'cat@cathouse.com', role: 'HomesEngland')[:api_key]
+      api_key = use_case.execute(projects: [1], email: 'cat@cathouse.com', role: 'HomesEngland')[:api_key]
 
       decoded_key = JWT.decode(
         api_key,
@@ -24,7 +24,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
         algorithm: 'HS512'
       )
 
-      expect(decoded_key[0]['project_id']).to eq(1)
+      expect(decoded_key[0]['projects']).to eq([1])
       expect(decoded_key[0]['email']).to eq('cat@cathouse.com')
       expect(decoded_key[0]['role']).to eq('HomesEngland')
     end
@@ -32,7 +32,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
     it 'Sets the expiry to 30 days away' do
       now = DateTime.now + 1
       Timecop.freeze(now)
-      api_key = use_case.execute(project_id: 1, email: 'cat@cathouse.com', role: 'LocalAuthority')[:api_key]
+      api_key = use_case.execute(projects: [1], email: 'cat@cathouse.com', role: 'LocalAuthority')[:api_key]
       Timecop.return
 
 
@@ -55,11 +55,11 @@ describe LocalAuthority::UseCase::CreateApiKey do
     end
 
     it 'Returns an API key' do
-      expect(use_case.execute(project_id: 5, email: 'dog@doghaus.com', role: 'LocalAuthority')[:api_key]).not_to be_nil
+      expect(use_case.execute(projects: [5], email: 'dog@doghaus.com', role: 'LocalAuthority')[:api_key]).not_to be_nil
     end
 
     it 'Stores the project id, role and email within the api key' do
-      api_key = use_case.execute(project_id: 5, email: 'dog@doghaus.com', role: 'LocalAuthority')[:api_key]
+      api_key = use_case.execute(projects: [5], email: 'dog@doghaus.com', role: 'LocalAuthority')[:api_key]
 
       decoded_key = JWT.decode(
         api_key,
@@ -68,7 +68,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
         algorithm: 'HS512'
       )
 
-      expect(decoded_key[0]['project_id']).to eq(5)
+      expect(decoded_key[0]['projects']).to eq([5])
       expect(decoded_key[0]['email']).to eq('dog@doghaus.com')
       expect(decoded_key[0]['role']).to eq('LocalAuthority')
     end
@@ -76,7 +76,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
     it 'Sets the expiry to 30 days away' do
       now = DateTime.now + 3
       Timecop.freeze(now)
-      api_key = use_case.execute(project_id: 1, email: 'dog@doghaus.com', role: 'LocalAuthority')[:api_key]
+      api_key = use_case.execute(projects: [1], email: 'dog@doghaus.com', role: 'LocalAuthority')[:api_key]
       Timecop.return
 
 

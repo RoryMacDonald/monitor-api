@@ -203,6 +203,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                             baseline: {
                               type: 'string',
                               title: 'Baseline',
+                              sourceKey: %i[
+                                baseline_data
+                                summary
+                                sitesSummary
+                                hiddenSchemePace
+                              ],
                               readonly: true
                             },
                             latestEstimate: {
@@ -2635,6 +2641,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                             type: 'string',
                             title: 'Reason for change/variance, and steps being taken to address this',
                             extendedText: true
+                          },
+                          upload: {
+                            type: "string",
+                            title: "Evidence",
+                            description: "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders, soft market testing or planning",
+                            uploadFile: "multiple"
                           }
                         }
                       }
@@ -2704,12 +2716,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   s151WriteOnly: true,
                   radio: true
                 },
-                noOtherGrantFundin: {
+                noOtherGrantFunding: {
                   type: 'string',
                   title: 'That no other Grant Funding Agreement conditions have been breached.',
                   enum: ['Yes', 'No'],
                   s151WriteOnly: true,
                   radio: true
+                },
+                signature: {
+                  type: "string",
+                  title: "Please attach your signature",
+                  uploadFile: "multiple"
                 }
               }
             }

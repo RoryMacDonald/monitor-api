@@ -66,7 +66,8 @@ class HomesEngland::UseCases
 
     builder.define_use_case :add_user_to_project do
       HomesEngland::UseCase::AddUserToProject.new(
-        user_gateway: builder.get_gateway(:users)
+        user_gateway: builder.get_gateway(:users),
+        project_gateway: builder.get_gateway(:project)
       )
     end
 

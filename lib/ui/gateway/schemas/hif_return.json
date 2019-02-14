@@ -218,12 +218,10 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "Completed Date"
                               },
                               "onCompletedReference": {
                                 "type": "string",
-                                "readonly": true,
                                 "title": "Completed Reference"
                               }
                             }
@@ -291,7 +289,6 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "Completed Date"
                               }
                             }
@@ -421,12 +418,10 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "Completed Date"
                               },
                               "onCompletedReference": {
                                 "type": "string",
-                                "readonly": true,
                                 "title": "Completed Reference"
                               }
                             }
@@ -494,7 +489,6 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "Completed Date"
                               }
                             }
