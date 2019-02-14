@@ -3,9 +3,9 @@
 require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
-fdescribe 'Getting a return' do
-  let(:check_api_key_spy) { double(execute: {valid: true}) }
-  let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.m.f" })}
+describe 'Getting a return' do
+  let(:check_api_key_stub) { double(execute: {valid: true}) }
+  let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.m.f" }) }
   let(:get_return_spy) { spy(execute: returned_hash) }
   let(:get_schema_for_return_spy) { spy(execute: returned_schema) }
   let(:type) { '' }
@@ -16,7 +16,7 @@ fdescribe 'Getting a return' do
     stub_instances(LocalAuthority::UseCase::ApiToPcsKey, api_to_pcs_key_spy)
     stub_instances(UI::UseCase::GetReturn, get_return_spy)
     stub_instances(UI::UseCase::GetSchemaForReturn, get_schema_for_return_spy)
-    stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
+    stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_stub)
   end
 
   it 'response of 400 when id parameter does not exist' do
