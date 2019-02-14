@@ -26,7 +26,7 @@
           "reasonForOther": "blah"
         },
         "paceOfConstruction": {
-          "timeBetweenStartAndCompletion": {"baselin": "3", "latestEstimate": "3" },
+          "timeBetweenStartAndCompletion": {"baseline": "3", "latestEstimate": "3" },
           "reasonForChange": "blah"
         },
         "modernMethodsOfConstruction": {
