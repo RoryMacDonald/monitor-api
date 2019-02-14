@@ -114,7 +114,8 @@ describe 'Calculated return' do
         expected_return_data
       ],
       status: 'Draft',
-      timestamp: 0
+      timestamp: 0,
+      no_of_previous_returns: 1
     }
 
     expect(get_use_case(:get_return).execute(id: return2_id)).to(

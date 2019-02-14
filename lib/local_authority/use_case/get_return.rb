@@ -13,14 +13,16 @@ class LocalAuthority::UseCase::GetReturn
     project_id = found_return.project_id
     updates = @return_update_gateway.updates_for(return_id: id)
 
-
-    previous_return = @get_returns.execute(project_id: project_id)[:returns].select do |return_data|
-      return_data[:id] < found_return.id && return_data[:status] == 'Submitted'
+    previous_returns = @get_returns.execute(project_id: project_id)[:returns].select do |return_data|
+      return_data[:status] == 'Submitted' && return_data[:id] < found_return.id
     end
 
-    previous_return_data = previous_return.dig(-1, :updates, -1)
+    number_of_previous_returns = previous_returns.length
+
+    previous_return_data = previous_returns.dig(-1, :updates, -1)
 
     updates[-1]&.data = @calculate_return.execute(return_data_with_no_calculations: updates[-1]&.data, previous_return: previous_return_data)[:calculated_return]
+
 
 
     if found_return.nil?
@@ -32,7 +34,8 @@ class LocalAuthority::UseCase::GetReturn
         project_id: found_return.project_id,
         status: found_return.status,
         updates: updates.map(&:data),
-        timestamp: found_return.timestamp
+        timestamp: found_return.timestamp,
+        no_of_previous_returns: number_of_previous_returns
       }
     end
   end

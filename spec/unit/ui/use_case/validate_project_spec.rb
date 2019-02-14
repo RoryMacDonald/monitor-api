@@ -671,8 +671,9 @@ describe UI::UseCase::ValidateProject do
       end
     end
 
-    context 'single dependency' do
+    context 'required field in a dependency' do
       context 'example 1' do
+        it_should_behave_like 'required field validation'
         let(:template) do
           Common::Domain::Template.new.tap do |p|
             p.schema = {
@@ -721,24 +722,401 @@ describe UI::UseCase::ValidateProject do
             }
           end
         end
-        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: {} } }
+        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: {dogs: 'woof'} } }
+        let(:invalid_project_data) {{ goodDog: 'Yes', planningSubmitted: {}}}
+        let(:invalid_project_data_paths) { [[:planningSubmitted, :dogs]] }
+        let(:invalid_project_data_pretty_paths) { [['Planning Submitted', 'Dogs']] }
+      end
 
-        context 'given a valid project' do
-          it 'should return a hash with a valid field as true' do
-            project_value = use_case.execute(type: project_type, project_data: valid_project_data)
-            expect(project_value[:valid]).to eq(true)
-          end
-
-          it 'should have no paths' do
-            project_value = use_case.execute(type: project_type, project_data: valid_project_data)
-            expect(project_value[:invalid_paths]).to eq([])
-          end
-
-          it 'should return no pretty paths' do
-            project_value = use_case.execute(type: project_type, project_data: valid_project_data)
-            expect(project_value[:pretty_invalid_paths]).to eq([])
+      context 'example 2' do
+        it_should_behave_like 'required field validation'
+        let(:template) do
+          Common::Domain::Template.new.tap do |p|
+            p.schema = {
+              title: 'HIF Project',
+              type: 'object',
+              properties: {
+                goodDog: {
+                  type: 'string',
+                  title: 'Is this a good dog?',
+                  enum: %w[Yes No]
+                }
+              },
+              dependencies: {
+                goodDog: {
+                  oneOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        goodDog: {
+                          enum: ['No']
+                        }
+                      }
+                    },
+                    {
+                      type: 'object',
+                      properties: {
+                        goodDog: {
+                          enum: ['Yes']
+                        },
+                        planningSubmitted: {
+                          type: 'string',
+                          title: 'Planning'
+                        },
+                        doggywalked: {
+                          type: 'string',
+                          title: 'Doggy Walks'
+                        }
+                      },
+                      required: ['doggywalked']
+                    }
+                  ]
+                }
+              }
+            }
           end
         end
+        let(:valid_project_data) { { goodDog: 'Yes', doggywalked: 'woof', planningSubmitted: 'Ok' } }
+        let(:invalid_project_data) {{ goodDog: 'Yes', planningSubmitted: 'ok'}}
+        let(:invalid_project_data_paths) { [[:doggywalked]] }
+        let(:invalid_project_data_pretty_paths) { [['Doggy Walks']] }
+      end
+    end
+
+    context 'two required fields in a dependency' do
+      context 'example 1' do
+        it_should_behave_like 'required field validation'
+        let(:template) do
+          Common::Domain::Template.new.tap do |p|
+            p.schema = {
+              title: 'HIF Project',
+              type: 'object',
+              properties: {
+                goodDog: {
+                  type: 'string',
+                  title: 'Is this a good dog?',
+                  enum: %w[Yes No]
+                }
+              },
+              dependencies: {
+                goodDog: {
+                  oneOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        goodDog: {
+                          enum: ['No']
+                        }
+                      }
+                    },
+                    {
+                      type: 'object',
+                      properties: {
+                        goodDog: {
+                          enum: ['Yes']
+                        },
+                        planningSubmitted: {
+                          type: 'object',
+                          title: 'Planning Submitted',
+                          properties: {
+                            dogs: {
+                              title: 'Dogs',
+                              type: 'string'
+                            },
+                            puppies: {
+                              title: 'Puppies',
+                              type: 'string'
+                            }
+                          },
+                          required: ['dogs', 'puppies']
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          end
+        end
+        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: {dogs: 'woof', puppies: 'aawhhooo'} } }
+        let(:invalid_project_data) {{ goodDog: 'Yes', planningSubmitted: {}}}
+        let(:invalid_project_data_paths) { [[:planningSubmitted, :dogs], [:planningSubmitted, :puppies]] }
+        let(:invalid_project_data_pretty_paths) { [['Planning Submitted', 'Dogs'], ['Planning Submitted', 'Puppies']] }
+      end
+
+      context 'example 2' do
+        it_should_behave_like 'required field validation'
+        let(:template) do
+          Common::Domain::Template.new.tap do |p|
+            p.schema = {
+              title: 'HIF Project',
+              type: 'object',
+              properties: {
+                goodDog: {
+                  type: 'string',
+                  title: 'Is this a good dog?',
+                  enum: %w[Yes No]
+                }
+              },
+              dependencies: {
+                goodDog: {
+                  oneOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        goodDog: {
+                          enum: ['No']
+                        }
+                      }
+                    },
+                    {
+                      type: 'object',
+                      properties: {
+                        goodDog: {
+                          enum: ['Yes']
+                        },
+                        planningSubmitted: {
+                          type: 'string',
+                          title: 'Planning'
+                        },
+                        doggywalked: {
+                          type: 'string',
+                          title: 'Doggy Walks'
+                        },
+                        puppywalked: {
+                          type: 'string',
+                          title: 'Puppy Walks'
+                        }
+                      },
+                      required: ['doggywalked', 'puppywalked']
+                    }
+                  ]
+                }
+              }
+            }
+          end
+        end
+        let(:valid_project_data) { { goodDog: 'Yes', doggywalked: 'woof', puppywalked: 'owwoo', planningSubmitted: 'Ok' } }
+        let(:invalid_project_data) {{ goodDog: 'Yes', planningSubmitted: 'ok'}}
+        let(:invalid_project_data_paths) { [[:doggywalked], [:puppywalked]] }
+        let(:invalid_project_data_pretty_paths) { [['Doggy Walks'], ['Puppy Walks']] }
+      end
+    end
+
+    context 'nested required field in a dependency' do
+      context 'example 1' do
+        it_should_behave_like 'required field validation'
+        let(:template) do
+          Common::Domain::Template.new.tap do |p|
+            p.schema = {
+              title: 'HIF Project',
+              type: 'object',
+              properties: {
+                whatDogs: {
+                  type: 'object',
+                  title: 'What Dogs?',
+                  properties: {
+                    goodDog: {
+                      type: 'string',
+                      title: 'Is this a good dog?',
+                      enum: %w[Yes No]
+                    }
+                  },
+                  dependencies: {
+                    goodDog: {
+                      oneOf: [
+                        {
+                          type: 'object',
+                          properties: {
+                            goodDog: {
+                              enum: ['No']
+                            }
+                          }
+                        },
+                        {
+                          type: 'object',
+                          properties: {
+                            goodDog: {
+                              enum: ['Yes']
+                            },
+                            planningSubmitted: {
+                              type: 'object',
+                              title: 'Planning Submitted',
+                              properties: {
+                                dogs: {
+                                  title: 'Dogs',
+                                  type: 'string'
+                                }
+                              },
+                              required: ['dogs']
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }  
+            }
+          end
+        end
+        let(:valid_project_data) { {whatDogs: { goodDog: 'Yes', planningSubmitted: {dogs: 'woof'} }} }
+        let(:invalid_project_data) {{whatDogs: { goodDog: 'Yes', planningSubmitted: {}}}}
+        let(:invalid_project_data_paths) { [[:whatDogs, :planningSubmitted, :dogs]] }
+        let(:invalid_project_data_pretty_paths) { [['What Dogs?', 'Planning Submitted', 'Dogs']] }
+      end
+
+      context 'example 2' do
+        it_should_behave_like 'required field validation'
+        let(:template) do
+          Common::Domain::Template.new.tap do |p|
+            p.schema = {
+              title: 'HIF Project',
+              type: 'object',
+              properties: {
+                animalKingdom: {
+                  type: 'object',
+                  title: 'Animal Kingdom',
+                  properties: {
+                    acat: {
+                      type: 'object',
+                      title: 'Cat',
+                      properties: {
+                        needed: {
+                          type: 'string',
+                          title: 'Cat nip'
+                        },
+                        notneeded: {
+                          type: 'string'
+                        }
+                      },
+                      required: ['needed']
+                    },
+                    anotherDog: {
+                      type: 'object',
+                      title: 'Another Dog',
+                      properties: {
+                        goodDog: {
+                          type: 'string',
+                          title: 'Is this a good dog?',
+                          enum: %w[Yes No]
+                        }
+                      },
+                      dependencies: {
+                        goodDog: {
+                          oneOf: [
+                            {
+                              type: 'object',
+                              properties: {
+                                goodDog: {
+                                  enum: ['No']
+                                },
+                                ifApplciable: {
+                                  type: 'string',
+                                  title: 'Not Neccessarily'
+                                }
+                              }
+                            },
+                            {
+                              type: 'object',
+                              properties: {
+                                goodDog: {
+                                  enum: ['Yes']
+                                },
+                                planningSubmitted: {
+                                  type: 'string',
+                                  title: 'Planning'
+                                },
+                                doggywalked: {
+                                  type: 'string',
+                                  title: 'Doggy Walks'
+                                }
+                              },
+                              required: ['doggywalked']
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          end
+        end
+        let(:valid_project_data) do 
+          {
+            animalKingdom: {
+              anotherDog: { goodDog: 'No'},
+              acat: { needed: 'Im here' }
+            }
+          }
+        end
+        let(:invalid_project_data) { { animalKingdom: { anotherDog: { goodDog: 'Yes'}, acat: {} }} }
+        let(:invalid_project_data_paths) { [[:animalKingdom, :anotherDog, :doggywalked], [:animalKingdom, :acat, :needed]] }
+        let(:invalid_project_data_pretty_paths) { [['Animal Kingdom', 'Another Dog', 'Doggy Walks'], ['Animal Kingdom', 'Cat', 'Cat nip']] }
+      end
+    end
+
+    context 'required field in a dependency thats in an array' do
+      context 'example 1' do
+        it_should_behave_like 'required field validation'
+        let(:template) do
+          Common::Domain::Template.new.tap do |p|
+            p.schema = {
+              title: 'HIF Project',
+              type: 'array',
+              items: {
+                type: 'object',
+                title: 'Array Item',
+                properties: {
+                  goodDog: {
+                    type: 'string',
+                    title: 'Is this a good dog?',
+                    enum: %w[Yes No]
+                  }
+                },
+                dependencies: {
+                  goodDog: {
+                    oneOf: [
+                      {
+                        type: 'object',
+                        properties: {
+                          goodDog: {
+                            enum: ['No']
+                          }
+                        }
+                      },
+                      {
+                        type: 'object',
+                        properties: {
+                          goodDog: {
+                            enum: ['Yes']
+                          },
+                          planningSubmitted: {
+                            type: 'object',
+                            title: 'Planning Submitted',
+                            properties: {
+                              dogs: {
+                                title: 'Dogs',
+                                type: 'string'
+                              }
+                            },
+                            required: ['dogs']
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          end
+        end
+        let(:valid_project_data) { [{ goodDog: 'Yes', planningSubmitted: {dogs: 'woof'} }] }
+        let(:invalid_project_data) {[{ goodDog: 'Yes', planningSubmitted: {}}, { goodDog: 'Yes', planningSubmitted: {dogs: 'woof'}}, { goodDog: 'Yes', planningSubmitted: {}}]}
+        let(:invalid_project_data_paths) { [[0, :planningSubmitted, :dogs], [2, :planningSubmitted, :dogs]] }
+        let(:invalid_project_data_pretty_paths) { [['Array Item 1', 'Planning Submitted', 'Dogs'], ['Array Item 3', 'Planning Submitted', 'Dogs']] }
       end
     end
 

@@ -392,6 +392,7 @@
           "type": "string",
           "title": "Joint Bid Areas",
           "enum": [
+            "N/A",
             "Adur",
             "Allerdale",
             "Amber Valley",
@@ -1458,16 +1459,16 @@
                           "totallyFundedThroughHIF": { "enum": ["No"] },
                           "descriptionOfFundingStack": {
                             "type": "string",
-                            "title": "If No: Description of Funding Stack"
+                            "title": "Description of Funding Stack"
                           },
                           "totalPublic": {
                             "type": "string",
-                            "title": "If No, Total Public (exc. HIF)",
+                            "title": "Total Public (exc. HIF)",
                             "currency": true
                           },
                           "totalPrivate": {
                             "type": "string",
-                            "title": "If No, Total Private",
+                            "title": "Total Private",
                             "currency": true
                           }
                         },

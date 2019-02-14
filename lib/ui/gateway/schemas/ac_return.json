@@ -1,7 +1,7 @@
 {
   "title": "AC Project",
   "type": "object",
-  "sharedData": [ 
+  "sharedData": [
     {
       "from": ["sites", "#", "housingOutputs", "units", "numberOfUnitsTotal"],
       "to": ["housingCompletions", "#", "details", "siteDetails", "totalLiveUnits"]
@@ -369,6 +369,12 @@
                             "type": "string",
                             "title": "What is the reason for the change?",
                             "extendedText": true
+                          },
+                          "upload": {
+                            "type": "string",
+                            "title": "Evidence",
+                            "description": "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders, soft market testing or planning",
+                            "uploadFile": "multiple"
                           }
                         }
                       }
@@ -2525,7 +2531,7 @@
           "title": "Changes Required?",
           "enum": [
             "Do not change the baseline - Where there are variances, these will be rectified in due course",
-            "Request change to baseline to match latest estimates"
+            "Request change to baseline to match latest estimates (changes to timing or overall amount)"
           ]
         }
       },
@@ -2541,13 +2547,18 @@
               "properties": {
                 "changesRequired": {
                   "enum": [
-                    "Request change to baseline to match latest estimates"
+                    "Request change to baseline to match latest estimates (changes to timing or overall amount)"
                   ]
                 },
                 "reasonForChange": {
                   "type": "string",
                   "title": "Reason for change/variance, and steps being taken to address this",
                   "extendedText": true
+                },
+                "evidenceUpload": {
+                  "type": "string",
+                  "title": "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders.",
+                  "uploadFile": "multiple"
                 }
               },
               "required": ["reasonForChange"]
@@ -2600,7 +2611,30 @@
                     "year": {
                       "type": "string",
                       "title": "Year",
-                      "enum": ["2018/19", "2019/20", "2020/21"],
+                      "enum": [
+                        "2018/19",
+                        "2019/20",
+                        "2020/21",
+                        "2021/22",
+                        "2022/23",
+                        "2023/24",
+                        "2024/25",
+                        "2025/26",
+                        "2026/27",
+                        "2027/28",
+                        "2028/29",
+                        "2029/30",
+                        "2030/31",
+                        "2031/32",
+                        "2032/33",
+                        "2033/34",
+                        "2034/35",
+                        "2035/36",
+                        "2036/37",
+                        "2037/38",
+                        "2038/39",
+                        "2039/40"
+                      ],
                       "laReadOnly": true
                     },
                     "Q1Amount": {
@@ -2712,6 +2746,12 @@
               "type": "string",
               "title": "Amount of this Claim",
               "currency": true
+            },
+            "conditionsToGrantDrawdown": {
+              "type": "string",
+              "title": "Conditions precedent to draw down of grant",
+              "uploadFile": "multiple",
+              "description": "If you have conditions to meet before you can draw down grant, please email any evidence for meeting these to your Homes England projects lead, or attach the documents below."
             }
           }
         },
@@ -2738,12 +2778,6 @@
                   "title": "Description of Spend",
                   "type": "string",
                   "extendedText": true
-                },
-                "evidenceOfSpendNextQuarter": {
-                  "title": "Evidence of Spend for the Next Quarter.",
-                  "description": "Evidence can include contract/ quotes. Please attach here.",
-                  "uploadFile": "multiple",
-                  "type": "string"
                 }
               }
             }
@@ -2770,7 +2804,8 @@
                 "housingOutputsEstimates",
                 "housingClaimedAsAchieved",
                 "receiptEstimates",
-                "noOtherGrantFunding"
+                "noOtherGrantFunding",
+                "signature"
               ],
               "title": "Please confirm you are content with the submission, including:",
               "properties": {
@@ -2822,6 +2857,11 @@
                   "enum": ["Yes", "No"],
                   "s151WriteOnly": true,
                   "radio": true
+                },
+                "signature": {
+                  "type": "string",
+                  "title": "Please attach your signature",
+                  "uploadFile": "multiple"
                 }
               }
             }
@@ -2926,6 +2966,17 @@
               "type": "string",
               "title": "Overall risk rating",
               "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
+            }
+          }
+        },
+        "heAuthorisation": {
+          "type": "object",
+          "title": "Homes England Authorisation",
+          "properties": {
+            "heAuthoriser": {
+              "type": "string",
+              "title": "Authorised by:",
+              "laReadOnly": true
             }
           }
         }

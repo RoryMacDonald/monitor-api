@@ -46,7 +46,20 @@
         },
         "statutoryConsents": {
           "anyStatutoryConsents": "Yes",
-          "statutoryConsents": [{ "baselineCompletion": "2020-01-01", "detailsOfConsent": "Details of consent" }]
+          "statutoryConsents": [{
+            "detailsOfConsent": "Details of consent",
+            "statusOfConsent": {
+              "baseline": "2020-01-01",
+              "completedDate": null, 
+              "current": null,
+              "percentComplete": null,
+              "previousReturn": null,
+              "reason": null,
+              "status": null,
+              "varianceAgainstBaseline": null,
+              "varianceAgainstLastReturn": null
+            }
+          }]
         }
       },
       "landOwnership": {

@@ -20,8 +20,14 @@ describe 'Validates HIF return' do
 
       valid_return = get_use_case(:ui_validate_return).execute(type: 'hif', return_data: project_base_return_invalid)
       expect(valid_return[:valid]).to eq(false)
-      expect(valid_return[:invalid_paths]).to eq([%i[s151Confirmation hifFunding cashflowConfirmation]])
-      expect(valid_return[:pretty_invalid_paths]).to eq([['HIF Project', 's151 Confirmation', 'HIF Funding and Profiles', 'Please confirm you are content with the submitted project cashflows']])
+      expect(valid_return[:invalid_paths]).to eq([
+        [:infrastructures, 0, :planning, :outlinePlanning, :planningSubmitted, :percentComplete],
+        %i[s151Confirmation hifFunding cashflowConfirmation]
+      ])
+      expect(valid_return[:pretty_invalid_paths]).to eq([
+        ['HIF Project', 'Infrastructures', 'Infrastructure 1', 'Planning', 'Outline Planning', 'Planning Permission Submitted', 'Percent Complete'],
+        ['HIF Project', 's151 Confirmation', 'HIF Funding and Profiles', 'Please confirm you are content with the submitted project cashflows']
+      ])
     end
   end
 

@@ -12,7 +12,6 @@ class UI::UseCase::ValidateProject
     project_data = compact_data(project_data)
     
     invalid_paths = schema.invalid_paths(project_data)
-
     invalid_pretty_paths = invalid_paths.map do |path|
       @get_project_template_path_titles.execute(path: path, schema: schema.schema)[:path_titles]
     end

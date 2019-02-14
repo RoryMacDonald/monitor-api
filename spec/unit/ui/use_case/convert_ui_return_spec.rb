@@ -1,9 +1,9 @@
 
 describe UI::UseCase::ConvertUIReturn do
-  context 'Example 1' do 
+  context 'Example 1' do
     let(:convert_ui_hif_return_spy) { spy(execute: { data: 'converted_return_data' })}
     let(:convert_ui_ac_return_spy) { spy(execute: { data: 'ac_converted_return_data' })}
-    let(:use_case) do 
+    let(:use_case) do
       described_class.new(
         convert_ui_hif_return: convert_ui_hif_return_spy,
         convert_ui_ac_return: convert_ui_ac_return_spy
@@ -17,9 +17,9 @@ describe UI::UseCase::ConvertUIReturn do
           type: 'hif'
           )
       end
-      
+
       before { response }
-    
+
       it 'Calls the convert ui hif use case' do
         expect(convert_ui_hif_return_spy).to have_received(:execute).with(
           return_data: { wrong_data: 'needs to be converted' }
@@ -38,9 +38,9 @@ describe UI::UseCase::ConvertUIReturn do
           type: 'ac'
           )
       end
-      
+
       before { response }
-    
+
       it 'Calls the convert ui ac use case' do
         expect(convert_ui_ac_return_spy).to have_received(:execute).with(
           return_data: { wrong_data: 'needs to be converted' }
@@ -59,7 +59,7 @@ describe UI::UseCase::ConvertUIReturn do
           type: 'different type '
           )
       end
-      
+
       before { response }
 
       it 'doesnt call the convert hif use case' do
@@ -72,10 +72,10 @@ describe UI::UseCase::ConvertUIReturn do
     end
   end
 
-  context 'Example 2' do 
+  context 'Example 2' do
     let(:convert_ui_hif_return_spy) { spy(execute: { my_second_return: 'Also been converted'})}
     let(:convert_ui_ac_return_spy) { spy(execute: { my_second_return: 'Also been converted by ac'})}
-    let(:use_case) do 
+    let(:use_case) do
       described_class.new(
         convert_ui_hif_return: convert_ui_hif_return_spy,
         convert_ui_ac_return: convert_ui_ac_return_spy
@@ -89,9 +89,9 @@ describe UI::UseCase::ConvertUIReturn do
           type: 'hif'
           )
       end
-      
+
       before { response }
-    
+
       it 'Calls the convert ui hif use case' do
         expect(convert_ui_hif_return_spy).to have_received(:execute).with(
           return_data: { before_conversion: 'Must check type' }
@@ -110,9 +110,9 @@ describe UI::UseCase::ConvertUIReturn do
           type: 'ac'
           )
       end
-      
+
       before { response }
-    
+
       it 'Calls the convert ui ac use case' do
         expect(convert_ui_ac_return_spy).to have_received(:execute).with(
           return_data: { before_conversion: 'Must check type' }
@@ -131,7 +131,7 @@ describe UI::UseCase::ConvertUIReturn do
           type: 'not another type'
           )
       end
-      
+
       before { response }
 
       it 'doesnt call the convert hif use case' do

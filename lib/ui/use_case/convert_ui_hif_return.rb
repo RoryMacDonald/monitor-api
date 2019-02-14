@@ -67,12 +67,43 @@ class UI::UseCase::ConvertUIHIFReturn
       }
     end
 
-    unless planning[:section106].nil?
+    if planning[:section106].nil?
+      new_planning[:section106] = {} 
+    else
       new_planning[:section106] = {
         s106Requirement: planning[:section106][:s106Requirement],
-        s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement],
-        statutoryConsents: planning[:statutoryConsents]
+        s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement]
       }
+    end
+    
+    unless planning[:statutoryConsents].nil?
+      new_planning[:section106][:statutoryConsents] =  {
+        anyStatutoryConsents: planning[:statutoryConsents][:anyStatutoryConsents]
+      }
+
+      unless planning[:statutoryConsents][:statutoryConsents].nil?  
+        new_planning[:section106][:statutoryConsents][:statutoryConsents] = planning[:statutoryConsents][:statutoryConsents].map do |consent|
+          next if consent.nil?
+          new_consent = {}
+
+          new_consent = {
+          detailsOfConsent: consent[:detailsOfConsent]
+          }
+
+          unless consent[:statusOfConsent].nil?
+            new_consent[:baselineCompletion] = consent[:statusOfConsent][:baseline]
+            new_consent[:statusAgainstLastReturn] = consent[:statusOfConsent][:status]
+            new_consent[:percentComplete] = consent[:statusOfConsent][:percentComplete]
+            new_consent[:completionDate] = consent[:statusOfConsent][:completedDate]
+            new_consent[:currentReturn] = consent[:statusOfConsent][:current]
+            new_consent[:previousReturn] = consent[:statusOfConsent][:previousReturn]
+            new_consent[:varianceAgainstBaseline] = consent[:statusOfConsent][:varianceAgainstBaseline]
+            new_consent[:varianceAgainstLastReturn] = consent[:statusOfConsent][:varianceAgainstLastReturn]
+            new_consent[:varianceReason] = consent[:statusOfConsent][:reason]
+          end
+          new_consent
+        end
+      end
     end
 
     new_planning
@@ -351,7 +382,7 @@ class UI::UseCase::ConvertUIHIFReturn
   def convert_funding_packages
     return if @return[:fundingPackages].nil?
     @converted_return[:fundingPackages] = @return[:fundingPackages].map do |package|
-      
+
       next if package[:fundingStack].nil?
 
       new_package = {
@@ -404,10 +435,10 @@ class UI::UseCase::ConvertUIHIFReturn
           }
         end
       end
-      unless package[:fundingStack][:fundedThroughHIF].nil? 
+      unless package[:fundingStack][:fundedThroughHIF].nil?
         new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF][:fundedThroughHIFCurrent]
         new_package[:fundingStack][:fundedThroughHIFbaseline] = package[:fundingStack][:fundedThroughHIF][:fundedThroughHIFbaseline]
-        
+
         unless package[:fundingStack][:fundedThroughHIF][:anyChange].nil?
           new_package[:fundingStack][:anyChange] = {
             confirmation: package[:fundingStack][:fundedThroughHIF][:anyChange][:confirmation],
@@ -933,7 +964,7 @@ class UI::UseCase::ConvertUIHIFReturn
     return if @return[:outputsActuals].nil?
     @converted_return[:outputsActuals] = @return[:outputsActuals].map do |site_output|
       new_site_output = {}
-      
+
       next if site_output[:siteOutputs].nil?
 
       unless site_output[:siteOutputs][:details].nil?
@@ -941,7 +972,7 @@ class UI::UseCase::ConvertUIHIFReturn
         new_site_output[:noOfUnits] = site_output[:siteOutputs][:details][:noOfUnits]
         new_site_output[:size] = site_output[:siteOutputs][:details][:size]
       end
-  
+
       unless site_output[:siteOutputs][:starts].nil?
         unless site_output[:siteOutputs][:starts][:starts].nil?
           new_site_output[:previousStarts] = site_output[:siteOutputs][:starts][:starts][:previousStarts]
@@ -952,19 +983,19 @@ class UI::UseCase::ConvertUIHIFReturn
           new_site_output[:currentCompletions] = site_output[:siteOutputs][:starts][:starts][:currentCompletions]
         end
       end
-  
+
       unless site_output[:siteOutputs][:ownership].nil?
         new_site_output[:laOwned] = site_output[:siteOutputs][:ownership][:laOwned]
         new_site_output[:pslLand] = site_output[:siteOutputs][:ownership][:pslLand]
       end
-  
+
       unless site_output[:siteOutputs][:percentages].nil?
         new_site_output[:brownfieldPercent] = site_output[:siteOutputs][:percentages][:brownfieldPercent]
         new_site_output[:leaseholdPercent] = site_output[:siteOutputs][:percentages][:leaseholdPercent]
         new_site_output[:smePercent] = site_output[:siteOutputs][:percentages][:smePercent]
         new_site_output[:mmcPercent] = site_output[:siteOutputs][:percentages][:mmcPercent]
       end
-      
+
       new_site_output
     end
   end
@@ -976,14 +1007,14 @@ class UI::UseCase::ConvertUIHIFReturn
     unless @return[:reviewAndAssurance][0][:rmReview].nil?
       @converted_return[:reviewAndAssurance][:date] = @return[:reviewAndAssurance][0][:rmReview][:date]
       @converted_return[:reviewAndAssurance][:assuranceManagerAttendance] = @return[:reviewAndAssurance][0][:rmReview][:assuranceManagerAttendance]
-      @converted_return[:reviewAndAssurance][:meetingsAttended] = @return[:reviewAndAssurance][0][:rmReview][:meetingsAttended]    
-      @converted_return[:reviewAndAssurance][:overviewOfEngagement] = @return[:reviewAndAssurance][0][:rmReview][:overviewOfEngagement]    
-      @converted_return[:reviewAndAssurance][:issuesToRaise] = @return[:reviewAndAssurance][0][:rmReview][:issuesToRaise]    
-      @converted_return[:reviewAndAssurance][:reviewComplete] = @return[:reviewAndAssurance][0][:rmReview][:reviewComplete]    
-      
-      
+      @converted_return[:reviewAndAssurance][:meetingsAttended] = @return[:reviewAndAssurance][0][:rmReview][:meetingsAttended]
+      @converted_return[:reviewAndAssurance][:overviewOfEngagement] = @return[:reviewAndAssurance][0][:rmReview][:overviewOfEngagement]
+      @converted_return[:reviewAndAssurance][:issuesToRaise] = @return[:reviewAndAssurance][0][:rmReview][:issuesToRaise]
+      @converted_return[:reviewAndAssurance][:reviewComplete] = @return[:reviewAndAssurance][0][:rmReview][:reviewComplete]
+
+
       unless @return[:reviewAndAssurance][0][:rmReview][:infrastructureDelivery].nil?
-        @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][0][:rmReview][:infrastructureDelivery].map do |delivery|
+        @converted_return[:reviewAndAssurance][:infrastructureDeliveries] = @return[:reviewAndAssurance][0][:rmReview][:infrastructureDelivery].map do |delivery|
           new_delivery = {
             infrastructureDesc: delivery[:infrastructureDesc]
           }
@@ -1034,7 +1065,7 @@ class UI::UseCase::ConvertUIHIFReturn
     end
 
     unless @return[:reviewAndAssurance][0][:assuranceReview].nil?
-      @converted_return[:reviewAndAssurance][:assuranceReview] = @return[:reviewAndAssurance][0][:assuranceReview] 
+      @converted_return[:reviewAndAssurance][:assuranceReview] = @return[:reviewAndAssurance][0][:assuranceReview]
     end
   end
 

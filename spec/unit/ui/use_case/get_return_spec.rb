@@ -10,7 +10,8 @@ describe UI::UseCase::GetReturn do
           type: 'cat',
           project_id: 2,
           status: 'Meow',
-          updates: [{ dog: 'woof' }, { dog: 'woof' }]
+          updates: [{ dog: 'woof' }, { dog: 'woof' }],
+          no_of_previous_returns: 5
         }
       )
     end
@@ -43,6 +44,10 @@ describe UI::UseCase::GetReturn do
       expect(response[:status]).to eq('Meow')
     end
 
+    it 'Returns the number of previous returns from the get return use case' do
+      expect(response[:no_of_previous_returns]).to eq(5)
+    end
+
     it 'Calls the convert core return use case with the data' do
       expect(convert_core_return_spy).to(
         have_received(:execute)
@@ -65,7 +70,8 @@ describe UI::UseCase::GetReturn do
           type: 'dog',
           project_id: 7,
           status: 'Woof',
-          updates: [{ duck: 'quack' }, { duck: 'quack' }]
+          updates: [{ duck: 'quack' }, { duck: 'quack' }],
+          no_of_previous_returns: 8
         }
       )
     end
@@ -108,6 +114,10 @@ describe UI::UseCase::GetReturn do
 
     it 'returns converted returns' do
       expect(response[:updates]).to eq([{ goat: 'meh' }, { goat: 'meh' }])
+    end
+
+    it 'Returns the number of previous returns from the get return use case' do
+      expect(response[:no_of_previous_returns]).to eq(8)
     end
   end
 end

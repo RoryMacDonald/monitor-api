@@ -15,11 +15,15 @@ describe 'Validates HIF return' do
       )
     end
 
-    it 'should return valid if it passes validation' do
+    it 'should return invalid if it fails validation' do
       valid_return = get_use_case(:validate_return).execute(type: 'hif', return_data: project_base_return)
-      expect(valid_return[:valid]).to eq(true)
-      expect(valid_return[:invalid_paths]).to eq([])
-      expect(valid_return[:pretty_invalid_paths]).to eq([])
+      expect(valid_return[:valid]).to eq(false)
+      expect(valid_return[:invalid_paths]).to eq([
+        [:infrastructures, 0, :planning, :outlinePlanning, :planningSubmitted, :percentComplete]
+      ])
+      expect(valid_return[:pretty_invalid_paths]).to eq([
+        ['HIF Project', 'Infrastructures', 'Infrastructure 1', 'Planning', 'Outline Planning', 'Planning Permission Submitted', 'Percent Complete']
+      ])
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Common::UseCase::GetTemplatePathTitles do
   let(:template_schema) { {} }
   let(:found_template) do
@@ -17,7 +19,7 @@ describe Common::UseCase::GetTemplatePathTitles do
           properties:
           {
             noise: {
-              title: "Noise"
+              title: 'Noise'
             }
           }
         }
@@ -25,7 +27,7 @@ describe Common::UseCase::GetTemplatePathTitles do
 
       it 'gets the correct path names' do
         path_titles = use_case.execute(path: [:noise], schema: template_schema)[:path_titles]
-        expect(path_titles).to eq(['template', 'Noise'])
+        expect(path_titles).to eq(%w[template Noise])
       end
     end
 
@@ -45,7 +47,7 @@ describe Common::UseCase::GetTemplatePathTitles do
 
       it 'gets the correct path titles' do
         path_titles = use_case.execute(path: [:dog], schema: template_schema)[:path_titles]
-        expect(path_titles).to eq(['Head','Body'])
+        expect(path_titles).to eq(%w[Head Body])
       end
     end
   end
@@ -368,6 +370,58 @@ describe Common::UseCase::GetTemplatePathTitles do
     end
   end
 
+  context 'top level array schema with some missing titles' do
+    context 'example 1' do
+      let(:template_schema) do
+        {
+          type: 'array',
+          title: 'Infras',
+          items:
+          {
+            type: 'object',
+            title: 'Infra',
+            properties: {
+              summary: {
+                type: 'object',
+                title: 'Summary'
+              }
+            }
+          }
+        }
+      end
+
+      it 'gets the correct path titles' do
+        path_titles = use_case.execute(path: [0, :summary], schema: template_schema)[:path_titles]
+        expect(path_titles).to eq(['Infras', 'Infra 1', 'Summary'])
+      end
+    end
+
+    context 'example 2' do
+      let(:template_schema) do
+        {
+          type: 'array',
+          title: 'Animals',
+          items:
+          {
+            type: 'object',
+            title: 'Dog',
+            properties: {
+              noise: {
+                type: 'object',
+                title: 'Noise'
+              }
+            }
+          }
+        }
+      end
+
+      it 'gets the correct path titles' do
+        path_titles = use_case.execute(path: [1, :noise], schema: template_schema)[:path_titles]
+        expect(path_titles).to eq(['Animals', 'Dog 2', 'Noise'])
+      end
+    end
+  end
+
   context 'simple dependency schema' do
     context 'example 1' do
       let(:template_schema) do
@@ -399,7 +453,7 @@ describe Common::UseCase::GetTemplatePathTitles do
 
       it 'gets the correct path titles' do
         path_titles = use_case.execute(path: %i[cat], schema: template_schema)[:path_titles]
-        expect(path_titles).to eq(['header', 'Cats'])
+        expect(path_titles).to eq(%w[header Cats])
       end
     end
 
@@ -433,7 +487,7 @@ describe Common::UseCase::GetTemplatePathTitles do
 
       it 'gets the correct path titles' do
         path_titles = use_case.execute(path: %i[dog], schema: template_schema)[:path_titles]
-        expect(path_titles).to eq(['cats', 'dog'])
+        expect(path_titles).to eq(%w[cats dog])
       end
     end
   end
@@ -545,7 +599,7 @@ describe Common::UseCase::GetTemplatePathTitles do
 
       it 'gets the correct path titles' do
         path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
-        expect(path_titles).to eq(['Optional', 'Cats', 'Cat', 'Noise'])
+        expect(path_titles).to eq(%w[Optional Cats Cat Noise])
       end
     end
 
@@ -655,7 +709,7 @@ describe Common::UseCase::GetTemplatePathTitles do
 
       it 'gets the correct path titles' do
         path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
-        expect(path_titles).to eq(['Optional', 'Cats', 'Cat', 'Noise'])
+        expect(path_titles).to eq(%w[Optional Cats Cat Noise])
       end
     end
 
@@ -782,14 +836,14 @@ describe Common::UseCase::GetTemplatePathTitles do
                   }
                 }
               ]
-            },
+            }
           }
         }
       end
 
       it 'gets the correct path titles' do
         path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
-        expect(path_titles).to eq(['Optional', 'Cats', 'Cat', 'Noise'])
+        expect(path_titles).to eq(%w[Optional Cats Cat Noise])
       end
     end
 

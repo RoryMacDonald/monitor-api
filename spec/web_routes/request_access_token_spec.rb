@@ -41,12 +41,12 @@ describe 'requesting an access token' do
   let(:url) { 'http://catscatscats.cat' }
 
   before do
-    post '/token/request', { email_address: valid_email, url: url, project_id: project_id}.to_json
+    post '/token/request', { email_address: valid_email, url: url}.to_json
   end
 
   context 'Example one' do
     it 'checks email address' do
-      expect(check_email_spy).to have_received(:execute).with(email_address: valid_email, project_id: 1)
+      expect(check_email_spy).to have_received(:execute).with(email_address: valid_email)
     end
 
     context 'given a valid email address' do
@@ -55,7 +55,7 @@ describe 'requesting an access token' do
       end
 
       it 'run the create access token use case' do
-        expect(create_token_spy).to have_received(:execute).with(project_id: 1, email: valid_email)
+        expect(create_token_spy).to have_received(:execute).with(email: valid_email)
       end
 
       it 'passes email address and url to send notification use case' do
@@ -82,11 +82,10 @@ describe 'requesting an access token' do
   end
 
   context 'Example two' do
-    let(:project_id) { '5' }
     let(:url) { 'http://dogsdogsdogs.cat' }
 
     it 'checks email address' do
-      expect(check_email_spy).to have_received(:execute).with(email_address: valid_email, project_id: 5)
+      expect(check_email_spy).to have_received(:execute).with(email_address: valid_email)
     end
 
     context 'given a valid email address' do
@@ -95,7 +94,7 @@ describe 'requesting an access token' do
       end
 
       it 'run the create access token use case' do
-        expect(create_token_spy).to have_received(:execute).with(project_id: 5, email: valid_email)
+        expect(create_token_spy).to have_received(:execute).with(email: valid_email)
       end
 
       it 'passes email address and url to send notification use case' do

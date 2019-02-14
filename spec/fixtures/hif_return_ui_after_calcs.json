@@ -71,15 +71,18 @@
           "anyStatutoryConsents": "Yes",
           "statutoryConsents": [
             {
-              "baselineCompletion": "2020-01-01",
               "detailsOfConsent": "A consent",
-              "varianceAgainstBaseline": "4",
-              "varianceAgainstLastReturn": "56",
-              "statusAgainstLastReturn": "On schedule",
-              "currentReturn": "Oasis",
-              "varianceReason": "Monolos",
-              "percentComplete": "78",
-              "completionDate": "2022-07-08"
+              "statusOfConsent": {
+                "baseline": "2020-01-01",
+                "varianceAgainstBaseline": "4",
+                "varianceAgainstLastReturn": "56",
+                "status": "On schedule",
+                "current": "Oasis",
+                "previousReturn": "12",
+                "reason": "Monolos",
+                "percentComplete": "78",
+                "completedDate": "2022-07-08"
+              }
             }
           ]
         },

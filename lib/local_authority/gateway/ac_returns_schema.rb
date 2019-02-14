@@ -203,6 +203,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                             baseline: {
                               type: 'string',
                               title: 'Baseline',
+                              sourceKey: %i[
+                                baseline_data
+                                summary
+                                sitesSummary
+                                hiddenSchemePace
+                              ],
                               readonly: true
                             },
                             latestEstimate: {
@@ -234,8 +240,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               percentage: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catA
                               ]
                             },
@@ -258,8 +265,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               percentage: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catB
                               ]
                             },
@@ -282,8 +290,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               readonly: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catC
                               ]
                             },
@@ -306,8 +315,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               readonly: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catD
                               ]
                             },
@@ -330,8 +340,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               readonly: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catE
                               ]
                             },
@@ -397,8 +408,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            surveysAndDueDiligence
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             commencementOfDueDiligence
                                           ],
                                           readonly: true
@@ -500,8 +512,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            surveysAndDueDiligence
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             completionOfSurveys
                                           ],
                                           readonly: true
@@ -603,8 +616,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            procurementProvision
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             procurementOfWorksCommencementDate
                                           ],
                                           readonly: true
@@ -706,8 +720,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            procurementProvision
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             provisionOfDetailedWorks
                                           ],
                                           readonly: true
@@ -809,8 +824,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            worksDate
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             commencementDate
                                           ],
                                           readonly: true
@@ -912,8 +928,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            worksDate
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             completionDate
                                           ],
                                           readonly: true
@@ -999,7 +1016,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       title: 'Date completed?',
                                       format: 'date'
                                     },
-                                    planninfReferenceNumber: {
+                                    planningReferenceNumber: {
                                       type: 'string',
                                       title: 'Planning Reference Number'
                                     }
@@ -1019,8 +1036,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            outlinePlanning
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             outlinePlanningGrantedDate
                                           ],
                                           readonly: true
@@ -1126,8 +1144,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            outlinePlanning
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             reservedMatterPermissionGrantedDate
                                           ],
                                           readonly: true
@@ -1229,7 +1248,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             marketingCommenced
                                           ],
                                           readonly: true
@@ -1336,8 +1357,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            contractSigned
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             conditionalContractSigned
                                           ],
                                           readonly: true
@@ -1439,8 +1461,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            contractSigned
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             unconditionalContractSigned
                                           ],
                                           readonly: true
@@ -1542,8 +1565,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            workDates
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             startOnSiteDate
                                           ],
                                           readonly: true
@@ -1645,8 +1669,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            workDates
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             startOnFirstUnitDate
                                           ],
                                           readonly: true
@@ -1748,8 +1773,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            completionDates
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             completionOfFinalUnitData
                                           ],
                                           readonly: true
@@ -1851,8 +1877,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            completionDates
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             projectCompletionDate
                                           ],
                                           readonly: true
@@ -1924,7 +1951,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                             title: 'Name of custom milestone',
                             sourceKey: %i[
                               baseline_data
-                              milestones
+                              summary
+                              sitesSummary
+                              hiddenMilestones
                               customMileStones
                               customTitle
                             ]
@@ -1967,7 +1996,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                             title: 'Baseline Date',
                                             sourceKey: %i[
                                               baseline_data
-                                              milestones
+                                              summary
+                                              sitesSummary
+                                              hiddenMilestones
                                               customMileStones
                                               customDate
                                             ],
@@ -2386,6 +2417,11 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   type: 'string',
                   title: 'Reason for change/variance, and steps being taken to address this',
                   extendedText: true
+                },
+                evidenceUpload: {
+                  type: "string",
+                  title: "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders.",
+                  uploadFile: "multiple"
                 }
               }
             }
@@ -2422,6 +2458,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
               title: 'Amount of this Claim',
               s151WriteOnly: true,
               currency: true
+            },
+            conditionsToGrantDrawdown: {
+              type: "string",
+              title: "Conditions precedent to draw down of grant",
+              uploadFile: "multiple",
+              description: "If you have conditions to meet before you can draw down grant, please email any evidence for meeting these to your Homes England projects lead, or attach the documents below."
             }
           }
         },
@@ -2450,13 +2492,6 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   type: 'string',
                   s151WriteOnly: true,
                   extendedText: true
-                },
-                evidenceOfSpendNextQuarter: {
-                  title: "Evidence of Spend for the Past Quarter.",
-                  description: "Evidence can include contract/ quotes. Please attach here.",
-                  uploadFile: "multiple",
-                  type: "string",
-                  s151WriteOnly: true
                 }
               }
             }
@@ -2561,8 +2596,8 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                       readonly: true
                     },
                     riskRating: {
-                      type: 'string', 
-                      title: 'Total', 
+                      type: 'string',
+                      title: 'Total',
                       enum: [
                         'Already Achieved',
                         'Low',
@@ -2606,6 +2641,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                             type: 'string',
                             title: 'Reason for change/variance, and steps being taken to address this',
                             extendedText: true
+                          },
+                          upload: {
+                            type: "string",
+                            title: "Evidence",
+                            description: "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders, soft market testing or planning",
+                            uploadFile: "multiple"
                           }
                         }
                       }
@@ -2675,12 +2716,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   s151WriteOnly: true,
                   radio: true
                 },
-                noOtherGrantFundin: {
+                noOtherGrantFunding: {
                   type: 'string',
                   title: 'That no other Grant Funding Agreement conditions have been breached.',
                   enum: ['Yes', 'No'],
                   s151WriteOnly: true,
                   radio: true
+                },
+                signature: {
+                  type: "string",
+                  title: "Please attach your signature",
+                  uploadFile: "multiple"
                 }
               }
             }
@@ -2823,6 +2869,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                 'Low',
                 'Contractual'
               ]
+            }
+          }
+        },
+        heAuthorisation: {
+          type: 'object',
+          title: 'Homes England Authorisation',
+          properties: {
+            heAuthoriser: {
+              type: 'string',
+              title: 'Authorised by:',
+              laReadOnly: true
             }
           }
         }

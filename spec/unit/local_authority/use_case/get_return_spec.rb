@@ -12,7 +12,7 @@ describe LocalAuthority::UseCase::GetReturn do
   end
 
   let(:calculate_return_spy) do
-    spy(execute: {calculated_return: {}})
+    spy(execute: { calculated_return: {} })
   end
 
   let(:get_returns_spy) do
@@ -77,12 +77,10 @@ describe LocalAuthority::UseCase::GetReturn do
       end
     end
 
-
-
     let(:return_updates) do
       [
         LocalAuthority::Domain::ReturnUpdate.new.tap do |u|
-          u.data = { dogs: 'woof'}
+          u.data = { dogs: 'woof' }
         end
       ]
     end
@@ -156,21 +154,21 @@ describe LocalAuthority::UseCase::GetReturn do
     end
     let(:calculate_return_spy) do
       spy(execute: {
-        calculated_return: {
-          dogs: 'woof',
-          infrastructures: {
-            planning: {
-              planningNotGranted: {
-                varianceCalculations: {
-                  varianceAgainstLastReturn: {
-                    varianceLastReturnFullPlanningPermissionSubmitted: nil
+            calculated_return: {
+              dogs: 'woof',
+              infrastructures: {
+                planning: {
+                  planningNotGranted: {
+                    varianceCalculations: {
+                      varianceAgainstLastReturn: {
+                        varianceLastReturnFullPlanningPermissionSubmitted: nil
+                      }
+                    }
                   }
                 }
               }
             }
-          }
-        }
-      })
+          })
     end
 
     it 'will return the calculated data in the latest update' do
@@ -188,6 +186,55 @@ describe LocalAuthority::UseCase::GetReturn do
           }
         }
       )
+    end
+
+    context 'given there is a previous submitted return' do
+      let(:get_returns_spy) do
+        spy(execute: {
+                        returns:
+                          [{
+                            id: 1,
+                            project_id: 2,
+                            status: 'Submitted',
+                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+                          },
+                          {
+                            id: 3,
+                            project_id: 2,
+                            status: 'Submitted',
+                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+                          },
+                          {
+                            id: 5,
+                            project_id: 2,
+                            status: 'Submitted',
+                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+                          },
+                          {
+                            id: 9,
+                            project_id: 2,
+                            status: 'Submitted',
+                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+                          },
+                          {
+                            id: 12,
+                            project_id: 2,
+                            status: 'Submitted',
+                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+                          },
+                          {
+                            id: 15,
+                            project_id: 2,
+                            status: 'Submitted',
+                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+                          }]
+        })
+      end
+      it 'will return the number of previous returns in the response' do
+        expect(response[:no_of_previous_returns]).to eq(
+          4
+        )
+      end
     end
   end
 
@@ -233,7 +280,7 @@ describe LocalAuthority::UseCase::GetReturn do
 
     context 'given one update' do
       let(:calculate_return_spy) do
-        spy(execute: { calculated_return: {dogs: 'woof'} })
+        spy(execute: { calculated_return: { dogs: 'woof' } })
       end
 
       let(:return_updates) do
@@ -251,7 +298,7 @@ describe LocalAuthority::UseCase::GetReturn do
 
     context 'given two updates' do
       let(:calculate_return_spy) do
-        spy(execute: {calculated_return: {cows: 'moo'}})
+        spy(execute: { calculated_return: { cows: 'moo' } })
       end
 
       let(:return_updates) do
@@ -352,6 +399,32 @@ describe LocalAuthority::UseCase::GetReturn do
             previous_return: { cats: 'meow' }
           )
         end
+      end
+    end
+
+    context 'given there are two previous submitted return' do
+      let(:get_returns_spy) do
+        spy(execute: {
+                        returns:
+                          [{
+                            id: 1,
+                            project_id: 2,
+                            status: 'Submitted',
+                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+                          },
+                          {
+                            id: 2,
+                            project_id: 2,
+                            status: 'Submitted',
+                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+                          }]
+        })
+      end
+
+      it 'will return the number of previous returns in the response' do
+        expect(response[:no_of_previous_returns]).to eq(
+          2
+        )
       end
     end
   end

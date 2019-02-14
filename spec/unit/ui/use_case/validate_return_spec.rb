@@ -913,6 +913,8 @@ describe UI::UseCase::ValidateReturn do
 
   context 'single dependency' do
     context 'example 1' do
+      it_should_behave_like 'required field validation'
+
       let(:template) do
         Common::Domain::Template.new.tap do |p|
           p.schema = {
@@ -965,26 +967,14 @@ describe UI::UseCase::ValidateReturn do
       let(:valid_return_data) do
         {
           percentComplete: 'Yes',
-          planningSubmitted: {}
+          planningSubmitted: {dogs: 'hi'}
         }
       end
 
-      context 'given a valid return' do
-        it 'should return a hash with a valid field as true' do
-          return_value = use_case.execute(type: project_type, return_data: valid_return_data)
-          expect(return_value[:valid]).to eq(true)
-        end
+      let(:invalid_return_data) {{ percentComplete: 'Yes', planningSubmitted: {}}}
+      let(:invalid_return_data_paths) { [[:planningSubmitted, :dogs]] }
+      let(:invalid_return_data_pretty_paths) { [['Planning Submitted', 'Dogs']] }
 
-        it 'should have no paths' do
-          return_value = use_case.execute(type: project_type, return_data: valid_return_data)
-          expect(return_value[:invalid_paths]).to eq([])
-        end
-
-        it 'should return no pretty paths' do
-          return_value = use_case.execute(type: project_type, return_data: valid_return_data)
-          expect(return_value[:pretty_invalid_paths]).to eq([])
-        end
-      end
     end
   end
 end

@@ -271,7 +271,7 @@
     }
   },
   "reviewAndAssurance": {
-    "infrastructureDelivery": [
+    "infrastructureDeliveries": [
       {
         "infrastructureDesc": "A house of cats"
       }

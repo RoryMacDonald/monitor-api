@@ -218,12 +218,10 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "Completed Date"
                               },
                               "onCompletedReference": {
                                 "type": "string",
-                                "readonly": true,
                                 "title": "Completed Reference"
                               }
                             }
@@ -291,7 +289,6 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "Completed Date"
                               }
                             }
@@ -421,12 +418,10 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "Completed Date"
                               },
                               "onCompletedReference": {
                                 "type": "string",
-                                "readonly": true,
                                 "title": "Completed Reference"
                               }
                             }
@@ -494,7 +489,6 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "Completed Date"
                               }
                             }
@@ -604,117 +598,91 @@
                                   "type": "string",
                                   "readonly": true
                                 },
-                                "baselineCompletion": {
-                                  "title": "Baseline Target",
-                                  "type": "string",
-                                  "format": "date",
-                                  "sourceKey": [
-                                    "baseline_data",
-                                    "infrastructures",
-                                    "statutoryConsents",
-                                    "consents",
-                                    "targetDateToBeMet"
-                                  ],
-                                  "readonly": true
-                                },
-                                "statusAgainstLastReturn": {
-                                  "title": "Status against last return?",
-                                  "type": "string",
-                                  "radio": true,
-                                  "enum": [
-                                    "Completed",
-                                    "On schedule",
-                                    "Delayed - minimal impact",
-                                    "Delayed - moderate impact",
-                                    "Delayed - critical"
-                                  ],
-                                  "default": "On schedule"
-                                }
-                              },
-                              "dependencies": {
-                                "statusAgainstLastReturn": {
-                                  "oneOf": [
-                                    {
-                                      "properties": {
-                                        "statusAgainstLastReturn": {
-                                          "enum": ["On schedule"]
-                                        },
-                                        "percentComplete": {
-                                          "title": "Percentage complete",
-                                          "type": "string",
-                                          "percentage": true
-                                        }
-                                      }
+                                "statusOfConsent": {
+                                  "type": "object",
+                                  "title": "Status of Consent",
+                                  "variance": true,
+                                  "properties": {
+                                    "baseline": {
+                                      "title": "Baseline Target",
+                                      "type": "string",
+                                      "format": "date",
+                                      "sourceKey": [
+                                        "baseline_data",
+                                        "infrastructures",
+                                        "statutoryConsents",
+                                        "consents",
+                                        "targetDateToBeMet"
+                                      ],
+                                      "readonly": true
                                     },
-                                    {
-                                      "properties": {
-                                        "statusAgainstLastReturn": {
-                                          "enum": ["Completed"]
-                                        },
-                                        "completionDate": {
-                                          "title": "Completion date",
-                                          "type": "string",
-                                          "format": "date",
-                                          "readonly": true
-                                        },
-                                        "percentComplete": {
-                                          "title": "Percentage complete",
-                                          "type": "string",
-                                          "percentage": true
-                                        }
-                                      }
+                                    "status": {
+                                      "title": "Status against last return?",
+                                      "type": "string",
+                                      "radio": true,
+                                      "enum": [
+                                        "Completed",
+                                        "On schedule",
+                                        "Delayed - minimal impact",
+                                        "Delayed - moderate impact",
+                                        "Delayed - critical"
+                                      ],
+                                      "default": "On schedule"
                                     },
-                                    {
-                                      "properties": {
-                                        "statusAgainstLastReturn": {
-                                          "enum": ["Delayed"]
-                                        },
-                                        "currentReturn": {
-                                          "title": "Current return",
-                                          "type": "string",
-                                          "format": "date",
-                                          "sourceKey": [
-                                            "return_data",
-                                            "infrastructures",
-                                            "planning",
-                                            "section106",
-                                            "statutoryConsents",
-                                            "statutoryConsents",
-                                            "currentReturn"
-                                          ]
-                                        },
-                                        "previousReturn": {
-                                          "title": "Previous Return",
-                                          "readonly": true,
-                                          "type": "string",
-                                          "format": "date",
-                                          "sourceKey": [
-                                            "return_data",
-                                            "infrastructures",
-                                            "planning",
-                                            "section106",
-                                            "statutoryConsents",
-                                            "statutoryConsents",
-                                            "currentReturn"
-                                          ]
-                                        },
-                                        "varianceAgainstBaseline": {
-                                          "title": "Variance Against Baseline (weeks) (Calculated)",
-                                          "type": "string",
-                                          "readonly": true
-                                        },
-                                        "varianceAgainstLastReturn": {
-                                          "title": "Variance Against Last Return (weeks) (Calculated)",
-                                          "type": "string",
-                                          "readonly": true
-                                        },
-                                        "varianceReason": {
-                                          "title": "Reason for variance",
-                                          "type": "string"
-                                        }
-                                      }
+                                    "percentComplete": {
+                                      "title": "Percentage complete",
+                                      "type": "string",
+                                      "percentage": true
+                                    },
+                                    "completedDate": {
+                                      "title": "Completion date",
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "current": {
+                                      "title": "Current return",
+                                      "type": "string",
+                                      "format": "date",
+                                      "sourceKey": [
+                                        "return_data",
+                                        "infrastructures",
+                                        "planning",
+                                        "section106",
+                                        "statutoryConsents",
+                                        "statutoryConsents",
+                                        "currentReturn"
+                                      ]
+                                    },
+                                    "previousReturn": {
+                                      "title": "Previous Return",
+                                      "readonly": true,
+                                      "type": "string",
+                                      "format": "date",
+                                      "sourceKey": [
+                                        "return_data",
+                                        "infrastructures",
+                                        "planning",
+                                        "section106",
+                                        "statutoryConsents",
+                                        "statutoryConsents",
+                                        "currentReturn"
+                                      ]
+                                    },
+                                    "varianceAgainstBaseline": {
+                                      "title": "Variance Against Baseline (weeks) (Calculated)",
+                                      "type": "string",
+                                      "readonly": true
+                                    },
+                                    "varianceAgainstLastReturn": {
+                                      "title": "Variance Against Last Return (weeks) (Calculated)",
+                                      "type": "string",
+                                      "readonly": true
+                                    },
+                                    "reason": {
+                                      "title": "Reason for variance",
+                                      "type": "string"
                                     }
-                                  ]
+                                  }
                                 }
                               }
                             }
@@ -7227,7 +7195,7 @@
           "assuranceReview": {
             "type": "object",
             "title": "Assurance Review",
-            "calculation": "set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['infrastructureDesc'], get(formData, 'infrastructureDeliveryAssurance'))); set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['reviewDetails'], get(formData, 'infrastructureDeliveryAssurance')));",
+            "calculation": "set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['infrastructureDesc'], get(formData, 'infrastructureDeliveryAssurance'), ['infrastructureDesc'])); set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['reviewDetails'], get(formData, 'infrastructureDeliveryAssurance'), ['reviewDetails']));",
             "description": "Only to be completed by the assurance team. This page will only become available when the RM review is complete.",
             "properties": {
               "assuranceManagerAttendance": {
