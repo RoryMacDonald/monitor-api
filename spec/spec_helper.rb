@@ -8,6 +8,13 @@ require 'pry'
 require 'webmock/rspec'
 require_relative 'database_context'
 
+def stub_instances(classname, instance)
+  stub_const(
+    classname.to_s,
+    double(new: instance)
+  )
+end
+
 RSpec.configure do |config|
   database = DatabaseAdministrator::Postgres.new.fresh_database
 

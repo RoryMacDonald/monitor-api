@@ -1,7 +1,7 @@
 class LocalAuthority::UseCase::ApiToPcsKey
   def execute(api_key:)
     payload = get_payload(api_key)
-    {pcs_key: JWT.encode(payload, ENV['PCS_SECRET'], 'HS512') }
+    { pcs_key: JWT.encode(payload, ENV['PCS_SECRET'], 'HS512') }
   end
 
   private

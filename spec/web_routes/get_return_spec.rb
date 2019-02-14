@@ -3,7 +3,9 @@
 require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
-describe 'Getting a return' do
+fdescribe 'Getting a return' do
+  let(:check_api_key_spy) { double(execute: {valid: true}) }
+  let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.m.f" })}
   let(:get_return_spy) { spy(execute: returned_hash) }
   let(:get_schema_for_return_spy) { spy(execute: returned_schema) }
   let(:type) { '' }
@@ -11,20 +13,10 @@ describe 'Getting a return' do
   let(:returned_schema) { { schema: { cats: 'string' } } }
 
   before do
-    stub_const(
-      'UI::UseCase::GetReturn',
-      double(new: get_return_spy)
-    )
-
-    stub_const(
-      'UI::UseCase::GetSchemaForReturn',
-      double(new: get_schema_for_return_spy)
-    )
-
-    stub_const(
-      'LocalAuthority::UseCase::CheckApiKey',
-      double(new: double(execute: {valid: true}))
-    )
+    stub_instances(LocalAuthority::UseCase::ApiToPcsKey, api_to_pcs_key_spy)
+    stub_instances(UI::UseCase::GetReturn, get_return_spy)
+    stub_instances(UI::UseCase::GetSchemaForReturn, get_schema_for_return_spy)
+    stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
   end
 
   it 'response of 400 when id parameter does not exist' do
@@ -35,6 +27,7 @@ describe 'Getting a return' do
 
   context 'Given one existing return' do
     context 'example 1' do
+      let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.m.f" })}
       let(:type) { 'ac' }
 
       let(:response_body) { JSON.parse(last_response.body) }
@@ -50,9 +43,15 @@ describe 'Getting a return' do
         )
       end
 
-      it 'passes the api key to GetReturn' do
-        expect(get_return_spy).to have_received(:execute).with(
+      it 'passes the api key to ApiToPcsKey' do
+        expect(api_to_pcs_key_spy).to have_received(:execute).with(
           hash_including(api_key: 'superSecret')
+        )
+      end
+
+      it 'passes the pcs key to GetReturn' do
+        expect(get_return_spy).to have_received(:execute).with(
+          hash_including(api_key: 'i.m.f')
         )
       end
 
@@ -96,6 +95,7 @@ describe 'Getting a return' do
     end
 
     context 'example 2' do
+      let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.s.s" })}
       let(:type) { 'hif' }
 
       let(:response_body) { JSON.parse(last_response.body) }
@@ -111,9 +111,15 @@ describe 'Getting a return' do
         )
       end
 
-      it 'passes the api key to GetReturn' do
+      it 'passes the api key to ApiToPcsKey' do
+        expect(api_to_pcs_key_spy).to have_received(:execute).with(
+          api_key: 'verySecret'
+        )
+      end
+
+      it 'passes the pcs key to GetReturn' do
         expect(get_return_spy).to have_received(:execute).with(
-          hash_including(api_key: 'verySecret')
+          hash_including(api_key: 'i.s.s')
         )
       end
 
