@@ -1,9 +1,9 @@
 require 'date'
 
 class LocalAuthority::UseCase::CreateApiKey
-  def execute(project_id:, email:, role:)
+  def execute(projects:, email:, role:)
     api_key = JWT.encode(
-      { project_id: project_id, email: email, exp: thirty_days_from_now, role: role },
+      { projects: projects, email: email, exp: thirty_days_from_now, role: role },
       ENV['HMAC_SECRET'],
       'HS512'
     )

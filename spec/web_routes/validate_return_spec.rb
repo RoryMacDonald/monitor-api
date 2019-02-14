@@ -48,14 +48,14 @@ describe 'Checking if Return is valid' do
 
     context 'example 1' do
       it 'runs the check api key use case' do
-        expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Cats', project_id: 0)
+        expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Cats', project_id: nil)
       end
     end
 
     context 'example 2' do
       let(:api_key) { 'Dogs' }
       it 'runs the check api key use case' do
-        expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Dogs', project_id: 0)
+        expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Dogs', project_id: nil)
       end
     end
 
