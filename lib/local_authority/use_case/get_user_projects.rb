@@ -25,6 +25,6 @@ class LocalAuthority::UseCase::GetUserProjects
   private
 
   def get_project_ids(user)
-    user.projects
+    user.projects.uniq
   end
 end

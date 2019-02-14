@@ -78,6 +78,14 @@ describe LocalAuthority::UseCase::GetUserProjects do
         status: 'unfinished'
       }])
     end
+
+    context 'Added to the same project twice' do
+    let(:project_ids) { [12, 12]}
+
+      it 'it will only return the project once' do
+        expect(response[:project_list].length).to eq(1)        
+      end
+    end
   end
 
   context 'Example 2' do
@@ -124,6 +132,14 @@ describe LocalAuthority::UseCase::GetUserProjects do
         type: 'dog',
         status:  'Draft'
       }])
+    end
+
+    context 'Added to the same project twice' do
+      let(:project_ids) { [55, 55, 55]}
+  
+      it 'it will only return the project once' do
+        expect(response[:project_list].length).to eq(1)        
+      end
     end
   end
 end
