@@ -65,7 +65,8 @@ class UI::UseCases
     builder.define_use_case :ui_create_project do
       UI::UseCase::CreateProject.new(
         create_project: builder.get_use_case(:create_new_project),
-        convert_ui_project: builder.get_use_case(:convert_ui_project)
+        convert_ui_project: builder.get_use_case(:convert_ui_project),
+        new_project_gateway: builder.get_gateway(:ui_new_project)
       )
     end
 

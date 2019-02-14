@@ -236,7 +236,7 @@ module DeliveryMechanism
     end
 
     post '/project/create' do
-      guard_admin_access env, params, request do |request_hash|
+      guard_access env, params, request do |request_hash|
         controller = DeliveryMechanism::Controllers::PostCreateProject.new(
           create_new_project: @dependency_factory.get_use_case(:ui_create_project)
         )

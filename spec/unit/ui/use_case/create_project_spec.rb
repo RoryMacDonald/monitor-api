@@ -4,10 +4,12 @@ describe UI::UseCase::CreateProject do
   context 'Example one' do
     let(:create_project_spy) { spy(execute: { id: 1 }) }
     let(:convert_ui_project_spy) { spy(execute: { cattos: 'purr' }) }
+    let(:new_project_gateway_spy) { spy(find_by: {data: 'new'})}
     let(:use_case) do
       described_class.new(
         create_project: create_project_spy,
-        convert_ui_project: convert_ui_project_spy
+        convert_ui_project: convert_ui_project_spy,
+        new_project_gateway: new_project_gateway_spy
       )
     end
     let(:response) do
@@ -59,15 +61,32 @@ describe UI::UseCase::CreateProject do
         have_received(:execute).with(hash_including(baseline: { cattos: 'purr' }))
       )
     end
+
+    context 'no baseline data' do
+      let(:blank_project_response) { use_case.execute(type: 'hif', name: 'Cats', baseline: nil) }
+      before { blank_project_response }
+
+      it 'calls the new project gateway with type' do
+          expect(new_project_gateway_spy).to have_received(:find_by).with(type: 'hif')
+      end
+      
+      it 'Ccreates the project with this baseline' do
+        expect(create_project_spy).to(
+          have_received(:execute).with(hash_including(baseline: {data: 'new'}))
+        )
+      end
+    end
   end
 
   context 'Example two' do
     let(:create_project_spy) { spy(execute: { id: 5 }) }
     let(:convert_ui_project_spy) { spy(execute: { dogs: 'woof' }) }
+    let(:new_project_gateway_spy) { spy(find_by: { newdata: '2' })}
     let(:use_case) do
       described_class.new(
         create_project: create_project_spy,
-        convert_ui_project: convert_ui_project_spy
+        convert_ui_project: convert_ui_project_spy,
+        new_project_gateway: new_project_gateway_spy
       )
     end
     let(:response) do
@@ -128,6 +147,21 @@ describe UI::UseCase::CreateProject do
       expect(create_project_spy).to(
         have_received(:execute).with(hash_including(baseline: { dogs: 'woof' }))
       )
+    end
+
+    context 'no baseline data' do
+      let(:blank_project_response) { use_case.execute(type: 'ac', name: 'Cats', baseline: nil) }
+      before { blank_project_response }
+      
+      it 'calls the new project gateway with type' do
+          expect(new_project_gateway_spy).to have_received(:find_by).with(type: 'ac')
+      end
+      
+      it 'returns this baselin' do
+        expect(create_project_spy).to(
+          have_received(:execute).with(hash_including(baseline: {newdata: '2'}))
+        ) 
+      end
     end
   end
 end
