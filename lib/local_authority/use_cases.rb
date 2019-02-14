@@ -2,6 +2,10 @@
 
 class LocalAuthority::UseCases
   def self.register(builder)
+    builder.define_use_case :api_to_pcs_key do
+      LocalAuthority::UseCase::ApiToPcsKey.new
+    end
+
     builder.define_use_case :find_path_data do
       LocalAuthority::UseCase::FindPathData.new
     end

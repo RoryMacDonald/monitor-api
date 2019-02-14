@@ -7,7 +7,7 @@ class LocalAuthority::UseCase::CheckApiKey
       api_key_role = payload['role']
 
       if project_id == api_key_project_id
-        { valid: true, email: api_key_email, role: api_key_role}
+        { valid: true, email: api_key_email, role: api_key_role }
       else
         { valid: false }
       end

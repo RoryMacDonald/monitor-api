@@ -9,16 +9,6 @@ describe 'Performing Return on HIF Project' do
   let(:pcs_url) { 'meow.cat' }
   let(:api_key) { 'C.B.R' }
 
-  before do
-    ENV['PCS'] = 'yes'
-    ENV['PCS_URL'] = pcs_url
-  end
-
-  after do
-    ENV['PCS'] = nil
-    ENV['PCS_URL'] = nil
-  end
-
   def get_return(id:)
     stub_request(:get, "http://#{pcs_url}/project/#{id}").to_return(
       status: 200,
@@ -111,6 +101,10 @@ describe 'Performing Return on HIF Project' do
   end
 
   before do
+    ENV['PCS'] = 'yes'
+    ENV['PCS_URL'] = pcs_url
+    ENV['API_SECRET'] = 'Secret 1'
+    ENV['PCS_SECRET'] = 'Secret 2'
     ENV['OUTPUTS_FORECAST_TAB'] = 'Yes'
     ENV['CONFIRMATION_TAB'] = 'Yes'
     ENV['S151_TAB'] = 'Yes'
@@ -124,10 +118,14 @@ describe 'Performing Return on HIF Project' do
   after do
     ENV['OUTPUTS_FORECAST_TAB'] = nil
     ENV['CONFIRMATION_TAB'] = nil
+    ENV['API_SECRET'] = nil
+    ENV['PCS_SECRET'] = nil
     ENV['S151_TAB'] = nil
     ENV['MR_REVIEW_TAB'] = nil
     ENV['OUTPUTS_ACTUALS_TAB'] = nil
     ENV['HIF_RECOVERY_TAB'] = nil
+    ENV['PCS'] = nil
+    ENV['PCS_URL'] = nil
   end
 
   it 'should keep track of Returns' do

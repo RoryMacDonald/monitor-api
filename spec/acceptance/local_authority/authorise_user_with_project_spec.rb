@@ -7,6 +7,7 @@ describe 'Authorises the user' do
   include_context 'dependency factory'
 
   before do
+    ENV['PCS_SECRET'] = 'Woof'
     ENV['HMAC_SECRET'] = 'Meow'
 
     get_use_case(:add_user).execute(email: 'cat@cathouse.com', role: 'HomesEngland')
@@ -27,6 +28,20 @@ describe 'Authorises the user' do
     it 'should create a valid api key for project 1' do
       api_key = get_use_case(:create_api_key).execute(project_id: 1, email: 'cat@cathouse.com', role: 'HomesEngland')[:api_key]
       expect(get_use_case(:check_api_key).execute(api_key: api_key, project_id: 1)).to eq(valid: true, email: 'cat@cathouse.com', role: 'HomesEngland')
+    end
+
+    it 'should create a valid pcs key for project 1' do
+      api_key = api_key = get_use_case(:create_api_key).execute(project_id: 1, email: 'cat@cathouse.com', role: 'Homes England')[:api_key]
+      pcs_key = get_use_case(:api_to_pcs_key).execute(api_key: api_key)[:pcs_key]
+      decoded_pcs_key = JWT.decode(
+        pcs_key,
+        'Woof',
+        true,
+        algorithm: 'HS512'
+      )[0]
+      expect(decoded_pcs_key['project_id']).to eq(1)
+      expect(decoded_pcs_key['email']).to eq('cat@cathouse.com')
+      expect(decoded_pcs_key['role']).to eq('Homes England')
     end
   end
 
