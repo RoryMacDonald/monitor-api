@@ -39,7 +39,8 @@
         },
         "changesRequired": {
           "changesConfirmation": "Request change to baseline to match latest estimates",
-          "reason": "blah"
+          "reason": "blah",
+          "upload": "fhdjakfhdjkashfjkdas"
         }
       },
       "milestonesAndProgress": {
