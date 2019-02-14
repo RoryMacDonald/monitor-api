@@ -2710,12 +2710,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   s151WriteOnly: true,
                   radio: true
                 },
-                noOtherGrantFundin: {
+                noOtherGrantFunding: {
                   type: 'string',
                   title: 'That no other Grant Funding Agreement conditions have been breached.',
                   enum: ['Yes', 'No'],
                   s151WriteOnly: true,
                   radio: true
+                },
+                signature: {
+                  type: "string",
+                  title: "Please attach your signature",
+                  uploadFile: "multiple"
                 }
               }
             }
