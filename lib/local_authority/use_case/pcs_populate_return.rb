@@ -13,32 +13,13 @@ class LocalAuthority::UseCase::PcsPopulateReturn
       )
 
       unless pcs_data.actuals.nil?
-        return_data[:updates].last[:grantExpenditure] = {} if return_data.dig(:updates, -1, :grantExpenditure).nil?
-        existingClaimedToDate = return_data.dig(:updates, -1, :grantExpenditure, :claimedToDate).to_a
-        return_data[:updates].last[:grantExpenditure][:claimedToDate] = pcs_data.actuals.zip(existingClaimedToDate).map do |pcs, claim|
-          pulled_pcs_data = {
-            year: pcs.dig(:dateInfo, :period),
-            Q1Amount: pcs.dig(:payments, :currentYearPayments, 0).to_s,
-            Q2Amount: pcs.dig(:payments, :currentYearPayments, 1).to_s,
-            Q3Amount: pcs.dig(:payments, :currentYearPayments, 2).to_s,
-            Q4Amount: pcs.dig(:payments, :currentYearPayments, 3).to_s
-          }
-
-          merge_if_existing(claim, pulled_pcs_data)
+        total = pcs_data.actuals.reduce(0) do |sum, actual|
+          sum + actual.dig(:payments,:currentYearPayments).sum
         end
+        return_data[:updates][-1][:s151GrantClaimApproval] = {} if return_data[:s151GrantClaimApproval].nil?
+        return_data[:updates][-1][:s151GrantClaimApproval][:SpendToDate] = total.to_s
       end
     end
-
     return_data
-  end
-
-  private
-
-  def merge_if_existing(hash_to_merge, default)
-    if hash_to_merge.nil?
-      default
-    else
-      hash_to_merge.merge(default)
-    end
   end
 end

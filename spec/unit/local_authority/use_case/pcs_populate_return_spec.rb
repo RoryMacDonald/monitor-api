@@ -1,4 +1,4 @@
-describe LocalAuthority::UseCase::PcsPopulateReturn do
+fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
   context 'with PCS disabled' do
     before do
       ENV['PCS'] = nil
@@ -134,23 +134,8 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
                 updates: [
                   {
                     dog: 'woof',
-                    grantExpenditure: {
-                      claimedToDate: [
-                        {
-                          year: '2004/5',
-                          Q1Amount: '1',
-                          Q2Amount: '2',
-                          Q3Amount: '4',
-                          Q4Amount: '8'
-                        },
-                        {
-                          year: '2005/6',
-                          Q1Amount: '128',
-                          Q2Amount: '256',
-                          Q3Amount: '512',
-                          Q4Amount: '1024'
-                        }
-                      ]
+                    s151GrantClaimApproval: {
+                      SpendToDate: '1935'
                     }
                   }
                 ]
@@ -205,13 +190,7 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
               status: 'Draft',
               updates: [{ dog: 'woof' }, {
                 dog: 'woof',
-                grantExpenditure: {
-                  claimedToDate: [
-                    {
-                      misc: "Value"
-                    }
-                  ]
-                }
+                s151GrantClaimApproval: {}
               }]
             }
           )
@@ -271,17 +250,8 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
                   { dog: 'woof' },
                   {
                     dog: 'woof',
-                    grantExpenditure: {
-                      claimedToDate:[
-                        {
-                          year: '1999/2000',
-                          Q1Amount: '16',
-                          Q2Amount: '32',
-                          Q3Amount: '64',
-                          Q4Amount: '128',
-                          misc: 'Value'
-                        }
-                      ]
+                    s151GrantClaimApproval: {
+                      SpendToDate: '240'
                     }
                   }
                 ]
@@ -301,13 +271,7 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
                 status: 'Submitted',
                 updates: [{ dog: 'woof' }, {
                   dog: 'woof',
-                  grantExpenditure: {
-                    claimedToDate: [
-                      {
-                        misc: "Value"
-                      }
-                    ]
-                  }
+                  s151GrantClaimApproval: {}
                 }]
               }
             )
@@ -330,13 +294,7 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
                   { dog: 'woof' },
                   {
                     dog: 'woof',
-                    grantExpenditure: {
-                      claimedToDate: [
-                        {
-                          misc: "Value"
-                        }
-                      ]
-                    }
+                    s151GrantClaimApproval: {}
                   }
                 ]
               }
