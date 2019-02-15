@@ -14,7 +14,7 @@ class LocalAuthority::UseCase::PcsPopulateReturn
 
       unless pcs_data.actuals.nil?
         total = pcs_data.actuals.reduce(0) do |sum, actual|
-          sum + actual.dig(:payments,:currentYearPayments).sum
+          sum + actual.dig(:payments,:currentYearPayments).sum + actual[:previousYearPaymentsToDate].to_i
         end
         return_data[:updates][-1][:s151GrantClaimApproval] = {} if return_data[:s151GrantClaimApproval].nil?
         return_data[:updates][-1][:s151GrantClaimApproval][:SpendToDate] = total.to_s

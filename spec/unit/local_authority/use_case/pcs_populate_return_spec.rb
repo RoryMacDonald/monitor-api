@@ -1,4 +1,4 @@
-fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
+describe LocalAuthority::UseCase::PcsPopulateReturn do
   context 'with PCS disabled' do
     before do
       ENV['PCS'] = nil
@@ -77,6 +77,7 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
                   dateInfo: {
                     period: '2004/5'
                   },
+                  previousYearPaymentsToDate: 2048,
                   payments: {
                     currentYearPayments: [
                       1,
@@ -135,7 +136,7 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
                   {
                     dog: 'woof',
                     s151GrantClaimApproval: {
-                      SpendToDate: '1935'
+                      SpendToDate: '3983'
                     }
                   }
                 ]
@@ -206,6 +207,7 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
                   dateInfo: {
                     period: '1999/2000'
                   },
+                  previousYearPaymentsToDate: 256,
                   payments: {
                     currentYearPayments: [
                       16,
@@ -251,7 +253,7 @@ fdescribe LocalAuthority::UseCase::PcsPopulateReturn do
                   {
                     dog: 'woof',
                     s151GrantClaimApproval: {
-                      SpendToDate: '240'
+                      SpendToDate: '496'
                     }
                   }
                 ]
