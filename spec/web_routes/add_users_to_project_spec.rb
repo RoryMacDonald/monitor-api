@@ -4,39 +4,32 @@ require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Adding users to a project' do
-  ENV['ADMIN_HTTP_API_KEY'] = 'verysecretkey'
+  ENV['HTTP_API_KEY'] = 'supersecret'
 
   def set_correct_auth_header
-    header 'API_KEY', ENV['ADMIN_HTTP_API_KEY']
+    header 'API_KEY', ENV['HTTP_API_KEY']
   end
 
   def set_incorrect_auth_header
     header 'API_KEY', ENV['ADMIN_HTTP_API_KEY'] + 'make_key_invalid'
   end
 
-  context 'when incorrect authorization provided' do
-    let(:body) { { users: [{ email: 'person1@mt.com' }] } }
-
-    before do
-      set_incorrect_auth_header
-    end
-
-    it 'returns 401' do
-      post('project/1/add_users', body.to_json)
-      expect(last_response.status).to eq(401)
-    end
-  end
-
   context 'when no authorization provided in a header' do
     let(:body) { { users: [{ email: 'person1@mt.com' }] } }
 
-    it 'returns 401' do
+    it 'returns 400' do
       post('project/1/add_users', body.to_json)
-      expect(last_response.status).to eq(401)
+      expect(last_response.status).to eq(400)
     end
   end
+  
   context 'when correct authorization provided' do
     before do
+      stub_const(
+        'LocalAuthority::UseCase::CheckApiKey',
+        double(new: double(execute: {valid: true}))
+        )
+        
       set_correct_auth_header
     end
 

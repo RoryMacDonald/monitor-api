@@ -1,8 +1,8 @@
 {
   "summary": {},
-  "infrastructures": [],
+  "infrastructures": [{}],
   "fundingProfiles": {},
-  "costs": [],
+  "costs": [{}],
   "recovery": {},
-  "outputs": []
+  "outputs": [{}]
 }
