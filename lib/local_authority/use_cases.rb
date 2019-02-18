@@ -152,5 +152,11 @@ class LocalAuthority::UseCases
         find_project: builder.get_use_case(:find_project)
       )
     end
+
+    builder.define_use_case :get_infrastructures do
+      LocalAuthority::UseCase::GetInfrastructures.new(
+        find_project: builder.get_use_case(:find_project)
+      )
+    end
   end
 end
