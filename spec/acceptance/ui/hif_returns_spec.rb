@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require_relative '../shared_context/dependency_factory'
 
 describe 'Interacting with a HIF Return from the UI' do
@@ -65,12 +64,40 @@ describe 'Interacting with a HIF Return from the UI' do
     dependency_factory.get_use_case(:ui_create_project).execute(
       type: 'hif',
       name: 'Cat Infrastructures',
-      baseline: hif_baseline
+      baseline: hif_baseline,
+      bid_id: 'HIF/MV/757'
     )[:id]
   end
 
   context 'Creating a return' do
     it 'Allows you to create and view a return' do
+      stub_request(
+        :get, "http://meow.cat/project/HIF%2FMV%2F757"
+      ).to_return(
+        status: 200,
+        body: {
+          "projectManager": "Max Stevens",
+          "sponsor": "Timothy Turner"
+        }.to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer api.key.1' }
+      )
+      stub_request(
+        :get, "http://meow.cat/project/HIF%2FMV%2F757/actuals"
+      ).to_return(
+        status: 200,
+        body: [
+          {
+            payments: {
+              currentYearPayments:
+              [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+            }
+          }
+        ].to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer api.key.1' }
+      )
+
       base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
 
       return_data = base_return[:data].dup
@@ -88,14 +115,41 @@ describe 'Interacting with a HIF Return from the UI' do
       return_data[:s151Confirmation][:hifFunding][:hifTotalFundingRequest] = '10000'
       dependency_factory.get_use_case(:ui_update_return).execute(return_id: return_id, return_data: return_data)
 
-      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
+      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id, api_key: 'api.key.1')[:updates].last
 
       expect(created_return).to eq(expected_updated_return)
     end
 
     it 'Allows you to create a return with all the data in' do
+      stub_request(
+        :get, "http://meow.cat/project/HIF%2FMV%2F757"
+      ).to_return(
+        status: 200,
+        body: {
+          "projectManager": "Max Stevens",
+          "sponsor": "Timothy Turner"
+        }.to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer api.key.1' }
+      )
+      stub_request(
+        :get, "http://meow.cat/project/HIF%2FMV%2F757/actuals"
+      ).to_return(
+        status: 200,
+        body: [
+          {
+            payments: {
+              currentYearPayments:
+              [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+            }
+          }
+        ].to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer api.key.1' }
+      )
+
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: full_return_data)[:id]
-      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
+      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id, api_key: 'api.key.1')[:updates].last
 
       expect(created_return).to eq(full_return_data_after_calcs)
     end

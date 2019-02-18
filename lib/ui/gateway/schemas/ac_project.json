@@ -4,72 +4,252 @@
   "type": "object",
   "sharedData": [
     {
-      "from": ["milestones", "dates", "surveysAndDueDiligence", "commencementOfDueDiligence"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "commencementOfDueDiligence"]
+      "from": [
+        "milestones",
+        "dates",
+        "surveysAndDueDiligence",
+        "commencementOfDueDiligence"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "commencementOfDueDiligence"
+      ]
     },
     {
-      "from": ["milestones", "dates", "surveysAndDueDiligence", "completionOfSurveysHolder", "completionOfSurveys"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "completionOfSurveys"]
+      "from": [
+        "milestones",
+        "dates",
+        "surveysAndDueDiligence",
+        "completionOfSurveysHolder",
+        "completionOfSurveys"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "completionOfSurveys"
+      ]
     },
     {
-      "from": ["milestones", "dates", "procurementProvision", "procurementOfWorksCommencementDate"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "procurementOfWorksCommencementDate"]
+      "from": [
+        "milestones",
+        "dates",
+        "procurementProvision",
+        "procurementOfWorksCommencementDate"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "procurementOfWorksCommencementDate"
+      ]
     },
     {
-      "from": ["milestones", "dates", "procurementProvision", "provisionOfDetailedWorksHolder", "provisionOfDetailedWorks"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "provisionOfDetailedWorks"]
+      "from": [
+        "milestones",
+        "dates",
+        "procurementProvision",
+        "provisionOfDetailedWorksHolder",
+        "provisionOfDetailedWorks"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "provisionOfDetailedWorks"
+      ]
     },
     {
-      "from": ["milestones", "dates", "worksDate", "commencementDateHolder", "commencementDate"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "commencementDate"]
+      "from": [
+        "milestones",
+        "dates",
+        "worksDate",
+        "commencementDateHolder",
+        "commencementDate"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "commencementDate"
+      ]
     },
     {
-      "from": ["milestones", "dates", "worksDate", "completionDateHolder", "completionDate"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "completionDate"]
+      "from": [
+        "milestones",
+        "dates",
+        "worksDate",
+        "completionDateHolder",
+        "completionDate"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "completionDate"
+      ]
     },
     {
-      "from": ["milestones", "dates", "outlinePlanning", "outlinePlanningGrantedDate"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "outlinePlanningGrantedDate"]
+      "from": [
+        "milestones",
+        "dates",
+        "outlinePlanning",
+        "outlinePlanningGrantedDate"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "outlinePlanningGrantedDate"
+      ]
     },
     {
-      "from": ["milestones", "dates", "outlinePlanning", "reservedMatterPermissionGrantedDateHolder", "reservedMatterPermissionGrantedDate"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "reservedMatterPermissionGrantedDate"]
+      "from": [
+        "milestones",
+        "dates",
+        "outlinePlanning",
+        "reservedMatterPermissionGrantedDateHolder",
+        "reservedMatterPermissionGrantedDate"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "reservedMatterPermissionGrantedDate"
+      ]
     },
     {
       "from": ["milestones", "dates", "marketingCommenced"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "marketingCommenced"]
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "marketingCommenced"
+      ]
     },
     {
-      "from": ["milestones", "dates", "contractSigned", "conditionalContractSignedHolder", "conditionalContractSigned"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "conditionalContractSigned"]
+      "from": [
+        "milestones",
+        "dates",
+        "contractSigned",
+        "conditionalContractSignedHolder",
+        "conditionalContractSigned"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "conditionalContractSigned"
+      ]
     },
     {
-      "from": ["milestones", "dates", "contractSigned", "unconditionalContractSignedHolder", "unconditionalContractSigned"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "unconditionalContractSigned"]
+      "from": [
+        "milestones",
+        "dates",
+        "contractSigned",
+        "unconditionalContractSignedHolder",
+        "unconditionalContractSigned"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "unconditionalContractSigned"
+      ]
     },
     {
-      "from": ["milestones", "dates", "workDates", "startOnSiteDateHolder", "startOnSiteDate"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "startOnSiteDate"]
+      "from": [
+        "milestones",
+        "dates",
+        "workDates",
+        "startOnSiteDateHolder",
+        "startOnSiteDate"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "startOnSiteDate"
+      ]
     },
     {
-      "from": ["milestones", "dates", "workDates", "startOnFirstUnitDateHolder", "startOnFirstUnitDate"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "startOnFirstUnitDate"]
+      "from": [
+        "milestones",
+        "dates",
+        "workDates",
+        "startOnFirstUnitDateHolder",
+        "startOnFirstUnitDate"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "startOnFirstUnitDate"
+      ]
     },
     {
-      "from": ["milestones", "dates", "completionDates", "completionOfFinalUnitDateHolder", "completionOfFinalUnitData"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "completionOfFinalUnitData"]
+      "from": [
+        "milestones",
+        "dates",
+        "completionDates",
+        "completionOfFinalUnitDateHolder",
+        "completionOfFinalUnitData"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "completionOfFinalUnitData"
+      ]
     },
     {
-      "from": ["milestones", "dates", "completionDates", "projectCompletionDate"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "projectCompletionDate"]
+      "from": [
+        "milestones",
+        "dates",
+        "completionDates",
+        "projectCompletionDate"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "projectCompletionDate"
+      ]
     },
     {
       "from": ["milestones", "dates", "customMileStones"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "customMileStones"]
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMilestones",
+        "customMileStones"
+      ]
     },
     {
       "from": ["outputs", "mmcCategory"],
       "to": ["summary", "sitesSummary", "#", "hiddenMmcCategory"]
+    },
+    {
+      "from": ["outputs", "keyProgrammeObjectives", "schemePace"],
+      "to": ["summary", "sitesSummary", "#", "hiddenSchemePace"]
     }
   ],
   "properties": {
@@ -239,6 +419,12 @@
                   }
                 }
               },
+              "hiddenSchemePace": {
+                "type": "string",
+                "hidden": true,
+                "title": "Scheme Pace (units pm)",
+                "currencyMaximum": "99999"
+              },
               "innerSummary": {
                 "type": "object",
                 "title": "",
@@ -264,7 +450,22 @@
                   "planningStatus": {
                     "type": "string",
                     "title": "Planning status",
-                    "enum": ["Not in allocated for housing in Local Plan", "Provisional allocation for housing", "Allocated for housing in Local Plan", "Outline or Reserved Matters consent granted"]
+                    "enum": [
+                      "Not in allocated for housing in Local Plan",
+                      "Provisional allocation for housing",
+                      "Allocated for housing in Local Plan",
+                      "Outline or Reserved Matters consent granted"
+                    ]
+                  },
+                  "incomeReceived": {
+                    "type": "string",
+                    "title": "Income received by the local authority to date",
+                    "currency": true
+                  },
+                  "finalIncome": {
+                    "type": "string",
+                    "title": "Expected final income for the local authority",
+                    "currency": true
                   },
                   "contacts": {
                     "type": "object",
@@ -408,7 +609,7 @@
               "year": {
                 "type": "string",
                 "title": "Year",
-                "enum": ["2018/19",  "2019/20", "2020/21"]
+                "enum": ["2018/19", "2019/20", "2020/21"]
               },
               "Q1Amount": {
                 "type": "string",
@@ -493,7 +694,7 @@
               "title": "",
               "horizontal": true,
               "properties": {
-                "commencementOfDueDiligence" : {
+                "commencementOfDueDiligence": {
                   "type": "string",
                   "format": "date",
                   "title": "Commencement of surveys and due diligence"
@@ -504,7 +705,7 @@
                   "validated": true,
                   "invalidText": "This should occur after the commencement of surveys and due diligence.",
                   "properties": {
-                    "completionOfSurveys" : {
+                    "completionOfSurveys": {
                       "type": "string",
                       "format": "date",
                       "title": "Completion of surveys and due diligence"
@@ -676,7 +877,7 @@
                   "type": "object",
                   "title": "",
                   "validated": true,
-                  "invalidText": "This should occur after the start on first unit.",                  
+                  "invalidText": "This should occur after the start on first unit.",
                   "properties": {
                     "completionOfFinalUnitData": {
                       "type": "string",
@@ -727,7 +928,7 @@
             "localMarketPace": {
               "type": "string",
               "title": "Local Market Pace (units pm)",
-              "currencyMaximum":"99999"
+              "currencyMaximum": "99999"
             },
             "schemePace": {
               "type": "string",

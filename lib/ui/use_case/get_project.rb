@@ -7,8 +7,8 @@ class UI::UseCase::GetProject
     @convert_core_project = convert_core_project
   end
 
-  def execute(id:)
-    found_project = @find_project.execute(project_id: id)
+  def execute(id:, api_key:)
+    found_project = @find_project.execute(project_id: id, api_key: api_key)
 
     template = @project_schema_gateway.find_by(type: found_project[:type])
 
@@ -18,15 +18,10 @@ class UI::UseCase::GetProject
       name: found_project[:name],
       type: found_project[:type],
       data: found_project[:data],
+      bid_id: found_project[:bid_id],
       status: found_project[:status],
       schema: template.schema,
       timestamp: found_project[:timestamp]
     }
-  end
-
-  private
-
-  def convert_data(project)
-    @convert_core_hif_project.execute(project_data: project[:data])
   end
 end

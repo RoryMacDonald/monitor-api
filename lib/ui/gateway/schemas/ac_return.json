@@ -369,6 +369,12 @@
                             "type": "string",
                             "title": "What is the reason for the change?",
                             "extendedText": true
+                          },
+                          "upload": {
+                            "type": "string",
+                            "title": "Evidence",
+                            "description": "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders, soft market testing or planning",
+                            "uploadFile": "multiple"
                           }
                         }
                       }
@@ -2436,7 +2442,7 @@
         },
         "claimedToDate": {
           "type": "array",
-          "title": "Achieved to date",
+          "title": "Drawdown to Date",
           "quarterly": true,
           "items": {
             "type": "object",
@@ -2836,6 +2842,12 @@
               "type": "string",
               "title": "Amount of this Claim",
               "currency": true
+            },
+            "conditionsToGrantDrawdown": {
+              "type": "string",
+              "title": "Conditions precedent to draw down of grant",
+              "uploadFile": "multiple",
+              "description": "If you have conditions to meet before you can draw down grant, please email any evidence for meeting these to your Homes England projects lead, or attach the documents below."
             }
           }
         },
@@ -2888,7 +2900,8 @@
                 "housingOutputsEstimates",
                 "housingClaimedAsAchieved",
                 "receiptEstimates",
-                "noOtherGrantFunding"
+                "noOtherGrantFunding",
+                "signature"
               ],
               "title": "Please confirm you are content with the submission, including:",
               "properties": {
@@ -2940,6 +2953,11 @@
                   "enum": ["Yes", "No"],
                   "s151WriteOnly": true,
                   "radio": true
+                },
+                "signature": {
+                  "type": "string",
+                  "title": "Please attach your signature",
+                  "uploadFile": "multiple"
                 }
               }
             }
@@ -3044,6 +3062,17 @@
               "type": "string",
               "title": "Overall risk rating",
               "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
+            }
+          }
+        },
+        "heAuthorisation": {
+          "type": "object",
+          "title": "Homes England Authorisation",
+          "properties": {
+            "heAuthoriser": {
+              "type": "string",
+              "title": "Authorised by:",
+              "laReadOnly": true
             }
           }
         }

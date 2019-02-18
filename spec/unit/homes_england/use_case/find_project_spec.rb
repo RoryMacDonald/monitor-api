@@ -11,12 +11,13 @@ describe HomesEngland::UseCase::FindProject do
 
   context 'example one' do
     let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.name = 'Dog project'
-        p.type = 'hif'
-        p.data = { dogs: 'woof' }
-        p.status = 'Draft'
-        p.timestamp = 0
+      HomesEngland::Domain::Project.new.tap do |proj|
+        proj.name = 'Dog project'
+        proj.type = 'hif'
+        proj.data = { dogs: 'woof' }
+        proj.status = 'Draft'
+        proj.bid_id = 'HIF/MV/155'
+        proj.timestamp = 0
       end
     end
     let(:id) { 1 }
@@ -31,6 +32,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'returns a hash containing the projects type' do
       expect(response[:type]).to eq('hif')
+    end
+
+    it 'returns a hash containing the bid id' do
+      expect(response[:bid_id]).to eq('HIF/MV/155')
     end
 
     it 'returns a hash containing the projects data' do
@@ -48,12 +53,13 @@ describe HomesEngland::UseCase::FindProject do
 
   context 'example two' do
     let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.name = 'meow cats'
-        p.type = 'abc'
-        p.data = { cats: 'meow' }
-        p.status = 'Submitted'
-        p.timestamp = 456
+      HomesEngland::Domain::Project.new.tap do |proj|
+        proj.name = 'meow cats'
+        proj.type = 'abc'
+        proj.data = { cats: 'meow' }
+        proj.status = 'Submitted'
+        proj.timestamp = 456
+        proj.bid_id = 'AC/MV/256'
       end
     end
     let(:id) { 5 }
@@ -68,6 +74,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'returns a hash containing the projects type' do
       expect(response[:type]).to eq('abc')
+    end
+
+    it 'returns a hash containing the bid id' do
+      expect(response[:bid_id]).to eq('AC/MV/256')
     end
 
     it 'returns a hash containing the projects data' do

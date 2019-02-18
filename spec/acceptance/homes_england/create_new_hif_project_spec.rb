@@ -27,12 +27,13 @@ describe 'Creating a new HIF FileProject' do
     }
 
     response = get_use_case(:create_new_project).execute(
-      name: 'a project', type: 'hif', baseline: project_baseline
+      name: 'a project', type: 'hif', baseline: project_baseline, bid_id: 'HIF/MV/16'
     )
 
     project = get_use_case(:find_project).execute(id: response[:id])
 
     expect(project[:type]).to eq('hif')
+    expect(project[:bid_id]).to eq('HIF/MV/16')
     expect(project[:data][:summary]).to eq(project_baseline[:summary])
     expect(project[:data][:infrastructure]).to eq(project_baseline[:infrastructure])
     expect(project[:data][:financial]).to eq(project_baseline[:financial])
@@ -58,7 +59,7 @@ describe 'Creating a new HIF FileProject' do
       }
     }
     response = get_use_case(:create_new_project).execute(
-      name: 'a new project', type: 'hif', baseline: project_baseline
+      name: 'a new project', type: 'hif', baseline: project_baseline, bid_id: 'HIF/MV/15'
     )
     project = get_use_case(:find_project).execute(id: response[:id])
     expect(project[:status]).to eq('Draft')
@@ -78,7 +79,6 @@ describe 'Creating a new HIF FileProject' do
     end
 
     it 'should get pcs data' do
-
       project_baseline = {
         summary: {
           project_name: '',
@@ -98,17 +98,40 @@ describe 'Creating a new HIF FileProject' do
         }
       }
       response = get_use_case(:create_new_project).execute(
-        name: 'a new project', type: 'hif', baseline: project_baseline
+        name: 'a new project', type: 'hif', baseline: project_baseline, bid_id: 'HIF/MV/6'
       )
 
-      request = stub_request(:get, "#{pcs_url}/project/#{response[:id]}").to_return(status: 200, body: {
-        ProjectManager: 'Jim',
-        Sponsor: 'Euler'
-      }.to_json)
+      overview_data_request = stub_request(
+        :get, "#{pcs_url}/project/HIF%2FMV%2F6"
+      ).to_return(
+        status: 200,
+        body: {
+          ProjectManager: 'Jim',
+          Sponsor: 'Euler'
+        }.to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer F.I.B' }
+      )
+      actuals_data_request = stub_request(
+        :get, "#{pcs_url}/project/HIF%2FMV%2F6/actuals"
+      ).to_return(
+        status: 200,
+        body: [
+          {
+            payments: {
+              currentYearPayments:
+              [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+            }
+          }
+        ].to_json
+      ).with(
+        headers: {'Authorization' => 'Bearer F.I.B' }
+      )
 
-      project = get_use_case(:populate_baseline).execute(project_id: response[:id])
+      project = get_use_case(:populate_baseline).execute(project_id: response[:id], api_key: 'F.I.B')
 
-      expect(request).to have_been_requested
+      expect(overview_data_request).to have_been_requested
+      expect(actuals_data_request).to have_been_requested
       expect(project[:data][:summary][:projectManager]).to eq('Jim')
       expect(project[:data][:summary][:sponsor]).to eq('Euler')
     end

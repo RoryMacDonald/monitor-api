@@ -20,6 +20,7 @@ class LocalAuthority::Gateway::SequelReturn
 
     LocalAuthority::Domain::Return.new.tap do |r|
       r.id = row[:return_id]
+      r.bid_id = row[:bid_id]
       r.type = row[:type]
       r.project_id = row[:project_id]
       r.status = row[:return_status]

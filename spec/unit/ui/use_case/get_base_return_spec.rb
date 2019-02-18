@@ -3,7 +3,7 @@
 describe UI::UseCase::GetBaseReturn do
   context 'Example one' do
     let(:convert_core_return_spy) { spy(execute: { cow: 'moo' }) }
-    let(:get_base_return_spy) { spy(execute: { base_return: { id: 3, data: { cat: 'meow' }, schema: { schema: 'schema' } } }) }
+    let(:get_base_return_spy) { spy(execute: { base_return: { id: 3, data: { cat: 'meow' }, schema: { schema: 'schema' }, no_of_previous_returns: 12 } }) }
     let(:template) do
       Common::Domain::Template.new.tap do |p|
         p.schema = {
@@ -46,7 +46,7 @@ describe UI::UseCase::GetBaseReturn do
     end
 
     it 'returns converted data' do
-      expect(response).to eq(base_return: { id: 3, data: { cow: 'moo' }, schema: { my_new_schema: 'cats' } })
+      expect(response).to eq(base_return: { id: 3, data: { cow: 'moo' }, schema: { my_new_schema: 'cats' }, no_of_previous_returns: 12 })
     end
 
   end

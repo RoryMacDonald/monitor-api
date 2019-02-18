@@ -10,7 +10,8 @@ class HomesEngland::Gateway::SequelProject
       name: project.name,
       type: project.type,
       data: Sequel.pg_json(project.data),
-      status: project.status
+      status: project.status,
+      bid_id: project.bid_id
     )
   end
 
@@ -23,6 +24,7 @@ class HomesEngland::Gateway::SequelProject
       p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
       p.status = row[:status]
       p.timestamp = row[:timestamp]
+      p.bid_id = row[:bid_id]
     end
   end
 
@@ -33,7 +35,8 @@ class HomesEngland::Gateway::SequelProject
                 name: project.name,
                 data: Sequel.pg_json(project.data),
                 status: project.status,
-                timestamp: project.timestamp
+                timestamp: project.timestamp,
+                bid_id: project.bid_id
               )
 
     { success: updated.positive? }
@@ -52,6 +55,7 @@ class HomesEngland::Gateway::SequelProject
         p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
         p.status = row[:status]
         p.timestamp = row[:timestamp]
+        p.bid_id = row[:bid_id]
       end
     end
   end

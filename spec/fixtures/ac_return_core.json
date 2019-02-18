@@ -24,7 +24,7 @@
           "reasonForOther": "blah"
         },
         "paceOfConstruction": {
-          "timeBetweenStartAndCompletion": {"baselin": "3", "latestEstimate": "3" },
+          "timeBetweenStartAndCompletion": {"baseline": "3", "latestEstimate": "3" },
           "reasonForChange": "blah"
         },
         "modernMethodsOfConstruction": {
@@ -37,7 +37,8 @@
         },
         "changesRequired": {
           "changesConfirmation": "Request change to baseline to match latest estimates",
-          "reason": "blah"
+          "reason": "blah",
+          "upload": "fhdjakfhdjkashfjkdas"
         }
       },
       "milestonesAndProgress": {
@@ -393,7 +394,8 @@
         "housingOutputsEstimates": "Yes",
         "housingClaimedAsAchieved": "Yes",
         "receiptEstimates": "No",
-        "noOtherGrantFunding": "No"
+        "noOtherGrantFunding": "No",
+        "signature": "fnadjkfhdjks"
       }
     }
   },
@@ -413,13 +415,15 @@
       "details": "deliv",
       "riskRating": "Medium High"
     },
-    "overallSummary": { "details": "overall", "riskRating": "Medium Low" }
+    "overallSummary": { "details": "overall", "riskRating": "Medium Low" },
+    "heAuthorisation": "Catty McBooterson"
   },
   "s151GrantClaimApproval": {
     "claimSummary": {
       "TotalFundingRequest": "12,000",
       "SpendToDate": "12,000",
-      "AmountOfThisClaim": "12,000"
+      "AmountOfThisClaim": "12,000",
+      "conditionsToGrantDrawdown": "frguekyjdgfbiaugborfuwhbOEIWiewfhcno"
     },
     "supportingEvidence": {
       "evidenceOfSpendPastQuarter": "a file",

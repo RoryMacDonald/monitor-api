@@ -41,8 +41,7 @@ module DeliveryMechanism
     post '/token/expend' do
       request_hash = get_hash(request)
       expend_response = @dependency_factory.get_use_case(:expend_access_token).execute(
-        access_token: request_hash[:access_token],
-        project_id: request_hash[:project_id].to_i
+        access_token: request_hash[:access_token]
       )
       status = expend_response[:status]
       if status == :success
@@ -50,6 +49,24 @@ module DeliveryMechanism
         response.body = { apiKey: expend_response[:api_key], role: expend_response[:role] }.to_json
       else
         response.status = 401
+      end
+    end
+
+    get '/user/projects' do
+      guard_access env, params, request do |_|
+        email = @dependency_factory.get_use_case(:check_api_key).execute(
+          api_key: env['HTTP_API_KEY'],
+          project_id: nil
+          )[:email]
+          
+        project_list = @dependency_factory.get_use_case(:get_user_projects).execute(email: email)[:project_list]
+
+        content_type 'application/json'
+        response.body = {
+          project_list: project_list
+        }.to_json
+        response.headers['Cache-Control'] = 'no-cache'
+        response.status = 200
       end
     end
 
@@ -96,7 +113,11 @@ module DeliveryMechanism
         return 400 if params[:returnId].nil?
         return_id = params[:returnId].to_i
 
-        return_hash = @dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)
+        pcs_key = @dependency_factory.get_use_case(:api_to_pcs_key).execute(api_key: env['HTTP_API_KEY'])[:pcs_key]
+        return_hash = @dependency_factory.get_use_case(:ui_get_return).execute(
+          id: return_id,
+          api_key: pcs_key
+        )
 
         return 404 if return_hash.empty?
 
@@ -109,7 +130,8 @@ module DeliveryMechanism
           data: return_hash[:updates].last,
           status: return_hash[:status],
           schema: return_schema,
-          type: return_hash[:type]
+          type: return_hash[:type],
+          no_of_previous_returns: return_hash[:no_of_previous_returns]
         }.to_json
         response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
@@ -190,7 +212,12 @@ module DeliveryMechanism
     get '/project/find' do
       guard_access env, params, request do |_|
         return 404 if params['id'].nil?
-        project = @dependency_factory.get_use_case(:ui_get_project).execute(id: params['id'].to_i)
+        pcs_key = @dependency_factory.get_use_case(:api_to_pcs_key).execute(api_key: env['HTTP_API_KEY'])[:pcs_key]
+
+        project = @dependency_factory.get_use_case(:ui_get_project).execute(
+          id: params['id'].to_i,
+          api_key: pcs_key
+        )
 
         return 404 if project.nil?
 
@@ -198,6 +225,7 @@ module DeliveryMechanism
         response.body = {
           type: project[:type],
           status: project[:status],
+          bid_id: project[:bid_id],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
           schema: project[:schema],
           timestamp: project[:timestamp]
@@ -209,13 +237,13 @@ module DeliveryMechanism
 
     post '/project/create' do
       guard_admin_access env, params, request do |request_hash|
-        contoller = DeliveryMechanism::Controllers::PostCreateProject.new(
+        controller = DeliveryMechanism::Controllers::PostCreateProject.new(
           create_new_project: @dependency_factory.get_use_case(:ui_create_project)
         )
 
         content_type 'application/json'
 
-        contoller.execute(params, request_hash, response)
+        controller.execute(params, request_hash, response)
       end
     end
 
@@ -353,7 +381,7 @@ module DeliveryMechanism
         :bad_request
       elsif !@dependency_factory.get_use_case(:check_api_key).execute(
         api_key: env['HTTP_API_KEY'],
-        project_id: request_hash[:project_id].to_i
+        project_id: request_hash[:project_id]
       )[:valid]
         :forbidden
       else
@@ -362,13 +390,13 @@ module DeliveryMechanism
     end
 
     def check_get_access(env, params)
-      if env['HTTP_API_KEY'].nil? || params['id'].nil?
+      if env['HTTP_API_KEY'].nil? 
         :bad_request
       elsif !@dependency_factory.get_use_case(:check_api_key).execute(
-        api_key: env['HTTP_API_KEY'],
-        project_id: params['id'].to_i
-      )[:valid]
-        :forbidden
+          api_key: env['HTTP_API_KEY'],
+          project_id: params['id']
+        )[:valid]
+          :forbidden
       else
         :proceed
       end

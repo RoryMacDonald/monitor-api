@@ -10,7 +10,7 @@ describe LocalAuthority::Gateway::SequelReturn do
   end
 
   context 'example one' do
-    let(:project_id) { database[:projects].insert(type: 'hif') }
+    let(:project_id) { database[:projects].insert(type: 'hif', bid_id: 'HIF/MV/555') }
     let(:project_return) do
       LocalAuthority::Domain::Return.new.tap do |r|
         r.project_id = project_id
@@ -29,6 +29,7 @@ describe LocalAuthority::Gateway::SequelReturn do
 
       expect(found_return.id).to eq(return_id)
       expect(found_return.type).to eq('hif')
+      expect(found_return.bid_id).to eq('HIF/MV/555')
       expect(found_return.project_id).to eq(project_id)
       expect(found_return.status).to eq('Draft')
       expect(found_return.timestamp).to eq(0)
@@ -36,7 +37,7 @@ describe LocalAuthority::Gateway::SequelReturn do
   end
 
   context 'example two' do
-    let(:project_id) { database[:projects].insert(type: 'ac') }
+    let(:project_id) { database[:projects].insert(type: 'ac', bid_id: 'AC/MV/15') }
 
     let(:project_return) do
       LocalAuthority::Domain::Return.new.tap do |r|
@@ -57,13 +58,14 @@ describe LocalAuthority::Gateway::SequelReturn do
       expect(found_return.id).to eq(return_id)
       expect(found_return.type).to eq('ac')
       expect(found_return.project_id).to eq(project_id)
+      expect(found_return.bid_id).to eq('AC/MV/15')
       expect(found_return.status).to eq('Submitted')
       expect(found_return.timestamp).to eq(0)
     end
   end
 
   context 'with multiple returns' do
-    let(:project_id) { database[:projects].insert(type: 'ac') }
+    let(:project_id) { database[:projects].insert(type: 'ac', bid_id: 'AC/MV/15') }
 
     let(:project_return) do
       LocalAuthority::Domain::Return.new.tap do |r|
@@ -85,6 +87,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       found_return = gateway.find_by(id: return_id)
 
       expect(found_return.id).to eq(return_id)
+      expect(found_return.bid_id).to eq('AC/MV/15')
       expect(found_return.type).to eq('ac')
       expect(found_return.project_id).to eq(project_id)
       expect(found_return.status).to eq('Submitted')
