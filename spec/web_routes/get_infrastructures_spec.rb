@@ -15,8 +15,6 @@ describe 'Creating a new project' do
   before do
     stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_stub)
     stub_instances(LocalAuthority::UseCase::GetInfrastructures, get_infrastructures_spy)
-
-    #header 'API_KEY', 'superSecret'
   end
 
   context 'with no valid token' do
