@@ -62,7 +62,20 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
               type: 'ac',
               project_id: 2,
               status: 'Draft',
-              updates: [{ dog: 'woof' }]
+              updates: [{
+                dog: 'woof',
+                grantExpenditure: {
+                  claimedToDate: [
+                    {
+                      year: '2017/18',
+                      Q1Amount: '111',
+                      Q2Amount: '222',
+                      Q3Amount: '333',
+                      Q4Amount: '444'
+                    }
+                  ]
+                }
+              }]
             }
           )
         end
@@ -75,28 +88,47 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
               project.actuals = [
                 {
                   dateInfo: {
-                    period: '2004/5'
+                    period: '2018/19',
+                    monthNumber: 12
                   },
-                  previousYearPaymentsToDate: 2048,
+                  previousYearPaymentsToDate: 12,
                   payments: {
                     currentYearPayments: [
                       1,
                       2,
                       4,
-                      8
+                      8,
+                      16,
+                      32,
+                      64, 
+                      128, 
+                      256, 
+                      512, 
+                      1024,
+                      0
                     ]
                   }
                 },
                 {
                   dateInfo: {
-                    period: '2005/6'
+                    period: '2018/19',
+                    monthNumber: 12
                   },
+                  previousYearPaymentsToDate: 2048,
                   payments: {
                     currentYearPayments: [
                       128,
                       256,
                       512,
-                      1024
+                      1024,
+                      124,
+                      2438,
+                      3467,
+                      268,
+                      3478,
+                      278,
+                      12,
+                      0
                     ]
                   }
                 }
@@ -136,7 +168,25 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
                   {
                     dog: 'woof',
                     s151GrantClaimApproval: {
-                      SpendToDate: '3983'
+                      SpendToDate: '16092'
+                    },
+                    grantExpenditure: {
+                      claimedToDate: [
+                        {
+                          year: '2017/18',
+                          Q1Amount: '111',
+                          Q2Amount: '222',
+                          Q3Amount: '333',
+                          Q4Amount: '444'
+                        },
+                        {
+                          year: '2018/19',
+                          Q1Amount: '903',
+                          Q2Amount: '3642',
+                          Q3Amount: '7661',
+                          Q4Amount: '1826'
+                        }
+                      ]
                     }
                   }
                 ]
@@ -191,7 +241,16 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
               status: 'Draft',
               updates: [{ dog: 'woof' }, {
                 dog: 'woof',
-                s151GrantClaimApproval: {}
+                s151GrantClaimApproval: {},
+                grantExpenditure: {
+                  claimedToDate: [{
+                    year: '1999/2000',
+                    Q1Amount: '12',
+                    Q2Amount: '14',
+                    Q3Amount: '17',
+                    Q4Amount: '123'
+                  }]
+                }
               }]
             }
           )
@@ -254,6 +313,17 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
                     dog: 'woof',
                     s151GrantClaimApproval: {
                       SpendToDate: '496'
+                    },
+                    grantExpenditure: {
+                      claimedToDate: [
+                        {
+                          year: '1999/2000',
+                          Q1Amount: '112',
+                          Q2Amount: '128',
+                          Q3Amount: '0',
+                          Q4Amount: '0'
+                        }
+                      ]
                     }
                   }
                 ]

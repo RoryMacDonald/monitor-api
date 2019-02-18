@@ -2346,7 +2346,7 @@
         },
         "claimedToDate": {
           "type": "array",
-          "title": "Achieved to date",
+          "title": "Drawdown to Date",
           "quarterly": true,
           "items": {
             "type": "object",
