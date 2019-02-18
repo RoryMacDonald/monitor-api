@@ -1,16 +1,20 @@
 describe UI::UseCase::ConvertUIHIFProject do
   let(:project_to_convert) do
-    JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/hif_baseline_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../../fixtures/hif_baseline_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:core_data_project) do
-    JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/hif_baseline_core.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../../fixtures/hif_baseline_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   it 'Converts the project correctly' do

@@ -48,17 +48,21 @@ describe 'Performing Return on HIF Project' do
   end
 
   let(:project_baseline) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline_core.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_baseline_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:ac_project_baseline) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/ac_baseline_core.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/ac_baseline_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:project_id) do
@@ -80,24 +84,30 @@ describe 'Performing Return on HIF Project' do
   end
 
   let(:expected_base_return) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/base_return.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/base_return.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:expected_ac_base_return) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/ac_base_return.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/ac_base_return.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:expected_second_base_return) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/second_base_return.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/second_base_return.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   before do

@@ -25,38 +25,48 @@ describe 'Interacting with a HIF Return from the UI' do
 
   let(:project_id) { create_project }
   let(:hif_baseline) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:hif_get_return) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_saved_base_return_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_saved_base_return_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:expected_updated_return) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_updated_return_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_updated_return_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:full_return_data) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_return_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_return_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:full_return_data_after_calcs) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_return_ui_after_calcs.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_return_ui_after_calcs.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
 

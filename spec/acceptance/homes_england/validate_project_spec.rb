@@ -8,10 +8,12 @@ describe 'Validates HIF Project' do
 
   context 'Invalid HIF project' do
     let(:invalid_project) do
-      JSON.parse(
-        File.open("#{__dir__}/../../fixtures/hif_baseline_missing_core.json").read,
-        symbolize_names: true
-      )
+      File.open("#{__dir__}/../../fixtures/hif_baseline_missing_core.json") do |f|
+        JSON.parse(
+          f.read,
+          symbolize_names: true
+        )
+      end
     end
 
     it 'should return invalid if fails validation' do

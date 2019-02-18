@@ -1,16 +1,20 @@
 describe UI::UseCase::ConvertCoreHIFReturn do
   let(:return_to_convert) do
-    JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/hif_return_core.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../../fixtures/hif_return_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:ui_data_return) do
-    JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/hif_return_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../../fixtures/hif_return_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   it 'Converts the project correctly' do

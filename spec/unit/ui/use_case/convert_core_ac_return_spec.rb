@@ -1,16 +1,20 @@
 describe UI::UseCase::ConvertCoreACReturn do
   let(:ui_data_return) do
-    JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/ac_return_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../../fixtures/ac_return_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:return_to_convert) do
-    JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/ac_return_core.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../../fixtures/ac_return_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   it 'Converts the project correctly' do
