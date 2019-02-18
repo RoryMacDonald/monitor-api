@@ -31,7 +31,7 @@ describe 'Authorises the user' do
     end
 
     it 'should create a valid pcs key for project 1' do
-      api_key = api_key = get_use_case(:create_api_key).execute(projects: [1], email: 'cat@cathouse.com', role: 'Homes England')[:api_key]
+      api_key = get_use_case(:create_api_key).execute(projects: [1], email: 'cat@cathouse.com', role: 'Homes England')[:api_key]
       pcs_key = get_use_case(:api_to_pcs_key).execute(api_key: api_key)[:pcs_key]
 
       decoded_pcs_key = JWT.decode(
