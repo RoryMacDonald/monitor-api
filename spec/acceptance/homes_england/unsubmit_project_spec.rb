@@ -8,7 +8,7 @@ describe 'Unsubmitting a submitted project' do
 
   context 'Whilst BACK_TO_BASELINE is true' do
     let(:back_to_baseline) { ENV['BACK_TO_BASELINE'] }
-    before do 
+    before do
       back_to_baseline
       ENV['BACK_TO_BASELINE'] = 'yes'
     end
@@ -37,20 +37,21 @@ describe 'Unsubmitting a submitted project' do
         }
       }
       project_id = get_use_case(:create_new_project).execute(
-        name: 'cat project', type: 'hif', baseline: project_baseline
+        name: 'cat project',
+        type: 'hif',
+        baseline: project_baseline,
+        bid_id: 'HIF/MV/11'
       )[:id]
 
-      
-      
       get_use_case(:submit_project).execute(project_id: project_id)
-      
+
       expect(get_use_case(:find_project).execute(id: project_id)[:status]).to eq('Submitted')
-      
+
       return_id = get_use_case(:create_return).execute(project_id: project_id, data: {some_data: "fun"})[:id]
       get_use_case(:submit_return).execute(return_id: return_id)
-      
+
       expect(get_use_case(:get_returns).execute(project_id: project_id)[:returns].length).to eq(1)
-      
+
 
       get_use_case(:unsubmit_project).execute(project_id: project_id)
 
@@ -64,7 +65,7 @@ describe 'Unsubmitting a submitted project' do
 
   context 'Whilst BACK_TO_BASELINE is true' do
     let(:back_to_baseline) { ENV['BACK_TO_BASELINE'] }
-    before do 
+    before do
       back_to_baseline
       ENV['BACK_TO_BASELINE'] = nil
     end
@@ -93,20 +94,23 @@ describe 'Unsubmitting a submitted project' do
         }
       }
       project_id = get_use_case(:create_new_project).execute(
-        name: 'cat project', type: 'hif', baseline: project_baseline
+        name: 'cat project',
+        type: 'hif',
+        baseline: project_baseline,
+        bid_id: 'HIF/MV/555'
       )[:id]
 
-      
-      
+
+
       get_use_case(:submit_project).execute(project_id: project_id)
-      
+
       expect(get_use_case(:find_project).execute(id: project_id)[:status]).to eq('Submitted')
-      
+
       return_id = get_use_case(:create_return).execute(project_id: project_id, data: {some_data: "fun"})[:id]
       get_use_case(:submit_return).execute(return_id: return_id)
-      
+
       expect(get_use_case(:get_returns).execute(project_id: project_id)[:returns].length).to eq(1)
-      
+
 
       get_use_case(:unsubmit_project).execute(project_id: project_id)
 

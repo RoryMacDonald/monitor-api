@@ -5,7 +5,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
     before do
       ENV['PCS'] = nil
     end
-    
+
     let(:pcs_gateway) { spy }
     let(:find_project) do
       spy(
@@ -13,28 +13,30 @@ describe HomesEngland::UseCase::PopulateBaseline do
           name: "A project",
           type: "HIF",
           data: {},
-          status: "Draft"
+          status: "Draft",
+          bid_id: "HIF/MV/255"
         }
       )
     end
 
     it 'does not call the PCS gateway' do
-      use_case.execute(project_id: 1)
+      use_case.execute(project_id: 1, api_key: 'A.B.C')
       expect(pcs_gateway).not_to have_received(:get_project)
     end
 
     it 'calls the find project use case' do
-      use_case.execute(project_id: 1)
+      use_case.execute(project_id: 1, api_key: 'A.B.C')
       expect(find_project).to have_received(:execute).with(id: 1)
     end
 
     it 'is inert' do
-      project = use_case.execute(project_id: 1)
+      project = use_case.execute(project_id: 1, api_key: 'A.B.C')
       expect(project).to eq({
         name: "A project",
         type: "HIF",
         data: {},
-        status: "Draft"
+        status: "Draft",
+        bid_id: "HIF/MV/255"
       })
     end
   end
@@ -48,7 +50,114 @@ describe HomesEngland::UseCase::PopulateBaseline do
       ENV['PCS'] = nil
     end
 
-    context 'example 1' do
+    context 'with a bid id' do
+      context 'example 1' do
+        let(:find_project) do
+          spy(
+            execute: {
+              name: "A project",
+              type: "HIF",
+              data: {},
+              status: "Draft",
+              bid_id: "HIF/MV/1119"
+            }
+          )
+        end
+
+        let(:pcs_gateway) do
+          spy(
+            get_project: HomesEngland::Domain::PcsBid.new.tap do |proj|
+              proj.project_manager = "Michael"
+              proj.sponsor = "MSPC"
+            end
+          )
+        end
+
+        it 'calls the pcs gateway' do
+          use_case.execute(project_id: 1, api_key: 'X.Y.Z')
+          expect(pcs_gateway).to have_received(:get_project).with(bid_id: "HIF/MV/1119", api_key: 'X.Y.Z')
+        end
+
+        it 'calls the find project use case' do
+          use_case.execute(project_id: 1, api_key: 'X.Y.Z')
+          expect(find_project).to have_received(:execute).with(id: 1)
+        end
+
+        it 'sets the relevant data' do
+          data = use_case.execute(project_id: 1, api_key: 'X.Y.Z')
+          expect(data).to eq({
+            name: "A project",
+            type: "HIF",
+            data: {
+              summary: {
+                projectManager: "Michael",
+                sponsor: "MSPC"
+              }
+            },
+            status: "Draft",
+            bid_id: "HIF/MV/1119"
+          })
+        end
+      end
+
+      context 'example 2' do
+        let(:find_project) do
+          spy(
+            execute: {
+              name: "Another project",
+              type: "AC",
+              data: {
+                summary: {
+                  description: "An important project",
+                  misc: {}
+                }
+              },
+              status: "Draft",
+              bid_id: "HIF/MV/461"
+            }
+          )
+        end
+
+        let(:pcs_gateway) do
+          spy(
+            get_project: HomesEngland::Domain::PcsBid.new.tap do |p|
+              p.project_manager = "Aaron"
+              p.sponsor = "LZMA"
+            end
+          )
+        end
+
+        it 'calls the pcs gateway' do
+          use_case.execute(project_id: 13, api_key: 'R.P.Q')
+          expect(pcs_gateway).to have_received(:get_project).with(bid_id: "HIF/MV/461", api_key: 'R.P.Q')
+        end
+
+        it 'calls the find project use case' do
+          use_case.execute(project_id: 13, api_key: 'R.P.Q')
+          expect(find_project).to have_received(:execute).with(id: 13)
+        end
+
+        it 'sets the relevant data' do
+          data = use_case.execute(project_id: 1, api_key: 'R.P.Q')
+          expect(data).to eq({
+            name: "Another project",
+            type: "AC",
+            data: {
+              summary: {
+                description: "An important project",
+                misc: {},
+                projectManager: "Aaron",
+                sponsor: "LZMA"
+              }
+            },
+            status: "Draft",
+            bid_id: "HIF/MV/461"
+          })
+        end
+      end
+    end
+
+    context 'without a bid id' do
       let(:find_project) do
         spy(
           execute: {
@@ -60,90 +169,24 @@ describe HomesEngland::UseCase::PopulateBaseline do
         )
       end
 
-      let(:pcs_gateway) do
-        spy(
-          get_project: HomesEngland::Domain::PcsProject.new.tap do |p|
-            p.project_manager = "Michael"
-            p.sponsor = "MSPC"
-          end
-        )
-      end
+      let(:pcs_gateway) { spy }
 
-      it 'calls the pcs gateway' do
-        use_case.execute(project_id: 1)
-        expect(pcs_gateway).to have_received(:get_project).with(project_id: 1)
+      it 'does not call the PCS gateway' do
+        use_case.execute(project_id: 1, api_key: 'M.L.X')
+        expect(pcs_gateway).not_to have_received(:get_project)
       end
 
       it 'calls the find project use case' do
-        use_case.execute(project_id: 1)
+        use_case.execute(project_id: 1, api_key: 'M.L.X')
         expect(find_project).to have_received(:execute).with(id: 1)
       end
 
-      it 'sets the relevant data' do
-        data = use_case.execute(project_id: 1)
-        expect(data).to eq({
+      it 'is inert' do
+        project = use_case.execute(project_id: 1, api_key: 'M.L.X')
+        expect(project).to eq({
           name: "A project",
           type: "HIF",
-          data: {
-            summary: {
-              projectManager: "Michael",
-              sponsor: "MSPC"
-            }
-          },
-          status: "Draft"
-        })
-      end
-    end
-
-    context 'example 2' do
-      let(:find_project) do
-        spy(
-          execute: {
-            name: "Another project",
-            type: "AC",
-            data: {
-              summary: {
-                description: "An important project",
-                misc: {}
-              }
-            },
-            status: "Draft"
-          }
-        )
-      end
-
-      let(:pcs_gateway) do
-        spy(
-          get_project: HomesEngland::Domain::PcsProject.new.tap do |p|
-            p.project_manager = "Aaron"
-            p.sponsor = "LZMA"
-          end
-        )
-      end
-
-      it 'calls the pcs gateway' do
-        use_case.execute(project_id: 13)
-        expect(pcs_gateway).to have_received(:get_project).with(project_id: 13)
-      end
-
-      it 'calls the find project use case' do
-        use_case.execute(project_id: 13)
-        expect(find_project).to have_received(:execute).with(id: 13)
-      end
-
-      it 'sets the relevant data' do
-        data = use_case.execute(project_id: 1)
-        expect(data).to eq({
-          name: "Another project",
-          type: "AC",
-          data: {
-            summary: {
-              description: "An important project",
-              misc: {},
-              projectManager: "Aaron",
-              sponsor: "LZMA"
-            }
-          },
+          data: {},
           status: "Draft"
         })
       end

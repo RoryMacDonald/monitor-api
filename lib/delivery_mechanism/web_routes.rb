@@ -113,7 +113,11 @@ module DeliveryMechanism
         return 400 if params[:returnId].nil?
         return_id = params[:returnId].to_i
 
-        return_hash = @dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)
+        pcs_key = @dependency_factory.get_use_case(:api_to_pcs_key).execute(api_key: env['HTTP_API_KEY'])[:pcs_key]
+        return_hash = @dependency_factory.get_use_case(:ui_get_return).execute(
+          id: return_id,
+          api_key: pcs_key
+        )
 
         return 404 if return_hash.empty?
 
@@ -208,7 +212,12 @@ module DeliveryMechanism
     get '/project/find' do
       guard_access env, params, request do |_|
         return 404 if params['id'].nil?
-        project = @dependency_factory.get_use_case(:ui_get_project).execute(id: params['id'].to_i)
+        pcs_key = @dependency_factory.get_use_case(:api_to_pcs_key).execute(api_key: env['HTTP_API_KEY'])[:pcs_key]
+
+        project = @dependency_factory.get_use_case(:ui_get_project).execute(
+          id: params['id'].to_i,
+          api_key: pcs_key
+        )
 
         return 404 if project.nil?
 
@@ -216,6 +225,7 @@ module DeliveryMechanism
         response.body = {
           type: project[:type],
           status: project[:status],
+          bid_id: project[:bid_id],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
           schema: project[:schema],
           timestamp: project[:timestamp]
@@ -227,13 +237,13 @@ module DeliveryMechanism
 
     post '/project/create' do
       guard_admin_access env, params, request do |request_hash|
-        contoller = DeliveryMechanism::Controllers::PostCreateProject.new(
+        controller = DeliveryMechanism::Controllers::PostCreateProject.new(
           create_new_project: @dependency_factory.get_use_case(:ui_create_project)
         )
 
         content_type 'application/json'
 
-        contoller.execute(params, request_hash, response)
+        controller.execute(params, request_hash, response)
       end
     end
 

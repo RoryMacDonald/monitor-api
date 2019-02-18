@@ -1,6 +1,6 @@
 class LocalAuthority::UseCase::CheckApiKey
   def execute(api_key:, project_id:)
-    
+
     project_id = project_id.to_i unless project_id.nil?
 
     begin
@@ -11,7 +11,7 @@ class LocalAuthority::UseCase::CheckApiKey
 
       if project_id.nil?
         { valid: true, email: api_key_email, role: api_key_role }
-      elsif api_key_projects.include?(project_id) 
+      elsif api_key_projects.include?(project_id)
         { valid: true, email: api_key_email, role: api_key_role }
       else
         { valid: false }

@@ -85,15 +85,6 @@
               }
             }
           ]
-        },
-        "planningNotGranted": {
-          "fieldOne": {
-            "varianceCalculations": {
-              "varianceAgainstLastReturn": {
-                "varianceLastReturnFullPlanningPermissionSubmitted": null
-              }
-            }
-          }
         }
       },
       "landOwnership": {

@@ -57,7 +57,8 @@ describe 'Getting multiple returns' do
     project_id = get_use_case(:create_new_project).execute(
       name: 'cat hif project',
       type: 'hif',
-      baseline: {}
+      baseline: {},
+      bid_id: nil
     )[:id]
 
     return1_id = get_use_case(:create_return).execute(

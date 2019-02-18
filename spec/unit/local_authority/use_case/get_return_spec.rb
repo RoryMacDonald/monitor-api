@@ -11,10 +11,6 @@ describe LocalAuthority::UseCase::GetReturn do
     spy(updates_for: return_updates)
   end
 
-  let(:calculate_return_spy) do
-    spy(execute: { calculated_return: {} })
-  end
-
   let(:get_returns_spy) do
     spy(execute: { returns: [] })
   end
@@ -23,7 +19,6 @@ describe LocalAuthority::UseCase::GetReturn do
     described_class.new(
       return_gateway: return_gateway,
       return_update_gateway: return_update_gateway,
-      calculate_return: calculate_return_spy,
       get_returns: get_returns_spy
     )
   end
@@ -72,6 +67,7 @@ describe LocalAuthority::UseCase::GetReturn do
     let(:return_object) do
       LocalAuthority::Domain::Return.new.tap do |r|
         r.id = 10
+        r.bid_id = 'HIF/MV/26'
         r.type = 'hif'
         r.project_id = 0
       end
@@ -96,6 +92,7 @@ describe LocalAuthority::UseCase::GetReturn do
     it 'will return the return from the gateway' do
       expect(response[:id]).to eq(10)
       expect(response[:type]).to eq('hif')
+      expect(response[:bid_id]).to eq('HIF/MV/26')
       expect(response[:project_id]).to eq(0)
       expect(response[:status]).to eq('Draft')
     end
@@ -142,92 +139,49 @@ describe LocalAuthority::UseCase::GetReturn do
       end
     end
 
-    it 'will execute calculate return usecase' do
-      expect(calculate_return_spy).to have_received(:execute).with(
-        return_data_with_no_calculations: { dogs: 'woof' },
-        previous_return: { cats: 'meow' }
-      )
-    end
-
     it 'will execute get_returns' do
       expect(get_returns_spy).to have_received(:execute).with(project_id: 0)
     end
-    let(:calculate_return_spy) do
-      spy(execute: {
-            calculated_return: {
-              dogs: 'woof',
-              infrastructures: {
-                planning: {
-                  planningNotGranted: {
-                    varianceCalculations: {
-                      varianceAgainstLastReturn: {
-                        varianceLastReturnFullPlanningPermissionSubmitted: nil
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          })
-    end
-
-    it 'will return the calculated data in the latest update' do
-      expect(response[:updates][-1]).to eq(
-        dogs: 'woof',
-        infrastructures: {
-          planning: {
-            planningNotGranted: {
-              varianceCalculations: {
-                varianceAgainstLastReturn: {
-                  varianceLastReturnFullPlanningPermissionSubmitted: nil
-                }
-              }
-            }
-          }
-        }
-      )
-    end
-
     context 'given there is a previous submitted return' do
       let(:get_returns_spy) do
         spy(execute: {
-                        returns:
-                          [{
-                            id: 1,
-                            project_id: 2,
-                            status: 'Submitted',
-                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
-                          },
-                          {
-                            id: 3,
-                            project_id: 2,
-                            status: 'Submitted',
-                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
-                          },
-                          {
-                            id: 5,
-                            project_id: 2,
-                            status: 'Submitted',
-                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
-                          },
-                          {
-                            id: 9,
-                            project_id: 2,
-                            status: 'Submitted',
-                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
-                          },
-                          {
-                            id: 12,
-                            project_id: 2,
-                            status: 'Submitted',
-                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
-                          },
-                          {
-                            id: 15,
-                            project_id: 2,
-                            status: 'Submitted',
-                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
-                          }]
+          returns:
+            [{
+              id: 1,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 3,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 5,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 9,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 12,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 15,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            }]
         })
       end
       it 'will return the number of previous returns in the response' do
@@ -244,6 +198,7 @@ describe LocalAuthority::UseCase::GetReturn do
       return_object = LocalAuthority::Domain::Return.new.tap do |r|
         r.id = 50
         r.type = 'ac'
+        r.bid_id = 'AC/MV/1'
         r.project_id = 1
         r.status = 'Submitted'
       end
@@ -268,6 +223,7 @@ describe LocalAuthority::UseCase::GetReturn do
     it 'will return the return from the gateway' do
       expect(response[:id]).to eq(50)
       expect(response[:type]).to eq('ac')
+      expect(response[:bid_id]).to eq('AC/MV/1')
       expect(response[:project_id]).to eq(1)
       expect(response[:status]).to eq('Submitted')
     end
@@ -279,10 +235,6 @@ describe LocalAuthority::UseCase::GetReturn do
     end
 
     context 'given one update' do
-      let(:calculate_return_spy) do
-        spy(execute: { calculated_return: { dogs: 'woof' } })
-      end
-
       let(:return_updates) do
         [
           LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
@@ -297,10 +249,6 @@ describe LocalAuthority::UseCase::GetReturn do
     end
 
     context 'given two updates' do
-      let(:calculate_return_spy) do
-        spy(execute: { calculated_return: { cows: 'moo' } })
-      end
-
       let(:return_updates) do
         [
           LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
@@ -320,104 +268,22 @@ describe LocalAuthority::UseCase::GetReturn do
     it 'will execute get_returns' do
       expect(get_returns_spy).to have_received(:execute).with(project_id: 1)
     end
-
-    context 'given three returns' do
-      let(:initial_return_hash) do
-        {
-          id: 8,
-          project_id: 0,
-          status: 'Submitted',
-          updates: [
-            { cats: 'meow' }
-          ]
-        }
-      end
-
-      let(:previous_return_hash) do
-        {
-          id: 9,
-          project_id: 0,
-          status: 'Submitted',
-          updates: [
-            { cows: 'moo' }
-          ]
-        }
-      end
-
-      let(:return_hash) do
-        {
-          id: 50,
-          project_id: 0,
-          status: 'Draft',
-          updates: [
-            { pigs: 'squeal' }
-          ]
-        }
-      end
-
-      let(:return_updates) do
-        [
-          LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
-            update.data = { pigs: 'squeal' }
-          end
-        ]
-      end
-
-      let(:get_returns_spy) do
-        spy(
-          execute: {
-            returns: [
-              initial_return_hash,
-              previous_return_hash,
-              return_hash
-            ]
-          }
-        )
-      end
-
-      it 'will execute calculate return usecase' do
-        expect(calculate_return_spy).to have_received(:execute).with(
-          return_data_with_no_calculations: { pigs: 'squeal' },
-          previous_return: { cows: 'moo' }
-        )
-      end
-
-      context 'given a prior draft return' do
-        let(:previous_return_hash) do
-          {
-            id: 9,
-            project_id: 0,
-            status: 'Draft',
-            updates: [
-              { cows: 'moo' }
-            ]
-          }
-        end
-        it 'does not base data off of a draft' do
-          expect(calculate_return_spy).to have_received(:execute).with(
-            return_data_with_no_calculations: { pigs: 'squeal' },
-            previous_return: { cats: 'meow' }
-          )
-        end
-      end
-    end
-
     context 'given there are two previous submitted return' do
       let(:get_returns_spy) do
         spy(execute: {
-                        returns:
-                          [{
-                            id: 1,
-                            project_id: 2,
-                            status: 'Submitted',
-                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
-                          },
-                          {
-                            id: 2,
-                            project_id: 2,
-                            status: 'Submitted',
-                            updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
-                          }]
+          returns:
+            [{
+              id: 1,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            },
+            {
+              id: 2,
+              project_id: 2,
+              status: 'Submitted',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            }]
         })
       end
 

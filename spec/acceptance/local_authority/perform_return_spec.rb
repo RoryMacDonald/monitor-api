@@ -6,6 +6,23 @@ require_relative '../shared_context/dependency_factory'
 describe 'Performing Return on HIF Project' do
   include_context 'dependency factory'
 
+  let(:pcs_url) { 'meow.cat' }
+  let(:api_key) { 'C.B.R' }
+
+  def get_return(id:)
+    stub_request(:get, "http://#{pcs_url}/project/#{id}").to_return(
+      status: 200,
+      body: {
+        ProjectManager: "Michael",
+        Sponsor: "MSPC"
+      }.to_json
+    ).with(
+      headers: {'Authorization' => "Bearer #{api_key}" }
+    )
+
+    get_use_case(:get_return).execute(id: id)
+  end
+
   def update_return(id:, data:)
     get_use_case(:update_return).execute(return_id: id, data: data[:data])
   end
@@ -19,14 +36,14 @@ describe 'Performing Return on HIF Project' do
   end
 
   def expect_return_with_id_to_equal(id:, expected_return:)
-    found_return = get_use_case(:get_return).execute(id: id)
+    found_return = get_return(id: id)
     expect(found_return[:data]).to eq(expected_return[:data])
     expect(found_return[:status]).to eq(expected_return[:status])
     expect(found_return[:updates]).to eq(expected_return[:updates])
   end
 
   def expect_return_to_be_submitted(id:)
-    found_return = get_use_case(:get_return).execute(id: id)
+    found_return = get_return(id: id)
     expect(found_return[:status]).to eq('Submitted')
   end
 
@@ -48,7 +65,8 @@ describe 'Performing Return on HIF Project' do
     get_use_case(:create_new_project).execute(
       name: '',
       type: 'hif',
-      baseline: project_baseline
+      baseline: project_baseline,
+      bid_id: 'HIF/MV/16'
     )[:id]
   end
 
@@ -56,7 +74,8 @@ describe 'Performing Return on HIF Project' do
     get_use_case(:create_new_project).execute(
       name: '',
       type: 'ac',
-      baseline: ac_project_baseline
+      baseline: ac_project_baseline,
+      bid_id: 'AC/MV/6'
     )[:id]
   end
 
@@ -82,6 +101,10 @@ describe 'Performing Return on HIF Project' do
   end
 
   before do
+    ENV['PCS'] = 'yes'
+    ENV['PCS_URL'] = pcs_url
+    ENV['API_SECRET'] = 'Secret 1'
+    ENV['PCS_SECRET'] = 'Secret 2'
     ENV['OUTPUTS_FORECAST_TAB'] = 'Yes'
     ENV['CONFIRMATION_TAB'] = 'Yes'
     ENV['S151_TAB'] = 'Yes'
@@ -95,10 +118,14 @@ describe 'Performing Return on HIF Project' do
   after do
     ENV['OUTPUTS_FORECAST_TAB'] = nil
     ENV['CONFIRMATION_TAB'] = nil
+    ENV['API_SECRET'] = nil
+    ENV['PCS_SECRET'] = nil
     ENV['S151_TAB'] = nil
     ENV['MR_REVIEW_TAB'] = nil
     ENV['OUTPUTS_ACTUALS_TAB'] = nil
     ENV['HIF_RECOVERY_TAB'] = nil
+    ENV['PCS'] = nil
+    ENV['PCS_URL'] = nil
   end
 
   it 'should keep track of Returns' do
@@ -285,7 +312,7 @@ describe 'Performing Return on HIF Project' do
             baselineRisks: [
               {
                 riskMetDate: 'Yes',
-                riskCompletionDate: '01/01/2018' 
+                riskCompletionDate: '01/01/2018'
               }
             ]
           }

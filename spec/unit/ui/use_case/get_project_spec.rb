@@ -17,7 +17,8 @@ describe UI::UseCase::GetProject do
           type: 'hif',
           data: { building1: 'a house' },
           status: 'Draft',
-          timestamp: 0
+          timestamp: 0,
+          bid_id: "HIF/MV/14"
         }
       )
     end
@@ -29,7 +30,7 @@ describe UI::UseCase::GetProject do
         project_schema_gateway: project_schema_gateway_spy
       )
     end
-    let(:response) { use_case.execute(id: 1) }
+    let(:response) { use_case.execute(id: 1, api_key: 'X.Y.Z') }
 
     before do
       response
@@ -40,7 +41,11 @@ describe UI::UseCase::GetProject do
     end
 
     it 'Passes the ID to the find project usecase' do
-      expect(find_project_spy).to have_received(:execute).with(project_id: 1)
+      expect(find_project_spy).to have_received(:execute).with(hash_including(project_id: 1))
+    end
+
+    it 'Passes the api key to the find project usecase' do
+      expect(find_project_spy).to have_received(:execute).with(hash_including(api_key: 'X.Y.Z'))
     end
 
     it 'Finds the schema from the gateway' do
@@ -63,6 +68,10 @@ describe UI::UseCase::GetProject do
 
     it 'Return the status from find project' do
       expect(response[:status]).to eq('Draft')
+    end
+
+    it 'Return the bid id from find project' do
+      expect(response[:bid_id]).to eq('HIF/MV/14')
     end
 
     it 'Returns the timestamp from find project' do
@@ -102,7 +111,8 @@ describe UI::UseCase::GetProject do
           type: 'hif',
           data: { noise: 'bark' },
           status: 'Barking',
-          timestamp: 345
+          timestamp: 345,
+          bid_id: "HIF/MV/155"
         }
       )
     end
@@ -114,7 +124,7 @@ describe UI::UseCase::GetProject do
         project_schema_gateway: project_schema_gateway_spy
       )
     end
-    let(:response) { use_case.execute(id: 5) }
+    let(:response) { use_case.execute(id: 5, api_key: 'M.R.Y') }
 
     before do
       response
@@ -124,14 +134,22 @@ describe UI::UseCase::GetProject do
       expect(find_project_spy).to have_received(:execute)
     end
 
+    it 'Passes the api key to the find project usecase' do
+      expect(find_project_spy).to have_received(:execute).with(hash_including(api_key: 'M.R.Y'))
+    end
+
     it 'Passes the ID to the find project usecase' do
-      expect(find_project_spy).to have_received(:execute).with(project_id: 5)
+      expect(find_project_spy).to have_received(:execute).with(hash_including(project_id: 5))
     end
 
     it 'Finds the schema from the gateway' do
       expect(project_schema_gateway_spy).to have_received(:find_by).with(
         type: 'hif'
       )
+    end
+
+    it 'Return the bid id from find project' do
+      expect(response[:bid_id]).to eq('HIF/MV/155')
     end
 
     it 'Returns the schema from the gateway' do

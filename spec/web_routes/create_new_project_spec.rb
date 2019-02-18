@@ -70,6 +70,7 @@ describe 'Creating a new project' do
       {
         name: 'Dog project',
         type: 'hif',
+        bid_id: 'HIF/MV/155',
         baselineData: {
           cats: 'meow',
           dogs: 'woof'
@@ -85,6 +86,14 @@ describe 'Creating a new project' do
       expect(create_new_project_spy).to(
         have_received(:execute).with(
           hash_including(name: 'Dog project')
+        )
+      )
+    end
+
+    it 'should call the create_new_project use case with bid_id' do
+      expect(create_new_project_spy).to(
+        have_received(:execute).with(
+          hash_including(bid_id: 'HIF/MV/155')
         )
       )
     end
@@ -118,6 +127,7 @@ describe 'Creating a new project' do
       {
         name: 'Duck project',
         type: 'ac',
+        bid_id: 'AC/MV/111',
         baselineData: {
           ducks: 'quack',
           good: [
@@ -134,6 +144,14 @@ describe 'Creating a new project' do
       expect(create_new_project_spy).to(
         have_received(:execute).with(
           hash_including(name: 'Duck project')
+        )
+      )
+    end
+
+    it 'should call the create_new_project use case with bid_id' do
+      expect(create_new_project_spy).to(
+        have_received(:execute).with(
+          hash_including(bid_id: 'AC/MV/111')
         )
       )
     end

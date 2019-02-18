@@ -9,7 +9,7 @@ describe HomesEngland::UseCase::CreateNewProject do
       project_gateway: project_gateway
     )
   end
-  let(:response) { use_case.execute(name: name, type: type, baseline: baseline) }
+  let(:response) { use_case.execute(name: name, type: type, baseline: baseline, bid_id: bid_id) }
 
   before do
     response
@@ -21,12 +21,15 @@ describe HomesEngland::UseCase::CreateNewProject do
     let(:type) { 'hif' }
     let(:baseline) { { key: 'value' } }
     let(:status) { '' }
+    let(:bid_id) { 'HIF/MV/121' }
+
 
     it 'creates the project with populated data' do
       expect(project_gateway).to have_received(:create) do |project|
         expect(project.name).to eq('Cat HIF')
         expect(project.type).to eq('hif')
         expect(project.data).to eq(key: 'value')
+        expect(project.bid_id).to eq('HIF/MV/121')
       end
     end
 
@@ -47,12 +50,14 @@ describe HomesEngland::UseCase::CreateNewProject do
     let(:type) { 'cats' }
     let(:baseline) { { cat: 'meow' } }
     let(:status) { '' }
+    let(:bid_id) { 'HIF/MV/111' }
 
     it 'creates the project' do
       expect(project_gateway).to have_received(:create) do |project|
         expect(project.name).to eq('Other cat project')
         expect(project.type).to eq('cats')
         expect(project.data).to eq(cat: 'meow')
+        expect(project.bid_id).to eq('HIF/MV/111')
       end
     end
 

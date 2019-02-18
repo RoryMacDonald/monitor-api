@@ -23,7 +23,12 @@ describe 'Updating a HIF Project' do
       }
     }
 
-    response = get_use_case(:create_new_project).execute(name: 'cat project', type: 'hif', baseline: project_baseline)
+    response = get_use_case(:create_new_project).execute(
+      name: 'cat project',
+      type: 'hif',
+      baseline: project_baseline,
+      bid_id: 'HIF/MV/5'
+    )
     success = get_use_case(:update_project).execute(project_id: response[:id], project_data: { cats: 'meow' }, timestamp: 123)
 
     expect(success[:successful]).to eq(true)
@@ -53,7 +58,12 @@ describe 'Updating a HIF Project' do
         }
       }
 
-      response = get_use_case(:create_new_project).execute(name: 'cat project', type: 'hif', baseline: project_baseline)
+      response = get_use_case(:create_new_project).execute(
+        name: 'cat project',
+        type: 'hif',
+        baseline: project_baseline,
+        bid_id: 'HIF/MV/6'
+      )
       get_use_case(:submit_project).execute(project_id: response[:id])
 
       get_use_case(:update_project).execute(project_id: response[:id], project_data: { cats: 'meow' }, timestamp: 2)
@@ -86,7 +96,12 @@ describe 'Updating a HIF Project' do
       time_now = Time.now
       Timecop.freeze(time_now)
 
-      project_id = get_use_case(:create_new_project).execute(name: 'cat project', type: 'hif', baseline: project_baseline)[:id]
+      project_id = get_use_case(:create_new_project).execute(
+        name: 'cat project',
+        type: 'hif',
+        baseline: project_baseline,
+        bid_id: 'AC/MV/5'
+      )[:id]
 
       get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: time_now.to_i)
       updated_project = get_use_case(:find_project).execute(id: project_id)

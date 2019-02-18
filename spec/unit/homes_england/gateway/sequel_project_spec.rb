@@ -3,12 +3,13 @@ describe HomesEngland::Gateway::SequelProject do
 
   let(:project_gateway) { described_class.new(database: database) }
 
-  context 'updating a non existant project' do
+  context 'updating a non existent project' do
     it 'returns unsuccessful' do
       project = HomesEngland::Domain::Project.new.tap do |p|
         p.name = 'Cat project'
         p.type = 'Animals'
         p.data = { cats: 'meow' }
+        p.bid_id = 'AC/MV/1'
       end
 
       response = project_gateway.update(id: 123, project: project)
@@ -23,6 +24,7 @@ describe HomesEngland::Gateway::SequelProject do
         p.name = 'Cat project'
         p.type = 'Animals'
         p.data = { cats: 'meow' }
+        p.bid_id = 'AC/MV/1'
       end
     end
     let(:project_id) { project_gateway.create(project) }
@@ -35,6 +37,7 @@ describe HomesEngland::Gateway::SequelProject do
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(cats: 'meow')
         expect(created_project.status).to eq('Draft')
+        expect(created_project.bid_id).to eq('AC/MV/1')
       end
     end
 
@@ -44,6 +47,7 @@ describe HomesEngland::Gateway::SequelProject do
         project.data = { dogs: 'woof' }
         project.status = 'Draft'
         project.timestamp = 56789123
+        project.bid_id = 'AC/MV/3'
         project_gateway.update(id: project_id, project: project)
 
         created_project = project_gateway.find_by(id: project_id)
@@ -53,6 +57,7 @@ describe HomesEngland::Gateway::SequelProject do
         expect(created_project.data).to eq(dogs: 'woof')
         expect(created_project.status).to eq('Draft')
         expect(created_project.timestamp).to eq(56789123)
+        expect(created_project.bid_id).to eq('AC/MV/3')
       end
 
       it 'returns successful' do
@@ -89,6 +94,7 @@ describe HomesEngland::Gateway::SequelProject do
           ],
           barn: []
         }
+        p.bid_id = 'HIF/MV/5'
       end
     end
     let(:project_id) { project_gateway.create(project) }
@@ -108,6 +114,7 @@ describe HomesEngland::Gateway::SequelProject do
           ],
           barn: []
         )
+        expect(created_project.bid_id).to eq('HIF/MV/5')
       end
     end
 
@@ -131,6 +138,7 @@ describe HomesEngland::Gateway::SequelProject do
           barn: [{ chicken: 'cluck' }]
         )
         expect(created_project.timestamp).to eq(78912)
+        expect(created_project.bid_id).to eq('HIF/MV/5')
       end
 
       it 'returns successful' do
@@ -156,6 +164,7 @@ describe HomesEngland::Gateway::SequelProject do
             ],
             barn: []
           }
+          p.bid_id = 'HIF/MV/7'
         end
       end
       let(:second_project) do
@@ -169,6 +178,7 @@ describe HomesEngland::Gateway::SequelProject do
             ],
             barn: []
           }
+          p.bid_id = 'HIF/MV/9'
         end
       end
       it 'returns projects from database' do
@@ -184,6 +194,7 @@ describe HomesEngland::Gateway::SequelProject do
                                           ],
                                           barn: []
                                         )
+        expect(all_projects[0].bid_id).to eq('HIF/MV/7')
 
         expect(all_projects[1].name).to eq('Second New project')
         expect(all_projects[1].type).to eq('UrbanAnimals')
@@ -194,6 +205,7 @@ describe HomesEngland::Gateway::SequelProject do
                                           ],
                                           barn: []
                                         )
+        expect(all_projects[1].bid_id).to eq('HIF/MV/9')
       end
     end
     context 'example 2' do
@@ -209,6 +221,7 @@ describe HomesEngland::Gateway::SequelProject do
             ],
             barn: []
           }
+          p.bid_id = 'AC/MV/66'
         end
       end
       let(:second_project) do
@@ -223,6 +236,7 @@ describe HomesEngland::Gateway::SequelProject do
             ],
             barn: []
           }
+          p.bid_id = 'AC/MV/35'
         end
       end
       it 'returns projects from database' do
@@ -240,6 +254,7 @@ describe HomesEngland::Gateway::SequelProject do
                                           ],
                                           barn: []
                                         )
+        expect(all_projects[0].bid_id).to eq('AC/MV/66')
 
         expect(all_projects[1].id).to eq(project_id_second)
         expect(all_projects[1].name).to eq('Second New project2')
@@ -252,6 +267,7 @@ describe HomesEngland::Gateway::SequelProject do
                                           ],
                                           barn: []
                                         )
+        expect(all_projects[1].bid_id).to eq('AC/MV/35')
       end
     end
   end

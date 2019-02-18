@@ -77,7 +77,10 @@ describe 'Compiles project data' do
     project_baseline = expected_compiled_project[:baseline][:data]
 
     project_id = get_use_case(:create_new_project).execute(
-      name: expected_compiled_project[:baseline][:name], type: expected_compiled_project[:baseline][:type], baseline: project_baseline
+      name: expected_compiled_project[:baseline][:name],
+      type: expected_compiled_project[:baseline][:type],
+      baseline: project_baseline,
+      bid_id: 'HIF/MV/15'
     )[:id]
 
     get_use_case(:submit_project).execute(project_id: project_id)
@@ -99,10 +102,16 @@ describe 'Compiles project data' do
   it 'export multiple projects' do
     project_baseline = expected_compiled_project[:baseline][:data]
     project_id = get_use_case(:create_new_project).execute(
-      name: expected_compiled_project[:baseline][:name], type: expected_compiled_project[:baseline][:type], baseline: project_baseline
+      name: expected_compiled_project[:baseline][:name],
+      type: expected_compiled_project[:baseline][:type],
+      baseline: project_baseline,
+      bid_id: 'HIF/MV/15'
     )[:id]
     project_id_second = get_use_case(:create_new_project).execute(
-      name: expected_compiled_project[:baseline][:name], type: expected_compiled_project[:baseline][:type], baseline: project_baseline
+      name: expected_compiled_project[:baseline][:name],
+      type: expected_compiled_project[:baseline][:type],
+      baseline: project_baseline,
+      bid_id: 'HIF/MV/535'
     )[:id]
 
     get_use_case(:submit_project).execute(project_id: project_id)

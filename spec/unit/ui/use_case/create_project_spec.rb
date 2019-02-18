@@ -11,7 +11,7 @@ describe UI::UseCase::CreateProject do
       )
     end
     let(:response) do
-      use_case.execute(type: 'hif', name: 'Cats', baseline: { Cats: 'purr' })
+      use_case.execute(type: 'hif', name: 'Cats', baseline: { Cats: 'purr' }, bid_id: 'HIF/MV/25')
     end
 
     before do
@@ -31,6 +31,12 @@ describe UI::UseCase::CreateProject do
     it 'Calls execute on the create project usecase with the project name' do
       expect(create_project_spy).to(
         have_received(:execute).with(hash_including(name: 'Cats'))
+      )
+    end
+
+    it 'Calls execute on the create project usecase with the project bid id' do
+      expect(create_project_spy).to(
+        have_received(:execute).with(hash_including(bid_id: 'HIF/MV/25'))
       )
     end
 
@@ -65,7 +71,7 @@ describe UI::UseCase::CreateProject do
       )
     end
     let(:response) do
-      use_case.execute(type: 'laac', name: 'Dogs', baseline: { doggos: 'woof' })
+      use_case.execute(type: 'laac', name: 'Dogs', baseline: { doggos: 'woof' }, bid_id: 'HIF/MV/75')
     end
 
     before do
@@ -109,6 +115,12 @@ describe UI::UseCase::CreateProject do
     it 'Passes the project data to the converter' do
       expect(convert_ui_project_spy).to have_received(:execute).with(
         project_data: { doggos: 'woof' }, type: 'laac'
+      )
+    end
+
+    it 'Calls execute on the create project usecase with the project bid id' do
+      expect(create_project_spy).to(
+        have_received(:execute).with(hash_including(bid_id: 'HIF/MV/75'))
       )
     end
 
