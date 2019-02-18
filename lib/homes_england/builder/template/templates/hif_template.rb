@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HomesEngland::Builder::Template::Templates::HIFTemplate
-  def create
+  def self.create
     hif_template = Common::Domain::Template.new
     hif_template.schema = {
       '$schema': 'http://json-schema.org/draft-07/schema',
@@ -148,7 +148,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
     hif_template
   end
 
-  def hif_infrastructures
+  def self.hif_infrastructures
     {
       type: 'array',
       title: 'Infrastructures',
@@ -651,7 +651,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
     }
   end
 
-  def hif_summary
+  def self.hif_summary
     {
       type: 'object',
       title: 'Project Summary',
@@ -721,7 +721,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
     }
   end
 
-  def hif_s151
+  def self.hif_s151
     {
       type: 'object',
       title: 'Section 151',
@@ -740,7 +740,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
     }
   end
 
-  def outputs_forecast
+  def self.outputs_forecast
     {
       type: 'object',
       title: 'Outputs - Forecast',
@@ -782,7 +782,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
     }
   end
 
-  def outputs_actuals
+  def self.outputs_actuals
     {
       type: 'object',
       title: 'Outputs - Actual',
@@ -814,7 +814,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
     }
   end
 
-  def rm_baseline
+  def self.rm_baseline
     {
       type: 'object',
       title: 'RM Baseline',
