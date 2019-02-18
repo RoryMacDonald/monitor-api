@@ -26,6 +26,7 @@ services:
       EMAIL_WHITELIST: 'test@test.test'
       GOV_NOTIFY_API_KEY: 'cafe-cafecafe-cafe-cafe-cafe-cafecafecafe-cafecafe-cafe-cafe-cafe-cafecafecafe'
       HMAC_SECRET: 'E'
+      PCS_SECRET: ''
       ADMIN_HTTP_API_KEY: 'supersecret'
       BI_HTTP_API_KEY: 'supersecret'
       OUTPUTS_FORECAST_TAB: 'yes'
