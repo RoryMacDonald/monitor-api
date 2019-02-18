@@ -63,14 +63,14 @@ describe UI::UseCase::CreateProject do
     end
 
     context 'no baseline data' do
-      let(:blank_project_response) { use_case.execute(type: 'hif', name: 'Cats', baseline: nil) }
+      let(:blank_project_response) { use_case.execute(type: 'hif', name: 'Cats', baseline: nil, bid_id: 'hif/mvf') }
       before { blank_project_response }
 
       it 'calls the new project gateway with type' do
           expect(new_project_gateway_spy).to have_received(:find_by).with(type: 'hif')
       end
       
-      it 'Ccreates the project with this baseline' do
+      it 'Creates the project with this baseline' do
         expect(create_project_spy).to(
           have_received(:execute).with(hash_including(baseline: {data: 'new'}))
         )
@@ -150,7 +150,7 @@ describe UI::UseCase::CreateProject do
     end
 
     context 'no baseline data' do
-      let(:blank_project_response) { use_case.execute(type: 'ac', name: 'Cats', baseline: nil) }
+      let(:blank_project_response) { use_case.execute(type: 'ac', name: 'Cats', baseline: nil, bid_id: 'AC/FDS/12') }
       before { blank_project_response }
       
       it 'calls the new project gateway with type' do

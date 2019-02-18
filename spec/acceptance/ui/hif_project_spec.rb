@@ -8,24 +8,30 @@ describe 'Interacting with a HIF Project from the UI' do
   let(:pcs_url) { 'meow.cat' }
 
   let(:baseline_data_ui) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:empty_baseline_data) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_empty_baseline_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_empty_baseline_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:updated_ui_baseline_data) do
-    JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   def create_project

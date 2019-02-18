@@ -12,9 +12,11 @@ class UI::Gateway::InMemoryNewProject
   private
 
   def create_project(type)
-    JSON.parse(
-      File.open("#{__dir__}/blank_projects/#{type}.json", 'r').read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/blank_projects/#{type}.json", 'r') do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 end

@@ -9,10 +9,12 @@ describe 'Validates HIF return' do
   context 'Invalid HIF return' do
     # percent complete set to > 100
     let(:project_base_return_invalid) do
-      JSON.parse(
-        File.open("#{__dir__}/../../fixtures/base_return.json").read,
-        symbolize_names: true
-      )
+      File.open("#{__dir__}/../../fixtures/base_return.json") do |f|
+        JSON.parse(
+          f.read,
+          symbolize_names: true
+        )
+      end
     end
 
     it 'should return invalid if fails validation' do

@@ -1,16 +1,20 @@
 describe UI::UseCase::ConvertCoreACProject do
   let(:core_project_to_convert) do
-    JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/ac_baseline_core.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../../fixtures/ac_baseline_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:ui_data_project) do
-    JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/ac_baseline_ui.json").read,
-      symbolize_names: true
-    )
+    File.open("#{__dir__}/../../../fixtures/ac_baseline_ui.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   it 'Converts the project correctly' do

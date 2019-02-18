@@ -16,10 +16,13 @@ class UI::Gateway::InMemoryProjectSchema
 
   def create_template(schema)
     template = Common::Domain::Template.new
-    template.schema = JSON.parse(
-      File.open("#{__dir__}/schemas/#{schema}", 'r').read,
-      symbolize_names: true
-    )
+
+    File.open("#{__dir__}/schemas/#{schema}", 'r') do |f|
+      template.schema = JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
     template
   end
 end
