@@ -58,7 +58,7 @@ module DeliveryMechanism
           api_key: env['HTTP_API_KEY'],
           project_id: nil
           )[:email]
-          
+
         project_list = @dependency_factory.get_use_case(:get_user_projects).execute(email: email)[:project_list]
 
         content_type 'application/json'
@@ -206,6 +206,13 @@ module DeliveryMechanism
         response.headers['Cache-Control'] = 'no-cache'
         response.status = returns.empty? ? 404 : 200
         response.body = returns.to_json
+      end
+    end
+
+    get '/project/:id/infrastructures' do
+      guard_access env, params, request do |_|
+        infrastructures = @dependency_factory.get_use_case(:get_infrastructures).execute(project_id: params['id'].to_i)
+        infrastructures.to_json
       end
     end
 
@@ -390,7 +397,7 @@ module DeliveryMechanism
     end
 
     def check_get_access(env, params)
-      if env['HTTP_API_KEY'].nil? 
+      if env['HTTP_API_KEY'].nil?
         :bad_request
       elsif !@dependency_factory.get_use_case(:check_api_key).execute(
           api_key: env['HTTP_API_KEY'],
