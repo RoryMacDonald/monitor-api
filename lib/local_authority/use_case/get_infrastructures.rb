@@ -6,8 +6,11 @@ class LocalAuthority::UseCase::GetInfrastructures
   def execute(project_id:)
     project = @find_project.execute(id: project_id)
 
-    infrastructures = project.dig(:data, :infrastructures)
-
-    { infrastructures: infrastructures }
+    if project[:type] == 'ff'
+      infrastructures = project.dig(:data, :infrastructures)
+      { infrastructures: infrastructures }
+    else
+      {}
+    end
   end
 end
