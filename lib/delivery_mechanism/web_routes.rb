@@ -123,7 +123,7 @@ module DeliveryMechanism
 
         return_schema = @dependency_factory
                         .get_use_case(:ui_get_schema_for_return)
-                        .execute(return_id: return_id)[:schema]
+                        .execute(return_id: return_id, api_key: env['HTTP_API_KEY'])[:schema]
 
         response.body = {
           project_id: return_hash[:project_id],

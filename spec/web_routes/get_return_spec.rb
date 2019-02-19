@@ -57,7 +57,7 @@ describe 'Getting a return' do
 
       it 'passes data to UIGetSchemaForReturn' do
         expect(get_schema_for_return_spy).to(
-          have_received(:execute).with(return_id: 1)
+          have_received(:execute).with(return_id: 1, api_key: "superSecret")
         )
       end
 
@@ -125,7 +125,7 @@ describe 'Getting a return' do
 
       it 'passes data to GetSchemaForReturn' do
         expect(get_schema_for_return_spy).to(
-          have_received(:execute).with(return_id: 1)
+          have_received(:execute).with(return_id: 1, api_key: "verySecret")
         )
       end
 
