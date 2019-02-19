@@ -17,7 +17,7 @@ class LocalAuthority::Gateway::GovEmailNotificationGateway
   def send_return_notification(to:, url:, by:, project_name:)
     @client.send_email(
       email_address: to,
-      template_id: 'c5876716-e0b3-4089-9ee1-040a0a2807dc',
+      template_id: 'f26f9895-97ed-40db-ba50-70fe9f81f97d',
       personalisation: { access_url: url, print_url: "#{url}/print", by: by, project_name: project_name }
     )
   end
