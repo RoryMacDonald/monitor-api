@@ -6,11 +6,7 @@ class LocalAuthority::UseCase::GetInfrastructures
   def execute(project_id:)
     project = @find_project.execute(id: project_id)
 
-    infrastructures = project.dig(:data, :infrastructures).map do |infrastructure|
-      {
-        information: infrastructure[:information]
-      }
-    end
+    infrastructures = project.dig(:data, :infrastructures)
 
     { infrastructures: infrastructures }
   end

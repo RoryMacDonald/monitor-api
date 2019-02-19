@@ -7,11 +7,11 @@ describe LocalAuthority::UseCase::GetInfrastructures do
           data: {
             infrastructures: [
               {
-                information: 'man',
-                notNeeded: 'cold'
+                information: 'man'
               },
               {
-                information: 'muffin'
+                information: 'muffin',
+                location: 'arctic'
               }
             ],
             additionalData: {
@@ -35,7 +35,8 @@ describe LocalAuthority::UseCase::GetInfrastructures do
             information: 'man'
           },
           {
-            information: 'muffin'
+            information: 'muffin',
+            location: 'arctic'
           }
         ]
       )
@@ -49,11 +50,10 @@ describe LocalAuthority::UseCase::GetInfrastructures do
             infrastructures: [
               {
                 information: 'thunderstorms',
-                unnecessaryInfo: 'not needed'
+                otherData: 'weather'
               },
               {
-                information: 'cloud',
-                moreUnnecessaryInfo: 'not needed'
+                information: 'cloud'
               },
               {
                 information: 'snow'
@@ -77,7 +77,8 @@ describe LocalAuthority::UseCase::GetInfrastructures do
       expect(response[:infrastructures]).to eq(
         [
           {
-            information: 'thunderstorms'
+            information: 'thunderstorms',
+            otherData: 'weather'
           },
           {
             information: 'cloud'
