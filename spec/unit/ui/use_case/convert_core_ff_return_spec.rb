@@ -1,14 +1,24 @@
 describe UI::UseCase::ConvertCoreFFReturn do
   let(:ui_data_return) do
+    ff_return_ui = File.open(
+      "#{__dir__}/../../../fixtures/ff_return_ui.json",
+      &:read
+    )
+
     JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/ff_return_ui.json").read,
+      ff_return_ui,
       symbolize_names: true
     )
   end
 
   let(:return_to_convert) do
+    ff_return_core = File.open(
+      "#{__dir__}/../../../fixtures/ff_return_core.json",
+      &:read
+    )
+    
     JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/ff_return_core.json").read,
+      ff_return_core,
       symbolize_names: true
     )
   end

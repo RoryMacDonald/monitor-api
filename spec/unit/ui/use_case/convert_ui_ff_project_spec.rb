@@ -1,14 +1,24 @@
 describe UI::UseCase::ConvertUIFFProject do
   let(:project_to_convert) do
+    ff_baseline_ui = File.open(
+      "#{__dir__}/../../../fixtures/ff_baseline_ui.json",
+      &:read
+    )
+
     JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/ff_baseline_ui.json").read,
+      ff_baseline_ui,
       symbolize_names: true
     )
   end
 
   let(:core_data_project) do
+    ff_baseline_core = File.open(
+      "#{__dir__}/../../../fixtures/ff_baseline_core.json",
+      &:read
+    )
+    
     JSON.parse(
-      File.open("#{__dir__}/../../../fixtures/ff_baseline_core.json").read,
+      ff_baseline_core,
       symbolize_names: true
     )
   end
