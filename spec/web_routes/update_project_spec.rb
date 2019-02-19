@@ -4,6 +4,8 @@ require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Updating a project' do
+  let(:check_api_key_stub) { double(execute: {valid: true}) }
+  let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.m.f" }) }
   let(:get_project_spy) { spy(execute: { type: 'hif' })}
   let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 6 }) }
   let(:create_new_project_spy) { spy(execute: project_id) }
@@ -43,6 +45,16 @@ describe 'Updating a project' do
     stub_const(
       'LocalAuthority::UseCase::CheckApiKey',
       double(new: double(execute: {valid: true}))
+    )
+
+    stub_const(
+      'LocalAuthority::UseCase::ApiToPcsKey',
+      double(new: api_to_pcs_key_spy)
+    )
+
+    stub_const(
+      'LocalAuthority::UseCase::CheckApiKey',
+      double(new: check_api_key_stub)
     )
 
     header 'API_KEY', 'superSecret'
@@ -98,7 +110,7 @@ describe 'Updating a project' do
 
     it 'Should get the project for the id' do
       expect(get_project_spy).to(
-        have_received(:execute).with(id: project_id, pcs_key: "superSecret")
+        have_received(:execute).with(id: project_id, pcs_key: "i.m.f")
       )
     end
 
