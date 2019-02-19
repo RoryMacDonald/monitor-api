@@ -98,7 +98,7 @@ describe 'Updating a project' do
 
     it 'Should get the project for the id' do
       expect(get_project_spy).to(
-        have_received(:execute).with(id: project_id, api_key: "superSecret")
+        have_received(:execute).with(id: project_id, pcs_key: "superSecret")
       )
     end
 

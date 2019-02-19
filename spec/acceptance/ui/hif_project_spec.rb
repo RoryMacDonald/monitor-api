@@ -65,7 +65,7 @@ describe 'Interacting with a HIF Project from the UI' do
     )
 
     dependency_factory.get_use_case(:ui_get_project).execute(
-      id: id, api_key: 'X.S.I'
+      id: id, pcs_key: 'X.S.I'
     )
   end
 
