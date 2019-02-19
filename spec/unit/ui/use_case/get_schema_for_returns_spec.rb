@@ -11,20 +11,12 @@ describe UI::UseCase::GetSchemaForReturn do
         }
       end
     end
-    let(:get_return_spy) { spy(execute: { type: 'hif' }) }
+
     let(:in_memory_return_template_spy) { spy(find_by: schema) }
-    let(:use_case) { described_class.new(get_return: get_return_spy, return_template: in_memory_return_template_spy) }
-    let(:response) { use_case.execute(return_id: 2, pcs_key: 'superSecret') }
+    let(:use_case) { described_class.new(return_template: in_memory_return_template_spy) }
+    let(:response) { use_case.execute(type: 'hif') }
 
     before { response }
-
-    it 'Calls the get schema for return use case' do
-      expect(get_return_spy).to have_received(:execute)
-    end
-
-    it 'Calls the get schema for return use case with return id' do
-      expect(get_return_spy).to have_received(:execute).with(id: 2, pcs_key: 'superSecret')
-    end
 
     it 'Calls the in memory return template' do
       expect(in_memory_return_template_spy).to have_received(:find_by)
@@ -54,20 +46,12 @@ describe UI::UseCase::GetSchemaForReturn do
         }
       end
     end
-    let(:get_return_spy) { spy(execute: { type: 'ac' }) }
+
     let(:in_memory_return_template_spy) { spy(find_by: schema) }
-    let(:use_case) { described_class.new(get_return: get_return_spy, return_template: in_memory_return_template_spy) }
-    let(:response) { use_case.execute(return_id: 3, pcs_key: 'secretest') }
+    let(:use_case) { described_class.new(return_template: in_memory_return_template_spy) }
+    let(:response) { use_case.execute(type: 'ac') }
 
     before { response }
-
-    it 'Calls the get schema for return use case' do
-      expect(get_return_spy).to have_received(:execute)
-    end
-
-    it 'Calls the get schema for return use case with return id' do
-      expect(get_return_spy).to have_received(:execute).with(id: 3, pcs_key: 'secretest')
-    end
 
     it 'Calls the in memory return template' do
       expect(in_memory_return_template_spy).to have_received(:find_by)

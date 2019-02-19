@@ -123,7 +123,7 @@ module DeliveryMechanism
 
         return_schema = @dependency_factory
                         .get_use_case(:ui_get_schema_for_return)
-                        .execute(return_id: return_id, pcs_key: pcs_key)[:schema]
+                        .execute(type: return_hash[:type])[:schema]
 
         response.body = {
           project_id: return_hash[:project_id],
