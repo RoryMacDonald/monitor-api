@@ -1,7 +1,7 @@
 describe LocalAuthority::Gateway::InMemoryReturnTemplate do
   let(:hif_returns_schema_spy) { spy }
   let(:ac_returns_schema_spy) { spy }
-  
+
   def get_template(type:)
     described_class.new(
       hif_returns_schema: hif_returns_schema_spy,

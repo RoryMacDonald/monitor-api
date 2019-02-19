@@ -58,7 +58,7 @@ module DeliveryMechanism
           api_key: env['HTTP_API_KEY'],
           project_id: nil
           )[:email]
-          
+
         project_list = @dependency_factory.get_use_case(:get_user_projects).execute(email: email)[:project_list]
 
         content_type 'application/json'
@@ -412,7 +412,7 @@ module DeliveryMechanism
     end
 
     def check_get_access(env, params)
-      if env['HTTP_API_KEY'].nil? 
+      if env['HTTP_API_KEY'].nil?
         :bad_request
       elsif !@dependency_factory.get_use_case(:check_api_key).execute(
           api_key: env['HTTP_API_KEY'],

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HomesEngland::Builder::Template::Templates::ACTemplate
-  def create
+  def self.create
     ac_template = Common::Domain::Template.new
     ac_template.schema = {
       '$schema': 'http://json-schema.org/draft-07/schema',
@@ -20,7 +20,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
 
   private
 
-  def ac_summary
+  def self.ac_summary
     {
       type: 'object',
       title: 'Project Summary',
@@ -325,7 +325,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
     }
   end
 
-  def ac_conditions
+  def self.ac_conditions
     {
       type: 'object',
       title: 'Conditions',
@@ -393,7 +393,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
     }
   end
 
-  def ac_financials
+  def self.ac_financials
     {
       type: 'object',
       title: 'Financials',
@@ -482,7 +482,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
     }
   end
 
-  def ac_milestones
+  def self.ac_milestones
     {
       type: 'object',
       title: 'Milestones',
@@ -634,7 +634,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
     }
   end
 
-  def ac_outputs
+  def self.ac_outputs
     {
       type: 'object',
       title: 'Outputs',

@@ -3,10 +3,13 @@ describe UI::UseCase::ConvertUIReturn do
   context 'Example 1' do
     let(:convert_ui_hif_return_spy) { spy(execute: { data: 'converted_return_data' })}
     let(:convert_ui_ac_return_spy) { spy(execute: { data: 'ac_converted_return_data' })}
+    let(:convert_ui_ff_return_spy) { spy(execute: { data: 'ff_converted_return_data' })}
+
     let(:use_case) do
       described_class.new(
         convert_ui_hif_return: convert_ui_hif_return_spy,
-        convert_ui_ac_return: convert_ui_ac_return_spy
+        convert_ui_ac_return: convert_ui_ac_return_spy,
+        convert_ui_ff_return: convert_ui_ff_return_spy
       )
     end
 
@@ -36,7 +39,7 @@ describe UI::UseCase::ConvertUIReturn do
         use_case.execute(
           return_data: { wrong_data: 'needs to be converted' },
           type: 'ac'
-          )
+        )
       end
 
       before { response }
@@ -49,6 +52,27 @@ describe UI::UseCase::ConvertUIReturn do
 
       it 'Returns the response from the ac convertor' do
         expect(response).to eq({ data: 'ac_converted_return_data' })
+      end
+    end
+
+    context 'ff data' do
+      let(:response) do
+        use_case.execute(
+          return_data: { wrong_data: 'needs to be converted' },
+          type: 'ff'
+          )
+      end
+
+      before { response }
+
+      it 'Calls the convert ui ff use case' do
+        expect(convert_ui_ff_return_spy).to have_received(:execute).with(
+          return_data: { wrong_data: 'needs to be converted' }
+        )
+      end
+
+      it 'Returns the response from the ff convertor' do
+        expect(response).to eq({ data: 'ff_converted_return_data' })
       end
     end
 
@@ -75,10 +99,12 @@ describe UI::UseCase::ConvertUIReturn do
   context 'Example 2' do
     let(:convert_ui_hif_return_spy) { spy(execute: { my_second_return: 'Also been converted'})}
     let(:convert_ui_ac_return_spy) { spy(execute: { my_second_return: 'Also been converted by ac'})}
+    let(:convert_ui_ff_return_spy) { spy(execute: { my_second_return: 'Also been converted by ff'})}
     let(:use_case) do
       described_class.new(
         convert_ui_hif_return: convert_ui_hif_return_spy,
-        convert_ui_ac_return: convert_ui_ac_return_spy
+        convert_ui_ac_return: convert_ui_ac_return_spy,
+        convert_ui_ff_return: convert_ui_ff_return_spy
       )
     end
 
@@ -121,6 +147,27 @@ describe UI::UseCase::ConvertUIReturn do
 
       it 'Returns the response from the ac convertor' do
         expect(response).to eq({ my_second_return: 'Also been converted by ac'})
+      end
+    end
+
+    context 'ff data' do
+      let(:response) do
+        use_case.execute(
+          return_data: { before_conversion: 'Must check type' },
+          type: 'ff'
+          )
+      end
+
+      before { response }
+
+      it 'Calls the convert ui ff use case' do
+        expect(convert_ui_ff_return_spy).to have_received(:execute).with(
+          return_data: { before_conversion: 'Must check type' }
+        )
+      end
+
+      it 'Returns the response from the ff convertor' do
+        expect(response).to eq({ my_second_return: 'Also been converted by ff'})
       end
     end
 

@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 describe UI::UseCase::ConvertUIProject do
-
   context 'Example one' do
     let(:convert_ui_ac_project_spy) { spy(execute: { data: 'ac_converted' })}
+    let(:convert_ui_ff_project_spy) { spy(execute: { data: 'ff converted' })}
     let(:convert_ui_hif_project_spy) { spy(execute: { data: 'converted' })}
-    let(:use_case) do 
+    let(:use_case) do
       described_class.new(
         convert_ui_hif_project: convert_ui_hif_project_spy,
-        convert_ui_ac_project: convert_ui_ac_project_spy
+        convert_ui_ac_project: convert_ui_ac_project_spy,
+        convert_ui_ff_project: convert_ui_ff_project_spy
       )
     end
 
@@ -19,7 +20,7 @@ describe UI::UseCase::ConvertUIProject do
 
       it 'Calls the convert ui hif project use case with the project data' do
         expect(convert_ui_hif_project_spy).to have_received(:execute).with(
-          project_data: { data: 'from the ui' } 
+          project_data: { data: 'from the ui' }
         )
       end
 
@@ -33,14 +34,30 @@ describe UI::UseCase::ConvertUIProject do
 
       before { response }
 
-      it 'Calls the convert ui hif project use case with the project data' do
+      it 'Calls the convert ui ac project use case with the project data' do
         expect(convert_ui_ac_project_spy).to have_received(:execute).with(
-          project_data: { data: 'from the ui' } 
+          project_data: { data: 'from the ui' }
         )
       end
 
-      it 'Returns the data passed from convert ui hif project usecase' do
+      it 'Returns the data passed from convert ui ac project usecase' do
         expect(response).to eq({ data: 'ac_converted' })
+      end
+    end
+
+    context 'FF data' do
+      let(:response) { use_case.execute(project_data: { data: 'from the ui' }, type: 'ff')}
+
+      before { response }
+
+      it 'Calls the convert ui ff project use case with the project data' do
+        expect(convert_ui_ff_project_spy).to have_received(:execute).with(
+          project_data: { data: 'from the ui' }
+        )
+      end
+
+      it 'Returns the data passed from convert ui ff project usecase' do
+        expect(response).to eq({ data: 'ff converted' })
       end
     end
 
@@ -61,11 +78,13 @@ describe UI::UseCase::ConvertUIProject do
 
   context 'Example two' do
     let(:convert_ui_ac_project_spy) { spy(execute: { data: 'ready for the ac core' })}
+    let(:convert_ui_ff_project_spy) { spy(execute: { data: 'ready for the ff core' })}
     let(:convert_ui_hif_project_spy) { spy(execute: { data: 'done for hif' })}
-    let(:use_case) do 
+    let(:use_case) do
       described_class.new(
         convert_ui_hif_project: convert_ui_hif_project_spy,
-        convert_ui_ac_project: convert_ui_ac_project_spy
+        convert_ui_ac_project: convert_ui_ac_project_spy,
+        convert_ui_ff_project: convert_ui_ff_project_spy
       )
     end
 
@@ -76,7 +95,7 @@ describe UI::UseCase::ConvertUIProject do
 
       it 'Calls the convert ui hif project use case with the project data' do
         expect(convert_ui_hif_project_spy).to have_received(:execute).with(
-          project_data: { data: 'data ready to be changed' } 
+          project_data: { data: 'data ready to be changed' }
         )
       end
 
@@ -92,12 +111,28 @@ describe UI::UseCase::ConvertUIProject do
 
       it 'Calls the convert ui hif project use case with the project data' do
         expect(convert_ui_ac_project_spy).to have_received(:execute).with(
-          project_data: { data: 'data ready to be changed' } 
+          project_data: { data: 'data ready to be changed' }
         )
       end
 
       it 'Returns the data passed from convert ui hif project usecase' do
         expect(response).to eq({ data: 'ready for the ac core' })
+      end
+    end
+
+    context 'FF data' do
+      let(:response) { use_case.execute(project_data: { data: 'from the ui' }, type: 'ff')}
+
+      before { response }
+
+      it 'Calls the convert ui ff project use case with the project data' do
+        expect(convert_ui_ff_project_spy).to have_received(:execute).with(
+          project_data: { data: 'from the ui' }
+        )
+      end
+
+      it 'Returns the data passed from convert ui ff project usecase' do
+        expect(response).to eq({ data: 'ready for the ff core' })
       end
     end
 

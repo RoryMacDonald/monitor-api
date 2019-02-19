@@ -10,6 +10,10 @@ class UI::UseCases
       UI::UseCase::ConvertCoreACProject.new
     end
 
+    builder.define_use_case :convert_core_ff_project do
+      UI::UseCase::ConvertCoreFFProject.new
+    end
+
     builder.define_use_case :convert_ui_hif_project do
       UI::UseCase::ConvertUIHIFProject.new
     end
@@ -18,17 +22,23 @@ class UI::UseCases
       UI::UseCase::ConvertUIACProject.new
     end
 
+    builder.define_use_case :convert_ui_ff_project do
+      UI::UseCase::ConvertUIFFProject.new
+    end
+
     builder.define_use_case :convert_core_project do
       UI::UseCase::ConvertCoreProject.new(
         convert_core_hif_project: builder.get_use_case(:convert_core_hif_project),
-        convert_core_ac_project: builder.get_use_case(:convert_core_ac_project)
+        convert_core_ac_project: builder.get_use_case(:convert_core_ac_project),
+        convert_core_ff_project: builder.get_use_case(:convert_core_ff_project)
       )
     end
 
     builder.define_use_case :convert_ui_project do
       UI::UseCase::ConvertUIProject.new(
         convert_ui_hif_project: builder.get_use_case(:convert_ui_hif_project),
-        convert_ui_ac_project: builder.get_use_case(:convert_ui_ac_project)
+        convert_ui_ac_project: builder.get_use_case(:convert_ui_ac_project),
+        convert_ui_ff_project: builder.get_use_case(:convert_ui_ff_project)
       )
     end
 
@@ -40,10 +50,15 @@ class UI::UseCases
       UI::UseCase::ConvertCoreACReturn.new
     end
 
+    builder.define_use_case :convert_core_ff_return do
+      UI::UseCase::ConvertCoreFFReturn.new
+    end
+
     builder.define_use_case :convert_core_return do
       UI::UseCase::ConvertCoreReturn.new(
         convert_core_hif_return: builder.get_use_case(:convert_core_hif_return),
-        convert_core_ac_return: builder.get_use_case(:convert_core_ac_return)
+        convert_core_ac_return: builder.get_use_case(:convert_core_ac_return),
+        convert_core_ff_return: builder.get_use_case(:convert_core_ff_return)
       )
     end
 
@@ -55,10 +70,15 @@ class UI::UseCases
       UI::UseCase::ConvertUIACReturn.new
     end
 
+    builder.define_use_case :convert_ui_ff_return do
+      UI::UseCase::ConvertUIFFReturn.new
+    end
+
     builder.define_use_case :convert_ui_return do
       UI::UseCase::ConvertUIReturn.new(
         convert_ui_hif_return: builder.get_use_case(:convert_ui_hif_return),
-        convert_ui_ac_return: builder.get_use_case(:convert_ui_ac_return)
+        convert_ui_ac_return: builder.get_use_case(:convert_ui_ac_return),
+        convert_ui_ff_return: builder.get_use_case(:convert_ui_ff_return)
       )
     end
 
