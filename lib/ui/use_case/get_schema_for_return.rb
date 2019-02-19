@@ -4,8 +4,8 @@ class UI::UseCase::GetSchemaForReturn
     @return_template = return_template
   end
 
-  def execute(return_id:, api_key:)
-    type = @get_return.execute(id: return_id, api_key: api_key)[:type]
+  def execute(return_id:, pcs_key:)
+    type = @get_return.execute(id: return_id, pcs_key: pcs_key)[:type]
     schema = @return_template.find_by(type: type).schema
     {
       schema: schema

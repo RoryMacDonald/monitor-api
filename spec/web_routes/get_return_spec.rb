@@ -51,13 +51,13 @@ describe 'Getting a return' do
 
       it 'passes the pcs key to GetReturn' do
         expect(get_return_spy).to have_received(:execute).with(
-          hash_including(api_key: 'i.m.f')
+          hash_including(pcs_key: 'i.m.f')
         )
       end
 
       it 'passes data to UIGetSchemaForReturn' do
         expect(get_schema_for_return_spy).to(
-          have_received(:execute).with(return_id: 1, api_key: "superSecret")
+          have_received(:execute).with(return_id: 1, pcs_key: "superSecret")
         )
       end
 
@@ -119,13 +119,13 @@ describe 'Getting a return' do
 
       it 'passes the pcs key to GetReturn' do
         expect(get_return_spy).to have_received(:execute).with(
-          hash_including(api_key: 'i.s.s')
+          hash_including(pcs_key: 'i.s.s')
         )
       end
 
       it 'passes data to GetSchemaForReturn' do
         expect(get_schema_for_return_spy).to(
-          have_received(:execute).with(return_id: 1, api_key: "verySecret")
+          have_received(:execute).with(return_id: 1, pcs_key: "verySecret")
         )
       end
 
