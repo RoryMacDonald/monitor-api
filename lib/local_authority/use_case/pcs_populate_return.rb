@@ -13,11 +13,15 @@ class LocalAuthority::UseCase::PcsPopulateReturn
       )
 
       unless pcs_data.actuals.nil?
-        total = pcs_data.actuals.reduce(0) do |sum, actual|
-          sum + actual.dig(:payments,:currentYearPayments).sum + actual[:previousYearPaymentsToDate].to_i
+        total = get_spend_to_date(pcs_data)
+        if return_data[:type] == 'ac'
+          return_data[:updates][-1][:s151GrantClaimApproval] = {} if return_data[:s151GrantClaimApproval].nil?
+          return_data[:updates][-1][:s151GrantClaimApproval][:SpendToDate] = total.to_s
+        elsif return_data[:type] == 'hif'
+          return_data[:updates][-1][:s151] = {} if return_data[:s151].nil?
+          return_data[:updates][-1][:s151][:claimSummary] = {} if return_data.dig(:s151, :claimSummary).nil?
+          return_data[:updates][-1][:s151][:claimSummary][:hifSpendToDate] = total.to_s
         end
-        return_data[:updates][-1][:s151GrantClaimApproval] = {} if return_data[:s151GrantClaimApproval].nil?
-        return_data[:updates][-1][:s151GrantClaimApproval][:SpendToDate] = total.to_s
 
         return_data[:updates][-1] = add_ac_figures(return_data[:updates][-1], pcs_data.actuals) if return_data[:type] == 'ac'
       end
@@ -26,6 +30,12 @@ class LocalAuthority::UseCase::PcsPopulateReturn
   end
 
   private
+
+  def get_spend_to_date(pcs_data)
+    pcs_data.actuals.reduce(0) do |sum, actual|
+      sum + actual.dig(:payments,:currentYearPayments).sum + actual[:previousYearPaymentsToDate].to_i
+    end
+  end
 
   def add_ac_figures(return_data, actuals)
     year = actuals[0][:dateInfo][:period]

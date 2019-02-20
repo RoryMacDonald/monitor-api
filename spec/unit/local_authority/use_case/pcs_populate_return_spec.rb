@@ -394,7 +394,58 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
 
         let(:pcs_gateway_spy) do
           spy(
-            get_project: HomesEngland::Domain::PcsBid.new
+            get_project: HomesEngland::Domain::PcsBid.new.tap do |project|
+              project.project_manager = "Leonard Suskin"
+              project.sponsor = "Thomas Suskin"
+              project.actuals = [
+                {
+                  dateInfo: {
+                    period: '2018/19',
+                    monthNumber: 12
+                  },
+                  previousYearPaymentsToDate: 12,
+                  payments: {
+                    currentYearPayments: [
+                      1,
+                      2,
+                      4,
+                      8,
+                      16,
+                      32,
+                      64,
+                      128,
+                      256,
+                      512,
+                      1024,
+                      0
+                    ]
+                  }
+                },
+                {
+                  dateInfo: {
+                    period: '2018/19',
+                    monthNumber: 12
+                  },
+                  previousYearPaymentsToDate: 2048,
+                  payments: {
+                    currentYearPayments: [
+                      128,
+                      256,
+                      512,
+                      1024,
+                      124,
+                      2438,
+                      3467,
+                      268,
+                      3478,
+                      278,
+                      12,
+                      0
+                    ]
+                  }
+                }
+              ]
+            end
           )
         end
 
@@ -414,7 +465,14 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
               project_id: 2,
               status: 'Draft',
               updates: [
-                { dog: 'woof' }
+                {
+                  dog: 'woof',
+                  s151: {
+                    claimSummary: {
+                      hifSpendToDate: '16092'
+                    }
+                  }
+                }
               ]
             }
           )
@@ -438,7 +496,35 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
 
         let(:pcs_gateway_spy) do
           spy(
-            get_project: HomesEngland::Domain::PcsBid.new
+            get_project: HomesEngland::Domain::PcsBid.new.tap do |project|
+              project.project_manager = "Robert Howard"
+              project.sponsor = "Andrew Anderson"
+              project.actuals = [
+                {
+                  dateInfo: {
+                    period: '2018/19',
+                    monthNumber: 12
+                  },
+                  previousYearPaymentsToDate: 0,
+                  payments: {
+                    currentYearPayments: [
+                      1,
+                      4,
+                      1,
+                      5,
+                      9,
+                      2,
+                      6,
+                      5,
+                      3,
+                      5,
+                      8,
+                      9
+                    ]
+                  }
+                }
+              ]
+            end
           )
         end
 
@@ -469,7 +555,14 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
               status: 'Draft',
               updates: [
                 { dog: 'woof' },
-                { dog: 'woof' }
+                {
+                  dog: 'woof',
+                  s151: {
+                    claimSummary: {
+                      hifSpendToDate: '58'
+                    }
+                  }
+                }
               ]
             }
           )
