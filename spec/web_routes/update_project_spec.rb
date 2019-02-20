@@ -4,7 +4,7 @@ require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Updating a project' do
-  let(:check_api_key_stub) { double(execute: { valid: true }) }
+  let(:check_api_key_spy) { double(execute: { valid: true }) }
   let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: 'i.m.f' }) }
   let(:get_project_spy) { spy(execute: { type: 'hif' }) }
   let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 6 }) }
@@ -36,7 +36,7 @@ describe 'Updating a project' do
 
     stub_instances(UI::UseCase::UpdateProject, update_project_spy)
 
-    stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_stub)
+    stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
 
     stub_instances(LocalAuthority::UseCase::ApiToPcsKey, api_to_pcs_key_spy)
 
@@ -104,6 +104,23 @@ describe 'Updating a project' do
           type: 'hif',
           data: { cats: 'quack', dogs: 'baa' },
           timestamp: 67
+        )
+      )
+    end
+
+    it 'should check the validity of the api key' do
+      expect(check_api_key_spy).to(
+        have_received(:execute).with(
+          project_id: project_id,
+          api_key: 'superSecret'
+        )
+      )
+    end
+
+    it 'should get the pcs key from the api key' do
+      expect(api_to_pcs_key_spy).to(
+        have_received(:execute).with(
+          api_key: 'superSecret'
         )
       )
     end
