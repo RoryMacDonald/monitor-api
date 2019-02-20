@@ -931,11 +931,10 @@
       "nextYear": "not risky"
     },
     "raisedIssues": {
-      "issuesRaisedReview": "Issues",
       "anyIssuesToEscalate": "Yes",
       "escalationProposals": "Lots yes"
     },
-    "moreRegularMonitoring": {
+    "recommendForRegularMonitoring": {
       "moreMonitoringRequired": "Monitor",
       "requiredFrequency": "Monthly"
 

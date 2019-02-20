@@ -1072,7 +1072,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
 
       unless @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring].nil?
-        @converted_return[:reviewAndAssurance][:moreRegularMonitoring] = @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring]
+        @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring] = @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring]
       end
       
       @converted_return[:reviewAndAssurance][:commentary] = @return[:reviewAndAssurance][:assuranceReview][:commentary]

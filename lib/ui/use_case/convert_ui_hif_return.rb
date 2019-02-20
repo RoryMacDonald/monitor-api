@@ -1089,8 +1089,8 @@ class UI::UseCase::ConvertUIHIFReturn
         @converted_return[:reviewAndAssurance][:assuranceReview][:raisedIssues] = @return[:reviewAndAssurance][:raisedIssues]
       end
 
-      unless @return[:reviewAndAssurance][:moreRegularMonitoring].nil?
-        @converted_return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring] = @return[:reviewAndAssurance][:moreRegularMonitoring]
+      unless @return[:reviewAndAssurance][:recommendForRegularMonitoring].nil?
+        @converted_return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring] = @return[:reviewAndAssurance][:recommendForRegularMonitoring]
       end
 
       @converted_return[:reviewAndAssurance][:assuranceReview][:commentary] = @return[:reviewAndAssurance][:commentary]
