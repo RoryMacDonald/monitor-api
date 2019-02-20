@@ -4,9 +4,9 @@ require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Updating a project' do
-  let(:check_api_key_stub) { double(execute: {valid: true}) }
-  let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.m.f" }) }
-  let(:get_project_spy) { spy(execute: { type: 'hif' })}
+  let(:check_api_key_stub) { double(execute: { valid: true }) }
+  let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: 'i.m.f' }) }
+  let(:get_project_spy) { spy(execute: { type: 'hif' }) }
   let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 6 }) }
   let(:create_new_project_spy) { spy(execute: project_id) }
   let(:project_id) { 1 }
@@ -32,30 +32,13 @@ describe 'Updating a project' do
   end
 
   before do
-    stub_const(
-      'UI::UseCase::GetProject',
-      double(new: get_project_spy)
-    )
+    stub_instances(UI::UseCase::GetProject, get_project_spy)
 
-    stub_const(
-      'UI::UseCase::UpdateProject',
-      double(new: update_project_spy)
-    )
+    stub_instances(UI::UseCase::UpdateProject, update_project_spy)
 
-    stub_const(
-      'LocalAuthority::UseCase::CheckApiKey',
-      double(new: double(execute: {valid: true}))
-    )
+    stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_stub)
 
-    stub_const(
-      'LocalAuthority::UseCase::ApiToPcsKey',
-      double(new: api_to_pcs_key_spy)
-    )
-
-    stub_const(
-      'LocalAuthority::UseCase::CheckApiKey',
-      double(new: check_api_key_stub)
-    )
+    stub_instances(LocalAuthority::UseCase::ApiToPcsKey, api_to_pcs_key_spy)
 
     header 'API_KEY', 'superSecret'
   end
@@ -83,13 +66,13 @@ describe 'Updating a project' do
     context 'timestamp' do
       let(:update_project_spy) { spy(execute: { successful: true, errors: :incorrect_timestamp, timestamp: 6 }) }
       it 'should return error message and 200' do
-        post '/project/update', { project_id: project_id, project_data: {data: 'some'}, timestamp: '1'}.to_json
+        post '/project/update', { project_id: project_id, project_data: { data: 'some' }, timestamp: '1' }.to_json
         response = Common::DeepSymbolizeKeys.to_symbolized_hash(
           JSON.parse(last_response.body)
         )
 
         expect(last_response.status).to eq(200)
-        expect(response).to eq(errors: "incorrect_timestamp", timestamp: 6)
+        expect(response).to eq(errors: 'incorrect_timestamp', timestamp: 6)
       end
     end
   end
@@ -110,7 +93,7 @@ describe 'Updating a project' do
 
     it 'Should get the project for the id' do
       expect(get_project_spy).to(
-        have_received(:execute).with(id: project_id, pcs_key: "i.m.f")
+        have_received(:execute).with(id: project_id, pcs_key: 'i.m.f')
       )
     end
 
