@@ -160,7 +160,6 @@ class UI::UseCases
 
     builder.define_use_case :ui_get_schema_for_return do
       UI::UseCase::GetSchemaForReturn.new(
-        get_return: builder.get_use_case(:ui_get_return),
         return_template: builder.get_gateway(:ui_return_schema)
       )
     end
