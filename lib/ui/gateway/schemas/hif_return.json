@@ -5320,84 +5320,72 @@
                     "type": "string",
                     "title": "1st Instalment",
                     "readonly": true,
-                    "currency": true,
-                    "hidden": true
+                    "currency": true
                   },
                   "instalment2": {
                     "type": "string",
                     "title": "2nd Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "instalment3": {
                     "type": "string",
                     "title": "3rd Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "instalment4": {
                     "type": "string",
                     "title": "4th Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "lastMovement1": {
                     "type": "string",
                     "title": "1st Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "lastMovement2": {
                     "type": "string",
                     "title": "2nd Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "lastMovement3": {
                     "type": "string",
                     "title": "3rd Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "lastMovement4": {
                     "type": "string",
                     "title": "4th Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "movementVariance1": {
                     "type": "string",
                     "title": "1st Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "movementVariance2": {
                     "type": "string",
                     "title": "2nd Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "movementVariance3": {
                     "type": "string",
                     "title": "3rd Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   },
                   "movementVariance4": {
                     "type": "string",
                     "title": "4th Instalment",
                     "readonly": true,
-                    "hidden": true,
                     "currency": true
                   }
                 }
