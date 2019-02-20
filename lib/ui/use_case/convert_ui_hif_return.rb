@@ -1002,19 +1002,18 @@ class UI::UseCase::ConvertUIHIFReturn
 
   def convert_mr_review_tab
     return if @return[:reviewAndAssurance].nil?
-    return if @return[:reviewAndAssurance][0].nil?
     @converted_return[:reviewAndAssurance] = {}
-    unless @return[:reviewAndAssurance][0][:rmReview].nil?
-      @converted_return[:reviewAndAssurance][:date] = @return[:reviewAndAssurance][0][:rmReview][:date]
-      @converted_return[:reviewAndAssurance][:assuranceManagerAttendance] = @return[:reviewAndAssurance][0][:rmReview][:assuranceManagerAttendance]
-      @converted_return[:reviewAndAssurance][:meetingsAttended] = @return[:reviewAndAssurance][0][:rmReview][:meetingsAttended]
-      @converted_return[:reviewAndAssurance][:overviewOfEngagement] = @return[:reviewAndAssurance][0][:rmReview][:overviewOfEngagement]
-      @converted_return[:reviewAndAssurance][:issuesToRaise] = @return[:reviewAndAssurance][0][:rmReview][:issuesToRaise]
-      @converted_return[:reviewAndAssurance][:reviewComplete] = @return[:reviewAndAssurance][0][:rmReview][:reviewComplete]
+    unless @return[:reviewAndAssurance].nil?
+      @converted_return[:reviewAndAssurance][:attendance] = @return[:reviewAndAssurance][:attendance]
+      unless @return[:reviewAndAssurance][:meetingDetails].nil?
+        @converted_return[:reviewAndAssurance][:date] = @return[:reviewAndAssurance][:meetingDetails][:date]
+        @converted_return[:reviewAndAssurance][:meetingHeld] = @return[:reviewAndAssurance][:meetingDetails][:meetingHeld]
+      end
 
+      @converted_return[:reviewAndAssurance][:meetingsAttended] = @return[:reviewAndAssurance][:meetingsAttended]
 
-      unless @return[:reviewAndAssurance][0][:rmReview][:infrastructureDelivery].nil?
-        @converted_return[:reviewAndAssurance][:infrastructureDeliveries] = @return[:reviewAndAssurance][0][:rmReview][:infrastructureDelivery].map do |delivery|
+      unless @return[:reviewAndAssurance][:infrastructureDelivery].nil?
+        @converted_return[:reviewAndAssurance][:infrastructureDeliveries] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
           new_delivery = {
             infrastructureDesc: delivery[:infrastructureDesc]
           }
@@ -1026,46 +1025,75 @@ class UI::UseCase::ConvertUIHIFReturn
         end
       end
 
-      unless @return[:reviewAndAssurance][0][:rmReview][:hifFundedFinancials].nil?
+      unless @return[:reviewAndAssurance][:hifFundedFinancials].nil?
         @converted_return[:reviewAndAssurance][:hifFundedFinancials] = {}
-        @converted_return[:reviewAndAssurance][:hifFundedFinancials][:summary] = @return[:reviewAndAssurance][0][:rmReview][:hifFundedFinancials][:summary]
-        @converted_return[:reviewAndAssurance][:hifFundedFinancials][:riskRating] = @return[:reviewAndAssurance][0][:rmReview][:hifFundedFinancials][:riskRating]
+        @converted_return[:reviewAndAssurance][:hifFundedFinancials][:summary] = @return[:reviewAndAssurance][:hifFundedFinancials][:summary]
+        @converted_return[:reviewAndAssurance][:hifFundedFinancials][:riskRating] = @return[:reviewAndAssurance][:hifFundedFinancials][:riskRating]
       end
 
-      unless @return[:reviewAndAssurance][0][:rmReview][:hifWiderScheme].nil?
+      unless @return[:reviewAndAssurance][:hifWiderScheme].nil?
         @converted_return[:reviewAndAssurance][:hifWiderScheme] = {}
-        @converted_return[:reviewAndAssurance][:hifWiderScheme][:summary] = @return[:reviewAndAssurance][0][:rmReview][:hifWiderScheme][:summary]
-        @converted_return[:reviewAndAssurance][:hifWiderScheme][:riskRating] = @return[:reviewAndAssurance][0][:rmReview][:hifWiderScheme][:riskRating]
+        @converted_return[:reviewAndAssurance][:hifWiderScheme][:summary] = @return[:reviewAndAssurance][:hifWiderScheme][:summary]
+        @converted_return[:reviewAndAssurance][:hifWiderScheme][:riskRating] = @return[:reviewAndAssurance][:hifWiderScheme][:riskRating]
       end
 
-      unless @return[:reviewAndAssurance][0][:rmReview][:outputForecast].nil?
+      unless @return[:reviewAndAssurance][:outputForecast].nil?
         @converted_return[:reviewAndAssurance][:outputForecast] = {}
-        @converted_return[:reviewAndAssurance][:outputForecast][:summary] = @return[:reviewAndAssurance][0][:rmReview][:outputForecast][:summary]
-        @converted_return[:reviewAndAssurance][:outputForecast][:riskRating] = @return[:reviewAndAssurance][0][:rmReview][:outputForecast][:riskRating]
+        @converted_return[:reviewAndAssurance][:outputForecast][:summary] = @return[:reviewAndAssurance][:outputForecast][:summary]
+        @converted_return[:reviewAndAssurance][:outputForecast][:riskRating] = @return[:reviewAndAssurance][:outputForecast][:riskRating]
       end
 
-      unless @return[:reviewAndAssurance][0][:rmReview][:barriers].nil?
+      unless @return[:reviewAndAssurance][:barriers].nil?
         @converted_return[:reviewAndAssurance][:barriers] = {}
-        unless @return[:reviewAndAssurance][0][:rmReview][:barriers][:significantIssues].nil?
-          @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][0][:rmReview][:barriers][:significantIssues].map do |issue|
+        unless @return[:reviewAndAssurance][:barriers][:significantIssues].nil?
+          @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
             {
               overview: issue[:overview],
               barrierType: issue[:barrierType],
+              commentary: issue[:commentary],
+              details: issue[:details]
+            }
+          end
+        end
+
+        unless @return[:reviewAndAssurance][:barriers][:liveIssues].nil?
+          @converted_return[:reviewAndAssurance][:barriers][:liveIssues] = @return[:reviewAndAssurance][:barriers][:liveIssues].map do |issue|
+            {
+              overview: issue[:overview],
+              barrierType: issue[:barrierType],
+              commentary: issue[:commentary],
               details: issue[:details]
             }
           end
         end
       end
 
-      unless @return[:reviewAndAssurance][0][:rmReview][:recommendForRegularMonitoring].nil?
-        @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring] = {}
-        @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring][:isRecommendForRegularMonitoring] = @return[:reviewAndAssurance][0][:rmReview][:recommendForRegularMonitoring][:isRecommendForRegularMonitoring]
-        @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring][:reasonAndProposedFrequency] = @return[:reviewAndAssurance][0][:rmReview][:recommendForRegularMonitoring][:reasonAndProposedFrequency]
-      end
-    end
+      @converted_return[:reviewAndAssurance][:assuranceReview] = {}
 
-    unless @return[:reviewAndAssurance][0][:assuranceReview].nil?
-      @converted_return[:reviewAndAssurance][:assuranceReview] = @return[:reviewAndAssurance][0][:assuranceReview]
+      @converted_return[:reviewAndAssurance][:assuranceReview][:summaryOfMeeting] = @return[:reviewAndAssurance][:summaryOfMeeting]
+      
+      unless @return[:reviewAndAssurance][:overallRAGRating].nil?
+        @converted_return[:reviewAndAssurance][:assuranceReview][:overallRAGRating] = @return[:reviewAndAssurance][:overallRAGRating]
+      end
+
+      @converted_return[:reviewAndAssurance][:assuranceReview][:overallCommentary] = @return[:reviewAndAssurance][:overallCommentary]
+      unless @return[:reviewAndAssurance][:riskAssessmentSpend].nil?
+        @converted_return[:reviewAndAssurance][:assuranceReview][:riskAssessmentSpend] = @return[:reviewAndAssurance][:riskAssessmentSpend]
+      end
+
+      unless @return[:reviewAndAssurance][:riskAssessmentOutputs].nil?
+        @converted_return[:reviewAndAssurance][:assuranceReview][:riskAssessmentOutputs] = @return[:reviewAndAssurance][:riskAssessmentOutputs]
+      end
+
+      unless @return[:reviewAndAssurance][:raisedIssues].nil?
+        @converted_return[:reviewAndAssurance][:assuranceReview][:raisedIssues] = @return[:reviewAndAssurance][:raisedIssues]
+      end
+
+      unless @return[:reviewAndAssurance][:recommendForRegularMonitoring].nil?
+        @converted_return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring] = @return[:reviewAndAssurance][:recommendForRegularMonitoring]
+      end
+
+      @converted_return[:reviewAndAssurance][:assuranceReview][:commentary] = @return[:reviewAndAssurance][:commentary]
     end
   end
 
