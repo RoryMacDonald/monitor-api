@@ -2305,6 +2305,23 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               horizontal: true,
               title: "Actual Amounts",
               properties: {
+                liveStarts: {
+                  type: "array",
+                  hidden: true,
+                  title: "",
+                  items: {
+                    type: "object",
+                    title: "",
+                    hidden: true,
+                    properties: {
+                      startsPerSite: {
+                        type: "string",
+                        hidden: true,
+                        title: ""
+                      }
+                    }
+                  }
+                },
                 quarter1:{
                   type: "string",
                   sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter1],
@@ -2528,6 +2545,23 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               horizontal: true,
               title: "Actual Amounts",
               properties: {
+                liveCompletions: {
+                  type: "array",
+                  hidden: true,
+                  title: "",
+                  items: {
+                    type: "object",
+                    title: "",
+                    hidden: true,
+                    properties: {
+                      completionsPerSite: {
+                        type: "string",
+                        hidden: true,
+                        title: ""
+                      }
+                    }
+                  }
+                },
                 quarter1:{
                   type: "string",
                   title: "Q1 Current Year"

@@ -637,7 +637,7 @@
         "receipts": {
           "type": "object",
           "title": "Receipts",
-          "calculation": "set(formData, 'projectValue', accumulateMoney(get(formData, 'expectedDisposalReceipt'), 'amount'));",
+          "calculation": "set(formData, 'projectValue', accumulateMoney(get(formData, 'expectedDisposalReceipt'), 'amount', 2));",
           "properties": {
             "detailsOnPaymentStructure": {
               "type": "string",
