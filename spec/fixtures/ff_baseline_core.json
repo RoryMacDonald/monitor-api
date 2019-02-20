@@ -1,5 +1,7 @@
 {
   "infrastructures": [{
-    "information": "Our first infrastructure"
+    "sectionA": {
+      "information": "Our first infrastructure"
+    }
   }]
 }

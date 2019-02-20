@@ -4,12 +4,20 @@
   "type": "object",
   "properties": {
     "infrastructures": {
+      "title": "Infrastructures",
       "type": "array",
       "items": {
+        "title": "Infrastructure",
         "type": "object",
         "properties": {
-          "information": {
-            "type": "string"
+          "sectionA": {
+            "title": "Section A",
+            "type": "object",
+            "properties": {
+              "information": {
+                "type": "string"
+              }
+            }
           }
         }
       }

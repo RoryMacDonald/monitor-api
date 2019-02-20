@@ -11,8 +11,13 @@ class HomesEngland::Builder::Template::Templates::FFTemplate
           items: {
             type: 'object',
             properties: {
-              information: {
-                type: 'string'
+              sectionA: {
+                type: 'object',
+                properties: {
+                  information: {
+                    type: 'string'
+                  }
+                }
               }
             }
           }
