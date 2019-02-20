@@ -4,12 +4,12 @@ class LocalAuthority::UseCase::PcsPopulateReturn
     @pcs_gateway = pcs_gateway
   end
 
-  def execute(id:, api_key:)
+  def execute(id:, pcs_key:)
     return_data = @get_return.execute(id: id)
 
     unless return_data[:status] == 'Submitted' || ENV['PCS'].nil?
       pcs_data = @pcs_gateway.get_project(
-        api_key: api_key, bid_id: return_data[:bid_id]
+        pcs_key: pcs_key, bid_id: return_data[:bid_id]
       )
 
       unless pcs_data.actuals.nil?

@@ -37,7 +37,7 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
     end
 
     it 'Does not call the PCS use case' do
-      use_case.execute(id: 1, api_key: 'M.V.C')
+      use_case.execute(id: 1, pcs_key: 'M.V.C')
       expect(pcs_gateway_spy).not_to have_received(:get_project)
     end
   end
@@ -100,10 +100,10 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
                       8,
                       16,
                       32,
-                      64, 
-                      128, 
-                      256, 
-                      512, 
+                      64,
+                      128,
+                      256,
+                      512,
                       1024,
                       0
                     ]
@@ -146,18 +146,18 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
 
 
         it 'Calls the get return use case' do
-          use_case.execute(id: 1, api_key: 'M.V.C')
+          use_case.execute(id: 1, pcs_key: 'M.V.C')
           expect(get_return_spy).to have_received(:execute).with(id: 1)
         end
 
         context 'unsubmitted' do
           it 'Calls the PCS use case' do
-            use_case.execute(id: 1, api_key: 'M.V.C')
-            expect(pcs_gateway_spy).to have_received(:get_project).with(api_key: 'M.V.C', bid_id: bid_id)
+            use_case.execute(id: 1, pcs_key: 'M.V.C')
+            expect(pcs_gateway_spy).to have_received(:get_project).with(pcs_key: 'M.V.C', bid_id: bid_id)
           end
 
           it 'returns the appropriate data' do
-            expect(use_case.execute(id: 3, api_key: 'M.R.W')).to eq(
+            expect(use_case.execute(id: 3, pcs_key: 'M.R.W')).to eq(
               {
                 id: 1,
                 bid_id: bid_id,
@@ -210,12 +210,12 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
           end
 
           it 'Does not call the PCS use case' do
-            use_case.execute(id: 1, api_key: 'M.V.C')
+            use_case.execute(id: 1, pcs_key: 'M.V.C')
             expect(pcs_gateway_spy).not_to have_received(:get_project)
           end
 
           it 'returns the appropriate data' do
-            expect(use_case.execute(id: 3, api_key: 'M.R.W')).to eq(
+            expect(use_case.execute(id: 3, pcs_key: 'M.R.W')).to eq(
               {
                 id: 1,
                 bid_id: bid_id,
@@ -289,18 +289,18 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
         end
 
         it 'Calls the get return use case' do
-          use_case.execute(id: 3, api_key: 'M.R.W')
+          use_case.execute(id: 3, pcs_key: 'M.R.W')
           expect(get_return_spy).to have_received(:execute).with(id: 3)
         end
 
         context 'unsubmitted' do
           it 'Calls the PCS use case' do
-            use_case.execute(id: 3, api_key: 'M.R.W')
-            expect(pcs_gateway_spy).to have_received(:get_project).with(api_key: 'M.R.W', bid_id: bid_id)
+            use_case.execute(id: 3, pcs_key: 'M.R.W')
+            expect(pcs_gateway_spy).to have_received(:get_project).with(pcs_key: 'M.R.W', bid_id: bid_id)
           end
 
           it 'returns the appropriate data' do
-            expect(use_case.execute(id: 3, api_key: 'M.R.W')).to eq(
+            expect(use_case.execute(id: 3, pcs_key: 'M.R.W')).to eq(
               {
                 id: 3,
                 bid_id: bid_id,
@@ -350,12 +350,12 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
           end
 
           it 'Does not call the PCS use case' do
-            use_case.execute(id: 3, api_key: 'M.R.W')
+            use_case.execute(id: 3, pcs_key: 'M.R.W')
             expect(pcs_gateway_spy).not_to have_received(:get_project)
           end
 
           it 'returns the appropriate data' do
-            expect(use_case.execute(id: 3, api_key: 'M.R.W')).to eq(
+            expect(use_case.execute(id: 3, pcs_key: 'M.R.W')).to eq(
               {
                 id: 3,
                 bid_id: bid_id,
@@ -406,7 +406,7 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
         end
 
         it 'returns the appropriate data' do
-          expect(use_case.execute(id: 3, api_key: 'M.R.W')).to eq(
+          expect(use_case.execute(id: 3, pcs_key: 'M.R.W')).to eq(
             {
               id: 1,
               bid_id: bid_id,
@@ -450,17 +450,17 @@ describe LocalAuthority::UseCase::PcsPopulateReturn do
         end
 
         it 'Calls the get return use case' do
-          use_case.execute(id: 3, api_key: 'M.R.W')
+          use_case.execute(id: 3, pcs_key: 'M.R.W')
           expect(get_return_spy).to have_received(:execute).with(id: 3)
         end
 
         it 'Calls the PCS use case' do
-          use_case.execute(id: 3, api_key: 'M.R.W')
-          expect(pcs_gateway_spy).to have_received(:get_project).with(api_key: 'M.R.W', bid_id: bid_id)
+          use_case.execute(id: 3, pcs_key: 'M.R.W')
+          expect(pcs_gateway_spy).to have_received(:get_project).with(pcs_key: 'M.R.W', bid_id: bid_id)
         end
 
         it 'returns the appropriate data' do
-          expect(use_case.execute(id: 3, api_key: 'M.R.W')).to eq(
+          expect(use_case.execute(id: 3, pcs_key: 'M.R.W')).to eq(
             {
               id: 3,
               bid_id: bid_id,

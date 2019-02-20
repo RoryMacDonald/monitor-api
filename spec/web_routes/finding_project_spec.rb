@@ -72,7 +72,7 @@ describe 'Finding a project' do
 
       it 'passes the pcs key to FindProject' do
         expect(find_project_spy).to have_received(:execute).with(
-          hash_including(api_key: 'i.i.f')
+          hash_including(pcs_key: 'i.i.f')
         )
       end
 
@@ -135,7 +135,7 @@ describe 'Finding a project' do
 
       it 'passes the pcs key to FindProject' do
         expect(find_project_spy).to have_received(:execute).with(
-          hash_including(api_key: 'f.f.f')
+          hash_including(pcs_key: 'f.f.f')
         )
       end
 

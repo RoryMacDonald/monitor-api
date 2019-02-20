@@ -128,7 +128,7 @@ describe 'Creating a new HIF FileProject' do
         headers: {'Authorization' => 'Bearer F.I.B' }
       )
 
-      project = get_use_case(:populate_baseline).execute(project_id: response[:id], api_key: 'F.I.B')
+      project = get_use_case(:populate_baseline).execute(project_id: response[:id], pcs_key: 'F.I.B')
 
       expect(overview_data_request).to have_been_requested
       expect(actuals_data_request).to have_been_requested

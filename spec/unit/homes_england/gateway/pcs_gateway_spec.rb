@@ -48,17 +48,17 @@ describe HomesEngland::Gateway::Pcs do
     end
 
     it 'Calls the PCS overview endpoint' do
-      gateway.get_project(bid_id: 'HIF/MV/255', api_key: 'M.R.I')
+      gateway.get_project(bid_id: 'HIF/MV/255', pcs_key: 'M.R.I')
       expect(pcs_overview_request).to have_been_requested
     end
 
     it 'Calls the PCS actuals endpoint' do
-      gateway.get_project(bid_id: 'HIF/MV/255', api_key: 'M.R.I')
+      gateway.get_project(bid_id: 'HIF/MV/255', pcs_key: 'M.R.I')
       expect(pcs_actuals_request).to have_been_requested
     end
 
     it 'Returns a domain object' do
-      project = gateway.get_project(bid_id: 'HIF/MV/255', api_key: 'M.R.I')
+      project = gateway.get_project(bid_id: 'HIF/MV/255', pcs_key: 'M.R.I')
 
       expect(project.project_manager).to eq("Ed")
       expect(project.sponsor).to eq("FIS")
@@ -124,17 +124,17 @@ describe HomesEngland::Gateway::Pcs do
     end
 
     it 'Calls the PCS overview endpoint' do
-      gateway.get_project(bid_id: 'AC/MV/151', api_key: 'C.C.G')
+      gateway.get_project(bid_id: 'AC/MV/151', pcs_key: 'C.C.G')
       expect(pcs_overview_request).to have_been_requested
     end
 
     it 'Calls the PCS actuals endpoint' do
-      gateway.get_project(bid_id: 'AC/MV/151', api_key: 'C.C.G')
+      gateway.get_project(bid_id: 'AC/MV/151', pcs_key: 'C.C.G')
       expect(pcs_actuals_request).to have_been_requested
     end
 
     it 'Returns a domain object' do
-      project = gateway.get_project(bid_id: 'AC/MV/151', api_key: 'C.C.G')
+      project = gateway.get_project(bid_id: 'AC/MV/151', pcs_key: 'C.C.G')
 
       expect(project.project_manager).to eq("Natalia")
       expect(project.sponsor).to eq("NHN")
