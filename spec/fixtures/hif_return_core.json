@@ -855,9 +855,9 @@
   }],
   "reviewAndAssurance": {
     "date": "01/01/1970",
-    "assuranceManagerAttendance": "Yes",
+    "meetingHeld": "Yes",
+    "attendance": "Me",
     "meetingsAttended": "2",
-    "reviewComplete": "Yes",
     "infrastructureDeliveries": [
       {
         "infrastructureDesc": "desc",
@@ -878,102 +878,28 @@
       "riskRating": "High"
     },
     "barriers": {
-      "significantIssues": [{
+      "significantIssues": [
+        {
         "overview": "Some information",
+        "commentary": "comment",
         "barrierType": "Other",
         "details": "Some details"
-      }]
-    },
-    "recommendForRegularMonitoring": {
-      "isRecommendForRegularMonitoring": "Yes",
-      "reasonAndProposedFrequency": "A reason and frequency"
-    },
-    "overviewOfEngagement": "Good",
-    "issuesToRaise": "None",
-    "assuranceReview": {
-      "assuranceManagerAttendance": "Yes",
-      "rmReviewComplete": "Yes",
-      "summaryOfMeeting": "Summary",
-      "infrastructureDeliveryAssurance": [
-        {
-          "infrastructureDesc": "desc",
-          "reviewDetails": {
-            "details": "Some information",
-            "riskRating": "High"
-          },
-          "assuranceAgreement": {
-            "RAGAgreement": "No",
-            "commentary": "Comment",
-            "recommendedRAG": "Green"
-          }
         }
       ],
-      "hifFundedFinancials": {
-        "reviewDetails": {
-          "summary": "The summary",
-          "riskRating": "High"
-        },
-        "assuranceAgreement": {
-          "RAGAgreement": "No",
-          "commentary": "Funded",
-          "recommendedRAG": "Green"
-        }
-      },
-      "hifWiderScheme": {
-        "reviewDetails": {
-          "summary": "The summary",
-          "riskRating": "High"
-        },
-        "assuranceAgreement": {
-          "RAGAgreement": "No",
-          "commentary": "wider",
-          "recommendedRAG": "Green"
-        }
-      },
-      "outputForecast": {
-        "reviewDetails": {
-          "summary": "The summary",
-          "riskRating": "High"
-        },
-        "assuranceAgreement": {
-          "RAGAgreement": "No",
-          "commentary": "output",
-          "recommendedRAG": "Green"
-        }
-      },
-      "barriers": {
-        "significantIssues": [{
+      "liveIssues": [
+        {
           "overview": "Some information",
+          "commentary": "comment",
           "barrierType": "Other",
           "details": "Some details"
-        }],
-        "assuranceAgreementRed": {
-          "agreementWithBarriers": "Yes",
-          "commentary": "Red Barriers",
-          "recommendedSignificantIssues": [{
-            "overview": "Different information",
-            "barrierType": "Other",
-            "details": "Some details"
-          }]
-        },
-        "liveIssues": [{
-          "overview": "Some information",
-          "barrierType": "Other",
-          "details": "Some details"
-        }],
-        "assuranceAgreementAmber": {
-          "agreementWithBarriers": "Yes",
-          "commentary": "Red Barriers",
-          "recommendedLiveIssues": [{
-            "overview": "Different information",
-            "barrierType": "Other",
-            "details": "Some details"
-          }]
         }
-      },
+      ]
+    },
+    "assuranceReview": {
+      "summaryOfMeeting": "Summary",
       "overallRAGRating": {
-        "rating": "Yellow",
-        "reason": "yellowing"
+        "rating": "4",
+        "reason": "It's bad"
       },
       "overallCommentary": "Overall commentary",
       "riskAssessmentSpend": {
@@ -990,24 +916,10 @@
         "escalationProposals": "Lots yes"
       },
       "moreRegularMonitoring": {
-        "recommendForRegularMonitoring": {
-          "isRecommendForRegularMonitoring": "Yes",
-          "reasonAndProposedFrequency": "A reason and frequency"
-        },
         "moreMonitoringRequired": "Monitor",
         "requiredFrequency": "Monthly"
-
       },
-      "commentary": "Good",
-      "infrastructureDeliveryCopy": [
-        {
-          "infrastructureDesc": "desc",
-          "reviewDetails": {
-            "details": "Some information",
-            "riskRating": "High"
-          }
-        }
-      ]
+      "commentary": "Good"
     }
   },
   "hifRecovery": {
