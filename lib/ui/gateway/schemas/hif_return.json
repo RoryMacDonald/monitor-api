@@ -1,6 +1,71 @@
 {
   "title": "HIF Project",
-  "type": "object",
+  "type": "object",  "sharedData": [
+    {
+      "from": [
+        "fundingProfiles",
+        "requestedProfiles",
+        "newProfile",
+        "#",
+        "instalment1"
+      ],
+      "to":[
+        "s151Confirmation",
+        "hifFunding",
+        "hifFundingProfile",
+        "#",
+        "instalment1"
+      ]
+    },
+    {
+      "from": [
+        "fundingProfiles",
+        "requestedProfiles",
+        "newProfile",
+        "#",
+        "instalment2"
+      ],
+      "to":[
+        "s151Confirmation",
+        "hifFunding",
+        "hifFundingProfile",
+        "#",
+        "instalment2"
+      ]
+    },
+    {
+      "from": [
+        "fundingProfiles",
+        "requestedProfiles",
+        "newProfile",
+        "#",
+        "instalment3"
+      ],
+      "to":[
+        "s151Confirmation",
+        "hifFunding",
+        "hifFundingProfile",
+        "#",
+        "instalment3"
+      ]
+    },
+    {
+      "from": [
+        "fundingProfiles",
+        "requestedProfiles",
+        "newProfile",
+        "#",
+        "instalment4"
+      ],
+      "to":[
+        "s151Confirmation",
+        "hifFunding",
+        "hifFundingProfile",
+        "#",
+        "instalment4"
+      ]
+    }
+  ],
   "properties": {
     "infrastructures": {
       "type": "array",
