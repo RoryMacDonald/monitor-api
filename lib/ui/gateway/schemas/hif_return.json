@@ -6211,7 +6211,6 @@
                 "quarter2": {
                   "type": "string",
                   "readonly": true,
-
                   "title": "Q2 Current Year"
                 },
                 "quarter3": {
