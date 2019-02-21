@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FF Project",
+  "type": "object",
+  "properties": {
+    "infrastructures": {
+      "title": "Infrastructures",
+      "type": "array",
+      "items": {
+        "title": "Infrastructure",
+        "type": "object",
+        "properties": {
+          "sectionA": {
+            "title": "Section A",
+            "type": "object",
+            "properties": {
+              "information": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

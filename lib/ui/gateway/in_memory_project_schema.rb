@@ -6,6 +6,8 @@ class UI::Gateway::InMemoryProjectSchema
       schema = 'hif_project.json'
     elsif type == 'ac'
       schema = 'ac_project.json'
+    elsif type == 'ff'
+      schema = 'ff_project.json'
     else
       return nil
     end
