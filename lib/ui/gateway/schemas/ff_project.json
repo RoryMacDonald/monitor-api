@@ -1030,26 +1030,30 @@
                           "confirmation": {
                             "oneOf": [
                               {
-                                "confirmation": {
-                                  "enum": ["Yes"]
-                                },
-                                "criticalPath": {
-                                  "type": "string",
-                                  "title": "Critical Path to Achieving",
-                                  "extendedText": true
-                                },
-                                "targetOutlinePlanningSubmittedDate": {
-                                  "type": "string",
-                                  "title": "Target Date for Outline Planning Submitted"
-                                },
-                                "targetOutlinePlanningGrantedDate": {
-                                  "type": "string",
-                                  "title": "Target Date for Outline Planning Granted"
+                                "properties": {
+                                  "confirmation": {
+                                    "enum": ["Yes"]
+                                  },
+                                  "criticalPath": {
+                                    "type": "string",
+                                    "title": "Critical Path to Achieving",
+                                    "extendedText": true
+                                  },
+                                  "targetOutlinePlanningSubmittedDate": {
+                                    "type": "string",
+                                    "title": "Target Date for Outline Planning Submitted"
+                                  },
+                                  "targetOutlinePlanningGrantedDate": {
+                                    "type": "string",
+                                    "title": "Target Date for Outline Planning Granted"
+                                  }
                                 }
                               },
                               {
-                                "confirmation": {
-                                  "enum": ["No"]
+                                "properties": {
+                                  "confirmation": {
+                                    "enum": ["No"]
+                                  }
                                 }
                               }
                             ]
@@ -1081,26 +1085,30 @@
                           "confirmation": {
                             "oneOf": [
                               {
-                                "confirmation": {
-                                  "enum": ["Yes"]
-                                },
-                                "criticalPath": {
-                                  "type": "string",
-                                  "title": "Critical Path to Achieving",
-                                  "extendedText": true
-                                },
-                                "targetOutlinePlanningSubmittedDate": {
-                                  "type": "string",
-                                  "title": "Target Date for Outline Planning Submitted"
-                                },
-                                "targetOutlinePlanningGrantedDate": {
-                                  "type": "string",
-                                  "title": "Target Date for Outline Planning Granted"
+                                "properties": {
+                                  "confirmation": {
+                                    "enum": ["Yes"]
+                                  },
+                                  "criticalPath": {
+                                    "type": "string",
+                                    "title": "Critical Path to Achieving",
+                                    "extendedText": true
+                                  },
+                                  "targetOutlinePlanningSubmittedDate": {
+                                    "type": "string",
+                                    "title": "Target Date for Outline Planning Submitted"
+                                  },
+                                  "targetOutlinePlanningGrantedDate": {
+                                    "type": "string",
+                                    "title": "Target Date for Outline Planning Granted"
+                                  }
                                 }
                               },
                               {
-                                "confirmation": {
-                                  "enum": ["No"]
+                                "properties": {
+                                  "confirmation": {
+                                    "enum": ["No"]
+                                  }
                                 }
                               }
                             ]
@@ -1142,26 +1150,30 @@
                           "confirmation": {
                             "oneOf": [
                               {
-                                "confirmation": {
-                                  "enum": ["Yes"]
-                                },
-                                "criticalPath": {
-                                  "type": "string",
-                                  "title": "Critical Path to Achieving",
-                                  "extendedText": true
-                                },
-                                "targetFullPlanningSubmittedDate": {
-                                  "type": "string",
-                                  "title": "Target Date for Full Planning Submitted"
-                                },
-                                "targetFullPlanningGrantedDate": {
-                                  "type": "string",
-                                  "title": "Target Date for Full Planning Granted"
+                                "properties": {
+                                  "confirmation": {
+                                    "enum": ["Yes"]
+                                  },
+                                  "criticalPath": {
+                                    "type": "string",
+                                    "title": "Critical Path to Achieving",
+                                    "extendedText": true
+                                  },
+                                  "targetFullPlanningSubmittedDate": {
+                                    "type": "string",
+                                    "title": "Target Date for Full Planning Submitted"
+                                  },
+                                  "targetFullPlanningGrantedDate": {
+                                    "type": "string",
+                                    "title": "Target Date for Full Planning Granted"
+                                  }
                                 }
                               },
                               {
-                                "confirmation": {
-                                  "enum": ["No"]
+                                "properties": {
+                                  "confirmation": {
+                                    "enum": ["No"]
+                                  }
                                 }
                               }
                             ]
