@@ -451,6 +451,9 @@
         "quarter4": "8"
       },
       "actualAmounts": {
+        "liveStarts": [{
+          "startsPerSite": "56"
+        }],
         "quarter1": "1",
         "quarter2": "2",
         "quarter3": "3",
@@ -498,6 +501,9 @@
         "quarter4": "80"
       },
       "actualAmounts": {
+        "liveCompletions": [{
+          "completionsPerSite": "12"
+        }],
         "quarter1": "10",
         "quarter2": "20",
         "quarter3": "30",

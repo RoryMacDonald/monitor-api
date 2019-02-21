@@ -1,6 +1,16 @@
 {
   "title": "HIF Project",
   "type": "object",
+  "sharedData": [
+    {
+      "from": ["outputsActuals", "#", "siteOutputs", "starts", "starts", "startsSinceLastReturn"],
+      "to": ["outputsForecast", "inYearHousingStarts", "actualAmounts", "liveStarts", "#", "startsPerSite"]
+    },
+    {
+      "from": ["outputsActuals", "#", "siteOutputs", "starts", "starts", "completionsSinceLastReturn"],
+      "to": ["outputsForecast", "inYearHousingCompletions", "actualAmounts", "liveCompletions", "#", "completionsPerSite"]
+    }
+  ],
   "properties": {
     "infrastructures": {
       "type": "array",
@@ -5809,7 +5819,7 @@
         "inYearHousingStarts": {
           "type": "object",
           "title": "",
-          "calculation": "(get(formData,'actualAmounts') && get(formData, 'baselineAmounts')) ? set(formData, 'progress', calculateVariance(sum(get(formData,'actualAmounts'), 'quarter1','quarter2','quarter3','quarter4'), sum(get(formData, 'baselineAmounts'), 'quarter1', 'quarter2', 'quarter3', 'quarter4'))): null;(get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newStarts')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "calculation": "setInPreviousQuarter(formData, formContext, 'actualAmounts', accumulateMoney(get(formData, 'actualAmounts', 'liveStarts'), 'startsPerSite', 0));(get(formData, 'actualAmounts') && get(formData, 'baselineAmounts')) ? set(formData, 'progress', calculateVariance(sum(get(formData,'actualAmounts'), 'quarter1','quarter2','quarter3','quarter4'), sum(get(formData, 'baselineAmounts'), 'quarter1', 'quarter2', 'quarter3', 'quarter4'))): null;(get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newStarts')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
             "newYear": {
               "type": "object",
@@ -5927,20 +5937,41 @@
               "horizontal": true,
               "title": "Actual Amounts",
               "properties": {
+                "liveStarts": {
+                  "type": "array",
+                  "hidden": true,
+                  "title": "",
+                  "items": {
+                    "type": "object",
+                    "title": "",
+                    "hidden": true,
+                    "properties": {
+                      "startsPerSite": {
+                        "type": "string",
+                        "hidden": true,
+                        "title": ""
+                      }
+                    }
+                  }
+                },
                 "quarter1": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q1 Current Year"
                 },
                 "quarter2": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q2 Current Year"
                 },
                 "quarter3": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q3 Current Year"
                 },
                 "quarter4": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q4 Current Year"
                 }
               }
@@ -6037,7 +6068,7 @@
         "inYearHousingCompletions": {
           "type": "object",
           "title": "",
-          "calculation": "(get(formData,'actualAmounts') && get(formData, 'baselineAmounts')) ? set(formData, 'progress', calculateVariance(sum(get(formData,'actualAmounts'), 'quarter1','quarter2','quarter3','quarter4'), sum(get(formData, 'baselineAmounts'), 'quarter1', 'quarter2', 'quarter3', 'quarter4'))): null;( get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newCompletions')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "calculation": "setInPreviousQuarter(formData, formContext, 'actualAmounts', accumulateMoney(get(formData, 'actualAmounts', 'liveCompletions'), 'completionsPerSite', 0));(get(formData,'actualAmounts') && get(formData, 'baselineAmounts')) ? set(formData, 'progress', calculateVariance(sum(get(formData,'actualAmounts'), 'quarter1','quarter2','quarter3','quarter4'), sum(get(formData, 'baselineAmounts'), 'quarter1', 'quarter2', 'quarter3', 'quarter4'))): null;( get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newCompletions')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
             "newYear": {
               "type": "object",
@@ -6155,20 +6186,41 @@
               "horizontal": true,
               "title": "Actual Amounts",
               "properties": {
+                "liveCompletions": {
+                  "type": "array",
+                  "hidden": true,
+                  "title": "",
+                  "items": {
+                    "type": "object",
+                    "title": "",
+                    "hidden": true,
+                    "properties": {
+                      "completionsPerSite": {
+                        "type": "string",
+                        "hidden": true,
+                        "title": ""
+                      }
+                    }
+                  }
+                },
                 "quarter1": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q1 Current Year"
                 },
                 "quarter2": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q2 Current Year"
                 },
                 "quarter3": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q3 Current Year"
                 },
                 "quarter4": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q4 Current Year"
                 }
               }
