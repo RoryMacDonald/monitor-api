@@ -7,7 +7,7 @@
         "requestedProfiles",
         "newProfile",
         "#",
-        "instalment1"
+        "instalment1Variance"
       ],
       "to":[
         "s151Confirmation",
@@ -23,7 +23,7 @@
         "requestedProfiles",
         "newProfile",
         "#",
-        "instalment2"
+        "instalment2Variance"
       ],
       "to":[
         "s151Confirmation",
@@ -39,7 +39,7 @@
         "requestedProfiles",
         "newProfile",
         "#",
-        "instalment3"
+        "instalment3Variance"
       ],
       "to":[
         "s151Confirmation",
@@ -55,7 +55,7 @@
         "requestedProfiles",
         "newProfile",
         "#",
-        "instalment4"
+        "instalment4Variance"
       ],
       "to":[
         "s151Confirmation",
