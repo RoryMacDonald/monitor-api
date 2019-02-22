@@ -5,8 +5,28 @@ class UI::UseCase::ConvertUIFFProject
     @project = project_data
 
     @converted_project = {}
-    @converted_project[:infrastructures] = project_data[:infrastructures]
+    
+    convert_infrastructures
+    convert_summary
+    convert_planning
 
     @converted_project
+  end
+
+  private
+
+  def convert_infrastructures
+    return if @project[:infrastructures].nil?
+    @converted_project[:infrastructures] = @project[:infrastructures]    
+  end
+
+  def convert_summary
+    return if @project[:summary].nil?
+    @converted_project[:summary] = @project[:summary]    
+  end
+
+  def convert_planning
+    return if @project[:planning].nil?
+    @converted_project[:planning] = @project[:planning]    
   end
 end
