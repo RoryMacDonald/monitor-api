@@ -861,6 +861,7 @@
     },
     "infrastructures": {
       "title": "Infrastructures",
+      "hidden": true,
       "type": "array",
       "items": {
         "title": "Infrastructure",
