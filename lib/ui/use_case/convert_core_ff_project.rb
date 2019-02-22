@@ -9,6 +9,7 @@ class UI::UseCase::ConvertCoreFFProject
     convert_infrastructures
     convert_summary
     convert_planning
+    convert_land_owenership
 
     @converted_project
   end
@@ -28,5 +29,10 @@ class UI::UseCase::ConvertCoreFFProject
   def convert_planning
     return if @project[:planning].nil?
     @converted_project[:planning] = @project[:planning]    
+  end
+
+  def convert_land_owenership
+    return if @project[:landOwenership].nil?
+    @converted_project[:landOwenership] = @project[:landOwenership]    
   end
 end
