@@ -82,7 +82,7 @@ describe 'Interacting with a HIF Return from the UI' do
   context 'Creating a return' do
     it 'Allows you to create and view a return' do
       stub_request(
-        :get, "http://meow.cat/project/HIF%2FMV%2F757"
+        :get, "http://meow.cat/project/HIF%252FMV%252F757"
       ).to_return(
         status: 200,
         body: {
@@ -93,7 +93,7 @@ describe 'Interacting with a HIF Return from the UI' do
         headers: {'Authorization' => 'Bearer api.key.1' }
       )
       stub_request(
-        :get, "http://meow.cat/project/HIF%2FMV%2F757/actuals"
+        :get, "http://meow.cat/project/HIF%252FMV%252F757/actuals"
       ).to_return(
         status: 200,
         body: [
@@ -132,7 +132,7 @@ describe 'Interacting with a HIF Return from the UI' do
 
     it 'Allows you to create a return with all the data in' do
       stub_request(
-        :get, "http://meow.cat/project/HIF%2FMV%2F757"
+        :get, "http://meow.cat/project/HIF%252FMV%252F757"
       ).to_return(
         status: 200,
         body: {
@@ -143,7 +143,7 @@ describe 'Interacting with a HIF Return from the UI' do
         headers: {'Authorization' => 'Bearer api.key.1' }
       )
       stub_request(
-        :get, "http://meow.cat/project/HIF%2FMV%2F757/actuals"
+        :get, "http://meow.cat/project/HIF%252FMV%252F757/actuals"
       ).to_return(
         status: 200,
         body: [

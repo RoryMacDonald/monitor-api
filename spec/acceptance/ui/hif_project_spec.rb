@@ -5,7 +5,7 @@ require_relative '../shared_context/dependency_factory'
 describe 'Interacting with a HIF Project from the UI' do
   include_context 'dependency factory'
 
-  let(:pcs_url) { 'meow.cat' }
+  let(:pcs_domain) { 'meow.cat' }
 
   let(:baseline_data_ui) do
     File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json") do |f|
@@ -53,8 +53,8 @@ describe 'Interacting with a HIF Project from the UI' do
   end
 
   def get_project(id)
-    ENV['PCS_URL'] = pcs_url
-    stub_request(:get, "http://#{pcs_url}/project/#{id}").to_return(
+    ENV['PCS_DOMAIN'] = pcs_domain
+    stub_request(:get, "http://#{pcs_domain}/project/#{id}").to_return(
       status: 200,
       body: {
         ProjectManager: "Michael",

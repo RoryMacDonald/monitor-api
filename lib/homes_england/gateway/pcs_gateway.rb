@@ -2,7 +2,7 @@ require "erb"
 
 class HomesEngland::Gateway::Pcs
   def initialize
-    @pcs_url = ENV['PCS_URL']
+    @pcs_domain = ENV['PCS_DOMAIN']
   end
 
   def get_project(bid_id:, pcs_key:)
@@ -17,10 +17,16 @@ class HomesEngland::Gateway::Pcs
   end
 
   def request_pcs_data(bid_id, endpoint, pcs_key)
-    pcs_endpoint = Net::HTTP.new(@pcs_url)
-    request = Net::HTTP::Get.new("/project/#{ERB::Util.url_encode(bid_id)}#{endpoint}")
+    pcs_endpoint = Net::HTTP.new(@pcs_domain, Net::HTTP.https_default_port())
+    pcs_endpoint.use_ssl = true
+
+    request = Net::HTTP::Get.new("/pcs-api/v1/Projects/#{encode_bid_id(bid_id)}#{endpoint}")
     request['Authorization'] = "Bearer #{pcs_key}"
     response = pcs_endpoint.request(request)
     Common::DeepSymbolizeKeys.to_symbolized_hash(JSON.parse(response.body))
+  end
+
+  def encode_bid_id(bid_id)
+    ERB::Util.url_encode(ERB::Util.url_encode(bid_id))
   end
 end
