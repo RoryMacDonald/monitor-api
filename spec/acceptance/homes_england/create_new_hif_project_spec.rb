@@ -66,7 +66,7 @@ describe 'Creating a new HIF FileProject' do
   end
 
   context 'PCS' do
-    let(:pcs_domain) { 'meow.cat' }
+    let(:pcs_domain) { 'https://meow.cat' }
 
     before do
       ENV['PCS'] = 'yes'
@@ -102,7 +102,7 @@ describe 'Creating a new HIF FileProject' do
       )
 
       overview_data_request = stub_request(
-        :get, "https://#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F6"
+        :get, "#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F6"
       ).to_return(
         status: 200,
         body: {
@@ -113,7 +113,7 @@ describe 'Creating a new HIF FileProject' do
         headers: {'Authorization' => 'Bearer F.I.B' }
       )
       actuals_data_request = stub_request(
-        :get, "https://#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F6/actuals"
+        :get, "#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F6/actuals"
       ).to_return(
         status: 200,
         body: [

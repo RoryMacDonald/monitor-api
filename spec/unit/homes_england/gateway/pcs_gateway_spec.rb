@@ -1,10 +1,10 @@
 describe HomesEngland::Gateway::Pcs do
   context 'Example 1' do
-    let(:pcs_domain) { 'meow.cat' }
+    let(:pcs_domain) { 'https://meow.cat' }
     let(:pcs_overview_request) do
       stub_request(
         :get,
-        "https://#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F255"
+        "#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F255"
       ).to_return(
         status: 200,
         body: {
@@ -19,7 +19,7 @@ describe HomesEngland::Gateway::Pcs do
     let(:pcs_actuals_request) do
       stub_request(
         :get,
-        "https://#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F255/actuals"
+        "#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F255/actuals"
       ).to_return(
         status: 200,
         body: [
@@ -77,11 +77,11 @@ describe HomesEngland::Gateway::Pcs do
   end
 
   context 'Example 2' do
-    let(:pcs_domain) { 'meow.space' }
+    let(:pcs_domain) { 'http://simulator' }
     let(:pcs_overview_request) do
       stub_request(
         :get,
-        "https://#{pcs_domain}/pcs-api/v1/Projects/AC%252FMV%252F151"
+        "#{pcs_domain}/pcs-api/v1/Projects/AC%252FMV%252F151"
       ).to_return(
           status: 200, body: {
           ProjectManager: "Natalia",
@@ -95,7 +95,7 @@ describe HomesEngland::Gateway::Pcs do
     let(:pcs_actuals_request) do
       stub_request(
         :get,
-        "https://#{pcs_domain}/pcs-api/v1/Projects/AC%252FMV%252F151/actuals"
+        "#{pcs_domain}/pcs-api/v1/Projects/AC%252FMV%252F151/actuals"
       ).to_return(
         status: 200,
         body: [
