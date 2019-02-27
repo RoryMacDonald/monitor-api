@@ -1,0 +1,15 @@
+{
+  "claimSummary": {
+    "TotalFundingRequest": "12,000",
+    "SpendToDate": "12,000",
+    "AmountOfThisClaim": "12,000",
+    "conditionsToGrantDrawdown": "frguekyjdgfbiaugborfuwhbOEIWiewfhcno"
+  },
+  "supportingEvidence": {
+    "evidenceOfSpendPastQuarter": "a file",
+    "breakdownOfNextQuarterSpend": {
+      "forecast": "2,333",
+      "descriptionOfSpend": "describe"
+    }
+  }
+}

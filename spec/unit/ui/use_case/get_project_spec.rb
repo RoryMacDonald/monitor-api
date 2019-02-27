@@ -30,7 +30,7 @@ describe UI::UseCase::GetProject do
         project_schema_gateway: project_schema_gateway_spy
       )
     end
-    let(:response) { use_case.execute(id: 1, pcs_key: 'X.Y.Z') }
+    let(:response) { use_case.execute(id: 1) }
 
     before do
       response
@@ -42,10 +42,6 @@ describe UI::UseCase::GetProject do
 
     it 'Passes the ID to the find project usecase' do
       expect(find_project_spy).to have_received(:execute).with(hash_including(project_id: 1))
-    end
-
-    it 'Passes the api key to the find project usecase' do
-      expect(find_project_spy).to have_received(:execute).with(hash_including(pcs_key: 'X.Y.Z'))
     end
 
     it 'Finds the schema from the gateway' do
@@ -124,7 +120,7 @@ describe UI::UseCase::GetProject do
         project_schema_gateway: project_schema_gateway_spy
       )
     end
-    let(:response) { use_case.execute(id: 5, pcs_key: 'M.R.Y') }
+    let(:response) { use_case.execute(id: 5) }
 
     before do
       response
@@ -132,10 +128,6 @@ describe UI::UseCase::GetProject do
 
     it 'Calls execute in the find project use case' do
       expect(find_project_spy).to have_received(:execute)
-    end
-
-    it 'Passes the api key to the find project usecase' do
-      expect(find_project_spy).to have_received(:execute).with(hash_including(pcs_key: 'M.R.Y'))
     end
 
     it 'Passes the ID to the find project usecase' do

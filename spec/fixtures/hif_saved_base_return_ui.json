@@ -38,7 +38,7 @@
           "statutoryConsents": [{
             "statusOfConsent": {
               "baseline": "2020-01-01",
-              "completedDate": null, 
+              "completedDate": null,
               "current": null,
               "percentComplete": null,
               "previousReturn": null,
@@ -190,6 +190,24 @@
           "totalHolder": {"total": null}
         }
       ]
+    }
+  },
+  "hifRecovery": {
+    "recovery": {
+      "aimToRecoverFunding": "Yes",
+      "expectedAmountToRecover": {
+        "amountRecovered": {
+          "cumulative": null,
+          "previousCumulator": null
+        },
+        "baselineAmount": "1234",
+        "changeToBaseline": {
+          "confirmation": null,
+          "currentCopy": null,
+          "lastReturn": null
+        },
+        "methodOfRecovery": "Recovery will be undertaken"
+      }
     }
   },
   "fundingPackages": [

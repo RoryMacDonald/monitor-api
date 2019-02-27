@@ -108,36 +108,6 @@ module DeliveryMechanism
       end
     end
 
-    get '/return/get' do
-      guard_access env, params, request do |_|
-        return 400 if params[:returnId].nil?
-        return_id = params[:returnId].to_i
-
-        pcs_key = @dependency_factory.get_use_case(:api_to_pcs_key).execute(api_key: env['HTTP_API_KEY'])[:pcs_key]
-        return_hash = @dependency_factory.get_use_case(:ui_get_return).execute(
-          id: return_id,
-          pcs_key: pcs_key
-        )
-
-        return 404 if return_hash.empty?
-
-        return_schema = @dependency_factory
-                        .get_use_case(:ui_get_schema_for_return)
-                        .execute(type: return_hash[:type])[:schema]
-
-        response.body = {
-          project_id: return_hash[:project_id],
-          data: return_hash[:updates].last,
-          status: return_hash[:status],
-          schema: return_schema,
-          type: return_hash[:type],
-          no_of_previous_returns: return_hash[:no_of_previous_returns]
-        }.to_json
-        response.headers['Cache-Control'] = 'no-cache'
-        response.status = 200
-      end
-    end
-
     post '/return/validate' do
       guard_access env, params, request do |request_hash|
         return 400 if invalid_validation_hash(request_hash: request_hash)
@@ -209,32 +179,6 @@ module DeliveryMechanism
       end
     end
 
-    get '/project/find' do
-      guard_access env, params, request do |_|
-        return 404 if params['id'].nil?
-        pcs_key = @dependency_factory.get_use_case(:api_to_pcs_key).execute(api_key: env['HTTP_API_KEY'])[:pcs_key]
-
-        project = @dependency_factory.get_use_case(:ui_get_project).execute(
-          id: params['id'].to_i,
-          pcs_key: pcs_key
-        )
-
-        return 404 if project.nil?
-
-        content_type 'application/json'
-        response.body = {
-          type: project[:type],
-          status: project[:status],
-          bid_id: project[:bid_id],
-          data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
-          schema: project[:schema],
-          timestamp: project[:timestamp]
-        }.to_json
-        response.headers['Cache-Control'] = 'no-cache'
-        response.status = 200
-      end
-    end
-
     post '/project/create' do
       guard_access env, params, request do |request_hash|
 
@@ -275,30 +219,6 @@ module DeliveryMechanism
           add_user_to_project: @dependency_factory.get_use_case(:add_user_to_project)
         )
         controller.execute(params, request_hash, response)
-      end
-    end
-
-    post '/project/update' do
-      guard_access env, params, request do |request_hash|
-        if valid_update_request_body(request_hash)
-          get_project_use_case = @dependency_factory.get_use_case(:ui_get_project)
-          pcs_key = @dependency_factory.get_use_case(:api_to_pcs_key).execute(api_key: env['HTTP_API_KEY'])[:pcs_key]
-
-          project = get_project_use_case.execute(id: request_hash[:project_id].to_i, pcs_key: pcs_key)
-          use_case = @dependency_factory.get_use_case(:ui_update_project)
-
-          update_response = use_case.execute(
-            id: request_hash[:project_id].to_i,
-            type: project[:type],
-            data: request_hash[:project_data],
-            timestamp: request_hash[:timestamp].to_i
-          )
-
-          response.status = update_successful?(update_response) ? 200 : 404
-          response.body = { errors: update_response[:errors], timestamp: update_response[:timestamp] }.to_json
-        else
-          response.status = 400
-        end
       end
     end
 

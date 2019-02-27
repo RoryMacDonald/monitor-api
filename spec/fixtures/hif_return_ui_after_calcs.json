@@ -861,7 +861,7 @@
   "s151": {
     "claimSummary": {
       "hifTotalFundingRequest": "Funding",
-      "hifSpendToDate": "1234-65-43",
+      "hifSpendToDate": "0.0",
       "AmountOfThisClaim": "lots",
       "certifiedClaimForm": "some form",
       "runningClaimTotal": "23"

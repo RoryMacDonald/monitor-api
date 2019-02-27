@@ -54,18 +54,19 @@ describe 'Interacting with a HIF Project from the UI' do
 
   def get_project(id)
     ENV['PCS_DOMAIN'] = pcs_domain
-    stub_request(:get, "http://#{pcs_domain}/project/#{id}").to_return(
+    ENV['PCS_SECRET'] = 'aoeaoe'
+    stub_request(:get, "https://#{pcs_domain}/project/#{id}").to_return(
       status: 200,
       body: {
         ProjectManager: "Michael",
         Sponsor: "MSPC"
       }.to_json
     ).with(
-      headers: {'Authorization' => 'Bearer X.S.I' }
+      headers: {'Authorization' => "Bearer #{JWT.encode({}, 'aoeaoe', 'HS512')}" }
     )
 
     dependency_factory.get_use_case(:ui_get_project).execute(
-      id: id, pcs_key: 'X.S.I'
+      id: id
     )
   end
 

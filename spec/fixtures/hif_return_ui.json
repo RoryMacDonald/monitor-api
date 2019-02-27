@@ -867,7 +867,7 @@
     "claimSummary": {
       "hifTotalFundingRequest": "Funding",
       "certifiedClaimForm": "some form",
-      "hifSpendToDate": "1234-65-43",
+      "hifSpendToDate": "0.0",
       "AmountOfThisClaim": "lots",
       "runningClaimTotal": "23"
     },

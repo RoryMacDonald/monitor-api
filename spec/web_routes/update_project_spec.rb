@@ -6,7 +6,6 @@ require_relative 'delivery_mechanism_spec_helper'
 describe 'Updating a project' do
   context 'Example 1' do
     let(:check_api_key_spy) { double(execute: { valid: true }) }
-    let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: 'i.m.f' }) }
     let(:get_project_spy) { spy(execute: { type: 'hif' }) }
     let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 6 }) }
     let(:create_new_project_spy) { spy(execute: project_id) }
@@ -34,12 +33,8 @@ describe 'Updating a project' do
 
     before do
       stub_instances(UI::UseCase::GetProject, get_project_spy)
-
       stub_instances(UI::UseCase::UpdateProject, update_project_spy)
-
       stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
-
-      stub_instances(LocalAuthority::UseCase::ApiToPcsKey, api_to_pcs_key_spy)
 
       header 'API_KEY', 'superSecret'
     end
@@ -94,7 +89,7 @@ describe 'Updating a project' do
 
       it 'Should get the project for the id' do
         expect(get_project_spy).to(
-          have_received(:execute).with(id: project_id, pcs_key: 'i.m.f')
+          have_received(:execute).with(id: project_id)
         )
       end
 
@@ -117,20 +112,11 @@ describe 'Updating a project' do
           )
         )
       end
-
-      it 'should get the pcs key from the api key' do
-        expect(api_to_pcs_key_spy).to(
-          have_received(:execute).with(
-            api_key: 'superSecret'
-          )
-        )
-      end
     end
   end
 
   context 'Example 2' do
     let(:check_api_key_spy) { double(execute: { valid: true }) }
-    let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: 'i.m.f' }) }
     let(:get_project_spy) { spy(execute: { type: 'hif' }) }
     let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 7 }) }
     let(:create_new_project_spy) { spy(execute: project_id) }
@@ -158,12 +144,8 @@ describe 'Updating a project' do
 
     before do
       stub_instances(UI::UseCase::GetProject, get_project_spy)
-
       stub_instances(UI::UseCase::UpdateProject, update_project_spy)
-
       stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
-
-      stub_instances(LocalAuthority::UseCase::ApiToPcsKey, api_to_pcs_key_spy)
 
       header 'API_KEY', 'verySecret'
     end
@@ -218,7 +200,7 @@ describe 'Updating a project' do
 
       it 'Should get the project for the id' do
         expect(get_project_spy).to(
-          have_received(:execute).with(id: project_id, pcs_key: 'i.m.f')
+          have_received(:execute).with(id: project_id)
         )
       end
 
@@ -237,14 +219,6 @@ describe 'Updating a project' do
         expect(check_api_key_spy).to(
           have_received(:execute).with(
             project_id: project_id,
-            api_key: 'verySecret'
-          )
-        )
-      end
-
-      it 'should get the pcs key from the api key' do
-        expect(api_to_pcs_key_spy).to(
-          have_received(:execute).with(
             api_key: 'verySecret'
           )
         )

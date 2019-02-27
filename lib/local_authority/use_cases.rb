@@ -2,10 +2,6 @@
 
 class LocalAuthority::UseCases
   def self.register(builder)
-    builder.define_use_case :api_to_pcs_key do
-      LocalAuthority::UseCase::ApiToPcsKey.new
-    end
-
     builder.define_use_case :find_path_data do
       LocalAuthority::UseCase::FindPathData.new
     end
@@ -156,6 +152,38 @@ class LocalAuthority::UseCases
     builder.define_use_case :get_infrastructures do
       LocalAuthority::UseCase::GetInfrastructures.new(
         find_project: builder.get_use_case(:find_project)
+      )
+    end
+
+    builder.define_use_case :create_claim do
+      LocalAuthority::UseCase::CreateClaimCore.new(
+        claim_gateway: builder.get_gateway(:claim)
+      )
+    end
+
+    builder.define_use_case :get_claim do
+      LocalAuthority::UseCase::GetClaimCore.new(
+        claim_gateway: builder.get_gateway(:claim)
+      )
+    end
+
+    builder.define_use_case :update_claim do
+      LocalAuthority::UseCase::UpdateClaimCore.new(
+        claim_gateway: builder.get_gateway(:claim)
+      )
+    end
+
+    builder.define_use_case :submit_claim do
+      LocalAuthority::UseCase::SubmitClaimCore.new(
+        claim_gateway: builder.get_gateway(:claim)
+      )
+    end
+
+
+    builder.define_use_case :pcs_populate_claim do
+      LocalAuthority::UseCase::PcsPopulateClaim.new(
+        get_claim_core: builder.get_use_case(:get_claim),
+        pcs_gateway: builder.get_gateway(:pcs)
       )
     end
   end

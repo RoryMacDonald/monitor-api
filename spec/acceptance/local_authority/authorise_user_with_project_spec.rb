@@ -29,21 +29,6 @@ describe 'Authorises the user' do
       api_key = get_use_case(:create_api_key).execute(projects: [1], email: 'cat@cathouse.com', role: 'HomesEngland')[:api_key]
       expect(get_use_case(:check_api_key).execute(api_key: api_key, project_id: 1)).to eq(valid: true, email: 'cat@cathouse.com', role: 'HomesEngland')
     end
-
-    it 'should create a valid pcs key for project 1' do
-      api_key = get_use_case(:create_api_key).execute(projects: [1], email: 'cat@cathouse.com', role: 'Homes England')[:api_key]
-      pcs_key = get_use_case(:api_to_pcs_key).execute(api_key: api_key)[:pcs_key]
-
-      decoded_pcs_key = JWT.decode(
-        pcs_key,
-        'Woof',
-        true,
-        algorithm: 'HS512'
-      )[0]
-      expect(decoded_pcs_key['projects']).to eq([1])
-      expect(decoded_pcs_key['email']).to eq('cat@cathouse.com')
-      expect(decoded_pcs_key['role']).to eq('Homes England')
-    end
   end
 
   context 'Incorrect project' do

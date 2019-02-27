@@ -1,5 +1,7 @@
 describe HomesEngland::Gateway::Pcs do
   context 'Example 1' do
+    let(:pcs_secret) { '1119003331' }
+    let(:auth_token) { JWT.encode({}, pcs_secret, 'HS512') }
     let(:pcs_domain) { 'https://meow.cat' }
     let(:pcs_overview_request) do
       stub_request(
@@ -12,7 +14,7 @@ describe HomesEngland::Gateway::Pcs do
           Sponsor: "FIS"
         }.to_json
       ).with(
-        headers: {'Authorization' => 'Bearer M.R.I' }
+        headers: {'Authorization' => "Bearer #{auth_token}" }
       )
     end
 
@@ -34,7 +36,7 @@ describe HomesEngland::Gateway::Pcs do
           }
         ].to_json
       ).with(
-        headers: {'Authorization' => 'Bearer M.R.I' }
+        headers: {'Authorization' => "Bearer #{auth_token}" }
       )
     end
 
@@ -42,23 +44,24 @@ describe HomesEngland::Gateway::Pcs do
 
     before do
       ENV['PCS_DOMAIN'] = pcs_domain
+      ENV['PCS_SECRET'] = pcs_secret
       pcs_overview_request
       pcs_actuals_request
       gateway
     end
 
     it 'Calls the PCS overview endpoint' do
-      gateway.get_project(bid_id: 'HIF/MV/255', pcs_key: 'M.R.I')
+      gateway.get_project(bid_id: 'HIF/MV/255')
       expect(pcs_overview_request).to have_been_requested
     end
 
     it 'Calls the PCS actuals endpoint' do
-      gateway.get_project(bid_id: 'HIF/MV/255', pcs_key: 'M.R.I')
+      gateway.get_project(bid_id: 'HIF/MV/255')
       expect(pcs_actuals_request).to have_been_requested
     end
 
     it 'Returns a domain object' do
-      project = gateway.get_project(bid_id: 'HIF/MV/255', pcs_key: 'M.R.I')
+      project = gateway.get_project(bid_id: 'HIF/MV/255')
 
       expect(project.project_manager).to eq("Ed")
       expect(project.sponsor).to eq("FIS")
@@ -77,7 +80,10 @@ describe HomesEngland::Gateway::Pcs do
   end
 
   context 'Example 2' do
+    let(:pcs_secret) { '0118999611993' }
+    let(:auth_token) { JWT.encode({}, pcs_secret, 'HS512') }
     let(:pcs_domain) { 'http://simulator' }
+
     let(:pcs_overview_request) do
       stub_request(
         :get,
@@ -88,7 +94,7 @@ describe HomesEngland::Gateway::Pcs do
           Sponsor: "NHN"
         }.to_json
       ).with(
-        headers: {'Authorization' => 'Bearer C.C.G' }
+        headers: { 'Authorization' => "Bearer #{auth_token}" }
       )
     end
 
@@ -110,7 +116,7 @@ describe HomesEngland::Gateway::Pcs do
           }
         ].to_json
       ).with(
-        headers: {'Authorization' => 'Bearer C.C.G' }
+        headers: {'Authorization' => "Bearer #{auth_token}" }
       )
     end
 
@@ -118,23 +124,24 @@ describe HomesEngland::Gateway::Pcs do
 
     before do
       ENV['PCS_DOMAIN'] = pcs_domain
+      ENV['PCS_SECRET'] = pcs_secret
       pcs_overview_request
       pcs_actuals_request
       gateway
     end
 
     it 'Calls the PCS overview endpoint' do
-      gateway.get_project(bid_id: 'AC/MV/151', pcs_key: 'C.C.G')
+      gateway.get_project(bid_id: 'AC/MV/151')
       expect(pcs_overview_request).to have_been_requested
     end
 
     it 'Calls the PCS actuals endpoint' do
-      gateway.get_project(bid_id: 'AC/MV/151', pcs_key: 'C.C.G')
+      gateway.get_project(bid_id: 'AC/MV/151')
       expect(pcs_actuals_request).to have_been_requested
     end
 
     it 'Returns a domain object' do
-      project = gateway.get_project(bid_id: 'AC/MV/151', pcs_key: 'C.C.G')
+      project = gateway.get_project(bid_id: 'AC/MV/151')
 
       expect(project.project_manager).to eq("Natalia")
       expect(project.sponsor).to eq("NHN")

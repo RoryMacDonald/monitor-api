@@ -5,7 +5,6 @@ require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Getting a return' do
   let(:check_api_key_stub) { double(execute: {valid: true}) }
-  let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.m.f" }) }
   let(:get_return_spy) { spy(execute: returned_hash) }
   let(:get_schema_for_return_spy) { spy(execute: returned_schema) }
   let(:type) { '' }
@@ -13,7 +12,6 @@ describe 'Getting a return' do
   let(:returned_schema) { { schema: { cats: 'string' } } }
 
   before do
-    stub_instances(LocalAuthority::UseCase::ApiToPcsKey, api_to_pcs_key_spy)
     stub_instances(UI::UseCase::GetReturn, get_return_spy)
     stub_instances(UI::UseCase::GetSchemaForReturn, get_schema_for_return_spy)
     stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_stub)
@@ -27,7 +25,6 @@ describe 'Getting a return' do
 
   context 'Given one existing return' do
     context 'example 1' do
-      let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.m.f" })}
       let(:type) { 'ac' }
 
       let(:response_body) { JSON.parse(last_response.body) }
@@ -40,18 +37,6 @@ describe 'Getting a return' do
       it 'passes id to GetReturn' do
         expect(get_return_spy).to have_received(:execute).with(
           hash_including(id: 1)
-        )
-      end
-
-      it 'passes the api key to ApiToPcsKey' do
-        expect(api_to_pcs_key_spy).to have_received(:execute).with(
-          hash_including(api_key: 'superSecret')
-        )
-      end
-
-      it 'passes the pcs key to GetReturn' do
-        expect(get_return_spy).to have_received(:execute).with(
-          hash_including(pcs_key: 'i.m.f')
         )
       end
 
@@ -95,7 +80,6 @@ describe 'Getting a return' do
     end
 
     context 'example 2' do
-      let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.s.s" })}
       let(:type) { 'hif' }
 
       let(:response_body) { JSON.parse(last_response.body) }
@@ -108,18 +92,6 @@ describe 'Getting a return' do
       it 'passes data to GetReturn' do
         expect(get_return_spy).to have_received(:execute).with(
           hash_including(id: 1)
-        )
-      end
-
-      it 'passes the api key to ApiToPcsKey' do
-        expect(api_to_pcs_key_spy).to have_received(:execute).with(
-          api_key: 'verySecret'
-        )
-      end
-
-      it 'passes the pcs key to GetReturn' do
-        expect(get_return_spy).to have_received(:execute).with(
-          hash_including(pcs_key: 'i.s.s')
         )
       end
 

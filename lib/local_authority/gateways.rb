@@ -42,5 +42,11 @@ class LocalAuthority::Gateways
     builder.define_gateway :api_key do
       LocalAuthority::Gateway::InMemoryAPIKeyGateway.new
     end
+
+    builder.define_gateway :claim do
+      LocalAuthority::Gateway::SequelClaim.new(
+        database: builder.database
+      )
+    end
   end
 end

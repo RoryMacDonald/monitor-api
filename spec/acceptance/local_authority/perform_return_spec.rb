@@ -113,7 +113,6 @@ describe 'Performing Return on HIF Project' do
   before do
     ENV['PCS'] = 'yes'
     ENV['PCS_DOMAIN'] = pcs_domain
-    ENV['API_SECRET'] = 'Secret 1'
     ENV['PCS_SECRET'] = 'Secret 2'
     ENV['OUTPUTS_FORECAST_TAB'] = 'Yes'
     ENV['CONFIRMATION_TAB'] = 'Yes'
@@ -128,7 +127,6 @@ describe 'Performing Return on HIF Project' do
   after do
     ENV['OUTPUTS_FORECAST_TAB'] = nil
     ENV['CONFIRMATION_TAB'] = nil
-    ENV['API_SECRET'] = nil
     ENV['PCS_SECRET'] = nil
     ENV['S151_TAB'] = nil
     ENV['MR_REVIEW_TAB'] = nil

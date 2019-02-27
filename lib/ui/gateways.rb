@@ -13,5 +13,9 @@ class UI::Gateways
     builder.define_gateway :ui_new_project do
       UI::Gateway::InMemoryNewProject.new
     end
+
+    builder.define_gateway :ui_claim_schema do
+      UI::Gateway::InMemoryClaimSchema.new
+    end
   end
 end

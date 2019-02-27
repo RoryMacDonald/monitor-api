@@ -64,10 +64,12 @@ describe LocalAuthority::UseCase::GetBaseReturn do
     end
 
     context 'example two' do
-      let(:schema) { Common::Domain::Template.new.tap do |p|
-        p.schema = {dogs: 'woof'}
+      let(:schema) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {dogs: 'woof'}
+        end
       end
-      }
+
       let(:project_id) { 255 }
       let(:data) { { name: 'Extra secret project' } }
       let(:project) do

@@ -9,12 +9,12 @@ describe 'Getting project list for a user' do
   let(:get_user_projects_spy) { spy(execute: {project_list: project_list}) }
 
   before do
-    
+
     stub_const(
       'LocalAuthority::UseCase::CheckApiKey',
       double(new: double(execute: { valid: token_valid, email: email }))
       )
-      
+
     stub_const(
       'LocalAuthority::UseCase::GetUserProjects',
       double(new: get_user_projects_spy)
@@ -37,7 +37,7 @@ describe 'Getting project list for a user' do
     let(:email) { 'cats@he.gov.uk' }
 
     context 'example one' do
-      let(:project_list) do 
+      let(:project_list) do
         [
           {
             project_id: 42,
@@ -78,7 +78,7 @@ describe 'Getting project list for a user' do
     context 'example two' do
     let(:email) { 'catmaster@he.gov.uk' }
 
-      let(:project_list) do 
+      let(:project_list) do
         [
           {
             project_id: 1,

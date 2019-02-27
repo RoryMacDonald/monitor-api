@@ -5,9 +5,9 @@ class HomesEngland::Gateway::Pcs
     @pcs_domain = ENV['PCS_DOMAIN']
   end
 
-  def get_project(bid_id:, pcs_key:)
-    actuals_data = request_pcs_data(bid_id, '/actuals', pcs_key)
-    overview_data = request_pcs_data(bid_id, '', pcs_key)
+  def get_project(bid_id:)
+    actuals_data = request_pcs_data(bid_id, '/actuals')
+    overview_data = request_pcs_data(bid_id, '')
 
     HomesEngland::Domain::PcsBid.new.tap do |project|
       project.project_manager = overview_data[:ProjectManager]
@@ -16,7 +16,8 @@ class HomesEngland::Gateway::Pcs
     end
   end
 
-  def request_pcs_data(bid_id, endpoint, pcs_key)
+  def request_pcs_data(bid_id, endpoint)
+    pcs_key = JWT.encode({}, ENV['PCS_SECRET'], 'HS512')
     host = URI.parse(@pcs_domain).host
     protocol = URI.parse(@pcs_domain).scheme
 

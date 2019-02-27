@@ -5,7 +5,6 @@ require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Finding a project' do
   let(:check_api_key_stub) { double(execute: { valid: token_valid }) }
-  let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.i.f" }) }
   let(:find_project_spy) { spy(execute: project) }
   let(:project) { nil }
   let(:project_id) { nil }
@@ -13,7 +12,6 @@ describe 'Finding a project' do
   let(:token_valid) { true }
 
   before do
-    stub_instances(LocalAuthority::UseCase::ApiToPcsKey, api_to_pcs_key_spy)
     stub_instances(UI::UseCase::GetProject, find_project_spy)
     stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_stub)
   end
@@ -53,7 +51,6 @@ describe 'Finding a project' do
         get "/project/find?id=#{project_id}"
       end
 
-      let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "i.i.f" }) }
       let(:project_id) { 42 }
       let(:project) do
         {
@@ -68,18 +65,6 @@ describe 'Finding a project' do
 
       it 'should find the project with the given id' do
         expect(find_project_spy).to have_received(:execute).with(hash_including(id: 42))
-      end
-
-      it 'passes the pcs key to FindProject' do
-        expect(find_project_spy).to have_received(:execute).with(
-          hash_including(pcs_key: 'i.i.f')
-        )
-      end
-
-      it 'passes the api key to ApiToPcsKey' do
-        expect(api_to_pcs_key_spy).to have_received(:execute).with(
-          api_key: 'superSecret'
-        )
       end
 
       it 'should return 200' do
@@ -116,7 +101,6 @@ describe 'Finding a project' do
         get "/project/find?id=#{project_id}"
       end
 
-      let(:api_to_pcs_key_spy) { spy(execute: { pcs_key: "f.f.f" }) }
       let(:project_id) { 41 }
       let(:project) do
         {
@@ -132,18 +116,6 @@ describe 'Finding a project' do
       end
 
       let(:find_project_spy) { spy(execute: project) }
-
-      it 'passes the pcs key to FindProject' do
-        expect(find_project_spy).to have_received(:execute).with(
-          hash_including(pcs_key: 'f.f.f')
-        )
-      end
-
-      it 'passes the api key to ApiToPcsKey' do
-        expect(api_to_pcs_key_spy).to have_received(:execute).with(
-          api_key: 'myapikey'
-        )
-      end
 
       it 'should find the project with the given id' do
         expect(find_project_spy).to have_received(:execute).with(hash_including(id: 41))

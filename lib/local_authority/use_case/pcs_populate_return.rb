@@ -4,13 +4,11 @@ class LocalAuthority::UseCase::PcsPopulateReturn
     @pcs_gateway = pcs_gateway
   end
 
-  def execute(id:, pcs_key:)
+  def execute(id:)
     return_data = @get_return.execute(id: id)
 
     unless return_data[:status] == 'Submitted' || ENV['PCS'].nil?
-      pcs_data = @pcs_gateway.get_project(
-        pcs_key: pcs_key, bid_id: return_data[:bid_id]
-      )
+      pcs_data = @pcs_gateway.get_project(bid_id: return_data[:bid_id])
 
       unless pcs_data.actuals.nil?
         total = get_spend_to_date(pcs_data)
@@ -18,8 +16,8 @@ class LocalAuthority::UseCase::PcsPopulateReturn
           return_data[:updates][-1][:s151GrantClaimApproval] = {} if return_data[:s151GrantClaimApproval].nil?
           return_data[:updates][-1][:s151GrantClaimApproval][:SpendToDate] = total.to_s
         elsif return_data[:type] == 'hif'
-          return_data[:updates][-1][:s151] = {} if return_data[:s151].nil?
-          return_data[:updates][-1][:s151][:claimSummary] = {} if return_data.dig(:s151, :claimSummary).nil?
+          return_data[:updates][-1][:s151] = {} if return_data[:updates][-1][:s151].nil?
+          return_data[:updates][-1][:s151][:claimSummary] = {} if return_data.dig(:updates, -1, :s151, :claimSummary).nil?
           return_data[:updates][-1][:s151][:claimSummary][:hifSpendToDate] = total.to_s
         end
 

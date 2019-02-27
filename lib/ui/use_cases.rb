@@ -171,5 +171,70 @@ class UI::UseCases
         convert_core_return: builder.get_use_case(:convert_core_return)
       )
     end
+
+    builder.define_use_case :ui_create_claim do
+      UI::UseCase::CreateClaim.new(
+        find_project: builder.get_use_case(:find_project),
+        create_claim_core: builder.get_use_case(:create_claim),
+        convert_ui_claim: builder.get_use_case(:convert_ui_claim)
+      )
+    end
+
+    builder.define_use_case :convert_ui_claim do
+      UI::UseCase::ConvertUIClaim.new(
+        convert_ui_ac_claim: builder.get_use_case(:convert_ui_ac_claim),
+        convert_ui_hif_claim: builder.get_use_case(:convert_ui_hif_claim),
+        convert_ui_ff_claim: builder.get_use_case(:convert_ui_ff_claim)
+      )
+    end
+
+    builder.define_use_case :convert_ui_ac_claim do
+      UI::UseCase::ConvertUIACClaim.new
+    end
+
+    builder.define_use_case :convert_ui_hif_claim do
+      UI::UseCase::ConvertUIHIFClaim.new
+    end
+
+    builder.define_use_case :convert_ui_ff_claim do
+      UI::UseCase::ConvertUIFFClaim.new
+    end
+
+    builder.define_use_case :ui_get_claim do
+      UI::UseCase::GetClaim.new(
+        get_claim_core: builder.get_use_case(:pcs_populate_claim),
+        claim_schema: builder.get_gateway(:ui_claim_schema),
+        convert_core_claim: builder.get_use_case(:convert_core_claim)
+      )
+    end
+
+    builder.define_use_case :ui_update_claim do
+      UI::UseCase::UpdateClaim.new(
+        get_claim: builder.get_use_case(:get_claim),
+        update_claim_core: builder.get_use_case(:update_claim),
+        convert_ui_claim: builder.get_use_case(:convert_ui_claim)
+      )
+    end
+
+    builder.define_use_case :convert_core_claim do
+      UI::UseCase::ConvertCoreClaim.new(
+        convert_core_ac_claim: builder.get_use_case(:convert_core_ac_claim),
+        convert_core_hif_claim: builder.get_use_case(:convert_core_hif_claim),
+        convert_core_ff_claim: builder.get_use_case(:convert_core_ff_claim)
+      )
+    end
+
+    builder.define_use_case :convert_core_ac_claim do
+      UI::UseCase::ConvertCoreACClaim.new
+    end
+
+    builder.define_use_case :convert_core_hif_claim do
+      UI::UseCase::ConvertCoreHIFClaim.new
+    end
+
+    builder.define_use_case :convert_core_ff_claim do
+      UI::UseCase::ConvertCoreFFClaim.new
+    end
+
   end
 end

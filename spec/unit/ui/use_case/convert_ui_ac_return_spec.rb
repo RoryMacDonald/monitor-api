@@ -17,9 +17,9 @@ describe UI::UseCase::ConvertUIACReturn do
     end
   end
 
-  it 'Converts the project correctly' do
-    converted_project = described_class.new.execute(return_data: return_to_convert)
+  it 'Converts the return correctly' do
+    converted_return = described_class.new.execute(return_data: return_to_convert)
 
-    expect(converted_project).to eq(core_data_return)
+    expect(converted_return).to eq(core_data_return)
   end
 end

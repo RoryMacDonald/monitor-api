@@ -70,11 +70,13 @@ describe 'Creating a new HIF FileProject' do
 
     before do
       ENV['PCS'] = 'yes'
+      ENV['PCS_SECRET'] = 'aoeaoe'
       ENV['PCS_DOMAIN'] = pcs_domain
     end
 
     after do
       ENV['PCS'] = nil
+      ENV['PCS_SECRET'] = nil
       ENV['PCS_DOMAIN'] = nil
     end
 
@@ -110,7 +112,7 @@ describe 'Creating a new HIF FileProject' do
           Sponsor: 'Euler'
         }.to_json
       ).with(
-        headers: {'Authorization' => 'Bearer F.I.B' }
+        headers: {'Authorization' => "Bearer #{JWT.encode({}, 'aoeaoe', 'HS512')}" }
       )
       actuals_data_request = stub_request(
         :get, "#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F6/actuals"
@@ -125,10 +127,10 @@ describe 'Creating a new HIF FileProject' do
           }
         ].to_json
       ).with(
-        headers: {'Authorization' => 'Bearer F.I.B' }
+        headers: {'Authorization' => "Bearer #{JWT.encode({}, 'aoeaoe', 'HS512')}" }
       )
 
-      project = get_use_case(:populate_baseline).execute(project_id: response[:id], pcs_key: 'F.I.B')
+      project = get_use_case(:populate_baseline).execute(project_id: response[:id])
 
       expect(overview_data_request).to have_been_requested
       expect(actuals_data_request).to have_been_requested
