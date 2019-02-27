@@ -6,11 +6,11 @@ require_relative '../shared_context/dependency_factory'
 describe 'Performing Return on HIF Project' do
   include_context 'dependency factory'
 
-  let(:pcs_url) { 'meow.cat' }
+  let(:pcs_domain) { 'meow.cat' }
   let(:api_key) { 'C.B.R' }
 
   def get_return(id:)
-    stub_request(:get, "http://#{pcs_url}/project/#{id}").to_return(
+    stub_request(:get, "http://#{pcs_domain}/project/#{id}").to_return(
       status: 200,
       body: {
         ProjectManager: "Michael",
@@ -112,7 +112,7 @@ describe 'Performing Return on HIF Project' do
 
   before do
     ENV['PCS'] = 'yes'
-    ENV['PCS_URL'] = pcs_url
+    ENV['PCS_DOMAIN'] = pcs_domain
     ENV['API_SECRET'] = 'Secret 1'
     ENV['PCS_SECRET'] = 'Secret 2'
     ENV['OUTPUTS_FORECAST_TAB'] = 'Yes'
@@ -135,7 +135,7 @@ describe 'Performing Return on HIF Project' do
     ENV['OUTPUTS_ACTUALS_TAB'] = nil
     ENV['HIF_RECOVERY_TAB'] = nil
     ENV['PCS'] = nil
-    ENV['PCS_URL'] = nil
+    ENV['PCS_DOMAIN'] = nil
   end
 
   it 'should keep track of Returns' do
