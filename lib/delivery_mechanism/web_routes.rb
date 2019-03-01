@@ -70,16 +70,6 @@ module DeliveryMechanism
       end
     end
 
-    post '/return/submit' do
-      guard_access env, params, request do |request_hash|
-        DeliveryMechanism::Controllers::PostSubmitReturn.new(
-          submit_return: @dependency_factory.get_use_case(:submit_return),
-          notify_project_members_of_submission: @dependency_factory.get_use_case(:notify_project_members_of_submission),
-          check_api_key: @dependency_factory.get_use_case(:check_api_key)
-        ).execute(env, request, request_hash, response)
-      end
-    end
-
     post '/return/validate' do
       guard_access env, params, request do |request_hash|
         return 400 if invalid_validation_hash(request_hash: request_hash)
