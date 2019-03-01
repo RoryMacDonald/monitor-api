@@ -1395,6 +1395,110 @@
           }
         }
       }
+    },
+    "procurement": {
+      "type": "object",
+      "title": "Procurement",
+      "properties": {
+        "contractorsProcured": {
+          "type": "object",
+          "title": "",
+          "properties": {
+            "procured": {
+              "type": "string",
+              "title": "Are all infrastructure contractors procured? ",
+              "radio": true,
+              "enum": ["Yes", "No"]
+            }
+          },
+          "dependencies": {
+            "procured": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "procured": {
+                      "enum": ["Yes"]
+                    },
+                    "contractors": {
+                      "type": "array",
+                      "title": "Contractors",
+                      "addable": true,
+                      "items": {
+                        "type": "object",
+                        "title": "",
+                        "properties": {
+                          "contractorName": {
+                            "type": "string",
+                            "title": "Name"
+                          },
+                          "infrastructureId": {
+                            "type": "string",
+                            "title": "What HIF infrastructure is affected?",
+                            "linkToInfra": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "procured": {
+                      "enum": ["No"]
+                    },
+                    "landAcquisitions": {
+                      "type": "string",
+                      "title": "Number of key land acquisitions"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "summaryOfProcurement": {
+          "type": "object",
+          "title": "Summary of key procurements",
+          "properties": {
+            "procurements": {
+              "type": "array",
+              "title": "",
+              "addable": true,
+              "items": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "title": "Status at Baseline",
+                    "enum": ["Not Started", "In Progress - Early", "In Progress - Detailed", "Near Completion"]
+                  },
+                  "description": {
+                    "type": "string",
+                    "title": "Description",
+                    "extendedText": true
+                  },
+                  "infrastructureId": {
+                    "type": "string",
+                    "title": "What HIF infrastructure is affected?",
+                    "linkToInfra": true
+                  },
+                  "completionDate": {
+                    "type": "string",
+                    "title": "Baseline Completion Date",
+                    "format": "date"
+                  },
+                  "summaryOfCriticalPath": {
+                    "type": "string",
+                    "title": "Summary of Critical Path",
+                    "extendedText": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
