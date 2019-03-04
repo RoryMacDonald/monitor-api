@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 describe UI::UseCase::GetBaseClaim do
-  context 'Example 1' do 
   let(:claim_gateway_spy) { spy(find_by: schema) }
   let(:project_gateway_spy) { spy(find_by: project) }
   let(:use_case) do 
@@ -54,6 +53,7 @@ describe UI::UseCase::GetBaseClaim do
       expect(response[:base_claim][:data]).to eq({})
     end
   end
+
   context 'Example 2' do
     let(:schema) do
       Common::Domain::Template.new.tap do |p|
