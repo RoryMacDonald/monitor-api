@@ -179,7 +179,7 @@ class UI::UseCase::ConvertUIHIFProject
         instalment3: profile[:instalment3],
         instalment4: profile[:instalment4],
         total: profile[:total]
-    }.compact
+      }.compact
     end
   end
 
