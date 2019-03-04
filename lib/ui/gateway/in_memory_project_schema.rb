@@ -2,28 +2,16 @@
 
 class UI::Gateway::InMemoryProjectSchema
   def find_by(type:)
-    if type == 'hif'
-      schema = 'hif_project.json'
-    elsif type == 'ac'
-      schema = 'ac_project.json'
-    elsif type == 'ff'
-      schema = 'ff_project.json'
-    else
-      return nil
-    end
-    create_template(schema, type)
+    return create_template('hif_project.json') if type == 'hif'
+    return create_template('ac_project.json') if type == 'ac'
+
+    ff_template if type == 'ff'
   end
 
   private
 
-  def create_template(schema, type)
+  def create_template(schema)
     template = Common::Domain::Template.new
-
-    if type == 'ff'
-      template.schema = ff_schema
-
-      return template
-    end
 
     File.open("#{__dir__}/schemas/#{schema}", 'r') do |f|
       template.schema = JSON.parse(
@@ -34,46 +22,15 @@ class UI::Gateway::InMemoryProjectSchema
     template
   end
 
-  def ff_schema
-    path = "#{__dir__}/schemas/ff/project"
+  def ff_template
+    builder = UI::Builder::Template.new(path: "#{__dir__}/schemas/ff/project", title: 'FF Project')
 
-    ff_schema = {
-      '$schema' => 'http://json-schema.org/draft-07/schema',
-      title: 'FF Project',
-      type: 'object',
-      properties: {}
-    }
+    builder.add_section(name: 'summary', file_name: 'summary.json')
+    builder.add_section(name: 'infrastructures', file_name: 'infrastructures.json')
+    builder.add_section(name: 'planning', file_name: 'planning.json')
+    builder.add_section(name: 'landOwnership', file_name: 'land_ownership.json')
+    builder.add_section(name: 'procurement', file_name: 'procurement.json')
 
-    File.open("#{path}/summary.json", 'r') do |file|
-      ff_schema[:properties][:summary] = JSON.parse(
-        file.read, symbolize_names: true
-      )
-    end
-
-    File.open("#{path}/infrastructures.json", 'r') do |file|
-      ff_schema[:properties][:infrastructures] = JSON.parse(
-        file.read, symbolize_names: true
-      )
-    end
-
-    File.open("#{path}/planning.json", 'r') do |file|
-      ff_schema[:properties][:planning] = JSON.parse(
-        file.read, symbolize_names: true
-      )
-    end
-
-    File.open("#{path}/land_ownership.json", 'r') do |file|
-      ff_schema[:properties][:landOwnership] = JSON.parse(
-        file.read, symbolize_names: true
-      )
-    end
-
-    File.open("#{path}/procurement.json", 'r') do |file|
-      ff_schema[:properties][:procurement] = JSON.parse(
-        file.read, symbolize_names: true
-      )
-    end
-
-    ff_schema
+    builder.build
   end
 end
