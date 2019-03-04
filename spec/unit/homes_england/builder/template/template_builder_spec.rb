@@ -11,6 +11,10 @@ describe HomesEngland::Builder::Template::TemplateBuilder do
     expect(template_builder.build_template(type: 'ac').class).to eq(Common::Domain::Template)
   end
 
+  it 'returns a schema when ff requested' do
+    expect(template_builder.build_template(type: 'ff').schema).to_not be_nil
+  end
+
   it 'returns template object when ff requested' do
     expect(template_builder.build_template(type: 'ff').class).to eq(Common::Domain::Template)
   end
