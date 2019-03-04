@@ -14,8 +14,8 @@ describe UI::Builder::Template do
     end
 
     it 'Adds the section to the schema properties' do
-      builder.add_section(name: 'sectionOne', file_name: 'section_one.json')
-      builder.add_section(name: 'sectionTwo', file_name: 'section_two.json')
+      builder.add_section(name: :sectionOne, file_name: 'section_one.json')
+      builder.add_section(name: :sectionTwo, file_name: 'section_two.json')
 
       expected_section_one = { section: 'one', anotherSection: 'two' }
       expected_section_two = { cat: 'meow', dog: 'woof' }
@@ -40,8 +40,8 @@ describe UI::Builder::Template do
     end
 
     it 'Adds the section to the schema properties' do
-      builder.add_section(name: 'cats', file_name: 'cats.json')
-      builder.add_section(name: 'dogs', file_name: 'dogs.json')
+      builder.add_section(name: :cats, file_name: 'cats.json')
+      builder.add_section(name: :dogs, file_name: 'dogs.json')
 
       expected_section_one = { noise: 'meow', softness: 'very' }
       expected_section_two = { noise: 'woof', goodBoy: 'yes' }
