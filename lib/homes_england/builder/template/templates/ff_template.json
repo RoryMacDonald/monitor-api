@@ -1467,7 +1467,12 @@
                   "status": {
                     "type": "string",
                     "title": "Status at Baseline",
-                    "enum": ["Not Started", "In Progress - Early", "In Progress - Detailed", "Near Completion"]
+                    "enum": [
+                      "Not Started",
+                      "In Progress - Early",
+                      "In Progress - Detailed",
+                      "Near Completion"
+                    ]
                   },
                   "description": {
                     "type": "string",
@@ -1627,6 +1632,41 @@
                   }
                 }
               ]
+            }
+          }
+        }
+      }
+    },
+    "risks": {
+      "type": "object",
+      "title": "Risks",
+      "properties": {
+        "risks": {
+          "type": "array",
+          "addable": true,
+          "title": "",
+          "items": {
+            "type": "object",
+            "properties": {
+              "risk": {
+                "type": "string",
+                "title": "Risk"
+              },
+              "baselineImpact": {
+                "title": "Baseline Impact",
+                "type": "string",
+                "enum": ["1", "2", "3", "4", "5"]
+              },
+              "baselineLikelihoood": {
+                "title": "Baseline Likelihood",
+                "type": "string",
+                "enum": ["1", "2", "3", "4", "5"]
+              },
+              "baselineMitigations": {
+                "title": "Baseline Mitigations in place",
+                "type": "string",
+                "extendedText": true
+              }
             }
           }
         }
