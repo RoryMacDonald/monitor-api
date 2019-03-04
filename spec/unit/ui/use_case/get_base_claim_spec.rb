@@ -2,7 +2,7 @@
 
 describe UI::UseCase::GetBaseClaim do
   let(:claim_gateway_spy) { spy(find_by: schema) }
-  let(:project_gateway_spy) { spy(find_by: project) }
+  let(:project_gateway_spy) { spy(execute: project) }
   let(:use_case) do 
     described_class.new(
       claim_gateway: claim_gateway_spy,
@@ -26,15 +26,15 @@ describe UI::UseCase::GetBaseClaim do
     end
 
     let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.type = 'hif'
-      end
+      {
+        type: 'hif'
+      }
     end
 
     let(:project_id) { 12 }
 
     it 'call the project gateway to get the project type' do 
-      expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
+      expect(project_gateway_spy).to have_received(:execute).with(id: project_id)
     end
 
     it 'calls the claim gateway to get the schema' do 
@@ -66,15 +66,15 @@ describe UI::UseCase::GetBaseClaim do
     end
 
     let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.type = 'ac'
-      end
+      {
+        type: 'ac'
+      }
     end
     
     let(:project_id) { 456 }
 
     it 'call the project gateway to get the project type' do 
-      expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
+      expect(project_gateway_spy).to have_received(:execute).with(id: project_id)
     end
 
     it 'calls the claim gateway to get the schema' do 

@@ -7,7 +7,7 @@ class UI::UseCase::GetBaseClaim
   end
 
   def execute(project_id:)
-    type = @project_gateway.find_by(id: project_id).type
+    type = @project_gateway.execute(id: project_id)[:type]
     schema = @claim_gateway.find_by(type: type).schema
 
     {
