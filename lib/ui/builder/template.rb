@@ -9,9 +9,9 @@ class UI::Builder::Template
     }
   end
 
-  def add_section(name:, file_name:)
+  def add_section(section_name:, file_name:)
     File.open("#{@path}/#{file_name}") do |f|
-      @schema[:properties][name] = JSON.parse(f.read, symbolize_names: true)
+      @schema[:properties][section_name] = JSON.parse(f.read, symbolize_names: true)
     end
   end
 

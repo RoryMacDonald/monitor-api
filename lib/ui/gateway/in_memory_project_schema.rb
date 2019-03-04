@@ -25,11 +25,11 @@ class UI::Gateway::InMemoryProjectSchema
   def ff_template
     builder = UI::Builder::Template.new(path: "#{__dir__}/schemas/ff/project", title: 'FF Project')
 
-    builder.add_section(name: :summary, file_name: 'summary.json')
-    builder.add_section(name: :infrastructures, file_name: 'infrastructures.json')
-    builder.add_section(name: :planning, file_name: 'planning.json')
-    builder.add_section(name: :landOwnership, file_name: 'land_ownership.json')
-    builder.add_section(name: :procurement, file_name: 'procurement.json')
+    builder.add_section(section_name: :summary, file_name: 'summary.json')
+    builder.add_section(section_name: :infrastructures, file_name: 'infrastructures.json')
+    builder.add_section(section_name: :planning, file_name: 'planning.json')
+    builder.add_section(section_name: :landOwnership, file_name: 'land_ownership.json')
+    builder.add_section(section_name: :procurement, file_name: 'procurement.json')
 
     builder.build
   end
