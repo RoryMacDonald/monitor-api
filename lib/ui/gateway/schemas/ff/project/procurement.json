@@ -64,7 +64,7 @@
       "properties": {
         "procurements": {
           "type": "array",
-          "title": "",
+          "title": "Procurement",
           "addable": true,
           "items": {
             "type": "object",
