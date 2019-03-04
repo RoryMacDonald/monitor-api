@@ -1467,7 +1467,12 @@
                   "status": {
                     "type": "string",
                     "title": "Status at Baseline",
-                    "enum": ["Not Started", "In Progress - Early", "In Progress - Detailed", "Near Completion"]
+                    "enum": [
+                      "Not Started",
+                      "In Progress - Early",
+                      "In Progress - Detailed",
+                      "Near Completion"
+                    ]
                   },
                   "description": {
                     "type": "string",
@@ -1627,6 +1632,36 @@
                   }
                 }
               ]
+            }
+          }
+        }
+      }
+    },
+    "milestones": {
+      "type": "object",
+      "title": "Key Project Milestones",
+      "properties": {
+        "milestones": {
+          "type": "array",
+          "title": "Milestones",
+          "addable": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "milestone": {
+                "type": "string",
+                "title": "Milestone"
+              },
+              "completionDate": {
+                "type": "string",
+                "format": "date",
+                "title": "Baseline Completion Date"
+              },
+              "criticalPath": {
+                "type": "string",
+                "title": "Critical path to achieving",
+                "extendedText": true
+              }
             }
           }
         }
