@@ -172,6 +172,13 @@ class UI::UseCases
       )
     end
 
+    builder.define_use_case :ui_get_base_claim do
+      UI::UseCase::GetBaseClaim.new(
+        claim_schema: builder.get_gateway(:ui_claim_schema),
+        find_project: builder.get_use_case(:find_project)
+      )
+    end
+
     builder.define_use_case :ui_create_claim do
       UI::UseCase::CreateClaim.new(
         find_project: builder.get_use_case(:find_project),
