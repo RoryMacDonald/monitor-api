@@ -70,44 +70,6 @@ module DeliveryMechanism
       end
     end
 
-    post '/return/update' do
-      guard_access env, params, request do |request_hash|
-        if request_hash[:return_data].nil? || request_hash[:return_id].nil?
-          return 400
-        end
-
-        @dependency_factory.get_use_case(:ui_update_return).execute(
-          return_id: request_hash[:return_id], return_data: request_hash[:return_data]
-        )
-
-        200
-      end
-    end
-
-    post '/return/create' do
-      guard_access env, params, request do |request_hash|
-        return_id = @dependency_factory.get_use_case(:ui_create_return).execute(
-          project_id: request_hash[:project_id],
-          data: request_hash[:data]
-        )
-
-        response.tap do |r|
-          r.body = { id: return_id[:id] }.to_json
-          r.status = 201
-        end
-      end
-    end
-
-    post '/return/submit' do
-      guard_access env, params, request do |request_hash|
-        DeliveryMechanism::Controllers::PostSubmitReturn.new(
-          submit_return: @dependency_factory.get_use_case(:submit_return),
-          notify_project_members_of_submission: @dependency_factory.get_use_case(:notify_project_members_of_submission),
-          check_api_key: @dependency_factory.get_use_case(:check_api_key)
-        ).execute(env, request, request_hash, response)
-      end
-    end
-
     post '/return/validate' do
       guard_access env, params, request do |request_hash|
         return 400 if invalid_validation_hash(request_hash: request_hash)
