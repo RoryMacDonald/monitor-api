@@ -40,6 +40,10 @@ describe UI::Gateway::InMemoryProjectSchema do
     it 'Returns a FF schema with a procurement section' do
       expect(schema.schema[:properties][:procurement]).not_to be_nil
     end
+
+    it 'Returns a FF schema with a demolution and remediation section' do
+      expect(schema.schema[:properties][:demolitionRemediation]).not_to be_nil
+    end
   end
 
   it 'Returns nil when searching for a non existing type' do
