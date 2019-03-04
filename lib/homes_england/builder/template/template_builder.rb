@@ -7,7 +7,7 @@ class HomesEngland::Builder::Template::TemplateBuilder
     elsif type == 'ac'
       HomesEngland::Builder::Template::Templates::ACTemplate.create
     elsif type == 'ff'
-      HomesEngland::Builder::Template::Templates::FFTemplate.create
+      File.open("#{__dir__}/templates/ff_template.json") { |file| file.read}
     end
   end
 end

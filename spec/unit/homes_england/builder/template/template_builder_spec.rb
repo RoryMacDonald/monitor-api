@@ -12,7 +12,7 @@ describe HomesEngland::Builder::Template::TemplateBuilder do
   end
 
   it 'returns template object when ff requested' do
-    expect(template_builder.build_template(type: 'ff').class).to eq(Common::Domain::Template)
+    expect(template_builder.build_template(type: 'ff')).to_not be_nil
   end
 
   it 'returns nil object when unknown is requested' do
