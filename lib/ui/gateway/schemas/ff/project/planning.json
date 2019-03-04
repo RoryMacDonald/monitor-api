@@ -1,0 +1,318 @@
+{
+  "type": "object",
+  "title": "Planning",
+  "properties": {
+    "masterplans": {
+      "type": "object",
+      "title": "Masterplan(s) fror scheme",
+      "properties": {
+        "confirmation": {
+          "type": "string",
+          "title": "Do you have any masterplans to attach",
+          "enum": ["Yes", "No"]
+        }
+      },
+      "dependencies": {
+        "confirmation": {
+          "oneOf": [
+            {
+              "properties": {
+                "confirmation": {
+                  "enum": ["Yes"]
+                },
+                "planAttachment": {
+                  "title": "Please attach masterplans here.",
+                  "type": "string",
+                  "uploadFile": "multiple"
+                }
+              }
+            },
+            {
+              "properties": {
+                "confirmation": {
+                  "enum": ["No"]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "numberOfPLanningPermissions": {
+      "type": "string",
+      "title": "Number of key planning permissions"
+    },
+    "summaryOfKeyPermissions": {
+      "type": "array",
+      "title": "Summary of Key Permissions",
+      "addable": true,
+      "items": {
+        "type": "object",
+        "title": "Planing",
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status of Planning",
+            "enum": [
+              "Not allocated",
+              "Allocated",
+              "Permission in Principle",
+              "Outline Planning",
+              "Full/Detailed"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "extendedText": true
+          },
+          "infrastructureId": {
+            "type": "string",
+            "title": "What HIF infrastructure is affected?",
+            "linkToInfra": true
+          }
+        },
+        "dependencies": {
+          "status": {
+            "oneOf": [
+              {
+                "properties": {
+                  "status": {
+                    "enum": ["Not allocated"]
+                  },
+                  "localPlanConsultation": {
+                    "type": "object",
+                    "title": "Local Plan Consultation",
+                    "properties": {
+                      "completionDate": {
+                        "type": "string",
+                        "title": "Target Completion Date",
+                        "format": "date"
+                      },
+                      "criticalPath": {
+                        "type": "string",
+                        "title": "Summary of Critical Path"
+                      }
+                    }
+                  },
+                  "localPlanSubmitted": {
+                    "type": "object",
+                    "title": "Local Plan Submitted",
+                    "properties": {
+                      "completionDate": {
+                        "type": "string",
+                        "title": "Target Completion Date",
+                        "format": "date"
+                      },
+                      "criticalPath": {
+                        "type": "string",
+                        "title": "Summary of Critical Path"
+                      }
+                    }
+                  },
+                  "localPlanAdoption": {
+                    "type": "object",
+                    "title": "Local Plan Adoption",
+                    "properties": {
+                      "completionDate": {
+                        "type": "string",
+                        "title": "Target Completion Date",
+                        "format": "date"
+                      },
+                      "criticalPath": {
+                        "type": "string",
+                        "title": "Summary of Critical Path"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "status": {
+                    "enum": ["Allocated"]
+                  },
+                  "planningReference": {
+                    "type": "string",
+                    "title": "Planning Reference"
+                  },
+                  "outlinePlanning": {
+                    "type": "object",
+                    "title": "",
+                    "properties": {
+                      "confirmation": {
+                        "type": "string",
+                        "title": "Is outline planning required?",
+                        "enum": ["Yes", "No"]
+                      }
+                    },
+                    "dependencies": {
+                      "confirmation": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "confirmation": {
+                                "enum": ["Yes"]
+                              },
+                              "criticalPath": {
+                                "type": "string",
+                                "title": "Critical Path to Achieving",
+                                "extendedText": true
+                              },
+                              "targetOutlinePlanningSubmittedDate": {
+                                "type": "string",
+                                "title": "Target Date for Outline Planning Submitted"
+                              },
+                              "targetOutlinePlanningGrantedDate": {
+                                "type": "string",
+                                "title": "Target Date for Outline Planning Granted"
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "confirmation": {
+                                "enum": ["No"]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "status": {
+                    "enum": ["Permission in Principle"]
+                  },
+                  "planningReference": {
+                    "type": "string",
+                    "title": "Planning Reference"
+                  },
+                  "outlinePlanning": {
+                    "type": "object",
+                    "title": "",
+                    "properties": {
+                      "confirmation": {
+                        "type": "string",
+                        "title": "Is outline planning required?",
+                        "enum": ["Yes", "No"]
+                      }
+                    },
+                    "dependencies": {
+                      "confirmation": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "confirmation": {
+                                "enum": ["Yes"]
+                              },
+                              "criticalPath": {
+                                "type": "string",
+                                "title": "Critical Path to Achieving",
+                                "extendedText": true
+                              },
+                              "targetOutlinePlanningSubmittedDate": {
+                                "type": "string",
+                                "title": "Target Date for Outline Planning Submitted"
+                              },
+                              "targetOutlinePlanningGrantedDate": {
+                                "type": "string",
+                                "title": "Target Date for Outline Planning Granted"
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "confirmation": {
+                                "enum": ["No"]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "status": {
+                    "enum": ["Outline Planning"]
+                  },
+                  "planningReference": {
+                    "type": "object",
+                    "title": "Planning References",
+                    "properties": {
+                      "allocatedInLocalPlan": {
+                        "type": "string",
+                        "title": "Allocated in Local Plan"
+                      },
+                      "outlinePlanning": {
+                        "type": "string",
+                        "title": "Outline Planning (if required)"
+                      }
+                    }
+                  },
+                  "fullPlanning": {
+                    "type": "object",
+                    "title": "",
+                    "properties": {
+                      "confirmation": {
+                        "type": "string",
+                        "title": "Is full planning required?",
+                        "enum": ["Yes", "No"]
+                      }
+                    },
+                    "dependencies": {
+                      "confirmation": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "confirmation": {
+                                "enum": ["Yes"]
+                              },
+                              "criticalPath": {
+                                "type": "string",
+                                "title": "Critical Path to Achieving",
+                                "extendedText": true
+                              },
+                              "targetFullPlanningSubmittedDate": {
+                                "type": "string",
+                                "title": "Target Date for Full Planning Submitted"
+                              },
+                              "targetFullPlanningGrantedDate": {
+                                "type": "string",
+                                "title": "Target Date for Full Planning Granted"
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "confirmation": {
+                                "enum": ["No"]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "status": {
+                    "enum": ["Full/Detailed"]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

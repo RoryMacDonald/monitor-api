@@ -13,10 +13,33 @@ describe UI::Gateway::InMemoryProjectSchema do
     expect(schema).not_to be_nil
   end
 
-  it 'Returns a schema when finding by type ff' do
-    gateway = described_class.new
-    schema = gateway.find_by(type: 'ff')
-    expect(schema).not_to be_nil
+  describe 'When type is ff' do
+    let(:gateway) { described_class.new }
+    let(:schema) { gateway.find_by(type: 'ff') }
+
+    it 'Returns a schema when finding by type ff' do
+      expect(schema).not_to be_nil
+    end
+
+    it 'Returns a FF schema with a summary section' do
+      expect(schema.schema[:properties][:summary]).not_to be_nil
+    end
+
+    it 'Returns a FF schema with a infrastructures section' do
+      expect(schema.schema[:properties][:infrastructures]).not_to be_nil
+    end
+
+    it 'Returns a FF schema with a planning section' do
+      expect(schema.schema[:properties][:planning]).not_to be_nil
+    end
+
+    it 'Returns a FF schema with a land ownership section' do
+      expect(schema.schema[:properties][:landOwnership]).not_to be_nil
+    end
+
+    it 'Returns a FF schema with a procurement section' do
+      expect(schema.schema[:properties][:procurement]).not_to be_nil
+    end
   end
 
   it 'Returns nil when searching for a non existing type' do

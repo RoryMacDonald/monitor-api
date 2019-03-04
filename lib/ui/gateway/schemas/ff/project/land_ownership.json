@@ -1,0 +1,199 @@
+{
+  "type": "object",
+  "title": "Land Ownership",
+  "properties": {
+    "laControlsLand": {
+      "type": "object",
+      "title": "",
+      "properties": {
+        "confirmation": {
+          "type": "string",
+          "title": "Is all land for HIF infrastructure in LA control?",
+          "radio": "true",
+          "enum": ["Yes", "No"]
+        }
+      },
+      "dependencies": {
+        "confirmation": {
+          "oneOf": [
+            {
+              "properties": {
+                "confirmation": {
+                  "enum": ["Yes"]
+                }
+              }
+            },
+            {
+              "properties": {
+                "confirmation": {
+                  "enum": ["No"]
+                },
+                "whoOwnsLand": {
+                  "type": "string",
+                  "title": "Who owns land?"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "landAquisitionRequired": {
+      "type": "object",
+      "title": "Land Aquisition",
+      "properties": {
+        "confirmation": {
+          "type": "string",
+          "title": "Is land Aquisition required?",
+          "radio": true,
+          "enum": ["Yes", "No"]
+        }
+      },
+      "dependencies": {
+        "confirmation": {
+          "oneOf": [
+            {
+              "properties": {
+                "confirmation": {
+                  "enum": ["No"]
+                }
+              }
+            },
+            {
+              "properties": {
+                "confirmation": {
+                  "enum": ["Yes"]
+                },
+                "numberOfAquisitions": {
+                  "type": "string",
+                  "title": "Number of key land acquisitions"
+                },
+                "summaryOfAquisitions": {
+                  "type": "array",
+                  "title": "Key acquisitions",
+                  "addable": true,
+                  "items": {
+                    "type": "object",
+                    "title": "Acquisition",
+                    "properties": {
+                      "summary": {
+                        "type": "object",
+                        "title": "Summary",
+                        "horizontal": true,
+                        "properties": {
+                          "status": {
+                            "type": "string",
+                            "title": "Status",
+                            "enum": [
+                              "Not started",
+                              "In progress - early",
+                              "In progress - detailed",
+                              "Near completion"
+                            ]
+                          },
+                          "infrastructureId": {
+                            "type": "string",
+                            "title": "Which HIF infrastructure is affected",
+                            "linkToInfra": true
+                          }
+                        }
+                      },
+                      "description": {
+                        "type": "string",
+                        "title": "Description",
+                        "extendedText": true
+                      },
+                      "details": {
+                        "type": "object",
+                        "title": "",
+                        "properties": {
+                          "whoIsAcquiring": {
+                            "type": "string",
+                            "title": "To be acquired by LA or developer",
+                            "enum": ["LA", "Developer"],
+                            "radio": true
+                          }
+                        },
+                        "dependencies": {
+                          "whoIsAcquiring": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "whoIsAcquiring": {
+                                    "enum": ["LA"]
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "whoIsAcquiring": {
+                                    "enum": ["Developer"]
+                                  },
+                                  "developerDetails": {
+                                    "type": "object",
+                                    "title": "",
+                                    "properties": {
+                                      "developerKnown": {
+                                        "type": "string",
+                                        "title": "Is developer known?",
+                                        "radio": true,
+                                        "enum": ["Yes", "No"]
+                                      }
+                                    },
+                                    "dependencies": {
+                                      "developerKnown": {
+                                        "oneOf": [
+                                          {
+                                            "properties": {
+                                              "developerKnown": {
+                                                "enum": ["Yes"]
+                                              },
+                                              "nameOfDeveloper": {
+                                                "type": "string",
+                                                "title": "Name of developer"
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "properties": {
+                                              "developerKnown": {
+                                                "enum": ["No"]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "summaryOfAcquisition": {
+                        "type": "string",
+                        "title": "Summary of acquisition required",
+                        "extendedText": true
+                      },
+                      "landAssemblyCompletedTargetDate": {
+                        "type": "string",
+                        "title": "Target date for land assembly  to be completed",
+                        "format": "date"
+                      },
+                      "criticalPath": {
+                        "type": "string",
+                        "title": "Summary of critical path",
+                        "extendedText": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
