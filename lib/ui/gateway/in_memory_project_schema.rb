@@ -74,6 +74,12 @@ class UI::Gateway::InMemoryProjectSchema
       )
     end
 
+    File.open("#{path}/milestones.json", 'r') do |file|
+      ff_schema[:properties][:milestones] = JSON.parse(
+        file.read, symbolize_names: true
+      )
+    end
+
     ff_schema
   end
 end

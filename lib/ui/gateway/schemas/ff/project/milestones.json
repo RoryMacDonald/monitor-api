@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "title": "Key Project Milestones",
+  "properties": {
+    "milestones": {
+      "type": "array",
+      "title": "Milestones",
+      "addable": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "milestone": {
+            "type": "string",
+            "title": "Milestone"
+          },
+          "completionDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Baseline Completion Date"
+          },
+          "criticalPath": {
+            "type": "string",
+            "title": "Critical path to achieving",
+            "extendedText": true
+          }
+        }
+      }
+    }
+  }
+}

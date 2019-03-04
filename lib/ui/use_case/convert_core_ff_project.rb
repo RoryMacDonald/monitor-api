@@ -11,6 +11,7 @@ class UI::UseCase::ConvertCoreFFProject
     convert_planning
     convert_land_owenership
     convert_procurement
+    convert_milestones
 
     @converted_project
   end
@@ -45,5 +46,11 @@ class UI::UseCase::ConvertCoreFFProject
     return if @project[:procurement].nil?
 
     @converted_project[:procurement] = @project[:procurement]
+  end
+
+  def convert_milestones
+    return if @project[:milestones].nil?
+
+    @converted_project[:milestones] = @project[:milestones]
   end
 end
