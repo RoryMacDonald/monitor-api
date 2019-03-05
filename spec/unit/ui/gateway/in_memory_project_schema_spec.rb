@@ -56,6 +56,10 @@ describe UI::Gateway::InMemoryProjectSchema do
     it 'Returns a FF schema with a HIF Grant Expenditure section' do
       expect(schema.schema[:properties][:hifGrantExpenditure]).not_to be_nil
     end
+
+    it 'Returns a FF schema with a Wider Scheme section' do
+      expect(schema.schema[:properties][:widerScheme]).not_to be_nil
+    end
   end
 
   it 'Returns nil when searching for a non existing type' do

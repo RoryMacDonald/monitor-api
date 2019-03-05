@@ -15,6 +15,7 @@ class UI::UseCase::ConvertUIFFProject
     convert_milestones
     convert_risks
     convert_hif_grant_expenditure
+    convert_wider_scheme
 
     @converted_project
   end
@@ -73,5 +74,11 @@ class UI::UseCase::ConvertUIFFProject
     return if @project[:hifGrantExpenditure].nil?
 
     @converted_project[:hifGrantExpenditure] = @project[:hifGrantExpenditure]
+  end
+
+  def convert_wider_scheme
+    return if @project[:widerScheme].nil?
+
+    @converted_project[:widerScheme] = @project[:widerScheme]
   end
 end
