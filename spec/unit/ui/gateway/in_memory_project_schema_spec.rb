@@ -60,6 +60,10 @@ describe UI::Gateway::InMemoryProjectSchema do
     it 'Returns a FF schema with a HIF Recovery section' do
       expect(schema.schema[:properties][:hifRecovery]).not_to be_nil
     end
+
+    it 'Returns a FF schema with a infrastructure funding package section' do
+      expect(schema.schema[:properties][:infraFundingPackage]).not_to be_nil
+    end
   end
 
   it 'Returns nil when searching for a non existing type' do
