@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "HIF Recovery",
+  "properties": {
+    "recovery": {
+      "type": "object",
+      "title": "Recovery",
+      "properties": {
+        "aimToRecover": {
+          "type": "string",
+          "title": "Aim to recover funding?",
+          "enum": ["Yes", "No"],
+          "radio": true
+        }
+      },
+      "dependencies": {
+        "aimToRecover": {
+          "oneOf": [
+            {
+              "properties": {
+                "aimToRecover": {
+                  "enum": ["Yes"]
+                },
+                "expectedAmount": {
+                  "type": "string",
+                  "title": "Expected amount to recover",
+                  "currency": true
+                },
+                "methodOfRecovery": {
+                  "type": "string",
+                  "title": "Method of recovery",
+                  "extendedText": true
+                }
+              }
+            },
+            {
+              "properties": {
+                "aimToRecover": {
+                  "enum": ["No"]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

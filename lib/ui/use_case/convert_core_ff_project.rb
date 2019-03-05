@@ -15,6 +15,7 @@ class UI::UseCase::ConvertCoreFFProject
     convert_milestones
     convert_risks
     convert_hif_grant_expenditure
+    convert_hif_recovery
 
     @converted_project
   end
@@ -73,5 +74,11 @@ class UI::UseCase::ConvertCoreFFProject
     return if @project[:milestones].nil?
 
     @converted_project[:milestones] = @project[:milestones]
+  end
+
+  def convert_hif_recovery
+    return if @project[:hifRecovery].nil?
+
+    @converted_project[:hifRecovery] = @project[:hifRecovery]
   end
 end
