@@ -1458,11 +1458,11 @@
           "properties": {
             "procurements": {
               "type": "array",
-              "title": "Procurement",
+              "title": "",
               "addable": true,
               "items": {
                 "type": "object",
-                "title": "",
+                "title": "Procurement",
                 "properties": {
                   "status": {
                     "type": "string",
