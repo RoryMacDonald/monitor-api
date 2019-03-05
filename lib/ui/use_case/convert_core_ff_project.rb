@@ -16,6 +16,7 @@ class UI::UseCase::ConvertCoreFFProject
     convert_risks
     convert_hif_grant_expenditure
     convert_wider_scheme
+    convert_infrastructure_funding_package
 
     @converted_project
   end
@@ -80,5 +81,11 @@ class UI::UseCase::ConvertCoreFFProject
     return if @project[:widerScheme].nil?
 
     @converted_project[:widerScheme] = @project[:widerScheme]
+  end
+
+  def convert_infrastructure_funding_package
+    return if @project[:infraFundingPackage].nil?
+
+    @converted_project[:infraFundingPackage] = @project[:infraFundingPackage]
   end
 end

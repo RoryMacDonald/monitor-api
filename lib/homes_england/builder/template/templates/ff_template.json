@@ -1458,11 +1458,11 @@
           "properties": {
             "procurements": {
               "type": "array",
-              "title": "Procurement",
+              "title": "",
               "addable": true,
               "items": {
                 "type": "object",
-                "title": "",
+                "title": "Procurement",
                 "properties": {
                   "status": {
                     "type": "string",
@@ -1899,6 +1899,130 @@
                   }
                 }
               ]
+            }
+          }
+        }
+      }
+    },
+    "infraFundingPackage": {
+      "title": "Infrastructure Funding Package",
+      "type": "array",
+      "items": {
+        "title": "Infrastructure",
+        "type": "object",
+        "properties": {
+          "fundingPackage": {
+            "type": "object",
+            "title": "Funding Package",
+            "properties": {
+              "totalCost": {
+                "title": "Total cost of infrastructure",
+                "type": "string",
+                "currency": true
+              },
+              "fullyFundedThroughHIf": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "confirmation": {
+                    "title": "Are the infrastructure costs fully funded through HIF?",
+                    "type": "string",
+                    "enum": ["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "confirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["Yes"]
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["No"]
+                          },
+                          "descriptionOfPackage": {
+                            "type": "string",
+                            "title": "Description of total funding package",
+                            "extendedText": true
+                          },
+                          "fundingStack": {
+                            "type": "object",
+                            "title": "Funding Stack",
+                            "calculation": "formData ? set(formData, 'totalPublic', accumulateMoney(get(formData, 'publicAmounts'), 'amount', 2)) : null; formData ? set(formData, 'totalPrivate', accumulateMoney(get(formData, 'privateAmounts'), 'amount', 2)): null;",
+                            "properties": {
+                              "totalHIF": {
+                                "type": "string",
+                                "title": "Total HIF Amount",
+                                "currency": true
+                              },
+                              "publicAmounts": {
+                                "type": "array",
+                                "title": "Public",
+                                "addable": true,
+                                "items": {
+                                  "type": "object",
+                                  "horizontal": true,
+                                  "title": "Funding Item",
+                                  "properties": {
+                                    "description": {
+                                      "type": "string",
+                                      "title": "Description"
+                                    },
+                                    "amount": {
+                                      "type": "string",
+                                      "title": "Amount",
+                                      "currency": true
+                                    }
+                                  }
+                                }
+                              },
+                              "totalPublic": {
+                                "type": "string",
+                                "title": "Total Public Contribution",
+                                "readonly": true,
+                                "currency": true
+                              },
+                              "privateAmounts": {
+                                "type": "array",
+                                "title": "Private",
+                                "addable": true,
+                                "items": {
+                                  "type": "object",
+                                  "horizontal": true,
+                                  "title": "Funding Item",
+                                  "properties": {
+                                    "description": {
+                                      "type": "string",
+                                      "title": "Description"
+                                    },
+                                    "amount": {
+                                      "type": "string",
+                                      "title": "Amount",
+                                      "currency": true
+                                    }
+                                  }
+                                }
+                              },
+                              "totalPrivate": {
+                                "type": "string",
+                                "title": "Total Private Contribution",
+                                "readonly": true,
+                                "currency": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
             }
           }
         }

@@ -34,6 +34,7 @@ class UI::Gateway::InMemoryProjectSchema
     builder.add_section(section_name: :milestones, file_name: 'milestones.json')
     builder.add_section(section_name: :risks, file_name: 'risks.json')
     builder.add_section(section_name: :hifGrantExpenditure, file_name: 'grant_expenditure.json')
+    builder.add_section(section_name: :infraFundingPackage, file_name: "infrastructure_funding_package.json")
     builder.add_section(section_name: :widerScheme, file_name: 'wider_scheme.json')
 
     builder.build
