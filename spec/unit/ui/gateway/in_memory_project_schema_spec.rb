@@ -56,7 +56,11 @@ describe UI::Gateway::InMemoryProjectSchema do
     it 'Returns a FF schema with a HIF Grant Expenditure section' do
       expect(schema.schema[:properties][:hifGrantExpenditure]).not_to be_nil
     end
-    
+
+    it 'Returns a FF schema with a HIF Recovery section' do
+      expect(schema.schema[:properties][:hifRecovery]).not_to be_nil
+    end
+
     it 'Returns a FF schema with a infrastructure funding package section' do
       expect(schema.schema[:properties][:infraFundingPackage]).not_to be_nil
     end
