@@ -32,6 +32,7 @@ class UI::Gateway::InMemoryProjectSchema
     builder.add_section(section_name: :procurement, file_name: 'procurement.json')
     builder.add_section(section_name: :demolitionRemediation, file_name: "demolition_and_remediation.json")
     builder.add_section(section_name: :risks, file_name: "risks.json")
+    builder.add_section(section_name: :hifGrantExpenditure, file_name: "grant_expenditure.json")
 
     builder.build
   end
