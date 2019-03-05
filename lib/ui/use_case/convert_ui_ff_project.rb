@@ -15,6 +15,8 @@ class UI::UseCase::ConvertUIFFProject
     convert_milestones
     convert_risks
     convert_hif_grant_expenditure
+    convert_wider_scheme
+    convert_hif_recovery
     convert_infrastructure_funding_package
 
     @converted_project
@@ -75,7 +77,19 @@ class UI::UseCase::ConvertUIFFProject
 
     @converted_project[:hifGrantExpenditure] = @project[:hifGrantExpenditure]
   end
-  
+
+  def convert_wider_scheme
+    return if @project[:widerScheme].nil?
+
+    @converted_project[:widerScheme] = @project[:widerScheme]
+  end
+
+  def convert_hif_recovery
+    return if @project[:hifRecovery].nil?
+
+    @converted_project[:hifRecovery] = @project[:hifRecovery]
+  end
+
   def convert_infrastructure_funding_package
     return if @project[:infraFundingPackage].nil?
 
