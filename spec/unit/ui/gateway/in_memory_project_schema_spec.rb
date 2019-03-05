@@ -57,6 +57,10 @@ describe UI::Gateway::InMemoryProjectSchema do
       expect(schema.schema[:properties][:hifGrantExpenditure]).not_to be_nil
     end
 
+    it 'Returns a FF schema with a Wider Scheme section' do
+      expect(schema.schema[:properties][:widerScheme]).not_to be_nil
+    end
+
     it 'Returns a FF schema with a HIF Recovery section' do
       expect(schema.schema[:properties][:hifRecovery]).not_to be_nil
     end

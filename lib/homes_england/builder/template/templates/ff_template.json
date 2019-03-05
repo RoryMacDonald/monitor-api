@@ -2075,6 +2075,43 @@
           }
         }
       }
+    },
+    "widerScheme": {
+      "type": "object",
+      "title": "Wider Scheme",
+      "properties": {
+        "widerProjectMilestones": {
+          "type": "object",
+          "title": "Wider Project Milestones",
+          "properties": {
+            "milestones": {
+              "type": "array",
+              "title": "",
+              "addable": true,
+              "items": {
+                "type": "object",
+                "title": "Milestone",
+                "properties": {
+                  "milestone": {
+                    "type": "string",
+                    "title": "Description"
+                  },
+                  "baselineCompletion": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Baseline Completion Date"
+                  },
+                  "criticalPath": {
+                    "type": "string",
+                    "title": "Critical path to achieving",
+                    "extendedText": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
