@@ -27,7 +27,7 @@
             "type": "object",
             "properties": {
               "period": { "type": "string", "title": "Period" },
-              "target": {
+              "housingStarts": {
                 "type": "string",
                 "title": "Housing Starts"
               },
