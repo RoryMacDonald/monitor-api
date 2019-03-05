@@ -1904,6 +1904,54 @@
         }
       }
     },
+    "hifRecovery": {
+      "type": "object",
+      "title": "HIF Recovery",
+      "properties": {
+        "recovery": {
+          "type": "object",
+          "title": "Recovery",
+          "properties": {
+            "aimToRecover": {
+              "type": "string",
+              "title": "Aim to recover funding?",
+              "enum": ["Yes", "No"],
+              "radio": true
+            }
+          },
+          "dependencies": {
+            "aimToRecover": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "aimToRecover": {
+                      "enum": ["Yes"]
+                    },
+                    "expectedAmount": {
+                      "type": "string",
+                      "title": "Expected amount to recover",
+                      "currency": true
+                    },
+                    "methodOfRecovery": {
+                      "type": "string",
+                      "title": "Method of recovery",
+                      "extendedText": true
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "aimToRecover": {
+                      "enum": ["No"]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
     "infraFundingPackage": {
       "title": "Infrastructure Funding Package",
       "type": "array",
@@ -2014,13 +2062,93 @@
                                 "title": "Total Private Contribution",
                                 "readonly": true,
                                 "currency": true
-    
                               }
                             }
                           }
                         }
                       }
                     ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "widerScheme": {
+      "type": "object",
+      "title": "Wider Scheme",
+      "properties": {
+        "widerProjectMilestones": {
+          "type": "object",
+          "title": "Wider Project Milestones",
+          "properties": {
+            "milestones": {
+              "type": "array",
+              "title": "",
+              "addable": true,
+              "items": {
+                "type": "object",
+                "title": "Milestone",
+                "properties": {
+                  "milestone": {
+                    "type": "string",
+                    "title": "Description"
+                  },
+                  "baselineCompletion": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Baseline Completion Date"
+                  },
+                  "criticalPath": {
+                    "type": "string",
+                    "title": "Critical path to achieving",
+                    "extendedText": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "outputs": {
+      "$schema": "http://json-schema.org/draft-07/schema",
+      "type": "object",
+      "title": "Outputs",
+      "properties": {
+        "units": {
+          "type": "string",
+          "title": "Units",
+          "readonly": true
+        },
+        "disposalStrategy": {
+          "type": "string",
+          "title": "Disposal Strategy/Critical Path",
+          "extendedText": true
+        },
+        "housingForecast": {
+          "type": "object",
+          "title": "In year baseline amounts (forecast)",
+          "properties": {
+            "forecast": {
+              "title": "Forecast",
+              "type": "array",
+              "periods": true,
+              "addable": true,
+              "items": {
+                "title": "Forecast",
+                "type": "object",
+                "properties": {
+                  "period": { "type": "string", "title": "Period" },
+                  "target": {
+                    "type": "string",
+                    "title": "Housing Starts"
+                  },
+                  "housingCompletions": {
+                    "type": "string",
+                    "title": "Housing Completions"
                   }
                 }
               }
