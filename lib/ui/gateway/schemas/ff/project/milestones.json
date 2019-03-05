@@ -4,14 +4,15 @@
   "properties": {
     "milestones": {
       "type": "array",
-      "title": "Milestones",
+      "title": "",
       "addable": true,
       "items": {
         "type": "object",
+        "title": "Milestone",
         "properties": {
           "milestone": {
             "type": "string",
-            "title": "Milestone"
+            "title": "Description"
           },
           "completionDate": {
             "type": "string",
