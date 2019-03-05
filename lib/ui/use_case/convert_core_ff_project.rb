@@ -12,6 +12,7 @@ class UI::UseCase::ConvertCoreFFProject
     convert_land_owenership
     convert_procurement
     convert_demolition_and_remediation
+    convert_milestones
     convert_risks
     convert_hif_grant_expenditure
 
@@ -66,5 +67,11 @@ class UI::UseCase::ConvertCoreFFProject
     return if @project[:hifGrantExpenditure].nil?
 
     @converted_project[:hifGrantExpenditure] = @project[:hifGrantExpenditure]
+  end
+
+  def convert_milestones
+    return if @project[:milestones].nil?
+
+    @converted_project[:milestones] = @project[:milestones]
   end
 end
