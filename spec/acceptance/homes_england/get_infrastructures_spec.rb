@@ -8,14 +8,16 @@ describe 'Gets the projects infrastructure' do
 
   it 'gets the infrastructures' do
     project_baseline = {
-      infrastructures: [
-        {
-          information: "words, words, words"
-        },
-        {
-          information: "thirds, thirds, thirds"
-        }
-      ]
+      infrastructures: {
+        HIFFunded: [
+          {
+            information: "words, words, words"
+          },
+          {
+            information: "thirds, thirds, thirds"
+          }
+        ]
+      }
     }
 
     response = get_use_case(:create_new_project).execute(
@@ -26,14 +28,20 @@ describe 'Gets the projects infrastructure' do
 
     expect(infrastructure_data).to eq(
       {
-        infrastructures: [
-          {
-            information: "words, words, words"
-          },
-          {
-            information: "thirds, thirds, thirds"
-          }
-        ]
+        infrastructures: {
+          HIFFunded: [
+            {
+              information: "words, words, words",
+              type: 'hif',
+              id: 1
+            },
+            {
+              information: "thirds, thirds, thirds",
+              type: 'hif',
+              id: 2
+            }
+          ]
+        }
       }
     )
   end
