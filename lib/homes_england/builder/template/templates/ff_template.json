@@ -1904,8 +1904,7 @@
         }
       }
     },
-    "hifRecover": {
-      "$schema": "http://json-schema.org/draft-07/schema",
+    "hifRecovery": {
       "type": "object",
       "title": "HIF Recovery",
       "properties": {
