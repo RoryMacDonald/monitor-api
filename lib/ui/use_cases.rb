@@ -236,5 +236,11 @@ class UI::UseCases
       UI::UseCase::ConvertCoreFFClaim.new
     end
 
+    builder.define_use_case :ui_validate_claim do
+      UI::UseCase::ValidateClaim.new(
+        claim_template: builder.get_gateway(:ui_claim_schema),
+        get_claim_path_titles: builder.get_use_case(:get_template_path_titles)
+      )
+    end
   end
 end

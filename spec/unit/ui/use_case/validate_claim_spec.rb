@@ -1,4 +1,4 @@
-fdescribe UI::UseCase::ValidateClaim do
+describe UI::UseCase::ValidateClaim do
   let(:schema) { spy() }
   let(:template) { spy(schema: schema, invalid_paths: invalid_paths) }
   let(:claim_template) do
