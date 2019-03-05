@@ -11,6 +11,7 @@ class HomesEngland::UseCase::FindProject
       data: project.data,
       status: project.status,
       bid_id: project.bid_id,
+      version: project.version,
       timestamp: project.timestamp
     }
   end

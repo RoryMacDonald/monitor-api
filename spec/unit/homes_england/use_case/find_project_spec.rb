@@ -18,6 +18,7 @@ describe HomesEngland::UseCase::FindProject do
         proj.status = 'Draft'
         proj.bid_id = 'HIF/MV/155'
         proj.timestamp = 0
+        proj.version = 1
       end
     end
     let(:id) { 1 }
@@ -49,6 +50,10 @@ describe HomesEngland::UseCase::FindProject do
     it 'returns a hash containing the projects timestamp' do
       expect(response[:timestamp]).to eq(0)
     end
+
+    it 'returns a hash containing the version number' do
+      expect(response[:version]).to eq(1)
+    end
   end
 
   context 'example two' do
@@ -60,6 +65,7 @@ describe HomesEngland::UseCase::FindProject do
         proj.status = 'Submitted'
         proj.timestamp = 456
         proj.bid_id = 'AC/MV/256'
+        proj.version = 4
       end
     end
     let(:id) { 5 }
@@ -90,6 +96,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'returns a hash containing the projects timestamp' do
       expect(response[:timestamp]).to eq(456)
+    end
+
+    it 'returns a hash containing the version number' do
+      expect(response[:version]).to eq(4)
     end
   end
 end

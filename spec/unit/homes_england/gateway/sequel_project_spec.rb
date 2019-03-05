@@ -37,6 +37,7 @@ describe HomesEngland::Gateway::SequelProject do
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(cats: 'meow')
         expect(created_project.status).to eq('Draft')
+        expect(created_project.version).to eq(1)
         expect(created_project.bid_id).to eq('AC/MV/1')
       end
     end
@@ -46,6 +47,7 @@ describe HomesEngland::Gateway::SequelProject do
         project.name = 'Dog project'
         project.data = { dogs: 'woof' }
         project.status = 'Draft'
+        project.version = 1
         project.timestamp = 56789123
         project.bid_id = 'AC/MV/3'
         project_gateway.update(id: project_id, project: project)
@@ -56,6 +58,7 @@ describe HomesEngland::Gateway::SequelProject do
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(dogs: 'woof')
         expect(created_project.status).to eq('Draft')
+        expect(created_project.version).to eq(1)
         expect(created_project.timestamp).to eq(56789123)
         expect(created_project.bid_id).to eq('AC/MV/3')
       end
@@ -107,6 +110,7 @@ describe HomesEngland::Gateway::SequelProject do
 
         expect(created_project.name).to eq('New project')
         expect(created_project.type).to eq('FarmAnimals')
+        expect(created_project.version).to eq(1)
         expect(created_project.data).to eq(
           field: [
             { animal: 'cow', noise: 'moo' },
@@ -124,12 +128,14 @@ describe HomesEngland::Gateway::SequelProject do
       it 'updates the project' do
         project.data[:barn] << { chicken: 'cluck' }
         project.timestamp = 78912
+        project.version = 1
 
         project_gateway.update(id: project_id, project: project)
 
         created_project = project_gateway.find_by(id: project_id)
 
         expect(created_project.type).to eq('FarmAnimals')
+        expect(created_project.version).to eq(1)
         expect(created_project.data).to eq(
           field: [
             { animal: 'cow', noise: 'moo' },

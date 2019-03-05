@@ -11,7 +11,8 @@ class HomesEngland::Gateway::SequelProject
       type: project.type,
       data: Sequel.pg_json(project.data),
       status: project.status,
-      bid_id: project.bid_id
+      bid_id: project.bid_id,
+      version: 1
     )
   end
 
@@ -25,6 +26,7 @@ class HomesEngland::Gateway::SequelProject
       p.status = row[:status]
       p.timestamp = row[:timestamp]
       p.bid_id = row[:bid_id]
+      p.version = row[:version]
     end
   end
 
@@ -56,6 +58,7 @@ class HomesEngland::Gateway::SequelProject
         p.status = row[:status]
         p.timestamp = row[:timestamp]
         p.bid_id = row[:bid_id]
+        p.version = row[:version]
       end
     end
   end
