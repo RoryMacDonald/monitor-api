@@ -2,7 +2,6 @@
   "title": "Infrastructures",
   "hidden": true,
   "type": "array",
-  "linkedArray": ["infraFundingPackage"],
   "items": {
     "title": "Infrastructure",
     "type": "object",

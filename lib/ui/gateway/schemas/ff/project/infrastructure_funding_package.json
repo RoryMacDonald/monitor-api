@@ -1,6 +1,7 @@
 {
   "title": "Infrastructure Funding Package",
   "type": "array",
+  "addable": true,
   "items": {
     "title": "Infrastructure",
     "type": "object",
