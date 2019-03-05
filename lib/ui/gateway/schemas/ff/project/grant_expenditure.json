@@ -1,0 +1,95 @@
+{
+  "type": "object",
+  "title": "HIF Grant Expenditure",
+  "properties": {
+    "hifGrant": {
+      "type": "object",
+      "title": "",
+      "properties": {
+        "totalGrantApproved": {
+          "type": "string",
+          "title": "Total HIF Grant Approved",
+          "currency": true
+        },
+        "hifGrantOnTranche": {
+          "type": "string",
+          "title": "Is HIF Grant on a Tranche Basis?",
+          "radio": true,
+          "enum": ["Yes", "No"]
+        }
+      },
+      "dependencies": {
+        "hifGrantOnTranche": {
+          "oneOf": [
+            {
+              "properties": {
+                "hifGrantOnTranche": {
+                  "enum": ["Yes"]
+                },
+                "noOfTranches": {
+                  "type": "string",
+                  "title": "Number of Tranches"
+                },
+                "hifDrawdownProfile": {
+                  "type": "array",
+                  "addable": true,
+                  "title": "HIF Drawdown Profile",
+                  "items": {
+                    "type": "object",
+                    "title": "Tranche",
+                    "properties": {
+                      "profiles": {
+                        "type": "array",
+                        "addable": true,
+                        "quarterly": true,
+                        "items": {
+                          "type": "object",
+                          "title": "",
+                          "properties": {
+                            "period": { "type": "string", "title": "Period" },
+                            "instalment1": {
+                              "type": "string",
+                              "title": "1st Instalment",
+                              "currency": true
+                            },
+                            "instalment2": {
+                              "type": "string",
+                              "title": "2nd Instalment",
+                              "currency": true
+                            },
+                            "instalment3": {
+                              "type": "string",
+                              "title": "3rd Instalment",
+                              "currency": true
+                            },
+                            "instalment4": {
+                              "type": "string",
+                              "title": "4th Instalment",
+                              "currency": true
+                            },
+                            "total": {
+                              "type": "string",
+                              "title": "Total",
+                              "currency": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "hifGrantOnTranche": {
+                  "enum": ["No"]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
