@@ -2,10 +2,15 @@
   "title": "Infrastructures",
   "hidden": true,
   "type": "array",
+  "linkedArray": ["infraFundingPackage"],
   "items": {
     "title": "Infrastructure",
     "type": "object",
     "properties": {
+      "description": {
+        "title": "Description",
+        "type": "string"
+      },
       "sectionA": {
         "title": "Section A",
         "type": "object",
