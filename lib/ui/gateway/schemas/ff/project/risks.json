@@ -8,10 +8,11 @@
       "title": "",
       "items": {
         "type": "object",
+        "title": "Risk",
         "properties": {
           "risk": {
             "type": "string",
-            "title": "Risk"
+            "title": "Description"
           },
           "baselineImpact": {
             "title": "Baseline Impact",
