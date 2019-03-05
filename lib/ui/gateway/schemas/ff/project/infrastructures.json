@@ -6,6 +6,10 @@
     "title": "Infrastructure",
     "type": "object",
     "properties": {
+      "description": {
+        "title": "Description",
+        "type": "string"
+      },
       "sectionA": {
         "title": "Section A",
         "type": "object",
