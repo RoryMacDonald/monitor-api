@@ -21,6 +21,10 @@ describe UI::Gateway::InMemoryProjectSchema do
       expect(schema).not_to be_nil
     end
 
+    it 'Returns a FF schema with a shared data section' do
+      expect(schema.schema[:sharedData]).not_to be_empty
+    end
+
     it 'Returns a FF schema with a summary section' do
       expect(schema.schema[:properties][:summary]).not_to be_nil
     end
@@ -56,9 +60,13 @@ describe UI::Gateway::InMemoryProjectSchema do
     it 'Returns a FF schema with a HIF Grant Expenditure section' do
       expect(schema.schema[:properties][:hifGrantExpenditure]).not_to be_nil
     end
-    
+
     it 'Returns a FF schema with a infrastructure funding package section' do
       expect(schema.schema[:properties][:infraFundingPackage]).not_to be_nil
+    end
+
+    it 'Returns a FF schema with an outputs section' do
+      expect(schema.schema[:properties][:outputs]).not_to be_nil
     end
   end
 

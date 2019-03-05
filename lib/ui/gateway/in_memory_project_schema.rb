@@ -25,16 +25,19 @@ class UI::Gateway::InMemoryProjectSchema
   def ff_template
     builder = UI::Builder::Template.new(path: "#{__dir__}/schemas/ff/project", title: 'FF Project')
 
+    builder.add_shared_data(file_name: 'shared_data.json')
+
     builder.add_section(section_name: :summary, file_name: 'summary.json')
     builder.add_section(section_name: :infrastructures, file_name: 'infrastructures.json')
     builder.add_section(section_name: :planning, file_name: 'planning.json')
     builder.add_section(section_name: :landOwnership, file_name: 'land_ownership.json')
     builder.add_section(section_name: :procurement, file_name: 'procurement.json')
-    builder.add_section(section_name: :demolitionRemediation, file_name: "demolition_and_remediation.json")
-    builder.add_section(section_name: :milestones, file_name: "milestones.json")
-    builder.add_section(section_name: :risks, file_name: "risks.json")
-    builder.add_section(section_name: :hifGrantExpenditure, file_name: "grant_expenditure.json")
-    builder.add_section(section_name: :infraFundingPackage, file_name: "infrastructure_funding_package.json")
+    builder.add_section(section_name: :demolitionRemediation, file_name: 'demolition_and_remediation.json')
+    builder.add_section(section_name: :milestones, file_name: 'milestones.json')
+    builder.add_section(section_name: :risks, file_name: 'risks.json')
+    builder.add_section(section_name: :hifGrantExpenditure, file_name: 'grant_expenditure.json')
+    builder.add_section(section_name: :infraFundingPackage, file_name: 'infrastructure_funding_package.json')
+    builder.add_section(section_name: :outputs, file_name: 'outputs.json')
 
     builder.build
   end

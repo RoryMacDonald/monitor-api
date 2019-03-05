@@ -1,0 +1,6 @@
+[
+  {
+    "from": ["summary", "noOfHousingSites"],
+    "to": ["outputs", "units"]
+  }
+]
