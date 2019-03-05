@@ -22,14 +22,14 @@ describe 'Adding users to a project' do
       expect(last_response.status).to eq(400)
     end
   end
-  
+
   context 'when correct authorization provided' do
     before do
       stub_const(
         'LocalAuthority::UseCase::CheckApiKey',
         double(new: double(execute: {valid: true}))
         )
-        
+
       set_correct_auth_header
     end
 
@@ -88,6 +88,7 @@ describe 'Adding users to a project' do
           )
         end
 
+
         example 'example 2' do
           request_body = { users: [{ email: 'cat@mouse.com' }] }
           post('project/24/add_users', request_body.to_json)
@@ -96,6 +97,21 @@ describe 'Adding users to a project' do
             role: nil,
             email: 'cat@mouse.com'
           )
+        end
+      end
+
+      context 'invalid project id' do
+        context 'returns 400' do
+          it 'example 1' do
+            request_body = { users: [{ email: 'mt1@mt1.com', role: 'S151' }] }
+            post('project/$i/add_users', request_body.to_json)
+            expect(last_response.status).to eq(400)
+          end
+          it 'example 2' do
+            request_body = { users: [{ email: 'cat@mouse.com' }] }
+            post('project/%23%7bproject_id%7d/add_users', request_body.to_json)
+            expect(last_response.status).to eq(400)
+          end
         end
       end
 
