@@ -45,6 +45,10 @@ describe UI::Gateway::InMemoryProjectSchema do
       expect(schema.schema[:properties][:demolitionRemediation]).not_to be_nil
     end
 
+    it 'Returns a FF schema with a risks section' do
+      expect(schema.schema[:properties][:risks]).not_to be_nil
+    end
+
     it 'Returns a FF schema with a HIF Grant Expenditure section' do
       expect(schema.schema[:properties][:hifGrantExpenditure]).not_to be_nil
     end

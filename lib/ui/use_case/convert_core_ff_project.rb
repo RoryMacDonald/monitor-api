@@ -12,6 +12,7 @@ class UI::UseCase::ConvertCoreFFProject
     convert_land_owenership
     convert_procurement
     convert_demolition_and_remediation
+    convert_risks
     convert_hif_grant_expenditure
 
     @converted_project
@@ -53,6 +54,12 @@ class UI::UseCase::ConvertCoreFFProject
     return if @project[:demolitionRemediation].nil?
 
     @converted_project[:demolitionRemediation] = @project[:demolitionRemediation]
+  end
+
+  def convert_risks
+    return if @project[:risks].nil?
+
+    @converted_project[:risks] = @project[:risks]
   end
 
   def convert_hif_grant_expenditure

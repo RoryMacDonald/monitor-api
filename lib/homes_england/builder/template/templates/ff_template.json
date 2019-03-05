@@ -1637,6 +1637,42 @@
         }
       }
     },
+    "risks": {
+      "type": "object",
+      "title": "Risks",
+      "properties": {
+        "risks": {
+          "type": "array",
+          "addable": true,
+          "title": "",
+          "items": {
+            "type": "object",
+            "title": "Risk",
+            "properties": {
+              "risk": {
+                "type": "string",
+                "title": "Description"
+              },
+              "baselineImpact": {
+                "title": "Baseline Impact",
+                "type": "string",
+                "enum": ["1", "2", "3", "4", "5"]
+              },
+              "baselineLikelihoood": {
+                "title": "Baseline Likelihood",
+                "type": "string",
+                "enum": ["1", "2", "3", "4", "5"]
+              },
+              "baselineMitigations": {
+                "title": "Baseline Mitigations in place",
+                "type": "string",
+                "extendedText": true
+              }
+            }
+          }
+        }
+      }
+    },
     "hifGrantExpenditure": {
       "type": "object",
       "title": "HIF Grant Expenditure",
