@@ -8,7 +8,7 @@ class LocalAuthority::UseCase::GetInfrastructures
 
     if project[:type] == 'ff'
       infrastructures = project.dig(:data, :infrastructures)
-      { infrastructures: colate_infrastructures(infrastructures) }
+      { infrastructures: collate_infrastructures(infrastructures) }
     else
       {}
     end
@@ -16,7 +16,7 @@ class LocalAuthority::UseCase::GetInfrastructures
 
   private
 
-  def colate_infrastructures(infrastructures)
+  def collate_infrastructures(infrastructures)
     @current_ids = 0
     return nil unless infrastructures
 

@@ -13,7 +13,7 @@
           "title": "Target housing start date",
           "format": "date"
         },
-        "housingCompeltionDate": {
+        "housingCompletionDate": {
           "type": "string",
           "title": "Target housing completion date",
           "format": "date"
