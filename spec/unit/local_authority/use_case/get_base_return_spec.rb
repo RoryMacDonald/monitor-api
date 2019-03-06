@@ -43,7 +43,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
       end
 
       it 'will populate the return for the project' do
-        expect(populate_return_spy).to have_received(:execute).with(type: project.type, baseline_data: project.data)
+        expect(populate_return_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
       end
 
       it 'will return a hash with correct id' do
@@ -90,7 +90,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
       end
 
       it 'will populate the return for the project' do
-        expect(populate_return_spy).to have_received(:execute).with(type: project.type, baseline_data: project.data)
+        expect(populate_return_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
       end
 
       it 'will return a hash with correct id' do
@@ -159,9 +159,11 @@ describe LocalAuthority::UseCase::GetBaseReturn do
 
       it 'executes the populate return template use case with data from a return' do
         expect(populate_return_spy).to have_received(:execute).with(
-          type: project.type,
-          baseline_data: project.data,
-          return_data: returned_return[:updates][-1]
+          schema: schema.schema,
+          data: {
+            baseline_data: project.data,
+            return_data: returned_return[:updates][-1]
+          }
         )
       end
 
@@ -209,9 +211,11 @@ describe LocalAuthority::UseCase::GetBaseReturn do
 
         it 'executes the populate return template use case' do
           expect(populate_return_spy).to have_received(:execute).with(
-            type: project.type,
-            baseline_data: project.data,
-            return_data: second_returned_return[:updates][-1]
+            schema: schema.schema,
+            data: {
+              baseline_data: project.data,
+              return_data: second_returned_return[:updates][-1]
+            }
           )
         end
 
@@ -237,9 +241,11 @@ describe LocalAuthority::UseCase::GetBaseReturn do
           end
           it 'executes the populate return template use case' do
             expect(populate_return_spy).to have_received(:execute).with(
-              type: project.type,
-              baseline_data: project.data,
-              return_data: second_returned_return[:updates][-1]
+              schema: schema.schema,
+              data: {
+                baseline_data: project.data,
+                return_data: second_returned_return[:updates][-1]
+              }
             )
           end
         end
@@ -266,9 +272,11 @@ describe LocalAuthority::UseCase::GetBaseReturn do
 
       it 'executes the populate return template use case with data from a return' do
         expect(populate_return_spy).to have_received(:execute).with(
-          type: project.type,
-          baseline_data: project.data,
-          return_data: returned_return[:updates][-1]
+          schema: schema.schema,
+          data: {
+            baseline_data: project.data,
+            return_data: returned_return[:updates][-1]
+          }
         )
       end
 
@@ -316,9 +324,11 @@ describe LocalAuthority::UseCase::GetBaseReturn do
 
         it 'executes the populate return template use case' do
           expect(populate_return_spy).to have_received(:execute).with(
-            type: project.type,
-            baseline_data: project.data,
-            return_data: returned_return[:updates][-1]
+            schema: schema.schema,
+            data: {
+              baseline_data: project.data,
+              return_data: returned_return[:updates][-1]
+            }
           )
         end
       end
@@ -363,9 +373,11 @@ describe LocalAuthority::UseCase::GetBaseReturn do
 
         it 'executes the populate return template use case' do
           expect(populate_return_spy).to have_received(:execute).with(
-            type: project.type,
-            baseline_data: project.data,
-            return_data: second_returned_return[:updates][-1]
+            schema: schema.schema,
+            data: {
+              baseline_data: project.data,
+              return_data: second_returned_return[:updates][-1]
+            }
           )
         end
 
@@ -391,9 +403,11 @@ describe LocalAuthority::UseCase::GetBaseReturn do
           end
           it 'executes the populate return template use case' do
             expect(populate_return_spy).to have_received(:execute).with(
-              type: project.type,
-              baseline_data: project.data,
-              return_data: second_returned_return[:updates][-1]
+              schema: schema.schema,
+              data: {
+                baseline_data: project.data,
+                return_data: second_returned_return[:updates][-1]
+              }
             )
           end
         end

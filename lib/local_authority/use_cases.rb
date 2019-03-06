@@ -7,9 +7,7 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :get_schema_copy_paths do
-      LocalAuthority::UseCase::GetSchemaCopyPaths.new(
-        template_gateway: builder.get_gateway(:return_template)
-      )
+      LocalAuthority::UseCase::GetSchemaCopyPaths.new
     end
 
     builder.define_use_case :populate_return_template do
@@ -130,9 +128,7 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :get_return_template_path_types do
-      LocalAuthority::UseCase::GetReturnTemplatePathTypes.new(
-        template_gateway: builder.get_gateway(:return_template)
-      )
+      LocalAuthority::UseCase::GetReturnTemplatePathTypes.new
     end
 
     builder.define_use_case :send_return_submission_notification do
