@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative '../shared_context/dependency_factory'
 
-fdescribe 'Amending a project' do
+describe 'Amending a project' do
   include_context 'dependency factory'
 
   let(:project_baseline) do
@@ -21,9 +21,10 @@ fdescribe 'Amending a project' do
     )[:id]
 
     response = get_use_case(:find_project).execute(id: project_id)
+    get_use_case(:submit_project).execute(project_id: project_id)
     expect(response[:version]).to eq(1)
 
-    get_use_case(:amend_baseline).execute(project_id: project_id, data: {})
+    get_use_case(:amend_baseline).execute(project_id: project_id, data: {}, timestamp: 0)
 
     response = get_use_case(:find_project).execute(id: project_id)
     expect(response[:version]).to eq(2)

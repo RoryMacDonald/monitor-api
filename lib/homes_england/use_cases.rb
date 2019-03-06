@@ -110,5 +110,11 @@ class HomesEngland::UseCases
         pcs_gateway: builder.get_gateway(:pcs)
       )
     end
+
+    builder.define_use_case :amend_baseline do
+      HomesEngland::UseCase::AmendBaseline.new(
+        project_gateway: builder.get_gateway(:project)
+      )
+    end
   end
 end

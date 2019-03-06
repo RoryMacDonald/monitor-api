@@ -1,4 +1,4 @@
-fdescribe HomesEngland::Gateway::SequelProject do
+describe HomesEngland::Gateway::SequelProject do
   include_context 'with database'
 
   let(:project_gateway) { described_class.new(database: database) }
@@ -47,7 +47,7 @@ fdescribe HomesEngland::Gateway::SequelProject do
         project.name = 'Dog project'
         project.data = { dogs: 'woof' }
         project.status = 'Draft'
-        project.version = 1
+        project.version = 6
         project.timestamp = 56789123
         project.bid_id = 'AC/MV/3'
         project_gateway.update(id: project_id, project: project)
@@ -58,7 +58,7 @@ fdescribe HomesEngland::Gateway::SequelProject do
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(dogs: 'woof')
         expect(created_project.status).to eq('Draft')
-        expect(created_project.version).to eq(1)
+        expect(created_project.version).to eq(6)
         expect(created_project.timestamp).to eq(56789123)
         expect(created_project.bid_id).to eq('AC/MV/3')
       end
@@ -81,15 +81,6 @@ fdescribe HomesEngland::Gateway::SequelProject do
 
           expect(submitted_project.status).to eq('Submitted')
         end
-      end
-    end
-
-    context 'submitted project' do
-      it 'can increment the version' do
-        project_gateway.submit(id: project_id, status: 'Submitted')
-        project_gateway.increment_version(id: project_id)
-        amended_project = project_gateway.find_by(id: project_id)
-        expect(amended_project.version).to eq(2)
       end
     end
   end
@@ -162,16 +153,6 @@ fdescribe HomesEngland::Gateway::SequelProject do
         response = project_gateway.update(id: project_id, project: project)
 
         expect(response).to eq(success: true)
-      end
-    end
-
-    context 'submitted project' do
-      it 'can increment the version' do
-        project_gateway.submit(id: project_id, status: 'Submitted')
-        project_gateway.increment_version(id: project_id)
-        project_gateway.increment_version(id: project_id)
-        amended_project = project_gateway.find_by(id: project_id)
-        expect(amended_project.version).to eq(3)
       end
     end
   end

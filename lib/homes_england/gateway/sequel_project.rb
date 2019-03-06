@@ -37,6 +37,7 @@ class HomesEngland::Gateway::SequelProject
                 name: project.name,
                 data: Sequel.pg_json(project.data),
                 status: project.status,
+                version: project.version,
                 timestamp: project.timestamp,
                 bid_id: project.bid_id
               )
@@ -46,12 +47,6 @@ class HomesEngland::Gateway::SequelProject
 
   def submit(id:, status:)
     @database[:projects].where(id: id).update(status: status)
-  end
-
-  def increment_version(id:)
-    old_version = @database[:projects].where(id: id).first[:version]
-    new_version = old_version + 1
-    @database[:projects].where(id: id).update(version: new_version)
   end
 
   def all()
