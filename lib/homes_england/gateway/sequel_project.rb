@@ -48,6 +48,12 @@ class HomesEngland::Gateway::SequelProject
     @database[:projects].where(id: id).update(status: status)
   end
 
+  def increment_version(id:)
+    old_version = @database[:projects].where(id: id).first[:version]
+    new_version = old_version + 1
+    @database[:projects].where(id: id).update(version: new_version)
+  end
+
   def all()
     @database[:projects].all.map do |row|
       HomesEngland::Domain::Project.new.tap do |p|

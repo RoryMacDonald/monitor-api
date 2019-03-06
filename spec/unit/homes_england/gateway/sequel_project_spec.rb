@@ -1,4 +1,4 @@
-describe HomesEngland::Gateway::SequelProject do
+fdescribe HomesEngland::Gateway::SequelProject do
   include_context 'with database'
 
   let(:project_gateway) { described_class.new(database: database) }
@@ -83,6 +83,15 @@ describe HomesEngland::Gateway::SequelProject do
         end
       end
     end
+
+    context 'submitted project' do
+      it 'can increment the version' do
+        project_gateway.submit(id: project_id, status: 'Submitted')
+        project_gateway.increment_version(id: project_id)
+        amended_project = project_gateway.find_by(id: project_id)
+        expect(amended_project.version).to eq(2)
+      end
+    end
   end
 
   context 'example two' do
@@ -153,6 +162,16 @@ describe HomesEngland::Gateway::SequelProject do
         response = project_gateway.update(id: project_id, project: project)
 
         expect(response).to eq(success: true)
+      end
+    end
+
+    context 'submitted project' do
+      it 'can increment the version' do
+        project_gateway.submit(id: project_id, status: 'Submitted')
+        project_gateway.increment_version(id: project_id)
+        project_gateway.increment_version(id: project_id)
+        amended_project = project_gateway.find_by(id: project_id)
+        expect(amended_project.version).to eq(3)
       end
     end
   end
