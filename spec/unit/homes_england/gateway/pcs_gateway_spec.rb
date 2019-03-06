@@ -1,4 +1,4 @@
-fdescribe HomesEngland::Gateway::Pcs do
+describe HomesEngland::Gateway::Pcs do
   context 'existing bid' do
     context 'Example 1' do
       let(:pcs_secret) { '1119003331' }
@@ -201,7 +201,7 @@ fdescribe HomesEngland::Gateway::Pcs do
         pcs_actuals_request
         gateway
       end
-      
+
       it 'Returns nil' do
         project = gateway.get_project(bid_id: 'HIF/MV/255')
 
