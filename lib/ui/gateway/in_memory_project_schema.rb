@@ -36,10 +36,10 @@ class UI::Gateway::InMemoryProjectSchema
     builder.add_section(section_name: :milestones, file_name: 'milestones.json') unless ENV['FF_MILESTONES_TAB'].nil?
     builder.add_section(section_name: :risks, file_name: 'risks.json') unless ENV['FF_RISKS_TAB'].nil?
     builder.add_section(section_name: :hifGrantExpenditure, file_name: 'grant_expenditure.json') unless ENV['FF_GRANT_EXPENDITURE_TAB'].nil?
-    builder.add_section(section_name: :outputs, file_name: 'outputs.json') unless ENV['FF_OUTPUTS_TAB'].nil?
-    builder.add_section(section_name: :hifRecovery, file_name: "hif_recovery.json") unless ENV['FF_RECOVERY_TAB'].nil?
     builder.add_section(section_name: :infraFundingPackage, file_name: "infrastructure_funding_package.json") unless ENV['FF_FUNDING_PACKAGE_TAB'].nil?
+    builder.add_section(section_name: :hifRecovery, file_name: "hif_recovery.json") unless ENV['FF_RECOVERY_TAB'].nil?
     builder.add_section(section_name: :widerScheme, file_name: 'wider_scheme.json') unless ENV['FF_WIDER_SCHEME_TAB'].nil?
+    builder.add_section(section_name: :outputs, file_name: 'outputs.json') unless ENV['FF_OUTPUTS_TAB'].nil?
 
     builder.build
   end
