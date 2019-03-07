@@ -17,7 +17,9 @@ class HomesEngland::Gateway::Pcs
   end
 
   def request_pcs_data(bid_id, endpoint)
-    pcs_key = JWT.encode({}, ENV['PCS_SECRET'], 'HS512')
+    pcs_key = JWT.encode({
+      exp: Time.now.to_i + (60 * 60 * 24 * 30)
+      }, ENV['PCS_SECRET'], 'HS512')
     host = URI.parse(@pcs_domain).host
     protocol = URI.parse(@pcs_domain).scheme
 
