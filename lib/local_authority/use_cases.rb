@@ -182,5 +182,20 @@ class LocalAuthority::UseCases
         pcs_gateway: builder.get_gateway(:pcs)
       )
     end
+
+    builder.define_use_case :get_claims do
+      LocalAuthority::UseCase::GetClaims.new(
+        claims_gateway: builder.get_gateway(:claim)
+      )
+    end
+
+    builder.define_use_case :get_base_claim do
+      LocalAuthority::UseCase::GetBaseClaim.new(
+        claim_gateway: builder.get_gateway(:claim_template),
+        project_gateway: builder.get_gateway(:project),
+        populate_return_template: builder.get_use_case(:populate_return_template),
+        get_claims: builder.get_use_case(:get_claims)
+      )
+    end
   end
 end

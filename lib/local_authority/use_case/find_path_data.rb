@@ -1,7 +1,6 @@
 class LocalAuthority::UseCase::FindPathData
   def execute(data:, path:)
     path = choose_path(data, path) if path[0] == :return_or_baseline 
-
     found = search_hash(data, path)
     if !(found.nil? || found.empty?)
       { found: found }

@@ -1,14 +1,15 @@
-fdescribe LocalAuthority::UseCase::GetBaseClaim do
+describe LocalAuthority::UseCase::GetBaseClaim do
   let(:claim_gateway) { spy(find_by: schema) }
   let(:project_gateway_spy) { spy(find_by: project) }
-  let(:populate_return_spy) { spy(execute: populated_claim) }
+  let(:populate_claim_spy) { spy(execute: populated_claim) }
 
 
   let(:use_case) do
     described_class.new(
       claim_gateway: claim_gateway,
       project_gateway: project_gateway_spy,
-      populate_return_template: populate_return_spy
+      populate_return_template: populate_claim_spy,
+      get_claims: get_claims_spy 
     )
   end
   let(:response) { use_case.execute(project_id: project_id) }
@@ -16,6 +17,12 @@ fdescribe LocalAuthority::UseCase::GetBaseClaim do
   before { response }
 
   context 'get the first base claim' do
+    let(:get_claims_spy) do
+      spy(execute:
+        { claims: [] }
+      )
+    end
+
     context 'example one' do
       let(:schema) do
         Common::Domain::Template.new.tap do |p|
@@ -42,24 +49,16 @@ fdescribe LocalAuthority::UseCase::GetBaseClaim do
         expect(claim_gateway).to have_received(:find_by).with(type: project.type)
       end
 
-      xit 'will populate the claim for the project' do
-        expect(populate_return_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
+      it 'will populate the claim for the project' do
+        expect(populate_claim_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
       end
 
-      xit 'will return a hash with correct id' do
+      it 'will return a hash with correct id' do
         expect(use_case.execute(project_id: project_id)[:base_claim]).to include(id: project_id)
       end
 
-      xit 'will return a hash with the populated return data' do
+      it 'will return a hash with the populated return data' do
         expect(use_case.execute(project_id: project_id)[:base_claim]).to include(data: { cats: 'meow' })
-      end
-
-      xit 'will return a hash with correct schema' do
-        expect(use_case.execute(project_id: project_id)[:base_claim]).to include(schema: schema.schema)
-      end
-
-      xit 'will return a hash with correct number of previous returns' do
-        expect(use_case.execute(project_id: project_id)[:base_claim]).to include(no_of_previous_returns: 0)
       end
     end
 
@@ -74,7 +73,7 @@ fdescribe LocalAuthority::UseCase::GetBaseClaim do
       let(:data) { { name: 'Extra secret project' } }
       let(:project) do
         HomesEngland::Domain::Project.new.tap do |p|
-          p.type = 'hif'
+          p.type = 'ac'
           p.data = data
         end
       end
@@ -85,33 +84,25 @@ fdescribe LocalAuthority::UseCase::GetBaseClaim do
         expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
       end
 
-      xit 'will call find_by method on Claim Gateway' do
+      it 'will call find_by method on Claim Gateway' do
         expect(claim_gateway).to have_received(:find_by).with(type: project.type)
       end
 
-      xit 'will populate the claim for the project' do
-        expect(populate_return_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
+      it 'will populate the claim for the project' do
+        expect(populate_claim_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
       end
 
-      xit 'will return a hash with correct id' do
+      it 'will return a hash with correct id' do
         expect(use_case.execute(project_id: project_id)[:base_claim]).to include(id: project_id)
       end
 
-      xit 'will return a hash with the populated return' do
+      it 'will return a hash with the populated return' do
         expect(use_case.execute(project_id: project_id)[:base_claim]).to include(data: { cows: 'moo' })
-      end
-
-      xit 'will return a hash with correct schema' do
-        expect(use_case.execute(project_id: project_id)[:base_claim]).to include(schema: schema.schema)
-      end
-
-      xit 'will return a hash with correct number of previous returns' do
-        expect(use_case.execute(project_id: project_id)[:base_claim]).to include(no_of_previous_returns: 0)
       end
     end
   end
 
-  xcontext 'with previous returns' do
+  context 'with previous claims' do
     let(:schema) do
       Common::Domain::Template.new.tap do |p|
         p.schema = {cats: 'meow'}
@@ -127,289 +118,209 @@ fdescribe LocalAuthority::UseCase::GetBaseClaim do
       end
     end
 
-    let(:get_returns_spy) do
+    let(:get_claims_spy) do
       spy(execute:
           {
-            returns:
+            claims:
             [
-              returned_return
+              last_claim
             ]
-          })
+          }
+        )
     end
 
     let(:populated_claim) { { populated_data: { cat: 'Meow' } } }
 
     context 'example 1' do
-      let(:returned_return) do
+      let(:last_claim) do
         {
-          id: 0,
+          id: 2,
           project_id: project_id,
           status: 'Submitted',
-          updates: [
-            {
-              cat: 'Meow'
-            }
-          ]
+          data: {
+            cat: 'Meow'
+          }
         }
       end
+
       let(:project_id) { 1 }
-      it 'executes the get returns use case with the project id' do
-        expect(get_returns_spy).to have_received(:execute).with(project_id: 1)
+
+      it 'executes the get claims use case with the project id' do
+        expect(get_claims_spy).to have_received(:execute).with(project_id: 1)
       end
 
-      it 'executes the populate return template use case with data from a return' do
-        expect(populate_return_spy).to have_received(:execute).with(
+      it 'executes the populate return template use case with data from the last claim' do
+        expect(populate_claim_spy).to have_received(:execute).with(
           schema: schema.schema,
           data: {
             baseline_data: project.data,
-            return_data: returned_return[:updates][-1]
+            claim_data: last_claim[:data]
           }
         )
       end
 
-      it 'returns the number of previous returns' do
-        expect(response[:base_claim][:no_of_previous_returns]).to eq(1)
-      end
-
       context 'multiple returns' do
-        let(:returned_return) do
-          {
-            id: 0,
-            project_id: project_id,
-            status: 'Submitted',
-            updates: [
-              {
-                dog: 'Woof'
-              }
-            ]
-          }
-        end
-
-        let(:second_returned_return) do
+        let(:first_claim) do
           {
             id: 1,
             project_id: project_id,
             status: 'Submitted',
-            updates: [
-              {
-                cat: 'Meow'
-              }
-            ]
+            data: {
+              dog: 'Woof'
+            }
           }
         end
 
-        let(:get_returns_spy) do
+        let(:last_claim) do
+          {
+            id: 6,
+            project_id: project_id,
+            status: 'Submitted',
+            data: {
+              cat: 'Meow'
+            }
+          }
+        end
+
+        let(:get_claims_spy) do
           spy(execute:
               {
-                returns:
+                claims:
                 [
-                  returned_return,
-                  second_returned_return
+                  first_claim,
+                  last_claim
                 ]
-              })
+              }
+            )
         end
 
         it 'executes the populate return template use case' do
-          expect(populate_return_spy).to have_received(:execute).with(
+          expect(populate_claim_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
               baseline_data: project.data,
-              return_data: second_returned_return[:updates][-1]
+              claim_data: last_claim[:data]
             }
           )
-        end
-
-        it 'returns the number of previous returns' do
-          expect(response[:base_claim][:no_of_previous_returns]).to eq(2)
-        end
-
-        context 'multiple updates' do
-          let(:second_returned_return) do
-            {
-              id: 1,
-              project_id: project_id,
-              status: 'Submitted',
-              updates: [
-                {
-                  bird: 'tweet'
-                },
-                {
-                  alpaca: 'Hum'
-                }
-              ]
-            }
-          end
-          it 'executes the populate return template use case' do
-            expect(populate_return_spy).to have_received(:execute).with(
-              schema: schema.schema,
-              data: {
-                baseline_data: project.data,
-                return_data: second_returned_return[:updates][-1]
-              }
-            )
-          end
         end
       end
     end
 
     context 'example 2' do
-      let(:returned_return) do
+      let(:last_claim) do
         {
           id: 0,
           project_id: project_id,
           status: 'Submitted',
-          updates: [
-            {
-              dog: 'Woof'
-            }
-          ]
+          data: {
+            dog: 'Woof'
+          }
         }
       end
       let(:project_id) { 3 }
-      it 'executes the get returns use case with the project id' do
-        expect(get_returns_spy).to have_received(:execute).with(project_id: 3)
+
+      it 'executes the get claims use case with the project id' do
+        expect(get_claims_spy).to have_received(:execute).with(project_id: 3)
       end
 
-      it 'executes the populate return template use case with data from a return' do
-        expect(populate_return_spy).to have_received(:execute).with(
+      it 'executes the populate return template use case with data from a claim' do
+        expect(populate_claim_spy).to have_received(:execute).with(
           schema: schema.schema,
           data: {
             baseline_data: project.data,
-            return_data: returned_return[:updates][-1]
+            claim_data: last_claim[:data]
           }
         )
       end
 
-      it 'returns the number of previous returns' do
-        expect(response[:base_claim][:no_of_previous_returns]).to eq(1)
-      end
-
-      context 'draft returns' do
-        let(:returned_return) do
+      context 'draft claims' do
+        let(:last_submitted_claim) do
           {
             id: 0,
             project_id: project_id,
             status: 'Submitted',
-            updates: [
-              {
-                duck: 'Quack'
-              }
-            ]
+            data: {
+              duck: 'Quack'
+            }
           }
         end
 
-        let(:second_returned_return) do
+        let(:unsubmitted_claim) do
           {
             id: 1,
             project_id: project_id,
             status: 'Draft',
-            updates: [
-              {
-                cow: 'Moo'
-              }
-            ]
+            data: {
+              cow: 'Moo'
+            }
           }
         end
 
-        let(:get_returns_spy) do
+        let(:get_claims_spy) do
           spy(execute:
               {
-                returns:
+                claims:
                 [
-                  returned_return,
-                  second_returned_return
+                  last_submitted_claim,
+                  unsubmitted_claim
                 ]
-              })
+              }
+            )
         end
 
         it 'executes the populate return template use case' do
-          expect(populate_return_spy).to have_received(:execute).with(
+          expect(populate_claim_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
               baseline_data: project.data,
-              return_data: returned_return[:updates][-1]
+              claim_data: last_submitted_claim[:data]
             }
           )
         end
       end
 
-      context 'multiple returns' do
-        let(:returned_return) do
+      context 'multiple claims' do
+        let(:first_claim) do
           {
             id: 0,
             project_id: project_id,
             status: 'Submitted',
-            updates: [
-              {
-                duck: 'Quack'
-              }
-            ]
+            data: {
+              duck: 'Quack'
+            }
           }
         end
 
-        let(:second_returned_return) do
+        let(:last_claim) do
           {
             id: 1,
             project_id: project_id,
             status: 'Submitted',
-            updates: [
-              {
-                cow: 'Moo'
-              }
-            ]
+            data: {
+              cow: 'Moo'
+            }
           }
         end
 
-        let(:get_returns_spy) do
+        let(:get_claims_spy) do
           spy(execute:
               {
-                returns:
+                claims:
                 [
-                  returned_return,
-                  second_returned_return
+                  first_claim,
+                  last_claim
                 ]
               })
         end
 
         it 'executes the populate return template use case' do
-          expect(populate_return_spy).to have_received(:execute).with(
+          expect(populate_claim_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
               baseline_data: project.data,
-              return_data: second_returned_return[:updates][-1]
+              claim_data: last_claim[:data]
             }
           )
-        end
-
-        it 'returns the number of previous returns' do
-          expect(response[:base_claim][:no_of_previous_returns]).to eq(2)
-        end
-
-        context 'multiple updates' do
-          let(:second_returned_return) do
-            {
-              id: 1,
-              project_id: project_id,
-              status: 'Submitted',
-              updates: [
-                {
-                  guppy: 'Pop'
-                },
-                {
-                  llama: 'Buzz'
-                }
-              ]
-            }
-          end
-          it 'executes the populate return template use case' do
-            expect(populate_return_spy).to have_received(:execute).with(
-              schema: schema.schema,
-              data: {
-                baseline_data: project.data,
-                return_data: second_returned_return[:updates][-1]
-              }
-            )
-          end
         end
       end
     end
