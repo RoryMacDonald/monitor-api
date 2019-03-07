@@ -10,7 +10,7 @@ class LocalAuthority::UseCase::PcsPopulateReturn
     unless return_data[:status] == 'Submitted' || ENV['PCS'].nil?
       pcs_data = @pcs_gateway.get_project(bid_id: return_data[:bid_id])
 
-      unless pcs_data.actuals.nil?
+      unless pcs_data.nil? || pcs_data.actuals.nil?
         total = get_spend_to_date(pcs_data)
         if return_data[:type] == 'ac'
           return_data[:updates][-1][:s151GrantClaimApproval] = {} if return_data[:s151GrantClaimApproval].nil?

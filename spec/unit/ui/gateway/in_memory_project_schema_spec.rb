@@ -14,6 +14,38 @@ describe UI::Gateway::InMemoryProjectSchema do
   end
 
   describe 'When type is ff' do
+    before do
+      ENV['FF_SUMMARY_TAB'] = 'yes'
+      ENV['FF_INFRAS_TAB'] = 'yes'
+      ENV['FF_PLANNING_TAB'] = 'yes'
+      ENV['FF_LAND_OWNERSHIP_TAB'] = 'yes'
+      ENV['FF_PROCUREMENT_TAB'] = 'yes'
+      ENV['FF_DEMOLITION_TAB'] = 'yes'
+      ENV['FF_MILESTONES_TAB'] = 'yes'
+      ENV['FF_RISKS_TAB'] = 'yes'
+      ENV['FF_GRANT_EXPENDITURE_TAB'] = 'yes'
+      ENV['FF_OUTPUTS_TAB'] = 'yes'
+      ENV['FF_RECOVERY_TAB'] = 'yes'
+      ENV['FF_FUNDING_PACKAGE_TAB'] = 'yes'
+      ENV['FF_WIDER_SCHEME_TAB'] = 'yes'
+    end
+
+    after do
+      ENV['FF_SUMMARY_TAB'] = nil
+      ENV['FF_INFRAS_TAB'] = nil
+      ENV['FF_PLANNING_TAB'] = nil
+      ENV['FF_LAND_OWNERSHIP_TAB'] = nil
+      ENV['FF_PROCUREMENT_TAB'] = nil
+      ENV['FF_DEMOLITION_TAB'] = nil
+      ENV['FF_MILESTONES_TAB'] = nil
+      ENV['FF_RISKS_TAB'] = nil
+      ENV['FF_GRANT_EXPENDITURE_TAB'] = nil
+      ENV['FF_OUTPUTS_TAB'] = nil
+      ENV['FF_RECOVERY_TAB'] = nil
+      ENV['FF_FUNDING_PACKAGE_TAB'] = nil
+      ENV['FF_WIDER_SCHEME_TAB'] = nil
+    end
+
     let(:gateway) { described_class.new }
     let(:schema) { gateway.find_by(type: 'ff') }
 
