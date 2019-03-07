@@ -75,8 +75,22 @@ describe 'Performing Claims on HIF Project' do
     }
   end
 
+  let(:expected_base_claim) do
+    File.open("#{__dir__}/../../fixtures/base_claim.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
+  end
+
   let(:project_id) { database[:projects].insert(type: 'ac') }
-  it 'Performs a claim' do
+
+  fit 'Performs a claim' do
+    base_claim = get_use_case(:get_base_claim).execute(project_id: project_id)
+
+    expect(base_claim[:base_claim][:data]).to eq(expected_base_claim)
+
     id = get_use_case(:create_claim).execute(
       project_id: project_id,
       claim_data: initial_claim[:data]
