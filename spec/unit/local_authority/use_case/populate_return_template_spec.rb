@@ -36,29 +36,36 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       end
 
       it 'finds the correct path' do
-        use_case.execute(type: 'cat', baseline_data: baseline_data)
-        expect(get_schema_copy_paths).to have_received(:execute).with(type: 'cat')
+        use_case.execute(schema: {fields: 'cat'}, data: {baseline_data: baseline_data})
+        expect(get_schema_copy_paths).to have_received(:execute).with(schema: {fields: 'cat'})
       end
 
       it 'calls with the correct GetReturnTemplatePathTypes' do
-        use_case.execute(type: 'cat', baseline_data: baseline_data)
-        expect(get_schema_copy_paths).to have_received(:execute).with(type: 'cat')
+        use_case.execute(schema: { fields: 'cat' }, data: {baseline_data: baseline_data})
+        expect(get_return_template_path_types).to have_received(:execute).with(schema: {fields: 'cat'}, path: [])
       end
     end
 
     context 'example 2' do
       let(:template_schema) { { properties: {} } }
-
-      it 'finds the correct path' do
-        baseline_data = {
+      let(:copy_paths) { { paths: [{ to: [:cat], from: [] }] } }
+      let(:baseline_data) do 
+        {
           names: [
             { pet: 'Mrs Bark' },
             { pet: 'Meow Meow Fuzzyface' }
           ]
         }
+      end
 
-        use_case.execute(type: 'dog', baseline_data: baseline_data)
-        expect(get_schema_copy_paths).to have_received(:execute).with(type: 'dog')
+      it 'finds the correct path' do
+        use_case.execute(schema: { type: 'dog'}, data: {baseline_data: baseline_data})
+        expect(get_schema_copy_paths).to have_received(:execute).with(schema: {type: 'dog'})
+      end
+
+      it 'calls with the correct GetReturnTemplatePathTypes' do
+        use_case.execute(schema: { fields: 'cat' }, data: {baseline_data: baseline_data})
+        expect(get_return_template_path_types).to have_received(:execute).with(schema: {fields: 'cat'}, path: [:cat])
       end
     end
   end
@@ -90,7 +97,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:copy_paths) { { paths: [{ from: [:cats], to: [:noise] }] } }
 
     it 'populates a simple template' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data })
       expect(result).to eq(populated_data: { noise: 'Meow' })
     end
   end
@@ -125,7 +132,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:copy_paths) { { paths: [{ from: %i[cats sound], to: [:noise] }] } }
 
     it 'populates a simple template' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      result = use_case.execute(schema: {type: 'hif'}, data: { baseline_data: baseline_data })
       expect(result).to eq(populated_data: { noise: 'Meow' })
     end
   end
@@ -172,7 +179,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(baseline_data:, path: )
+        def execute(data:, path: )
           if path == %i[cats sound]
             { found: ['Meow'] }
           elsif path == %i[cats breed]
@@ -188,7 +195,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'populates a simple template' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data })
       expect(result).to eq(populated_data: { cat: [{ noise: 'Meow', breed: 'Tabby' }] })
     end
   end
@@ -228,7 +235,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:copy_paths) { { paths: [{ from: %i[cats sound], to: %i[noise cat] }] } }
 
     it 'populates a simple template' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data })
       expect(result).to eq(populated_data: { noise: { cat: 'Meow' } })
     end
   end
@@ -275,7 +282,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(baseline_data:, path:)
+        def execute(data:, path:)
           if path == %i[cats sound]
             { found: 'Meow' }
           elsif path == %i[dogs sound]
@@ -286,7 +293,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'populates a template' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data })
       expect(result).to eq(populated_data: { cat: 'Meow', dog: 'Woof' })
     end
   end
@@ -333,7 +340,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:matching_baseline_data) { %w[Meow Nyan] }
 
     it 'populates a single level template' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data })
       expect(result).to eq(populated_data: { kittens: [{ noise: 'Meow' }, { noise: 'Nyan' }] })
     end
   end
@@ -392,7 +399,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:matching_baseline_data) { [%w[Meow Nyan], %w[Eow Nya]] }
 
     it 'populates a single level template' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data })
       expect(result).to eq(populated_data: {
                              kittens:
                              [
@@ -449,7 +456,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:matching_baseline_data) { 'Meow' }
 
     it 'is a simple return' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { noise: 'Meow' })
     end
   end
@@ -482,7 +489,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives an empty populated_data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: {})
     end
   end
@@ -524,7 +531,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives an empty populated_data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { cats: [] })
     end
   end
@@ -568,7 +575,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives an empty populated_data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { cat: 'tom' })
     end
   end
@@ -622,7 +629,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives appropriate data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { top: [{ name: 'tom' }] })
     end
   end
@@ -681,7 +688,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives appropriate data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { top: { name: 'tom' } })
     end
   end
@@ -740,7 +747,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives appropriate data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { top: { name: 'tom' } })
     end
   end
@@ -798,7 +805,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(baseline_data:, path:)
+        def execute(data:, path:)
           if path == %i[baseline_data cats name]
             { found: 'Meow' }
           elsif path == %i[baseline_data cats breed]
@@ -819,7 +826,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives appropriate data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { top: { name: 'Meow', breed: 'Tabby' } })
     end
   end
@@ -884,7 +891,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(baseline_data:, path:)
+        def execute(data:, path:)
           if path == %i[baseline_data dogs name]
             { found: 'Meow' }
           elsif path == %i[baseline_data cats breed]
@@ -905,7 +912,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives appropriate data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { top: { name: 'Meow', breed: 'Tabby' } })
     end
   end
@@ -961,7 +968,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:baseline_data) { { cats: { name: 'tom' } } }
     let(:find_path_data) do
       Class.new do
-        def execute(baseline_data:, path:)
+        def execute(data:, path:)
           if path == %i[baseline_data cats name]
             { found: ['Timmy'] }
           elsif path == %i[baseline_data cats breed]
@@ -983,7 +990,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     it 'gives appropriate data' do
-      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      result = use_case.execute(schema: { type: 'hif' }, data: { baseline_data: baseline_data, return_data: return_data })
       expect(result).to eq(populated_data: { top: [{ name: 'Timmy', breed: 'Tom' }] })
     end
   end

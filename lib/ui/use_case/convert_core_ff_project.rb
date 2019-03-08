@@ -12,6 +12,12 @@ class UI::UseCase::ConvertCoreFFProject
     convert_land_owenership
     convert_procurement
     convert_demolition_and_remediation
+    convert_milestones
+    convert_risks
+    convert_hif_grant_expenditure
+    convert_wider_scheme
+    convert_hif_recovery
+    convert_infrastructure_funding_package
 
     @converted_project
   end
@@ -52,6 +58,41 @@ class UI::UseCase::ConvertCoreFFProject
     return if @project[:demolitionRemediation].nil?
 
     @converted_project[:demolitionRemediation] = @project[:demolitionRemediation]
+  end
 
+  def convert_risks
+    return if @project[:risks].nil?
+
+    @converted_project[:risks] = @project[:risks]
+  end
+
+  def convert_hif_grant_expenditure
+    return if @project[:hifGrantExpenditure].nil?
+
+    @converted_project[:hifGrantExpenditure] = @project[:hifGrantExpenditure]
+  end
+
+  def convert_milestones
+    return if @project[:milestones].nil?
+
+    @converted_project[:milestones] = @project[:milestones]
+  end
+
+  def convert_wider_scheme
+    return if @project[:widerScheme].nil?
+
+    @converted_project[:widerScheme] = @project[:widerScheme]
+  end
+
+  def convert_hif_recovery
+    return if @project[:hifRecovery].nil?
+
+    @converted_project[:hifRecovery] = @project[:hifRecovery]
+  end
+
+  def convert_infrastructure_funding_package
+    return if @project[:infraFundingPackage].nil?
+
+    @converted_project[:infraFundingPackage] = @project[:infraFundingPackage]
   end
 end

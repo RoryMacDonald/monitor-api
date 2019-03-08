@@ -7,9 +7,7 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :get_schema_copy_paths do
-      LocalAuthority::UseCase::GetSchemaCopyPaths.new(
-        template_gateway: builder.get_gateway(:return_template)
-      )
+      LocalAuthority::UseCase::GetSchemaCopyPaths.new
     end
 
     builder.define_use_case :populate_return_template do
@@ -130,9 +128,7 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :get_return_template_path_types do
-      LocalAuthority::UseCase::GetReturnTemplatePathTypes.new(
-        template_gateway: builder.get_gateway(:return_template)
-      )
+      LocalAuthority::UseCase::GetReturnTemplatePathTypes.new
     end
 
     builder.define_use_case :send_return_submission_notification do
@@ -184,6 +180,21 @@ class LocalAuthority::UseCases
       LocalAuthority::UseCase::PcsPopulateClaim.new(
         get_claim_core: builder.get_use_case(:get_claim),
         pcs_gateway: builder.get_gateway(:pcs)
+      )
+    end
+
+    builder.define_use_case :get_claims do
+      LocalAuthority::UseCase::GetClaims.new(
+        claims_gateway: builder.get_gateway(:claim)
+      )
+    end
+
+    builder.define_use_case :get_base_claim do
+      LocalAuthority::UseCase::GetBaseClaim.new(
+        claim_gateway: builder.get_gateway(:claim_template),
+        project_gateway: builder.get_gateway(:project),
+        populate_return_template: builder.get_use_case(:populate_return_template),
+        get_claims: builder.get_use_case(:get_claims)
       )
     end
   end

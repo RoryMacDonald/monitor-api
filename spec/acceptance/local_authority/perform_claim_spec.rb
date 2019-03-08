@@ -8,8 +8,29 @@ describe 'Performing Claims on HIF Project' do
 
   let(:expected_base_claim) do
     {
-      "claimSummary": {},
-      "supportingEvidence": {}
+      "claimSummary": {
+        "hifTotalFundingRequest": "123456",
+        "hifSpendToDate": nil
+      },
+      "supportingEvidence": {
+        "lastQuarterMonthSpend": {
+          "forecast": nil
+        }
+      }
+    }
+  end
+
+  let(:expected_second_base_claim) do
+    {
+      "claimSummary": {
+        "hifTotalFundingRequest": "123456",
+        "hifSpendToDate": "23"
+      },
+      "supportingEvidence": {
+        "lastQuarterMonthSpend": {
+          "forecast": "4567"
+        }
+      }
     }
   end
 
@@ -19,7 +40,7 @@ describe 'Performing Claims on HIF Project' do
         claimSummary: {
           certifiedClaimForm: "some form",
           hifTotalFundingRequest: "Funding",
-          hifSpendToDate: "0.0",
+          hifSpendToDate: "45.0",
           AmountOfThisClaim: "lots",
           runningClaimTotal: "23"
         },
@@ -46,37 +67,55 @@ describe 'Performing Claims on HIF Project' do
 
   let(:updated_claim) do
     {
-      data: {
-        claimSummary: {
-          certifiedClaimForm: "changed",
-          hifTotalFundingRequest: "Funding",
-          hifSpendToDate: "0.0",
-          AmountOfThisClaim: "lots",
-          runningClaimTotal: "23"
-        },
-        supportingEvidence: {
-          lastQuarterMonthSpend: {
-            forecast: "100",
-            actual: "100",
-            varianceReason: "Areason",
-            variance: {
-              varianceAgainstForcastAmount: "456728",
-              varianceAgainstForcastPercentage: "123456"
-            }
-          },
-          evidenceOfSpendPastQuarter: "Much",
-          breakdownOfNextQuarterSpend: {
-            forecast: "4567",
-            descriptionOfSpend: "Spending Money",
-            evidenceOfSpendNextQuarter: "NOt got any"
+      claimSummary: {
+        certifiedClaimForm: "changed",
+        hifTotalFundingRequest: "Funding",
+        hifSpendToDate: "0.0",
+        AmountOfThisClaim: "lots",
+        runningClaimTotal: "23"
+      },
+      supportingEvidence: {
+        lastQuarterMonthSpend: {
+          forecast: "100",
+          actual: "100",
+          varianceReason: "Areason",
+          variance: {
+            varianceAgainstForcastAmount: "456728",
+            varianceAgainstForcastPercentage: "123456"
           }
+        },
+        evidenceOfSpendPastQuarter: "Much",
+        breakdownOfNextQuarterSpend: {
+          forecast: "4567",
+          descriptionOfSpend: "Spending Money",
+          evidenceOfSpendNextQuarter: "NOt got any"
         }
       }
     }
   end
 
-  let(:project_id) { database[:projects].insert(type: 'ac') }
+  let(:baseline_data) do
+    {
+      summary: {
+        hifFundingAmount: "123456"
+      }
+    }
+  end
+
+  let(:project_id) do
+    get_use_case(:create_new_project).execute(
+      name: '',
+      type: 'hif',
+      baseline: baseline_data,
+      bid_id: 'HIF/MV/45'
+    )[:id]
+  end
+
   it 'Performs a claim' do
+    base_claim = get_use_case(:get_base_claim).execute(project_id: project_id)
+
+    expect(base_claim[:base_claim][:data]).to eq(expected_base_claim)
+
     id = get_use_case(:create_claim).execute(
       project_id: project_id,
       claim_data: initial_claim[:data]
@@ -85,7 +124,7 @@ describe 'Performing Claims on HIF Project' do
     claim = get_use_case(:get_claim).execute(claim_id: id)
 
     expect(claim[:status]).to eq('Draft')
-    expect(claim[:type]).to eq('ac')
+    expect(claim[:type]).to eq('hif')
     expect(claim[:project_id]).to eq(project_id)
     expect(claim[:data]).to eq(initial_claim[:data])
 
@@ -96,5 +135,9 @@ describe 'Performing Claims on HIF Project' do
     get_use_case(:submit_claim).execute(claim_id: id)
     claim = get_use_case(:get_claim).execute(claim_id: id)
     expect(claim[:status]).to eq('Submitted')
+
+    second_base_claim = get_use_case(:get_base_claim).execute(project_id: project_id)
+
+    expect(second_base_claim[:base_claim][:data]).to eq(expected_second_base_claim)
   end
 end

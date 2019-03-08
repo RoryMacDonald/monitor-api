@@ -34,6 +34,17 @@ class LocalAuthority::Gateway::SequelClaim
     end
   end
 
+  def get_all(project_id:)
+    @database[:claims].where(project_id: project_id).order(:id).all.map do |row|
+      LocalAuthority::Domain::Claim.new.tap do |claim|
+        claim.id = row[:id]
+        claim.project_id = row[:project_id]
+        claim.status = row[:status]
+        claim.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
+      end
+    end
+  end
+
   def submit(claim_id:)
     @database[:claims].update(status: 'Submitted')
   end

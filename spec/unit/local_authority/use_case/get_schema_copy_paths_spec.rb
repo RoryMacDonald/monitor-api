@@ -2,8 +2,7 @@
 
 # Gets the source and destination paths to transfer the field given a schema
 describe LocalAuthority::UseCase::GetSchemaCopyPaths do
-  let(:template_gateway) { spy(find_by: spy(schema: template_schema)) }
-  let(:use_case) { described_class.new(template_gateway: template_gateway).execute(type: '') }
+  let(:usecase) { described_class.new.execute(schema: template_schema) }
 
   context 'simple schema' do
     context 'example 1' do
@@ -20,7 +19,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         }
       end
       it 'gets paths' do
-        expect(use_case).to eq(paths: [{ to: [:noise], from: [:cats] }])
+        expect(usecase).to eq(paths: [{ to: [:noise], from: [:cats] }])
       end
     end
 
@@ -38,7 +37,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         }
       end
       it 'gets paths' do
-        expect(use_case).to eq(paths: [{ to: [:sounds], from: [:dogs] }])
+        expect(usecase).to eq(paths: [{ to: [:sounds], from: [:dogs] }])
       end
     end
   end
@@ -61,7 +60,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
       }
     end
     it 'gets paths' do
-      expect(use_case).to eq(paths: [
+      expect(usecase).to eq(paths: [
                                { to: [:catNoise], from: [:cats] },
                                { to: [:dogNoise], from: [:dogs] },
                                { to: [:cowNoise], from: [:cows] }
@@ -86,7 +85,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
       }
     end
     it 'gets paths' do
-      expect(use_case).to eq(paths: [
+      expect(usecase).to eq(paths: [
                                { to: [:catNoise], from: [:cats] },
                                { to: [:cowNoise], from: [:cows] }
                              ])
@@ -111,7 +110,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
     end
 
     it 'gets paths' do
-      expect(use_case).to eq(paths: [
+      expect(usecase).to eq(paths: [
                                { to: %i[cat breed], from: [:breed] }
                              ])
     end
@@ -148,7 +147,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
     end
 
     it 'gets paths' do
-      expect(use_case).to eq(paths: [
+      expect(usecase).to eq(paths: [
                                { to: %i[cat parentA breed], from: [:parentA] },
                                { to: %i[cat parentB breed], from: [:parentB] }
                              ])
@@ -179,7 +178,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
     end
 
     it 'gets paths' do
-      expect(use_case).to eq(paths: [
+      expect(usecase).to eq(paths: [
                                { to: %i[parents breed], from: [:breed] }
                              ])
     end
@@ -232,7 +231,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
     end
 
     it 'gets paths' do
-      expect(use_case).to eq(paths: [
+      expect(usecase).to eq(paths: [
                                { to: %i[optionA], from: [:cats] },
                                { to: %i[optionB], from: [:dogs] }
                              ])
@@ -291,7 +290,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
     end
 
     it 'gets paths' do
-      expect(use_case).to eq(paths: [
+      expect(usecase).to eq(paths: [
                                { to: %i[optionA], from: [:cats] },
                                { to: %i[optionB woof], from: [:dogs] }
                              ])

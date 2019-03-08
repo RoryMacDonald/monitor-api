@@ -26,7 +26,6 @@ services:
       EMAIL_WHITELIST: 'test@test.test'
       GOV_NOTIFY_API_KEY: 'cafe-cafecafe-cafe-cafe-cafe-cafecafecafe-cafecafe-cafe-cafe-cafe-cafecafecafe'
       HMAC_SECRET: 'E'
-      PCS: 'yes'
       PCS_SECRET: 'supersecret'
       PCS_DOMAIN: 'http://pcs_simulator'
       ADMIN_HTTP_API_KEY: 'supersecret'
@@ -40,6 +39,19 @@ services:
       MR_REVIEW_TAB: 'yes'
       HIF_RECOVERY_TAB: 'yes'
       BACK_TO_BASELINE: 'yes'
+      FF_SUMMARY_TAB: 'yes'
+      FF_INFRAS_TAB: 'yes'
+      FF_PLANNING_TAB: 'yes'
+      FF_LAND_OWNERSHIP_TAB: 'yes'
+      FF_PROCUREMENT_TAB: 'yes'
+      FF_DEMOLITION_TAB: 'yes'
+      FF_MILESTONES_TAB: 'yes'
+      FF_RISKS_TAB: 'yes'
+      FF_GRANT_EXPENDITURE_TAB: 'yes'
+      FF_OUTPUTS_TAB: 'yes'
+      FF_RECOVERY_TAB: 'yes'
+      FF_FUNDING_PACKAGE_TAB: 'yes'
+      FF_WIDER_SCHEME_TAB: 'yes'
 
   notify_simulator:
     build: .
