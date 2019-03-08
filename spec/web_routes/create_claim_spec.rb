@@ -113,7 +113,7 @@ describe 'Creating claims' do
 
       before do
         post '/claim/create',
-             { project_id: 1, claim_data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
+             { project_id: 1, data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
       end
 
       it 'passes data to CreateClaim' do
@@ -126,7 +126,7 @@ describe 'Creating claims' do
 
       it 'will return json with id' do
         response_body = JSON.parse(last_response.body)
-        expect(response_body['claim_id']).to eq(0)
+        expect(response_body['id']).to eq(0)
       end
     end
 
@@ -135,7 +135,7 @@ describe 'Creating claims' do
 
       before do
         post '/claim/create',
-             { project_id: 3, claim_data: { dogs: 'Woof' } }.to_json, 'HTTP_API_KEY' => api_key
+             { project_id: 3, data: { dogs: 'Woof' } }.to_json, 'HTTP_API_KEY' => api_key
       end
 
       it 'passes data to CreateClaim' do
@@ -148,7 +148,7 @@ describe 'Creating claims' do
 
       it 'will return json with id' do
         response_body = JSON.parse(last_response.body)
-        expect(response_body['claim_id']).to eq(3)
+        expect(response_body['id']).to eq(3)
       end
     end
   end
