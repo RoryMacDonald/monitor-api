@@ -4,7 +4,13 @@ require_relative '../shared_context/dependency_factory'
 describe 'Interacting with a HIF Return from the UI' do
   let(:pcs_domain) { 'https://meow.cat' }
   let(:pcs_secret) { 'Secret' }
-  let(:pcs_api_key) { JWT.encode({}, pcs_secret, 'HS512') }
+  let(:pcs_api_key) do
+      Timecop.freeze(Time.now)
+      current_time = Time.now.to_i
+      thirty_days_in_seconds = 60 * 60 * 24 * 30
+      thirty_days_from_now = current_time + thirty_days_in_seconds
+      JWT.encode({ exp: thirty_days_from_now }, pcs_secret, 'HS512')
+  end
 
   include_context 'dependency factory'
 

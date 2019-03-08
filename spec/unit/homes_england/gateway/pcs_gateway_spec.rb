@@ -2,7 +2,13 @@ describe HomesEngland::Gateway::Pcs do
   context 'existing bid' do
     context 'Example 1' do
       let(:pcs_secret) { '1119003331' }
-      let(:auth_token) { JWT.encode({}, pcs_secret, 'HS512') }
+      let(:auth_token) do
+        Timecop.freeze(Time.now)
+        current_time = Time.now.to_i
+        thirty_days_in_seconds = 60 * 60 * 24 * 30
+        thirty_days_from_now = current_time + thirty_days_in_seconds
+        JWT.encode({ exp: thirty_days_from_now }, pcs_secret, 'HS512')
+      end
       let(:pcs_domain) { 'https://meow.cat' }
       let(:pcs_overview_request) do
         stub_request(
@@ -82,8 +88,28 @@ describe HomesEngland::Gateway::Pcs do
 
     context 'Example 2' do
       let(:pcs_secret) { '0118999611993' }
-      let(:auth_token) { JWT.encode({}, pcs_secret, 'HS512') }
+      let(:auth_token) do
+        Timecop.freeze(Time.now)
+        current_time = Time.now.to_i
+        thirty_days_in_seconds = 60 * 60 * 24 * 30
+        thirty_days_from_now = current_time + thirty_days_in_seconds
+        JWT.encode({ exp: thirty_days_from_now }, pcs_secret, 'HS512')
+      end
       let(:pcs_domain) { 'http://simulator' }
+
+      let(:pcs_overview_request) do
+        stub_request(
+          :get,
+          "#{pcs_domain}/pcs-api/v1/Projects/AC%252FMV%252F151"
+        ).to_return(
+            status: 200, body: {
+            ProjectManager: "Natalia",
+            Sponsor: "NHN"
+          }.to_json
+        ).with(
+          headers: { 'Authorization' => "Bearer #{auth_token}" }
+        )
+      end
 
       let(:pcs_overview_request) do
         stub_request(
@@ -164,7 +190,13 @@ describe HomesEngland::Gateway::Pcs do
   context 'non-existent bid' do
     context 'example 1' do
       let(:pcs_secret) { '1119003331' }
-      let(:auth_token) { JWT.encode({}, pcs_secret, 'HS512') }
+      let(:auth_token) do
+        Timecop.freeze(Time.now)
+        current_time = Time.now.to_i
+        thirty_days_in_seconds = 60 * 60 * 24 * 30
+        thirty_days_from_now = current_time + thirty_days_in_seconds
+        JWT.encode({ exp: thirty_days_from_now }, pcs_secret, 'HS512')
+      end
       let(:pcs_domain) { 'https://meow.cat' }
       let(:pcs_overview_request) do
         stub_request(
@@ -211,7 +243,13 @@ describe HomesEngland::Gateway::Pcs do
 
     context 'example 2' do
       let(:pcs_secret) { '1119003331' }
-      let(:auth_token) { JWT.encode({}, pcs_secret, 'HS512') }
+      let(:auth_token) do
+        Timecop.freeze(Time.now)
+        current_time = Time.now.to_i
+        thirty_days_in_seconds = 60 * 60 * 24 * 30
+        thirty_days_from_now = current_time + thirty_days_in_seconds
+        JWT.encode({ exp: thirty_days_from_now }, pcs_secret, 'HS512')
+      end
       let(:pcs_domain) { 'https://meow.cat' }
       let(:pcs_overview_request) do
         stub_request(
