@@ -1,0 +1,22 @@
+{
+  "claimSummary": {
+    "hifTotalFundingRequest": "1234",
+    "hifSpendingToDate": "1234",
+    "runningClaimTotal": "4311",
+    "certifiedClaimForm": "fhduasjgfkdjhakf.pdf"
+  },
+  "supportingEvidence": {
+    "lastQuarterMonthSpend": {
+      "forecast": "5213",
+      "actual": "6431",
+      "variance": "-2314",
+      "varianceReason": "Cats ate too much"
+    },
+    "evidenceOfSpendPastQuarter": "cat_food_budget.pdf",
+    "breakDownOfNextQuarterSpend": {
+      "forecast": "2345",
+      "descriptionOfSpend": "Spending on more cat food",
+      "evidenceOfSpendNextQuarter": "future_kibbles_budget.pdf"
+    }
+  }
+}
