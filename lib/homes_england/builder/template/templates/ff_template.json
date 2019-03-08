@@ -2155,6 +2155,50 @@
           }
         }
       }
+    },
+    "outputs": {
+      "$schema": "http://json-schema.org/draft-07/schema",
+      "type": "object",
+      "title": "Outputs",
+      "properties": {
+        "units": {
+          "type": "string",
+          "title": "Units",
+          "readonly": true
+        },
+        "disposalStrategy": {
+          "type": "string",
+          "title": "Disposal Strategy/Critical Path",
+          "extendedText": true
+        },
+        "housingForecast": {
+          "type": "object",
+          "title": "In year baseline amounts (forecast)",
+          "properties": {
+            "forecast": {
+              "title": "Forecast",
+              "type": "array",
+              "periods": true,
+              "addable": true,
+              "items": {
+                "title": "Forecast",
+                "type": "object",
+                "properties": {
+                  "period": { "type": "string", "title": "Period" },
+                  "target": {
+                    "type": "string",
+                    "title": "Housing Starts"
+                  },
+                  "housingCompletions": {
+                    "type": "string",
+                    "title": "Housing Completions"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

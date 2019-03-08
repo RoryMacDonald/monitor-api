@@ -3,10 +3,21 @@
 describe UI::UseCase::GetBaseClaim do
   let(:claim_gateway_spy) { spy(find_by: schema) }
   let(:project_gateway_spy) { spy(execute: project) }
+  let(:base_claim) do 
+    {
+      base_claim: {
+        id: project_id,
+        data: data
+      }
+    }
+  end
+  
+  let(:get_base_claim_spy) { spy(execute: base_claim) }
   let(:use_case) do 
     described_class.new(
       claim_gateway: claim_gateway_spy,
-      project_gateway: project_gateway_spy
+      project_gateway: project_gateway_spy,
+      get_base_claim: get_base_claim_spy
     )
   end
 
@@ -25,6 +36,12 @@ describe UI::UseCase::GetBaseClaim do
       end
     end
 
+    let(:data) do
+      {
+        base_data: 'my previous data'
+      }
+    end
+
     let(:project) do
       {
         type: 'hif'
@@ -41,6 +58,10 @@ describe UI::UseCase::GetBaseClaim do
       expect(claim_gateway_spy).to have_received(:find_by).with(type: 'hif')
     end
 
+    it 'calls the core get base calims usecase' do 
+      expect(get_base_claim_spy).to have_received(:execute).with(project_id: 12)
+    end
+
     it 'will return the project id' do
       expect(response[:base_claim][:project_id]).to eq(12)
     end
@@ -49,8 +70,8 @@ describe UI::UseCase::GetBaseClaim do
       expect(response[:base_claim][:schema]).to eq(schema.schema)
     end
 
-    it 'will return blank data' do 
-      expect(response[:base_claim][:data]).to eq({})
+    it 'will return the data given by the get base claim use case' do 
+      expect(response[:base_claim][:data]).to eq(data)
     end
   end
 
@@ -63,6 +84,14 @@ describe UI::UseCase::GetBaseClaim do
           mice: 'squeak'
         }
       end
+    end
+
+    let(:data) do 
+      {
+        new_claim: {
+          a_claim: 'with data'
+        }
+      }
     end
 
     let(:project) do
@@ -81,6 +110,10 @@ describe UI::UseCase::GetBaseClaim do
       expect(claim_gateway_spy).to have_received(:find_by).with(type: 'ac')
     end
 
+    it 'calls the core get base calims usecase' do 
+      expect(get_base_claim_spy).to have_received(:execute).with(project_id: 456)
+    end
+
     it 'will return the project id' do
       expect(response[:base_claim][:project_id]).to eq(456)
     end
@@ -89,8 +122,8 @@ describe UI::UseCase::GetBaseClaim do
       expect(response[:base_claim][:schema]).to eq(schema.schema)
     end
 
-    it 'will return blank data' do 
-      expect(response[:base_claim][:data]).to eq({})
+    it 'will return the data given by the get base claim use case' do 
+      expect(response[:base_claim][:data]).to eq(data)
     end
   end
 end

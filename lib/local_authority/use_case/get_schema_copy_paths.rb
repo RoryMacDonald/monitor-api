@@ -1,11 +1,7 @@
 
 class LocalAuthority::UseCase::GetSchemaCopyPaths
-  def initialize(template_gateway:)
-    @template_gateway = template_gateway
-  end
-
-  def execute(type:)
-    { paths: get_paths(@template_gateway.find_by(type: type).schema) }
+  def execute(schema:)
+    { paths: get_paths(schema) }
   end
 
   private

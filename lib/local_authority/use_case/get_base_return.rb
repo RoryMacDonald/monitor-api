@@ -13,7 +13,7 @@ class LocalAuthority::UseCase::GetBaseReturn
     return_data = get_return_data_for_project(submitted_returns)
     project = @project_gateway.find_by(id: project_id)
     schema = @return_gateway.find_by(type: project.type)
-    data = populate_return(project, return_data)
+    data = populate_return(project, schema.schema, return_data)
     no_of_previous_returns = submitted_returns.nil? ? 0 : submitted_returns.length
 
     { base_return: { id: project_id, data: data, schema: schema.schema, no_of_previous_returns: no_of_previous_returns } }
@@ -37,17 +37,16 @@ class LocalAuthority::UseCase::GetBaseReturn
     end
   end
 
-  def populate_return(project, return_data)
+  def populate_return(project, schema, return_data)
     if project_has_returns?(return_data)
       @populate_return_template.execute(
-        type: project.type,
-        baseline_data: project.data,
-        return_data: return_data
+        schema: schema,
+        data: { baseline_data: project.data, return_data: return_data }
       )[:populated_data]
     else
       @populate_return_template.execute(
-        type: project.type,
-        baseline_data: project.data
+        schema: schema,
+        data: { baseline_data: project.data }
       )[:populated_data]
     end
   end

@@ -7,16 +7,15 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     @get_return_template_path_types = get_return_template_path_types
   end
 
-  def execute(type:, baseline_data:, return_data: {})
-    source_data = create_root(baseline_data, return_data)
+  def execute(schema:, data:)
     populated_return = {}
 
-    paths = @get_schema_copy_paths.execute(type: type)[:paths]
+    paths = @get_schema_copy_paths.execute(schema: schema)[:paths]
     paths.each do |copy_path_pair|
       populated_return = copy_data(
         copy_path_pair,
-        source_data,
-        type,
+        data,
+        schema,
         populated_return
       )
     end
@@ -26,11 +25,11 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
 
   private
 
-  def copy_data(copy_path_pair, source_data, type, return_data)
-    path_types = @get_return_template_path_types.execute(type: type, path: copy_path_pair[:to])[:path_types].drop(1)
+  def copy_data(copy_path_pair, data, schema, return_data)
+    path_types = @get_return_template_path_types.execute(schema: schema, path: copy_path_pair[:to])[:path_types].drop(1)
 
     found_data = @find_path_data.execute(
-      baseline_data: source_data,
+      data: data,
       path: copy_path_pair[:from]
     )[:found]
 
@@ -85,10 +84,6 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
       hash = {} if hash.nil?
       descend_hash_and_bury(hash, path, path_types, to_put)
     end
-  end
-
-  def create_root(baseline_data, return_data)
-    { baseline_data: baseline_data, return_data: return_data }
   end
 
   def last_node?(path)

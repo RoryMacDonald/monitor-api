@@ -2,7 +2,7 @@ describe LocalAuthority::UseCase::FindPathData do
 
   let(:use_case) do
     described_class.new.execute(
-      baseline_data: baseline_data,
+      data: baseline_data,
       path: path
     )
   end
@@ -188,8 +188,7 @@ describe LocalAuthority::UseCase::FindPathData do
                 puppies: 'Get me this data'
               }
             }
-          },
-          return_data: {}
+          }
         }
       end
       let(:path) do 

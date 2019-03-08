@@ -1,13 +1,8 @@
 class LocalAuthority::UseCase::GetReturnTemplatePathTypes
   using Common::Refinement::HashHasPath
 
-  def initialize(template_gateway:)
-    @template_gateway = template_gateway
-  end
-
-  def execute(type:, path:)
-    schema = @template_gateway.find_by(type: type)
-    { path_types: schema_types(schema.schema, path) }
+  def execute(schema:, path:)
+    { path_types: schema_types(schema, path) }
   end
 
   private

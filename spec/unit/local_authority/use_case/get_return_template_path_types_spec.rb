@@ -1,25 +1,8 @@
 describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
   let(:template_schema) { {} }
-  let(:found_template) do
-    Common::Domain::Template.new.tap do |t|
-      t.schema = template_schema
-    end
-  end
 
   let(:template_gateway_spy) { spy(find_by: found_template) }
-  let(:use_case) { described_class.new(template_gateway: template_gateway_spy) }
-
-  context 'calls the template gateway' do
-    it 'example 1' do
-      use_case.execute(type: 'hif', path: [])
-      expect(template_gateway_spy).to have_received(:find_by).with(type: 'hif')
-    end
-
-    it 'example 2' do
-      use_case.execute(type: 'hw35', path: [])
-      expect(template_gateway_spy).to have_received(:find_by).with(type: 'hw35')
-    end
-  end
+  let(:usecase) { described_class.new }
 
   context 'simple schema' do
     context 'example 1' do
@@ -36,12 +19,12 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hw35', path: [:noise])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: [:noise])[:path_types]
         expect(path_types).to eq(%i[object object])
       end
 
       it 'cant find an invalid path' do
-        path_types = use_case.execute(type: 'hw35', path: [:paws])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: [:paws])[:path_types]
         expect(path_types).to eq(%i[object not_found])
       end
     end
@@ -60,12 +43,12 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: [:dog])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: [:dog])[:path_types]
         expect(path_types).to eq(%i[object object])
       end
 
       it 'cant find an invalid path' do
-        path_types = use_case.execute(type: 'hif', path: [:cats])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: [:cats])[:path_types]
         expect(path_types).to eq(%i[object not_found])
       end
     end
@@ -94,12 +77,12 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: %i[cat noise averageAmplitude])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[cat noise averageAmplitude])[:path_types]
         expect(path_types).to eq(%i[object object object object])
       end
 
       it 'cant find an invalid path' do
-        path_types = use_case.execute(type: 'hif', path: %i[cat noise averagePitch])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[cat noise averagePitch])[:path_types]
         expect(path_types).to eq(%i[object object object not_found])
       end
     end
@@ -129,12 +112,12 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: %i[dog noise averageAmplitude])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[dog noise averageAmplitude])[:path_types]
         expect(path_types).to eq(%i[object object object object])
       end
 
       it 'cant find an invalid path' do
-        path_types = use_case.execute(type: 'hif', path: %i[cat tail wag])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[cat tail wag])[:path_types]
         expect(path_types).to eq(%i[object not_found])
       end
     end
@@ -161,12 +144,12 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: %i[dog noise])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[dog noise])[:path_types]
         expect(path_types).to eq(%i[object array object])
       end
 
       it 'cant find an invalid path' do
-        path_types = use_case.execute(type: 'hif', path: %i[dog tail])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[dog tail])[:path_types]
         expect(path_types).to eq(%i[object not_found])
       end
     end
@@ -191,12 +174,12 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: %i[cat noise])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[cat noise])[:path_types]
         expect(path_types).to eq(%i[object array object])
       end
 
       it 'cant find an invalid path' do
-        path_types = use_case.execute(type: 'hif', path: %i[cat tail])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[cat tail])[:path_types]
         expect(path_types).to eq(%i[object not_found])
       end
     end
@@ -231,7 +214,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: %i[cat])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[cat])[:path_types]
         expect(path_types).to eq(%i[object object])
       end
     end
@@ -264,7 +247,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: %i[dog])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[dog])[:path_types]
         expect(path_types).to eq(%i[object object])
       end
     end
@@ -307,7 +290,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: %i[cat noise])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[cat noise])[:path_types]
         expect(path_types).to eq(%i[object array object])
       end
     end
@@ -349,7 +332,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTypes do
       end
 
       it 'gets the correct path types' do
-        path_types = use_case.execute(type: 'hif', path: %i[dog sound])[:path_types]
+        path_types = usecase.execute(schema: template_schema, path: %i[dog sound])[:path_types]
         expect(path_types).to eq(%i[object array object])
       end
     end
