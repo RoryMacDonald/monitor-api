@@ -53,6 +53,7 @@ services:
       FF_FUNDING_PACKAGE_TAB: 'yes'
       FF_WIDER_SCHEME_TAB: 'yes'
       NO_LOGS: 'yes'
+      FF_CREATION: 'yes'
 
   notify_simulator:
     build: .
