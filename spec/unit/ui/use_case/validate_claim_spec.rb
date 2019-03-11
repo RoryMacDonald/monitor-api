@@ -53,7 +53,7 @@ describe UI::UseCase::ValidateClaim do
           {
             valid: false,
             invalid_paths: [[:first_node, :second_node]],
-            invalid_pretty_paths: [["First", "Second"]]
+            pretty_invalid_paths: [["First", "Second"]]
           }
         )
       end
@@ -94,7 +94,7 @@ describe UI::UseCase::ValidateClaim do
           {
             valid: false,
             invalid_paths: [[:a_node, 0], [:first_node, 1]],
-            invalid_pretty_paths: [["A", "Array of A"], ["B", "Array of B"]]
+            pretty_invalid_paths: [["A", "Array of A"], ["B", "Array of B"]]
           }
         )
       end
@@ -111,7 +111,7 @@ describe UI::UseCase::ValidateClaim do
         {
           valid: true,
           invalid_paths: [],
-          invalid_pretty_paths: []
+          pretty_invalid_paths: []
         }
       )
     end

@@ -23,7 +23,7 @@ describe 'validating a claim' do
       ].freeze
       expect(response[:valid]).to eq(false)
       expect(response[:invalid_paths]).to eq(INVALID_PATH)
-      expect(response[:invalid_pretty_paths]).to eq(PRETTY_INVALID_PATH)
+      expect(response[:pretty_invalid_paths]).to eq(PRETTY_INVALID_PATH)
     end
   end
 end
