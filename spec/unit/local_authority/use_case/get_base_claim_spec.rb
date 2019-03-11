@@ -159,7 +159,7 @@ describe LocalAuthority::UseCase::GetBaseClaim do
         )
       end
 
-      context 'multiple returns' do
+      context 'multiple claims' do
         let(:first_claim) do
           {
             id: 1,
@@ -200,6 +200,39 @@ describe LocalAuthority::UseCase::GetBaseClaim do
             data: {
               baseline_data: project.data,
               claim_data: last_claim[:data]
+            }
+          )
+        end
+      end
+
+      context 'only draft claims' do
+        let(:unsubmitted_claim) do
+          {
+            id: 1,
+            project_id: project_id,
+            status: 'Draft',
+            data: {
+              cow: 'Moo'
+            }
+          }
+        end
+  
+        let(:get_claims_spy) do
+          spy(execute:
+              {
+                claims:
+                [
+                  unsubmitted_claim
+                ]
+              }
+            )
+        end
+
+        it 'executes the populate return template use case' do
+          expect(populate_claim_spy).to have_received(:execute).with(
+            schema: schema.schema,
+            data: {
+              baseline_data: project.data,
             }
           )
         end

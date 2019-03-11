@@ -28,7 +28,9 @@ class LocalAuthority::UseCase::GetBaseClaim
 
   def find_last_claim(claims)
     return if claims.empty?
-    claims.select { |claim| claim[:status] === 'Submitted' }.last[:data]
+    submitted_claims = claims.select { |claim| claim[:status] === 'Submitted' }
+    return if submitted_claims.empty?
+    submitted_claims.last[:data]
   end
 
   def populate_claim(schema, baseline_data, claim_data)
