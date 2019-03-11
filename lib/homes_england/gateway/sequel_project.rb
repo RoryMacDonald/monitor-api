@@ -9,10 +9,7 @@ class HomesEngland::Gateway::SequelProject
     @database[:projects].insert(
       name: project.name,
       type: project.type,
-      data: Sequel.pg_json(project.data),
-      status: project.status,
       bid_id: project.bid_id,
-      version: 1
     )
   end
 
@@ -22,31 +19,8 @@ class HomesEngland::Gateway::SequelProject
     HomesEngland::Domain::Project.new.tap do |p|
       p.name = row[:name]
       p.type = row[:type]
-      p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
-      p.status = row[:status]
-      p.timestamp = row[:timestamp]
       p.bid_id = row[:bid_id]
-      p.version = row[:version]
     end
-  end
-
-  def update(id:, project:)
-    updated = @database[:projects]
-              .where(id: id)
-              .update(
-                name: project.name,
-                data: Sequel.pg_json(project.data),
-                status: project.status,
-                version: project.version,
-                timestamp: project.timestamp,
-                bid_id: project.bid_id
-              )
-
-    { success: updated.positive? }
-  end
-
-  def submit(id:, status:)
-    @database[:projects].where(id: id).update(status: status)
   end
 
   def all()
@@ -55,11 +29,7 @@ class HomesEngland::Gateway::SequelProject
         p.id = row[:id]
         p.name = row[:name]
         p.type = row[:type]
-        p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
-        p.status = row[:status]
-        p.timestamp = row[:timestamp]
         p.bid_id = row[:bid_id]
-        p.version = row[:version]
       end
     end
   end

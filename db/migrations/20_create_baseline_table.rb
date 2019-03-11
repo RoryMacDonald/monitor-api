@@ -7,6 +7,7 @@ Sequel.migration do
       column :project_id, :Bignum, index: true
       column :status, String
       column :version, Integer
+      column :timestamp, Integer, default: 0
       column :data, 'json'
     end
   end
