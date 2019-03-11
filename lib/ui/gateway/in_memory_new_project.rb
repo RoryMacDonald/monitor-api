@@ -3,7 +3,9 @@ class UI::Gateway::InMemoryNewProject
     if type == 'hif'
       create_project('mvf')
     elsif type == 'ac'
-      create_project('ac')      
+      create_project('ac')
+    elsif type == 'ff'
+      create_project('ff')
     else
       return nil
     end
