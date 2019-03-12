@@ -1,4 +1,4 @@
-fdescribe LocalAuthority::UseCase::PcsPopulateClaim do
+describe LocalAuthority::UseCase::PcsPopulateClaim do
   let(:pcs_gateway_spy) { nil }
 
   let(:usecase) do
@@ -151,7 +151,7 @@ fdescribe LocalAuthority::UseCase::PcsPopulateClaim do
         end
       end
     end
-    
+
     context 'hif' do
       context 'example 1' do
         let(:pcs_bid) do
