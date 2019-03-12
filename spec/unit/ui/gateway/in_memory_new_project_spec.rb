@@ -1,6 +1,8 @@
 describe UI::Gateway::InMemoryNewProject do
   context 'with environment variables enabled' do
+    let (:ff_enabled) { ENV['FF_CREATION'] }
     before do
+      ff_enabled
       ENV['FF_CREATION'] = 'yes'
     end
     after do
@@ -33,6 +35,14 @@ describe UI::Gateway::InMemoryNewProject do
   end
 
   context 'without environment variables enabled' do
+    let (:ff_disabled) { ENV['FF_CREATION'] }
+    before do
+      ff_disabled
+      ENV['FF_CREATION'] = nil
+    end
+    after do
+      ENV['FF_CREATION'] = 'yes'
+    end
     it 'Does not return a blank project for ff' do
       gateway = described_class.new
       project = gateway.find_by(type: 'ff')
