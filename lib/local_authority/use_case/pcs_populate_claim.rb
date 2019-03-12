@@ -6,7 +6,7 @@ class LocalAuthority::UseCase::PcsPopulateClaim
 
   def execute(claim_id:)
     found_claim = @get_claim_core.execute(claim_id: claim_id)
-    unless ENV['PCS'].nil?
+    unless ENV['PCS'].nil? || found_claim[:status] == 'Submitted'
       pcs_data = @pcs_gateway.get_project(bid_id: found_claim[:bid_id])
       unless pcs_data.nil?
         total = get_spend_to_date(pcs_data)

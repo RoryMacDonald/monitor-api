@@ -82,6 +82,68 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
       spy(get_project: pcs_bid)
     end
 
+    context 'submitted' do
+      context 'example 1' do
+        let(:pcs_bid) { HomesEngland::Domain::PcsBid.new }
+        let(:get_claim_core_spy) do
+          spy(
+            execute: {
+              bid_id: 'HIF/MV/151',
+              status: 'Submitted',
+              type: 'hif',
+              data: {
+                claimKey: "claimValue"
+              }
+            }
+          )
+        end
+
+        it 'does not call the pcs gateway' do
+          expect(pcs_gateway_spy).not_to have_received(:get_project)
+        end
+
+        it 'is inert' do
+          expect(usecase.execute(claim_id: 15)).to eq({
+            bid_id: 'HIF/MV/151',
+            status: 'Submitted',
+            type: 'hif',
+            data: { claimKey: 'claimValue' }
+          })
+        end
+      end
+
+      context 'example 1' do
+        let(:pcs_bid) { HomesEngland::Domain::PcsBid.new }
+        let(:get_claim_core_spy) do
+          spy(
+            execute: {
+              bid_id: 'AC/MV/11',
+              status: 'Submitted',
+              type: 'ac',
+              data: {
+                shouldNotBeChanged: 'is not changed'
+              }
+            }
+          )
+        end
+
+        it 'does not call the pcs gateway' do
+          expect(pcs_gateway_spy).not_to have_received(:get_project)
+        end
+
+        it 'is inert' do
+          expect(usecase.execute(claim_id: 15)).to eq({
+            bid_id: 'AC/MV/11',
+            status: 'Submitted',
+            type: 'ac',
+            data: {
+              shouldNotBeChanged: 'is not changed'
+            }
+          })
+        end
+      end
+    end
+
     context 'not found' do
       let(:pcs_bid) { nil }
       context 'example 1' do
