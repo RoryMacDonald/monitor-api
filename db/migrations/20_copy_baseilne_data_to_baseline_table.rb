@@ -9,16 +9,13 @@ Sequel.migration do
         project_id: project[:id],
         data: project[:data],
         status: project[:status],
-        timestamp: project[:timestamp],
-        version: project[:version]
+        timestamp: project[:timestamp]
       )
     end
 
     alter_table(:projects) do
       drop_column :data
-      drop_column :status
       drop_column :timestamp
-      drop_column :version
     end
   end
 
@@ -27,17 +24,13 @@ Sequel.migration do
     
     alter_table(:projects) do
       add_column :data, 'json'
-      add_column :status, String
       add_column :timestamp, Integer, default: 0
-      add_column :version, Integer
     end
 
     baselines.each do |baseline|
       from(:projects).where(id: baseline[:project_id]).update(
         data: baseline[:data],
-        status: baseline[:status],
         timestamp: baseline[:timestamp],
-        verison: baseline[:version]
       )
 
       from(:baselines).where(id: baseline[:id]).delete

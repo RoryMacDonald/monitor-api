@@ -1,4 +1,4 @@
-fdescribe HomesEngland::UseCase::AmendBaseline do
+describe HomesEngland::UseCase::AmendBaseline do
   let(:project_gateway) do
     spy(
       update: nil,
