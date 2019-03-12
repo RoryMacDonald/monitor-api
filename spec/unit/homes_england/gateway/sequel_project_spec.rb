@@ -1,4 +1,4 @@
-fdescribe HomesEngland::Gateway::SequelProject do
+describe HomesEngland::Gateway::SequelProject do
   include_context 'with database'
 
   let(:project_gateway) { described_class.new(database: database) }

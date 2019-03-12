@@ -4,9 +4,11 @@ require 'rspec'
 
 describe HomesEngland::UseCase::CreateNewProject do
   let(:project_gateway) { double(create: project_id) }
+  let(:baseline_gateway) { spy }
   let(:use_case) do
     described_class.new(
-      project_gateway: project_gateway
+      project_gateway: project_gateway,
+      baseline_gateway: baseline_gateway
     )
   end
   let(:response) { use_case.execute(name: name, type: type, baseline: baseline, bid_id: bid_id) }
@@ -28,12 +30,19 @@ describe HomesEngland::UseCase::CreateNewProject do
       expect(project_gateway).to have_received(:create) do |project|
         expect(project.name).to eq('Cat HIF')
         expect(project.type).to eq('hif')
-        expect(project.data).to eq(key: 'value')
         expect(project.bid_id).to eq('HIF/MV/121')
       end
     end
 
-    it 'returns the id from the gateway' do
+    it 'create a baseline with version 1' do
+      expect(baseline_gateway).to have_received(:create) do |baseline|
+        expect(baseline.project_id).to eq(0)
+        expect(baseline.data).to eq(key: 'value')
+        expect(baseline.version).to eq(1)
+      end
+    end
+
+    it 'returns the id from the project gateway' do
       expect(response).to eq(id: 0)
     end
 
@@ -56,8 +65,15 @@ describe HomesEngland::UseCase::CreateNewProject do
       expect(project_gateway).to have_received(:create) do |project|
         expect(project.name).to eq('Other cat project')
         expect(project.type).to eq('cats')
-        expect(project.data).to eq(cat: 'meow')
         expect(project.bid_id).to eq('HIF/MV/111')
+      end
+    end
+
+    it 'create a baseline with version 1' do
+      expect(baseline_gateway).to have_received(:create) do |baseline|
+        expect(baseline.project_id).to eq(42)
+        expect(baseline.data).to eq(cat: 'meow')
+        expect(baseline.version).to eq(1)
       end
     end
 

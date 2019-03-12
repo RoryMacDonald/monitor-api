@@ -1,12 +1,23 @@
-describe HomesEngland::UseCase::AmendBaseline do
+fdescribe HomesEngland::UseCase::AmendBaseline do
   let(:project_gateway) do
     spy(
       update: nil,
       find_by: found_project
     )
   end
+
+  let(:baseline_gateway) do 
+    spy(
+      versions_for: [last_baseline]
+    )
+  end
   
-  let(:usecase) { described_class.new(project_gateway: project_gateway)}
+  let(:usecase) do
+    described_class.new(
+      project_gateway: project_gateway,
+      baseline_gateway: baseline_gateway
+    )
+  end
 
   context 'example 1' do
     let(:found_project) do
@@ -14,12 +25,19 @@ describe HomesEngland::UseCase::AmendBaseline do
         project.name = 'My HIF Project'
         project.type = 'hif'
         project.status = 'Submitted'
-        project.timestamp = timestamp
-        project.version = 1
         project.bid_id = 'HIF/MV/1'
         project.data = {}
       end
     end
+
+    let(:last_baseline) do
+      HomesEngland::Domain::Baseline.new.tap do |base|
+        base.status = 'Submitted'
+        base.timestamp = timestamp
+        base.version = 1
+      end
+    end
+
     context 'correct timestamp' do
       let(:timestamp) do
         time_now = Time.now
@@ -27,28 +45,24 @@ describe HomesEngland::UseCase::AmendBaseline do
         time_now.to_i - 3
       end
 
-      it 'calls the find method on the gateway' do
+      it 'gets the last submitted baseline' do
         usecase.execute(project_id: 1, data: {}, timestamp: timestamp)
-        expect(project_gateway).to have_received(:find_by).with(id: 1)
+        expect(baseline_gateway).to have_received(:versions_for).with(project_id: 1)
       end
       
-      it 'calls the update method on the gateway with the new data and incremented version' do
+      it 'create a new baseline with the new data and incremented version' do
         usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: timestamp)
-        expect(project_gateway).to have_received(:update) do |project|
-          expect(project[:project].data).to eq(myData: 'myValue')
-          expect(project[:project].version).to eq(2)
-
-          expect(project[:project].name).to eq('My HIF Project')
-          expect(project[:project].type).to eq('hif')
-          expect(project[:project].status).to eq('Submitted')
-          expect(project[:project].bid_id).to eq('HIF/MV/1')
+        expect(baseline_gateway).to have_received(:create) do |project|
+          expect(project[:baseline].data).to eq(myData: 'myValue')
+          expect(project[:baseline].version).to eq(2)
+          expect(project[:baseline].status).to eq('Draft')
         end
       end
 
-      it 'calls the update method on the gateway with a new timestamp' do
+      it 'calls the create method on the gateway with a new timestamp' do
         usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: timestamp)
-        expect(project_gateway).to have_received(:update) do |project|
-          expect(project[:project].timestamp).to be > timestamp
+        expect(baseline_gateway).to have_received(:create) do |project|
+          expect(project[:baseline].timestamp).to be > timestamp
         end
       end
       
@@ -68,7 +82,7 @@ describe HomesEngland::UseCase::AmendBaseline do
 
       it 'doesnt call update on the project gateway' do 
         usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: 250)
-        expect(project_gateway).not_to have_received(:update)        
+        expect(baseline_gateway).not_to have_received(:create)        
       end
 
       it 'returns an incorrect timestamp error' do 
@@ -91,6 +105,14 @@ describe HomesEngland::UseCase::AmendBaseline do
       end
     end
 
+    let(:last_baseline) do
+      HomesEngland::Domain::Baseline.new.tap do |base|
+        base.status = 'Submitted'
+        base.timestamp = 22226666
+        base.version = 7
+      end
+    end
+
     let(:timestamp) do
       time_now = Time.now
       Timecop.freeze(time_now)
@@ -99,19 +121,16 @@ describe HomesEngland::UseCase::AmendBaseline do
       
     it 'calls the find method on the gateway' do
       usecase.execute(project_id: 3, data: {}, timestamp: timestamp)
-      expect(project_gateway).to have_received(:find_by).with(id: 3)
+      expect(baseline_gateway).to have_received(:versions_for).with(project_id: 3)
     end
 
     it 'calls the update method on the gateway' do
       usecase.execute(project_id: 3, data: { newData: 'differentValues' }, timestamp: timestamp)
-      expect(project_gateway).to have_received(:update) do |project|
-        expect(project[:project].data).to eq(newData: 'differentValues')
-        expect(project[:project].version).to eq(8)
+      expect(baseline_gateway).to have_received(:create) do |project|
+        expect(project[:baseline].data).to eq(newData: 'differentValues')
+        expect(project[:baseline].version).to eq(8)
         
-        expect(project[:project].name).to eq('My AC Project')
-        expect(project[:project].type).to eq('ac')
-        expect(project[:project].status).to eq('Submitted')
-        expect(project[:project].bid_id).to eq('HIF/MV/1')
+        expect(project[:baseline].status).to eq('Draft')
       end
     end
 

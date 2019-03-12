@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-fdescribe 'Migration 21' do
+describe 'Migration 21' do
   include_context 'with database'
 
   def synchronize_to_non_migrated_version

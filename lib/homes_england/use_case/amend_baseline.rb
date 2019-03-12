@@ -1,24 +1,24 @@
 class HomesEngland::UseCase::AmendBaseline
-  def initialize(project_gateway:)
+  def initialize(project_gateway:, baseline_gateway:)
     @project_gateway = project_gateway
+    @baseline_gateway = baseline_gateway
   end
 
   def execute(project_id:, data:, timestamp:)
-    found_project = @project_gateway.find_by(id: project_id)
+    last_version = @baseline_gateway.versions_for(project_id: project_id).last
     
-    return { success: false, errors: [:incorrect_timestamp] } if timestamp < found_project.timestamp
+    return { success: false, errors: [:incorrect_timestamp] } if timestamp < last_version.timestamp
 
-    project = HomesEngland::Domain::Project.new.tap do |project|
-      project.version = found_project.version + 1
-      project.data = data
 
-      project.name = found_project.name
-      project.type = found_project.type
-      project.status = found_project.status
-      project.timestamp = Time.now.to_i
-      project.bid_id = found_project.bid_id
+    new_baseline = HomesEngland::Domain::Baseline.new.tap do |baseline|
+      baseline.version = last_version.version + 1
+      baseline.data = data
+      baseline.project_id = project_id
+      baseline.status = 'Draft'
+      baseline.timestamp = Time.now.to_i
     end
-    @project_gateway.update(id: project_id, project: project)
+
+    @baseline_gateway.create(baseline: new_baseline)
 
     { success: true }
   end
