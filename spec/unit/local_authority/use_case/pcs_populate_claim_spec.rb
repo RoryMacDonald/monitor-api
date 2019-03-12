@@ -82,7 +82,76 @@ fdescribe LocalAuthority::UseCase::PcsPopulateClaim do
       spy(get_project: pcs_bid)
     end
 
+    context 'not found' do
+      let(:pcs_bid) { nil }
+      context 'example 1' do
+        let(:get_claim_core_spy) do
+          spy(
+            execute: {
+              bid_id: 'HIF/MV/151',
+              type: 'hif',
+              data: {
+                claimKey: "claimValue"
+              }
+            }
+          )
+        end
 
+        it 'gets the claim' do
+          usecase.execute(claim_id: 15)
+          expect(get_claim_core_spy).to have_received(:execute).with(claim_id: 15)
+        end
+
+        it 'calls the pcs gateway with the bid id' do
+          usecase.execute(claim_id: 15)
+          expect(pcs_gateway_spy).to have_received(:get_project).with(bid_id: 'HIF/MV/151')
+        end
+
+        it 'is inert' do
+          response = usecase.execute(claim_id: 15)
+          expect(response[:data]).to eq(
+            {
+              claimKey: "claimValue"
+            }
+          )
+        end
+      end
+
+      context 'example 2' do
+        let(:get_claim_core_spy) do
+          spy(
+            execute: {
+              bid_id: 'AC/MV/15',
+              type: 'ac',
+              data: {
+                key: "value"
+              }
+            }
+          )
+        end
+
+        it 'gets the claim' do
+          usecase.execute(claim_id: 33)
+          expect(get_claim_core_spy).to have_received(:execute).with(claim_id: 33)
+        end
+
+        it 'calls the pcs gateway with the bid id' do
+          usecase.execute(claim_id: 33)
+          expect(pcs_gateway_spy).to have_received(:get_project).with(bid_id: 'AC/MV/15')
+        end
+
+
+        it 'is inert' do
+          response = usecase.execute(claim_id: 33)
+          expect(response[:data]).to eq(
+            {
+              key: "value"
+            }
+          )
+        end
+      end
+    end
+    
     context 'hif' do
       context 'example 1' do
         let(:pcs_bid) do
