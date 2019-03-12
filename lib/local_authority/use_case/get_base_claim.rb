@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 class LocalAuthority::UseCase::GetBaseClaim
-  def initialize(claim_gateway:, project_gateway:, populate_return_template:, get_claims:)
+  def initialize(claim_gateway:, find_project:, populate_return_template:, get_claims:)
     @claim_gateway = claim_gateway
-    @project_gateway = project_gateway
+    @find_project = find_project
     @populate_return_template = populate_return_template
     @get_claims = get_claims
   end
 
   def execute(project_id:)
-    project = @project_gateway.find_by(id: project_id)
-    claim_schema = @claim_gateway.find_by(type: project.type).schema
+    project = @find_project.execute(id: project_id)
+
+    claim_schema = @claim_gateway.find_by(type: project[:type]).schema
     claims = @get_claims.execute(project_id: project_id)[:claims]
     
     claim_data = find_last_claim(claims)
-    data = populate_claim(claim_schema, project.data, claim_data)
+    data = populate_claim(claim_schema, project[:data], claim_data)
 
     {
       base_claim: {

@@ -21,7 +21,7 @@ class LocalAuthority::UseCases
     builder.define_use_case :get_base_return do
       LocalAuthority::UseCase::GetBaseReturn.new(
         return_gateway: builder.get_gateway(:return_template),
-        project_gateway: builder.get_gateway(:project),
+        find_project: builder.get_use_case(:find_project),
         populate_return_template: builder.get_use_case(:populate_return_template),
         get_returns: builder.get_use_case(:get_returns)
       )
@@ -192,7 +192,7 @@ class LocalAuthority::UseCases
     builder.define_use_case :get_base_claim do
       LocalAuthority::UseCase::GetBaseClaim.new(
         claim_gateway: builder.get_gateway(:claim_template),
-        project_gateway: builder.get_gateway(:project),
+        find_project: builder.get_use_case(:find_project),
         populate_return_template: builder.get_use_case(:populate_return_template),
         get_claims: builder.get_use_case(:get_claims)
       )

@@ -27,7 +27,7 @@ describe HomesEngland::Gateway::SequelProject do
 
     context 'submitting the project' do
       it 'sets the status as submitted' do 
-        project_gateway.submit(id: project_id)
+        project_gateway.submit(id: project_id, status: 'Submitted')
         submitted_project = project_gateway.find_by(id: project_id)
 
         expect(submitted_project.status).to eq('Submitted')

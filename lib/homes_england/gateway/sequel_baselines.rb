@@ -8,8 +8,7 @@ class HomesEngland::Gateway::SequelBaseline
       project_id: baseline.project_id,
       data: Sequel.pg_json(baseline.data),
       status: 'Draft',
-      version: baseline.version,
-      timestamp: baseline.timestamp
+      version: baseline.version
     )
   end
 

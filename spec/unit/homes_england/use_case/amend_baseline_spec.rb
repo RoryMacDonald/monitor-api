@@ -52,17 +52,17 @@ describe HomesEngland::UseCase::AmendBaseline do
       
       it 'create a new baseline with the new data and incremented version' do
         usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: timestamp)
-        expect(baseline_gateway).to have_received(:create) do |project|
-          expect(project[:baseline].data).to eq(myData: 'myValue')
-          expect(project[:baseline].version).to eq(2)
-          expect(project[:baseline].status).to eq('Draft')
+        expect(baseline_gateway).to have_received(:create) do |baseline|
+          expect(baseline.data).to eq(myData: 'myValue')
+          expect(baseline.version).to eq(2)
+          expect(baseline.status).to eq('Draft')
         end
       end
 
       it 'calls the create method on the gateway with a new timestamp' do
         usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: timestamp)
-        expect(baseline_gateway).to have_received(:create) do |project|
-          expect(project[:baseline].timestamp).to be > timestamp
+        expect(baseline_gateway).to have_received(:create) do |baseline|
+          expect(baseline.timestamp).to be > timestamp
         end
       end
       
@@ -126,11 +126,11 @@ describe HomesEngland::UseCase::AmendBaseline do
 
     it 'calls the update method on the gateway' do
       usecase.execute(project_id: 3, data: { newData: 'differentValues' }, timestamp: timestamp)
-      expect(baseline_gateway).to have_received(:create) do |project|
-        expect(project[:baseline].data).to eq(newData: 'differentValues')
-        expect(project[:baseline].version).to eq(8)
+      expect(baseline_gateway).to have_received(:create) do |baseline|
+        expect(baseline.data).to eq(newData: 'differentValues')
+        expect(baseline.version).to eq(8)
         
-        expect(project[:baseline].status).to eq('Draft')
+        expect(baseline.status).to eq('Draft')
       end
     end
 

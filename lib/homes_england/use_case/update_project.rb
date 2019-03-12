@@ -12,7 +12,7 @@ class HomesEngland::UseCase::UpdateProject
     current_baseline.status = 'Draft'
     current_baseline.timestamp = current_time
 
-    successful = @baseline_gateway.update(id: current_baseline.id, baseline: current_baseline)[:success]
+    @baseline_gateway.update(id: current_baseline.id, baseline: current_baseline)
 
     { successful: true, errors: [], timestamp:  current_time}
   end

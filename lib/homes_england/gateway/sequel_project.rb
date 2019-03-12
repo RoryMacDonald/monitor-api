@@ -37,7 +37,7 @@ class HomesEngland::Gateway::SequelProject
     end
   end
 
-  def submit(id:)
-    @database[:projects].where(id: id).update(status: 'Submitted')
+  def submit(id:, status:)
+    @database[:projects].where(id: id).update(status: status)
   end
 end

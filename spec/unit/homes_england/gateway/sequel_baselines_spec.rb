@@ -75,7 +75,6 @@ describe HomesEngland::Gateway::SequelBaseline do
           baseline.project_id = 1
           baseline.data = { cats: "meow" }
           baseline.version = 2
-          baseline.timestamp = 0
         end
       end
 

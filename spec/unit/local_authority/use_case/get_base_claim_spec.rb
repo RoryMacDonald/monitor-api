@@ -1,13 +1,13 @@
 describe LocalAuthority::UseCase::GetBaseClaim do
   let(:claim_gateway) { spy(find_by: schema) }
-  let(:project_gateway_spy) { spy(find_by: project) }
+  let(:find_project_spy) { spy(execute: project) }
   let(:populate_claim_spy) { spy(execute: populated_claim) }
 
 
   let(:use_case) do
     described_class.new(
       claim_gateway: claim_gateway,
-      project_gateway: project_gateway_spy,
+      find_project: find_project_spy,
       populate_return_template: populate_claim_spy,
       get_claims: get_claims_spy 
     )
@@ -33,24 +33,24 @@ describe LocalAuthority::UseCase::GetBaseClaim do
       let(:project_id) { 1 }
       let(:data) { { description: 'Super secret project' } }
       let(:project) do
-        HomesEngland::Domain::Project.new.tap do |p|
-          p.type = 'hif'
-          p.data = data
-        end
+        {
+          type: 'hif',
+          data: data
+        }
       end
 
       let(:populated_claim) { { populated_data: { cats: 'meow' } } }
 
       it 'will find the project in the Project Gateway' do
-        expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
+        expect(find_project_spy).to have_received(:execute).with(id: project_id)
       end
 
       it 'will call find_by method on Claim Gateway' do
-        expect(claim_gateway).to have_received(:find_by).with(type: project.type)
+        expect(claim_gateway).to have_received(:find_by).with(type: project[:type])
       end
 
       it 'will populate the claim for the project' do
-        expect(populate_claim_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
+        expect(populate_claim_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project[:data] })
       end
 
       it 'will return a hash with correct id' do
@@ -72,24 +72,24 @@ describe LocalAuthority::UseCase::GetBaseClaim do
       let(:project_id) { 255 }
       let(:data) { { name: 'Extra secret project' } }
       let(:project) do
-        HomesEngland::Domain::Project.new.tap do |p|
-          p.type = 'ac'
-          p.data = data
-        end
+        {
+          type: 'ac',
+          data: data
+        }
       end
       let(:populated_claim) { { populated_data: { cows: 'moo' } } }
 
 
       it 'will find the project in the Project Gateway' do
-        expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
+        expect(find_project_spy).to have_received(:execute).with(id: project_id)
       end
 
       it 'will call find_by method on Claim Gateway' do
-        expect(claim_gateway).to have_received(:find_by).with(type: project.type)
+        expect(claim_gateway).to have_received(:find_by).with(type: project[:type])
       end
 
       it 'will populate the claim for the project' do
-        expect(populate_claim_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
+        expect(populate_claim_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project[:data] })
       end
 
       it 'will return a hash with correct id' do
@@ -112,10 +112,10 @@ describe LocalAuthority::UseCase::GetBaseClaim do
     let(:data) { { description: 'Super secret project' } }
 
     let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.type = 'hif'
-        p.data = data
-      end
+      {
+        type: 'hif',
+        data: data
+      }
     end
 
     let(:get_claims_spy) do
@@ -153,7 +153,7 @@ describe LocalAuthority::UseCase::GetBaseClaim do
         expect(populate_claim_spy).to have_received(:execute).with(
           schema: schema.schema,
           data: {
-            baseline_data: project.data,
+            baseline_data: project[:data],
             claim_data: last_claim[:data]
           }
         )
@@ -198,7 +198,7 @@ describe LocalAuthority::UseCase::GetBaseClaim do
           expect(populate_claim_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
-              baseline_data: project.data,
+              baseline_data: project[:data],
               claim_data: last_claim[:data]
             }
           )
@@ -227,7 +227,7 @@ describe LocalAuthority::UseCase::GetBaseClaim do
         expect(populate_claim_spy).to have_received(:execute).with(
           schema: schema.schema,
           data: {
-            baseline_data: project.data,
+            baseline_data: project[:data],
             claim_data: last_claim[:data]
           }
         )
@@ -272,7 +272,7 @@ describe LocalAuthority::UseCase::GetBaseClaim do
           expect(populate_claim_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
-              baseline_data: project.data,
+              baseline_data: project[:data],
               claim_data: last_submitted_claim[:data]
             }
           )
@@ -317,7 +317,7 @@ describe LocalAuthority::UseCase::GetBaseClaim do
           expect(populate_claim_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
-              baseline_data: project.data,
+              baseline_data: project[:data],
               claim_data: last_claim[:data]
             }
           )

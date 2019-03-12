@@ -116,7 +116,8 @@ class HomesEngland::UseCases
 
     builder.define_use_case :amend_baseline do
       HomesEngland::UseCase::AmendBaseline.new(
-        project_gateway: builder.get_gateway(:project)
+        project_gateway: builder.get_gateway(:project),
+        baseline_gateway: builder.get_gateway(:baseline)
       )
     end
   end
