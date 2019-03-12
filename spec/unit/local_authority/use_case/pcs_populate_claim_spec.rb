@@ -1,5 +1,14 @@
-describe LocalAuthority::UseCase::PcsPopulateClaim do
-  let(:pcs_gateway_spy) { nil }
+fdescribe LocalAuthority::UseCase::PcsPopulateClaim do
+  let(:pcs_bid) { nil }
+  let(:pcs_gateway_spy) do
+    spy(get_project: pcs_bid)
+  end
+
+  let(:get_claim_core_spy) do
+    spy(
+      execute: claim_data
+    )
+  end
 
   let(:usecase) do
     described_class.new(
@@ -14,15 +23,13 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
     end
 
     context 'example 1' do
-      let(:get_claim_core_spy) do
-        spy(
-          execute: {
-            type: 'hif',
-            data: {
-              claimKey: "claimValue"
-            }
+      let(:claim_data) do
+        {
+          type: 'hif',
+          data: {
+            claimKey: "claimValue"
           }
-        )
+        }
       end
 
       it 'gets the claim' do
@@ -41,15 +48,13 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
     end
 
     context 'example 2' do
-      let(:get_claim_core_spy) do
-        spy(
-          execute: {
-            type: 'ac',
-            data: {
-              key: "value"
-            }
+      let(:claim_data) do
+        {
+          type: 'ac',
+          data: {
+            key: "value"
           }
-        )
+        }
       end
 
       it 'gets the claim' do
@@ -77,25 +82,18 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
       ENV['PCS'] = nil
     end
 
-
-    let(:pcs_gateway_spy) do
-      spy(get_project: pcs_bid)
-    end
-
     context 'submitted' do
       context 'example 1' do
         let(:pcs_bid) { HomesEngland::Domain::PcsBid.new }
-        let(:get_claim_core_spy) do
-          spy(
-            execute: {
-              bid_id: 'HIF/MV/151',
-              status: 'Submitted',
-              type: 'hif',
-              data: {
-                claimKey: "claimValue"
-              }
+        let(:claim_data) do
+          {
+            bid_id: 'HIF/MV/151',
+            status: 'Submitted',
+            type: 'hif',
+            data: {
+              claimKey: "claimValue"
             }
-          )
+          }
         end
 
         it 'does not call the pcs gateway' do
@@ -114,17 +112,15 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
 
       context 'example 1' do
         let(:pcs_bid) { HomesEngland::Domain::PcsBid.new }
-        let(:get_claim_core_spy) do
-          spy(
-            execute: {
-              bid_id: 'AC/MV/11',
-              status: 'Submitted',
-              type: 'ac',
-              data: {
-                shouldNotBeChanged: 'is not changed'
-              }
+        let(:claim_data) do
+          {
+            bid_id: 'AC/MV/11',
+            status: 'Submitted',
+            type: 'ac',
+            data: {
+              shouldNotBeChanged: 'is not changed'
             }
-          )
+          }
         end
 
         it 'does not call the pcs gateway' do
@@ -147,16 +143,14 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
     context 'not found' do
       let(:pcs_bid) { nil }
       context 'example 1' do
-        let(:get_claim_core_spy) do
-          spy(
-            execute: {
-              bid_id: 'HIF/MV/151',
-              type: 'hif',
-              data: {
-                claimKey: "claimValue"
-              }
+        let(:claim_data) do
+          {
+            bid_id: 'HIF/MV/151',
+            type: 'hif',
+            data: {
+              claimKey: "claimValue"
             }
-          )
+          }
         end
 
         it 'gets the claim' do
@@ -180,16 +174,14 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
       end
 
       context 'example 2' do
-        let(:get_claim_core_spy) do
-          spy(
-            execute: {
-              bid_id: 'AC/MV/15',
-              type: 'ac',
-              data: {
-                key: "value"
-              }
+        let(:claim_data) do
+          {
+            bid_id: 'AC/MV/15',
+            type: 'ac',
+            data: {
+              key: "value"
             }
-          )
+          }
         end
 
         it 'gets the claim' do
@@ -248,22 +240,20 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
           end
         end
 
-        let(:get_claim_core_spy) do
-          spy(
-            execute: {
-              id: 1,
-              bid_id: 'HIF/MV/151',
-              type: 'hif',
-              project_id: 2,
-              status: 'Draft',
-              data: {
-                claimSummary: {
-                  otherData: 'value'
-                },
-                claimKey: 'claimValue'
-              }
+        let(:claim_data) do
+          {
+            id: 1,
+            bid_id: 'HIF/MV/151',
+            type: 'hif',
+            project_id: 2,
+            status: 'Draft',
+            data: {
+              claimSummary: {
+                otherData: 'value'
+              },
+              claimKey: 'claimValue'
             }
-          )
+          }
         end
 
         it 'calls the pcs gateway with the bid id' do
@@ -322,19 +312,17 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
           end
         end
 
-        let(:get_claim_core_spy) do
-          spy(
-            execute: {
-              id: 3,
-              bid_id: 'HIF/MV/11',
-              type: 'hif',
-              status: 'Draft',
-              project_id: 4,
-              data: {
-                claimKey: "claimValue"
-              }
+        let(:claim_data) do
+          {
+            id: 3,
+            bid_id: 'HIF/MV/11',
+            type: 'hif',
+            status: 'Draft',
+            project_id: 4,
+            data: {
+              claimKey: "claimValue"
             }
-          )
+          }
         end
 
         it 'calls the pcs gateway with the bid id' do
@@ -392,19 +380,17 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
           end
         end
 
-        let(:get_claim_core_spy) do
-          spy(
-            execute: {
-              id: 1,
-              bid_id: 'AC/MV/151',
-              type: 'ac',
-              project_id: 2,
-              status: 'Draft',
-              data: {
-                claimKey: 'claimValue',
-              }
+        let(:claim_data) do
+          {
+            id: 1,
+            bid_id: 'AC/MV/151',
+            type: 'ac',
+            project_id: 2,
+            status: 'Draft',
+            data: {
+              claimKey: 'claimValue',
             }
-          )
+          }
         end
 
         it 'calls the pcs gateway with the bid id' do
@@ -460,19 +446,17 @@ describe LocalAuthority::UseCase::PcsPopulateClaim do
           end
         end
 
-        let(:get_claim_core_spy) do
-          spy(
-            execute: {
-              id: 3,
-              bid_id: 'AC/MV/11',
-              type: 'ac',
-              status: 'Draft',
-              project_id: 4,
-              data: {
-                claimKey: "claimValue"
-              }
+        let(:claim_data) do
+          {
+            id: 3,
+            bid_id: 'AC/MV/11',
+            type: 'ac',
+            status: 'Draft',
+            project_id: 4,
+            data: {
+              claimKey: "claimValue"
             }
-          )
+          }
         end
 
         it 'calls the pcs gateway with the bid id' do
