@@ -8,6 +8,7 @@ describe HomesEngland::Gateway::SequelProject do
       HomesEngland::Domain::Project.new.tap do |p|
         p.name = 'Cat project'
         p.type = 'Animals'
+        p.status = 'Draft'
         p.bid_id = 'AC/MV/1'
       end
     end
@@ -19,7 +20,17 @@ describe HomesEngland::Gateway::SequelProject do
 
         expect(created_project.name).to eq('Cat project')
         expect(created_project.type).to eq('Animals')
+        expect(created_project.status).to eq('Draft')
         expect(created_project.bid_id).to eq('AC/MV/1')
+      end
+    end
+
+    context 'submitting the project' do
+      it 'sets the status as submitted' do 
+        project_gateway.submit(id: project_id)
+        submitted_project = project_gateway.find_by(id: project_id)
+
+        expect(submitted_project.status).to eq('Submitted')
       end
     end
   end
@@ -53,6 +64,7 @@ describe HomesEngland::Gateway::SequelProject do
         HomesEngland::Domain::Project.new.tap do |p|
           p.name = 'New project'
           p.type = 'FarmAnimals'
+          p.status = 'Draft'
           p.bid_id = 'HIF/MV/7'
         end
       end
@@ -60,6 +72,7 @@ describe HomesEngland::Gateway::SequelProject do
         HomesEngland::Domain::Project.new.tap do |p|
           p.name = 'Second New project'
           p.type = 'UrbanAnimals'
+          p.status = 'Submitted'
           p.bid_id = 'HIF/MV/9'
         end
       end
@@ -69,10 +82,12 @@ describe HomesEngland::Gateway::SequelProject do
         all_projects = project_gateway.all
         expect(all_projects[0].name).to eq('New project')
         expect(all_projects[0].type).to eq('FarmAnimals')
+        expect(all_projects[0].status).to eq('Draft')
         expect(all_projects[0].bid_id).to eq('HIF/MV/7')
 
         expect(all_projects[1].name).to eq('Second New project')
         expect(all_projects[1].type).to eq('UrbanAnimals')
+        expect(all_projects[1].status).to eq('Submitted')
         expect(all_projects[1].bid_id).to eq('HIF/MV/9')
       end
     end
@@ -81,6 +96,7 @@ describe HomesEngland::Gateway::SequelProject do
         HomesEngland::Domain::Project.new.tap do |p|
           p.name = 'New project2'
           p.type = 'FarmAnimals2'
+          p.status = 'Draft'
           p.bid_id = 'AC/MV/66'
         end
       end
@@ -88,6 +104,7 @@ describe HomesEngland::Gateway::SequelProject do
         HomesEngland::Domain::Project.new.tap do |p|
           p.name = 'Second New project2'
           p.type = 'UrbanAnimals2'
+          p.status = 'Draft'
           p.bid_id = 'AC/MV/35'
         end
       end
@@ -98,6 +115,7 @@ describe HomesEngland::Gateway::SequelProject do
         expect(all_projects[0].id).to eq(project_id_first)
         expect(all_projects[0].name).to eq('New project2')
         expect(all_projects[0].type).to eq('FarmAnimals2')
+        expect(all_projects[0].status).to eq('Draft')
 
         expect(all_projects[0].bid_id).to eq('AC/MV/66')
 
@@ -105,6 +123,7 @@ describe HomesEngland::Gateway::SequelProject do
         expect(all_projects[1].name).to eq('Second New project2')
         expect(all_projects[1].type).to eq('UrbanAnimals2')
         expect(all_projects[1].bid_id).to eq('AC/MV/35')
+        expect(all_projects[1].status).to eq('Draft')
       end
     end
   end

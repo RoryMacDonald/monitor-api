@@ -4,19 +4,21 @@ class HomesEngland::UseCases
   def self.register(builder)
     builder.define_use_case :create_new_project do
       HomesEngland::UseCase::CreateNewProject.new(
-        project_gateway: builder.get_gateway(:project)
+        project_gateway: builder.get_gateway(:project),
+        baseline_gateway: builder.get_gateway(:baseline)
       )
     end
 
     builder.define_use_case :find_project do
       HomesEngland::UseCase::FindProject.new(
-        project_gateway: builder.get_gateway(:project)
+        project_gateway: builder.get_gateway(:project),
+        baseline_gateway: builder.get_gateway(:baseline)
       )
     end
 
     builder.define_use_case :update_project do
       HomesEngland::UseCase::UpdateProject.new(
-        project_gateway: builder.get_gateway(:project)
+        baseline_gateway: builder.get_gateway(:baseline)
       )
     end
 
@@ -29,7 +31,8 @@ class HomesEngland::UseCases
 
     builder.define_use_case :submit_project do
       HomesEngland::UseCase::SubmitProject.new(
-        project_gateway: builder.get_gateway(:project)
+        project_gateway: builder.get_gateway(:project),
+        baseline_gateway: builder.get_gateway(:baseline)
       )
     end
 

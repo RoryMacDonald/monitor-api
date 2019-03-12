@@ -9,7 +9,8 @@ class HomesEngland::Gateway::SequelProject
     @database[:projects].insert(
       name: project.name,
       type: project.type,
-      bid_id: project.bid_id,
+      status: project.status,
+      bid_id: project.bid_id
     )
   end
 
@@ -19,6 +20,7 @@ class HomesEngland::Gateway::SequelProject
     HomesEngland::Domain::Project.new.tap do |p|
       p.name = row[:name]
       p.type = row[:type]
+      p.status = row[:status]
       p.bid_id = row[:bid_id]
     end
   end
@@ -29,8 +31,13 @@ class HomesEngland::Gateway::SequelProject
         p.id = row[:id]
         p.name = row[:name]
         p.type = row[:type]
+        p.status = row[:status]
         p.bid_id = row[:bid_id]
       end
     end
+  end
+
+  def submit(id:)
+    @database[:projects].where(id: id).update(status: 'Submitted')
   end
 end

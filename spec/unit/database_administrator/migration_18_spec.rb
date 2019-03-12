@@ -1,35 +1,35 @@
 # frozen_string_literal: true
 
-describe 'Migration 18' do
+describe 'Migration 19' do
   include_context 'with database'
 
-  def synchronize_to_non_migrated_version
-    migrator.migrate_to(database, 17)
-  end
-
-  def synchronize_to_migrated_version
+   def synchronize_to_non_migrated_version
     migrator.migrate_to(database, 18)
   end
 
-  def create_project()
-    project_id = database[:projects].insert(name: 'A project name', type: 'hif', data: Sequel.pg_json({}))
+   def synchronize_to_migrated_version
+    migrator.migrate_to(database, 19)
   end
 
-  let(:migrator) { ::Migrator.new }
+   def create_return()
+    return_id = database[:returns].insert(project_id: 1, status: 'Draft')
+  end
 
-  before do
+   let(:migrator) { ::Migrator.new }
+
+   before do
     synchronize_to_non_migrated_version
-    create_project
+    create_return
     synchronize_to_migrated_version
   end
 
-  let(:migrated_version) do
-    database[:projects]
+   let(:migrated_baseline_version) do
+    database[:returns]
       .all
-      .first[:version]
+      .first[:baseline_version]
   end
 
-  it 'Creates a version column' do
-    expect(migrated_version).to eq(1)
+   it 'Creates a version column' do
+    expect(migrated_baseline_version).to eq(1)
   end
 end

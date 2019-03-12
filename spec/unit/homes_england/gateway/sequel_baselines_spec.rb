@@ -1,4 +1,4 @@
-describe HomesEngland::Gateway::SequelBaselines do
+describe HomesEngland::Gateway::SequelBaseline do
   include_context 'with database'
 
   let(:gateway) { described_class.new(database: database) }

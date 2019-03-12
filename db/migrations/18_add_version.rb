@@ -2,8 +2,8 @@
 
 Sequel.migration do
   change do
-    alter_table(:projects) do
-      add_column :version, Integer, default: 1
+    alter_table(:returns) do
+      add_column :baseline_version, Integer, default: 1
     end
   end
 end

@@ -1,4 +1,4 @@
-class HomesEngland::Gateway::SequelBaselines
+class HomesEngland::Gateway::SequelBaseline
   def initialize(database:)
     @database = database
   end
