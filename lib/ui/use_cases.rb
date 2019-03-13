@@ -258,5 +258,13 @@ class UI::UseCases
         find_project: builder.get_use_case(:find_project)
       )
     end
+
+    builder.define_use_case :ui_get_baselines do
+      UI::UseCase::GetBaselines.new(
+        get_baselines: builder.get_use_case(:get_baselines),
+        convert_core_project: builder.get_use_case(:convert_core_project),
+        find_project: builder.get_use_case(:find_project)
+      )
+    end
   end
 end
