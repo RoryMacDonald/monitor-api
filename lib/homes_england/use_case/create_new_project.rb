@@ -7,19 +7,21 @@ class HomesEngland::UseCase::CreateNewProject
   end
 
   def execute(name:, type:, baseline:, bid_id:)
-    project = HomesEngland::Domain::Project.new
-    project.name = name
-    project.type = type
-    project.status = 'Draft'
-    project.bid_id = bid_id
+    project = HomesEngland::Domain::Project.new.tap do |proj|
+      proj.name = name
+      proj.type = type
+      proj.status = 'Draft'
+      proj.bid_id = bid_id
+    end
 
     id = @project_gateway.create(project)
     
-    new_baseline = HomesEngland::Domain::Baseline.new
-    new_baseline.project_id = id
-    new_baseline.data = baseline
-    new_baseline.status = 'Draft'
-    new_baseline.version = 1
+    new_baseline = HomesEngland::Domain::Baseline.new.tap do |base|
+      base.project_id = id
+      base.data = baseline
+      base.status = 'Draft'
+      base.version = 1
+    end
 
     @baseline_gateway.create(new_baseline)
 

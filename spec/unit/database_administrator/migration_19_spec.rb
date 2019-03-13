@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe 'Migration 20' do
+describe 'Migration 19' do
   include_context 'with database'
 
   def synchronize_to_non_migrated_version
@@ -29,10 +29,12 @@ describe 'Migration 20' do
 
   it 'can add a baseline with relevant details' do
     create_baseline(1, 'Draft', {baseline_data: "Summary"}, 12345)
-    expect(database[:baselines].all.first[:project_id]).to eq(1)
-    expect(database[:baselines].all.first[:version]).to eq(1)
-    expect(database[:baselines].all.first[:timestamp]).to eq(12345)
-    expect(database[:baselines].all.first[:status]).to eq('Draft')
-    expect(database[:baselines].all.first[:data].to_h).to eq({"baseline_data" => "Summary"})
+    stored_baseline = database[:baselines].all.first
+    
+    expect(stored_baseline[:project_id]).to eq(1)
+    expect(stored_baseline[:version]).to eq(1)
+    expect(stored_baseline[:timestamp]).to eq(12345)
+    expect(stored_baseline[:status]).to eq('Draft')
+    expect(stored_baseline[:data].to_h).to eq({"baseline_data" => "Summary"})
   end
 end
