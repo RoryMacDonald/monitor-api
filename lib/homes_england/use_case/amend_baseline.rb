@@ -18,8 +18,8 @@ class HomesEngland::UseCase::AmendBaseline
       baseline.timestamp = Time.now.to_i
     end
 
-    @baseline_gateway.create(new_baseline)
+    id = @baseline_gateway.create(new_baseline)
 
-    { success: true }
+    { success: true, id: id }
   end
 end

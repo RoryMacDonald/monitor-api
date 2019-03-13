@@ -120,5 +120,17 @@ class HomesEngland::UseCases
         baseline_gateway: builder.get_gateway(:baseline)
       )
     end
+
+    builder.define_use_case :get_baselines do
+      HomesEngland::UseCase::GetBaselines.new(
+        baseline_gateway: builder.get_gateway(:baseline)
+      )
+    end
+
+    builder.define_use_case :submit_baseline do
+      HomesEngland::UseCase::SubmitBaseline.new(
+        baseline_gateway: builder.get_gateway(:baseline)
+      )
+    end
   end
 end
