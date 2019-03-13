@@ -250,5 +250,13 @@ class UI::UseCases
         get_claim_path_titles: builder.get_use_case(:get_template_path_titles)
       )
     end
+    
+    builder.define_use_case :ui_amend_baseline do
+      UI::UseCase::AmendBaseline.new(
+        amend_baseline: builder.get_use_case(:amend_baseline),
+        convert_ui_project: builder.get_use_case(:convert_ui_project),
+        find_project: builder.get_use_case(:find_project)
+      )
+    end
   end
 end

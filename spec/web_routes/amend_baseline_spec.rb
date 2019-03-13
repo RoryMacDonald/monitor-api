@@ -8,7 +8,7 @@ describe 'Ammending a baseline' do
 
   before do
     stub_const(
-      'HomesEngland::UseCase::AmendBaseline',
+      'UI::UseCase::AmendBaseline',
       double(new: amend_baseline_spy)
     )
 
