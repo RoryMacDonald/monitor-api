@@ -4,7 +4,12 @@ require 'rspec'
 
 describe HomesEngland::UseCase::UpdateProject do
   context 'first update' do 
-    let(:use_case) { described_class.new(project_gateway: project_gateway_spy) }
+    let(:use_case) do
+      described_class.new(
+        baseline_gateway: baseline_gateway_spy
+      )
+    end
+
     let(:response) do
       use_case.execute(
         project_id: project_id,
@@ -12,9 +17,14 @@ describe HomesEngland::UseCase::UpdateProject do
         timestamp: timestamp
       )
     end
+
     let(:time_now) { Time.now }
 
-    let(:la_project) { HomesEngland::Domain::Project.new }
+    let(:baseline_gateway_spy) do
+      spy(
+        versions_for: [baseline_data]
+      )
+    end
   
     before do
       Timecop.freeze(time_now)
@@ -33,60 +43,61 @@ describe HomesEngland::UseCase::UpdateProject do
   
       context 'given a successful update whilst in Draft status' do
         let(:timestamp) { 0 }
-        let(:la_project) do
-          HomesEngland::Domain::Project.new.tap do |p|
-            p.status = 'Draft'
-            p.data = { a: 'b' }
-            p.timestamp = 0
+        let(:baseline_data) do
+          HomesEngland::Domain::Baseline.new.tap do |b|
+            b.status = 'Draft',
+            b.id = 34
+            b.project_id = 42
+            b.data = { a: 'b' }
+            b.timestamp = 0
+            b.version = 1
           end
+        end                 
+        
+        it 'Should get all versions from the gateway' do
+          expect(baseline_gateway_spy).to have_received(:versions_for).with(project_id: 42)
         end
-  
-        let(:project_gateway_spy) do
-          spy(find_by: la_project, update: { success: true })
-        end
-  
-        it 'Should pass the ID to the gateway' do
-          expect(project_gateway_spy).to have_received(:update).with(
-            hash_including(id: 42)
+
+        it 'Should pass the ID to the baseline gateway' do
+          expect(baseline_gateway_spy).to have_received(:update).with(
+            hash_including(id: 34)
           )
         end
   
-        it 'Should pass the project to the gateway' do
-          expect(project_gateway_spy).to have_received(:update) do |request|
-            project = request[:project]
+        it 'Should pass the baseline to the gateway' do
+          expect(baseline_gateway_spy).to have_received(:update) do |request|
+            project = request[:baseline]
             expect(project.data).to eq(ducks: 'quack')
           end
         end
   
-        it 'Should return successful, no errors and timestamp' do
-          expect(response).to eq(successful: true, errors:[], timestamp: time_now.to_i)
-        end
-  
         it 'Should pass Draft status to the gateway' do
-          expect(project_gateway_spy).to have_received(:update) do |request|
-            project = request[:project]
+          expect(baseline_gateway_spy).to have_received(:update) do |request|
+            project = request[:baseline]
             expect(project.status).to eq('Draft')
           end
+        end
+
+        it 'Should return successful, no errors and a timestamp' do
+          expect(response).to eq(successful: true, errors:[], timestamp: time_now.to_i)
         end
       end
 
       context 'given an incorrect timestamp' do
         let(:timestamp) { 0 }
 
-        let(:la_project) do
-          HomesEngland::Domain::Project.new.tap do |p|
+        let(:baseline_data) do
+          HomesEngland::Domain::Baseline.new.tap do |p|
             p.status = 'Draft'
+            p.id = 34
+            p.project_id = 42
             p.data = { a: 'b' }
             p.timestamp = 5
           end
         end
-  
-        let(:project_gateway_spy) do
-          spy(find_by: la_project, update: { success: true })
-        end
 
         it 'does not pass the data to the gateway' do 
-          expect(project_gateway_spy).not_to have_received(:update)
+          expect(baseline_gateway_spy).not_to have_received(:update)
         end
 
         it 'returns unsuccessful' do
@@ -109,26 +120,28 @@ describe HomesEngland::UseCase::UpdateProject do
       
       context 'given a successful update whilst in Draft status' do
         let(:timestamp) { 0 }
-        let(:la_project) do
-          HomesEngland::Domain::Project.new.tap do |p|
+        let(:baseline_data) do
+          HomesEngland::Domain::Baseline.new.tap do |p|
             p.status = 'Draft'
             p.data = { b: 'c' }
+            p.id = 78
             p.timestamp = 0
           end
         end
-        let(:project_gateway_spy) do
-          spy(find_by: la_project, update: { success: true })
+
+        it 'should get all the versions from the gateway' do
+          expect(baseline_gateway_spy).to have_received(:versions_for).with(project_id: 123)
         end
   
         it 'Should pass the ID to the gateway' do
-          expect(project_gateway_spy).to have_received(:update).with(
-            hash_including(id: 123)
+          expect(baseline_gateway_spy).to have_received(:update).with(
+            hash_including(id: 78)
           )
         end
   
         it 'Should pass the project to the gateway' do
-          expect(project_gateway_spy).to have_received(:update) do |request|
-            project = request[:project]
+          expect(baseline_gateway_spy).to have_received(:update) do |request|
+            project = request[:baseline]
             expect(project.data).to eq(cows: 'moo')
           end
         end
@@ -138,8 +151,8 @@ describe HomesEngland::UseCase::UpdateProject do
         end
   
         it 'Should pass Draft status to the gateway' do
-          expect(project_gateway_spy).to have_received(:update) do |request|
-            project = request[:project]
+          expect(baseline_gateway_spy).to have_received(:update) do |request|
+            project = request[:baseline]
             expect(project.status).to eq('Draft')
           end
         end
@@ -148,20 +161,16 @@ describe HomesEngland::UseCase::UpdateProject do
       context 'given an incorrect timestamp' do
         let(:timestamp) { 4 }
 
-        let(:la_project) do
-          HomesEngland::Domain::Project.new.tap do |p|
+        let(:baseline_data) do
+          HomesEngland::Domain::Baseline.new.tap do |p|
             p.status = 'Draft'
             p.data = { c: 'd' }
             p.timestamp = 9
           end
         end
-  
-        let(:project_gateway_spy) do
-          spy(find_by: la_project, update: { success: true })
-        end
 
         it 'does not pass the data to the gateway' do 
-          expect(project_gateway_spy).not_to have_received(:update)
+          expect(baseline_gateway_spy).not_to have_received(:update)
         end
 
         it 'returns unsuccessful' do
@@ -185,15 +194,18 @@ describe HomesEngland::UseCase::UpdateProject do
       Timecop.freeze(time_now)
       new_time = time_now.to_i - 1
 
-      current_project = HomesEngland::Domain::Project.new.tap do |p|
+      current_baseline = HomesEngland::Domain::Baseline.new.tap do |p|
           p.status = 'Draft'
+          p.id = 345
           p.data = { a: 'b' }
           p.timestamp = new_time
         end
   
-      project_gateway_spy = spy(find_by: current_project, update: { success: true })
+      baseline_gateway_spy = spy(
+        versions_for: [current_baseline],
+      )
       
-      use_case = described_class.new(project_gateway: project_gateway_spy)
+      use_case = described_class.new(baseline_gateway: baseline_gateway_spy)
 
       response = use_case.execute(
         project_id: 4,
@@ -201,8 +213,8 @@ describe HomesEngland::UseCase::UpdateProject do
         timestamp: new_time
       )
   
-      expect(project_gateway_spy).to have_received(:update) do |request|
-        project = request[:project]
+      expect(baseline_gateway_spy).to have_received(:update) do |request|
+        project = request[:baseline]
         expect(project.timestamp).to be > new_time
       end
 

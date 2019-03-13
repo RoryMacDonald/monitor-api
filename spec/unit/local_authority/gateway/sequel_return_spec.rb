@@ -15,6 +15,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       LocalAuthority::Domain::Return.new.tap do |r|
         r.project_id = project_id
         r.status = 'Draft'
+        r.baseline_version = 1
       end
     end
     let(:return_id) { gateway.create(project_return) }
@@ -28,6 +29,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       found_return = gateway.find_by(id: return_id)
 
       expect(found_return.id).to eq(return_id)
+      expect(found_return.baseline_version).to eq(1)
       expect(found_return.type).to eq('hif')
       expect(found_return.bid_id).to eq('HIF/MV/555')
       expect(found_return.project_id).to eq(project_id)
@@ -43,6 +45,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       LocalAuthority::Domain::Return.new.tap do |r|
         r.project_id = project_id
         r.status = 'Submitted'
+        r.baseline_version = 3
       end
     end
     let(:return_id) { gateway.create(project_return) }
@@ -56,6 +59,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       found_return = gateway.find_by(id: return_id)
 
       expect(found_return.id).to eq(return_id)
+      expect(found_return.baseline_version).to eq(3)
       expect(found_return.type).to eq('ac')
       expect(found_return.project_id).to eq(project_id)
       expect(found_return.bid_id).to eq('AC/MV/15')
@@ -71,6 +75,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       LocalAuthority::Domain::Return.new.tap do |r|
         r.project_id = project_id
         r.status = 'Submitted'
+        r.baseline_version = 4
       end
     end
     let(:return_id) do
@@ -87,6 +92,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       found_return = gateway.find_by(id: return_id)
 
       expect(found_return.id).to eq(return_id)
+      expect(found_return.baseline_version).to eq(4)
       expect(found_return.bid_id).to eq('AC/MV/15')
       expect(found_return.type).to eq('ac')
       expect(found_return.project_id).to eq(project_id)

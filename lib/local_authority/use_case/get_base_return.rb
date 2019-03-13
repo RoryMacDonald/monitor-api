@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class LocalAuthority::UseCase::GetBaseReturn
-  def initialize(return_gateway:, project_gateway:, populate_return_template:, get_returns:)
+  def initialize(return_gateway:, find_project:, populate_return_template:, get_returns:)
     @return_gateway = return_gateway
-    @project_gateway = project_gateway
+    @find_project = find_project
     @populate_return_template = populate_return_template
     @get_returns = get_returns
   end
@@ -11,8 +11,8 @@ class LocalAuthority::UseCase::GetBaseReturn
   def execute(project_id:)
     submitted_returns = get_submitted_returns(project_id)
     return_data = get_return_data_for_project(submitted_returns)
-    project = @project_gateway.find_by(id: project_id)
-    schema = @return_gateway.find_by(type: project.type)
+    project = @find_project.execute(id: project_id)
+    schema = @return_gateway.find_by(type: project[:type])
     data = populate_return(project, schema.schema, return_data)
     no_of_previous_returns = submitted_returns.nil? ? 0 : submitted_returns.length
 
@@ -41,12 +41,12 @@ class LocalAuthority::UseCase::GetBaseReturn
     if project_has_returns?(return_data)
       @populate_return_template.execute(
         schema: schema,
-        data: { baseline_data: project.data, return_data: return_data }
+        data: { baseline_data: project[:data], return_data: return_data }
       )[:populated_data]
     else
       @populate_return_template.execute(
         schema: schema,
-        data: { baseline_data: project.data }
+        data: { baseline_data: project[:data] }
       )[:populated_data]
     end
   end

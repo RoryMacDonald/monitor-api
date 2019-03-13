@@ -1,6 +1,6 @@
 describe LocalAuthority::UseCase::GetBaseReturn do
   let(:return_gateway) { spy(find_by: schema) }
-  let(:project_gateway_spy) { spy(find_by: project) }
+  let(:find_project_spy) { spy(execute: project) }
   let(:populate_return_spy) { spy(execute: populated_return) }
 
   let(:get_returns_spy) { spy(execute: {}) }
@@ -8,7 +8,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
   let(:use_case) do
     described_class.new(
       return_gateway: return_gateway,
-      project_gateway: project_gateway_spy,
+      find_project: find_project_spy,
       populate_return_template: populate_return_spy,
       get_returns: get_returns_spy
     )
@@ -27,23 +27,28 @@ describe LocalAuthority::UseCase::GetBaseReturn do
       let(:project_id) { 1 }
       let(:data) { { description: 'Super secret project' } }
       let(:project) do
-        HomesEngland::Domain::Project.new.tap do |p|
-          p.type = 'hif'
-          p.data = data
-        end
+        {
+          type: 'hif',
+          data: data
+        }
       end
       let(:populated_return) { { populated_data: { cats: 'meow' } } }
 
       it 'will find the project in the Project Gateway' do
-        expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
+        expect(find_project_spy).to have_received(:execute).with(id: project_id)
       end
 
       it 'will call find_by method on Return Gateway' do
-        expect(return_gateway).to have_received(:find_by).with(type: project.type)
+        expect(return_gateway).to have_received(:find_by).with(type: 'hif')
       end
 
       it 'will populate the return for the project' do
-        expect(populate_return_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
+        expect(populate_return_spy).to(
+          have_received(:execute).with(
+            schema: schema.schema,
+            data: { baseline_data: {description: "Super secret project"} }
+          )
+        )
       end
 
       it 'will return a hash with correct id' do
@@ -73,24 +78,29 @@ describe LocalAuthority::UseCase::GetBaseReturn do
       let(:project_id) { 255 }
       let(:data) { { name: 'Extra secret project' } }
       let(:project) do
-        HomesEngland::Domain::Project.new.tap do |p|
-          p.type = 'hif'
-          p.data = data
-        end
+        {
+          type: 'hif',
+          data: data
+        }
       end
       let(:populated_return) { { populated_data: { cows: 'moo' } } }
 
 
       it 'will find the project in the Project Gateway' do
-        expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
+        expect(find_project_spy).to have_received(:execute).with(id: project_id)
       end
 
       it 'will call find_by method on Return Gateway' do
-        expect(return_gateway).to have_received(:find_by).with(type: project.type)
+        expect(return_gateway).to have_received(:find_by).with(type: 'hif')
       end
 
       it 'will populate the return for the project' do
-        expect(populate_return_spy).to have_received(:execute).with(schema: schema.schema, data: { baseline_data: project.data })
+        expect(populate_return_spy).to(
+          have_received(:execute).with(
+            schema: schema.schema,
+            data: { baseline_data: { name: 'Extra secret project' } }
+          )
+        )
       end
 
       it 'will return a hash with correct id' do
@@ -121,10 +131,10 @@ describe LocalAuthority::UseCase::GetBaseReturn do
     let(:data) { { description: 'Super secret project' } }
 
     let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.type = 'hif'
-        p.data = data
-      end
+      {
+        type: 'hif',
+        data: data
+      }
     end
 
     let(:get_returns_spy) do
@@ -161,7 +171,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
         expect(populate_return_spy).to have_received(:execute).with(
           schema: schema.schema,
           data: {
-            baseline_data: project.data,
+            baseline_data: { description: 'Super secret project' },
             return_data: returned_return[:updates][-1]
           }
         )
@@ -213,7 +223,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
           expect(populate_return_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
-              baseline_data: project.data,
+              baseline_data: { description: 'Super secret project' },
               return_data: second_returned_return[:updates][-1]
             }
           )
@@ -243,7 +253,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
             expect(populate_return_spy).to have_received(:execute).with(
               schema: schema.schema,
               data: {
-                baseline_data: project.data,
+                baseline_data: { description: 'Super secret project' },
                 return_data: second_returned_return[:updates][-1]
               }
             )
@@ -274,7 +284,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
         expect(populate_return_spy).to have_received(:execute).with(
           schema: schema.schema,
           data: {
-            baseline_data: project.data,
+            baseline_data: { description: 'Super secret project' },
             return_data: returned_return[:updates][-1]
           }
         )
@@ -326,7 +336,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
           expect(populate_return_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
-              baseline_data: project.data,
+              baseline_data: { description: 'Super secret project' },
               return_data: returned_return[:updates][-1]
             }
           )
@@ -375,7 +385,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
           expect(populate_return_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
-              baseline_data: project.data,
+              baseline_data: { description: 'Super secret project' },
               return_data: second_returned_return[:updates][-1]
             }
           )
@@ -405,7 +415,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
             expect(populate_return_spy).to have_received(:execute).with(
               schema: schema.schema,
               data: {
-                baseline_data: project.data,
+                baseline_data: { description: 'Super secret project' },
                 return_data: second_returned_return[:updates][-1]
               }
             )

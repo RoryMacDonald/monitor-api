@@ -4,6 +4,10 @@ class HomesEngland::Gateways
       HomesEngland::Gateway::SequelProject.new(database: builder.database)
     end
 
+    builder.define_gateway :baseline do
+      HomesEngland::Gateway::SequelBaseline.new(database: builder.database)
+    end
+
     builder.define_gateway :template do
       HomesEngland::Gateway::InMemoryTemplate.new(
         template_builder: builder.get_gateway(:template_builder)
