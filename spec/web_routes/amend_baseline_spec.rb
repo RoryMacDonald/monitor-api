@@ -51,36 +51,33 @@ describe 'Ammending a baseline' do
           )
       end
 
-      context 'usecase returns succesful' do
-        let(:amend_baseline_spy) { spy(execute: {success: true, id: 34}) }
-        
-        it 'returns a status of 200' do
-          post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
-          expect(last_response.status).to eq(200)        
-        end
-
-        it 'returns the id of the baseline' do
-          post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
-          response_body = JSON.parse(last_response.body)
-          
-          expect(response_body['baselineId']).to eq(34)        
-        end
+      let(:amend_baseline_spy) { spy(execute: {success: true, id: 34, errors: [:incorrect_timestamp], timestamp: 3}) }
+      
+      it 'returns a status of 200' do
+        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        expect(last_response.status).to eq(200)        
       end
 
-      context 'usecase returns unscuccessful' do 
-        let(:amend_baseline_spy) { spy(execute: {success: false, errors: [:incorrect_timestamp]}) }
+      it 'returns the id of the baseline' do
+        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        response_body = JSON.parse(last_response.body)
+        
+        expect(response_body['baselineId']).to eq(34)        
+      end
 
-        it 'returns a stuatus of 200' do
-          post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
-          expect(last_response.status).to eq(200)        
-        end
+      it 'returns the timestamp' do
+        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        response_body = JSON.parse(last_response.body)
+        
+        expect(response_body['timestamp']).to eq(3)        
+      end
 
-        it 'returns the errors' do
-          post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
-          response_body = JSON.parse(last_response.body)
-          
-          expect(response_body['errors']).to eq(['incorrect_timestamp'])        
-        end
+
+      it 'returns any errors' do
+        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        response_body = JSON.parse(last_response.body)
+        
+        expect(response_body['errors']).to eq(['incorrect_timestamp'])        
       end
     end
 
@@ -95,15 +92,28 @@ describe 'Ammending a baseline' do
         )
       end
 
-      context 'usecase returns succesful' do
-        let(:amend_baseline_spy) { spy(execute: {success: true, id: 56}) }
+      let(:amend_baseline_spy) { spy(execute: {success: true, id: 56, timestamp: 44444, errors: []}) }
+      
+      it 'returns the id from the baseline' do
+        post '/baseline/amend', { project_id: '5', data: { cats: 'meow' }, timestamp: '4556'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        response_body = JSON.parse(last_response.body)
         
-        it 'returns the id from the baseline' do
-          post '/baseline/amend', { project_id: '5', data: { cats: 'meow' }, timestamp: '4556'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
-          response_body = JSON.parse(last_response.body)
-          
-          expect(response_body['baselineId']).to eq(56)        
-        end
+        expect(response_body['baselineId']).to eq(56)        
+      end
+
+      it 'returns the timestamp' do
+        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        response_body = JSON.parse(last_response.body)
+        
+        expect(response_body['timestamp']).to eq(44444)        
+      end
+
+
+      it 'returns any errors' do
+        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        response_body = JSON.parse(last_response.body)
+        
+        expect(response_body['errors']).to eq([])        
       end
 
     end

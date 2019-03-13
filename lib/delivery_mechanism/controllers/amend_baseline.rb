@@ -9,11 +9,12 @@ DeliveryMechanism::WebRoutes.post '/baseline/amend' do
       timestamp: request_hash[:timestamp].to_i
     )
     
-    if amend_response[:success] 
-      response.body = { baselineId: amend_response[:id] }.to_json
-    else
-      response.body = { errors: amend_response[:errors] }.to_json
-    end
+    response.body = {
+      baselineId: amend_response[:id],
+      errors: amend_response[:errors],
+      timestamp: amend_response[:timestamp] 
+    }.to_json
+
     response.status = 200
   end
 end

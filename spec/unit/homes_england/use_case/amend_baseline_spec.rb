@@ -66,9 +66,15 @@ describe HomesEngland::UseCase::AmendBaseline do
         end
       end
       
-      it 'should return success' do
+      it 'should return success and no errors' do
         result = usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: timestamp)
         expect(result[:success]).to eq(true)
+        expect(result[:errors]).to eq([])
+      end
+
+      it 'should return the new timestamp' do
+        result = usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: timestamp)
+        expect(result[:timestamp]).to be > timestamp
       end
     end
 
@@ -88,6 +94,11 @@ describe HomesEngland::UseCase::AmendBaseline do
       it 'returns an incorrect timestamp error' do 
         response = usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: 250)
         expect(response[:errors]).to eq([:incorrect_timestamp])
+      end
+
+      it 'returns the unaltered timestamp ' do 
+        response = usecase.execute(project_id: 1, data: { myData: 'myValue' }, timestamp: 250)
+        expect(response[:timestamp]).to eq(250)
       end
     end
   end
