@@ -1,21 +1,66 @@
 {
-  "title": "Infrastructures",
+  "title": "Deliverables",
   "hidden": true,
-  "type": "array",
-  "items": {
-    "title": "Infrastructure",
-    "type": "object",
-    "properties": {
-      "description": {
-        "title": "Description",
-        "type": "string"
-      },
-      "sectionA": {
-        "title": "Section A",
+  "type": "object",
+  "properties": {
+    "HIFFunded": {
+      "title": "Infrastructures to be delivered with HIF funding",
+      "type": "array",
+      "items": {
+        "title": "Infrastructure",
         "type": "object",
         "properties": {
-          "information": {
+          "description": {
+            "title": "Description",
             "type": "string"
+          },
+          "dates": {
+            "type": "object",
+            "title": "",
+            "horizontal": true,
+            "properties": {
+              "startDate": {
+                "title": "Start Date",
+                "type": "string",
+                "format": "date"
+              },
+              "endDate": {
+                "title": "End Date",
+                "type": "string",
+                "format": "date"
+              }
+            }
+          }
+        }
+      }
+    },
+    "widerProject": {
+      "title": "Wider Project Deliverables",
+      "type": "array",
+      "items": {
+        "title": "Infrastructure",
+        "type": "object",
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "dates": {
+            "type": "object",
+            "title": "",
+            "horizontal": true,
+            "properties": {
+              "startDate": {
+                "title": "Start Date",
+                "type": "string",
+                "format": "date"
+              },
+              "endDate": {
+                "title": "End Date",
+                "type": "string",
+                "format": "date"
+              }
+            }
           }
         }
       }

@@ -67,10 +67,10 @@ describe 'Creating a new HIF FileProject' do
 
   context 'PCS' do
     let(:pcs_domain) { 'https://meow.cat' }
-
+    let(:pcs_secret) { 'aoeaoe' }
     before do
       ENV['PCS'] = 'yes'
-      ENV['PCS_SECRET'] = 'aoeaoe'
+      ENV['PCS_SECRET'] = pcs_secret
       ENV['PCS_DOMAIN'] = pcs_domain
     end
 
@@ -78,6 +78,14 @@ describe 'Creating a new HIF FileProject' do
       ENV['PCS'] = nil
       ENV['PCS_SECRET'] = nil
       ENV['PCS_DOMAIN'] = nil
+    end
+
+    let(:pcs_api_key) do
+        Timecop.freeze(Time.now)
+        current_time = Time.now.to_i
+        thirty_days_in_seconds = 60 * 60 * 24 * 30
+        thirty_days_from_now = current_time + thirty_days_in_seconds
+        JWT.encode({ exp: thirty_days_from_now }, pcs_secret, 'HS512')
     end
 
     it 'should get pcs data' do
@@ -112,7 +120,7 @@ describe 'Creating a new HIF FileProject' do
           Sponsor: 'Euler'
         }.to_json
       ).with(
-        headers: {'Authorization' => "Bearer #{JWT.encode({}, 'aoeaoe', 'HS512')}" }
+        headers: {'Authorization' => "Bearer #{pcs_api_key}" }
       )
       actuals_data_request = stub_request(
         :get, "#{pcs_domain}/pcs-api/v1/Projects/HIF%252FMV%252F6/actuals"
@@ -127,7 +135,7 @@ describe 'Creating a new HIF FileProject' do
           }
         ].to_json
       ).with(
-        headers: {'Authorization' => "Bearer #{JWT.encode({}, 'aoeaoe', 'HS512')}" }
+        headers: {'Authorization' => "Bearer #{pcs_api_key}" }
       )
 
       project = get_use_case(:populate_baseline).execute(project_id: response[:id])

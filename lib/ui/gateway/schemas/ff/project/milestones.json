@@ -2,6 +2,24 @@
   "type": "object",
   "title": "Key Project Milestones",
   "properties": {
+    "housingDates": {
+      "type": "object",
+      "title": "Start and end dates",
+      "hidden": true,
+      "horizontal": true,
+      "properties": {
+        "housingStartDate": {
+          "type": "string",
+          "title": "Target housing start date",
+          "format": "date"
+        },
+        "housingCompletionDate": {
+          "type": "string",
+          "title": "Target housing completion date",
+          "format": "date"
+        }
+      }
+    },
     "milestones": {
       "type": "array",
       "title": "",
