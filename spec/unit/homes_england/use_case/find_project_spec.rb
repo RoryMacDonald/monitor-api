@@ -24,6 +24,7 @@ describe HomesEngland::UseCase::FindProject do
       HomesEngland::Domain::Project.new.tap do |proj|
         proj.name = 'Dog project'
         proj.type = 'hif'
+        proj.status = 'Draft'
         proj.data = { dogs: 'woof' }
         proj.bid_id = 'HIF/MV/155'
       end
@@ -98,9 +99,9 @@ describe HomesEngland::UseCase::FindProject do
     end
     let(:baseline_data_2) do
       HomesEngland::Domain::Baseline.new.tap do |base|
-        base.data = { cats: 'meow' }
+        base.data = { dogs: 'boo' }
         base.status = 'Submitted'
-        base.timestamp = 456
+        base.timestamp = 555
         base.version = 2
       end
     end
@@ -109,7 +110,7 @@ describe HomesEngland::UseCase::FindProject do
     let(:baseline_data_3) do
       HomesEngland::Domain::Baseline.new.tap do |base|
         base.data = { cats: 'meow' }
-        base.status = 'Submitted'
+        base.status = 'Draft'
         base.timestamp = 456
         base.version = 3
       end
@@ -142,8 +143,8 @@ describe HomesEngland::UseCase::FindProject do
       expect(response[:bid_id]).to eq('AC/MV/256')
     end
 
-    it 'returns a hash containing the projects data' do
-      expect(response[:data]).to eq(cats: 'meow')
+    it 'returns a hash containing the last submitted baseline data' do
+      expect(response[:data]).to eq( dogs: 'boo' )
     end
 
     it 'returns a hash containing the projects status' do
@@ -151,11 +152,11 @@ describe HomesEngland::UseCase::FindProject do
     end
 
     it 'returns a hash containing the projects timestamp' do
-      expect(response[:timestamp]).to eq(456)
+      expect(response[:timestamp]).to eq(555)
     end
 
     it 'returns a hash containing the version number' do
-      expect(response[:version]).to eq(3)
+      expect(response[:version]).to eq(2)
     end
   end
 end

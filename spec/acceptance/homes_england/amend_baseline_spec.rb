@@ -29,8 +29,9 @@ describe 'Amending a project' do
     project = get_use_case(:find_project).execute(id: project_id)
     baselines = get_use_case(:get_baselines).execute(project_id: project_id)[:baselines]
 
-    expect(project[:version]).to eq(2)
+    expect(project[:version]).to eq(1)
     expect(project[:status]).to eq('Submitted')
+    expect(baselines.last[:version]).to eq(2)
     expect(baselines.last[:status]).to eq('Draft')
 
     get_use_case(:update_project).execute(

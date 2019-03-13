@@ -5,9 +5,10 @@ class HomesEngland::UseCase::FindProject
   end
 
   def execute(id:)
-    baseline = @baseline_gateway.versions_for(project_id: id).last
-
     project = @project_gateway.find_by(id: id)
+
+    baseline = get_baseline_data(id, project.status)
+
     {
       name: project.name,
       type: project.type,
@@ -17,5 +18,14 @@ class HomesEngland::UseCase::FindProject
       version: baseline.version,
       timestamp: baseline.timestamp
     }
+  end
+
+  private 
+
+  def get_baseline_data(id, project_status)
+    baselines = @baseline_gateway.versions_for(project_id: id)
+    baselines.select! {|b| b.status == 'Submitted'} if project_status == 'Submitted'
+
+    baselines.last 
   end
 end
