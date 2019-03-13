@@ -29,7 +29,6 @@ describe 'Interacting with the HIF claim from the UI' do
       "claimSummary": {
         "hifTotalFundingRequest": "Funding",
         "certifiedClaimForm": "some form",
-        "hifSpendToDate": "0",
         "AmountOfThisClaim": "lots",
         "runningClaimTotal": "23"
       },
@@ -58,7 +57,7 @@ describe 'Interacting with the HIF claim from the UI' do
       "claimSummary": {
         "hifTotalFundingRequest": "Funding",
         "certifiedClaimForm": "some form",
-        "hifSpendToDate": "0",
+        "hifSpendToDate": "0.0",
         "AmountOfThisClaim": "lots",
         "runningClaimTotal": "23"
       },
@@ -87,7 +86,35 @@ describe 'Interacting with the HIF claim from the UI' do
       "claimSummary": {
         "hifTotalFundingRequest": "283185307179586",
         "certifiedClaimForm": "some form",
-        "hifSpendToDate": "0",
+        "AmountOfThisClaim": "Quantative",
+        "runningClaimTotal": "2831853"
+      },
+      "supportingEvidence": {
+        "lastQuarterMonthSpend": {
+          "forecast": "500",
+          "actual": "400",
+          "varianceReason": "Areason",
+          "variance": {
+            "varianceAgainstForcastAmount": "28318530717958",
+            "varianceAgainstForcastPercentage": "123456"
+          }
+        },
+        "evidenceOfSpendPastQuarter": "Much",
+        "breakdownOfNextQuarterSpend": {
+          "forecast": "2838",
+          "descriptionOfSpend": "Spending Money",
+          "evidenceOfSpendNextQuarter": "Not got any"
+        }
+      }
+    }
+  end
+
+  let(:expected_updated_claim_data) do
+    {
+      "claimSummary": {
+        "hifTotalFundingRequest": "283185307179586",
+        "hifSpendToDate": "0.0",
+        "certifiedClaimForm": "some form",
         "AmountOfThisClaim": "Quantative",
         "runningClaimTotal": "2831853"
       },
@@ -171,7 +198,7 @@ describe 'Interacting with the HIF claim from the UI' do
         claim_data: updated_claim_data
       )
       found_claim = dependency_factory.get_use_case(:ui_get_claim).execute(claim_id: created_claim[:claim_id])
-      expect(found_claim[:data]).to eq(updated_claim_data)
+      expect(found_claim[:data]).to eq(expected_updated_claim_data)
 
     end
   end
