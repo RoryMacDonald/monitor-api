@@ -1,4 +1,4 @@
-fdescribe LocalAuthority::UseCase::PcsPopulateClaim do
+describe LocalAuthority::UseCase::PcsPopulateClaim do
   let(:pcs_bid) { nil }
   let(:pcs_gateway_spy) do
     spy(get_project: pcs_bid)
