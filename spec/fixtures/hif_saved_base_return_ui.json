@@ -270,7 +270,17 @@
         { "period": "19/20", "baselineAmounts": "50" }
       ],
       "anyChanges": null,
-      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+      "currentReturnAmounts": [
+        {
+          "period": "18/19",
+          "currentReturnForecast": null
+        },
+        {
+          "period":"19/20",
+          "currentReturnForecast": null
+
+        }
+      ]
     },
     "inYearHousingCompletions": {
       "baselineAmounts": {
@@ -314,7 +324,17 @@
         { "period": "19/20", "baselineAmounts": "50" }
       ],
       "anyChanges": null,
-      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+      "currentReturnAmounts": [
+        {
+          "period": "18/19",
+          "currentReturnForecast": null
+        },
+        {
+          "period":"19/20",
+          "currentReturnForecast": null
+
+        }
+      ]
     }
   },
   "outputsActuals": [{

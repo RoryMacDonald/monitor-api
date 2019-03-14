@@ -46,6 +46,7 @@ class UI::UseCase::ConvertUIHIFProject
   end
 
   def convert_infrastructures
+    return @converted_project[:infrastructures] = [{}] if @project[:infrastructures].nil?
     @converted_project[:infrastructures] = @project[:infrastructures].map do |infrastructure|
       converted_infrastructure = {}
 
@@ -238,6 +239,8 @@ class UI::UseCase::ConvertUIHIFProject
     @converted_project[:outputsForecast].compact!
 
     return if @project[:outputs][0][:outputsForecast][:housingForecast].nil?
+
+    return if @project[:outputs][0][:outputsForecast][:housingForecast][:forecast].nil?
 
     @converted_project[:outputsForecast][:housingForecast] = @project[:outputs][0][:outputsForecast][:housingForecast][:forecast].map do |forecast|
       {

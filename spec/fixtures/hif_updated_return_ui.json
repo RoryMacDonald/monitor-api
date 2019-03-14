@@ -268,11 +268,26 @@
     },
     "housingStarts": {
       "baselineAmounts": [
-        { "period": "18/19", "baselineAmounts": "100" },
-        { "period": "19/20", "baselineAmounts": "50" }
+        {
+          "period": "18/19",
+          "baselineAmounts": "100"
+        },
+        {
+          "period": "19/20",
+          "baselineAmounts": "50"
+        }
       ],
       "anyChanges": null,
-      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+      "currentReturnAmounts": [
+        {
+          "currentReturnForecast": null,
+          "period": "18/19"
+        },
+        {
+          "period": "19/20",
+          "currentReturnForecast": null
+        }
+      ]
     },
     "inYearHousingCompletions": {
       "baselineAmounts": {
@@ -312,11 +327,26 @@
     },
     "housingCompletions": {
       "baselineAmounts": [
-        { "period": "18/19", "baselineAmounts": "0" },
-        { "period": "19/20", "baselineAmounts": "50" }
+        {
+          "period": "18/19",
+          "baselineAmounts": "0"
+        },
+        {
+          "period": "19/20",
+          "baselineAmounts": "50"
+        }
       ],
       "anyChanges": null,
-      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+      "currentReturnAmounts": [
+        {
+          "period": "18/19",
+          "currentReturnForecast": null
+        },
+        {
+          "period": "19/20",
+          "currentReturnForecast": null
+        }
+      ]
     }
   },
   "outputsActuals": [{
