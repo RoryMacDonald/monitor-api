@@ -1,20 +1,20 @@
 class HomesEngland::UseCase::UpdateProject
-  def initialize(project_gateway:)
-    @project_gateway = project_gateway
+  def initialize(baseline_gateway:)
+    @baseline_gateway = baseline_gateway
   end
 
   def execute(project_id:, project_data:, timestamp:)
-    current_project = @project_gateway.find_by(id: project_id)
+    current_baseline = @baseline_gateway.versions_for(project_id: project_id).last
 
-    return { successful: false, errors: [:incorrect_timestamp], timestamp: timestamp } unless valid_timestamps?(current_project.timestamp, timestamp)
+    return { successful: false, errors: [:incorrect_timestamp], timestamp: timestamp } unless valid_timestamps?(current_baseline.timestamp, timestamp)
     current_time = Time.now.to_i
-    current_project.data = project_data
-    current_project.status = 'Draft'
-    current_project.timestamp = current_time
+    current_baseline.data = project_data
+    current_baseline.status = 'Draft'
+    current_baseline.timestamp = current_time
 
-    successful = @project_gateway.update(id: project_id, project: current_project)[:success]
+    @baseline_gateway.update(id: current_baseline.id, baseline: current_baseline)
 
-    { successful: successful, errors: [], timestamp:  current_time}
+    { successful: true, errors: [], timestamp:  current_time}
   end
 
   private

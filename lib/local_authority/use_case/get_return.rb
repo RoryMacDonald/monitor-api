@@ -31,7 +31,8 @@ class LocalAuthority::UseCase::GetReturn
         status: found_return.status,
         updates: updates.map(&:data),
         timestamp: found_return.timestamp,
-        no_of_previous_returns: number_of_previous_returns
+        no_of_previous_returns: number_of_previous_returns,
+        baseline_version: found_return.baseline_version
       }
     end
   end

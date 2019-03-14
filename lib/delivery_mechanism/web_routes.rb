@@ -70,24 +70,6 @@ module DeliveryMechanism
       end
     end
 
-    post '/return/validate' do
-      guard_access env, params, request do |request_hash|
-        return 400 if invalid_validation_hash(request_hash: request_hash)
-
-        validate_response = @dependency_factory.get_use_case(:ui_validate_return).execute(
-          type: request_hash[:type],
-          return_data: request_hash[:data]
-        )
-
-        response.status = 200
-        response.body = {
-          valid: validate_response[:valid],
-          invalidPaths: validate_response[:invalid_paths],
-          prettyInvalidPaths: validate_response[:pretty_invalid_paths]
-        }.to_json
-      end
-    end
-
     get '/projects/export' do
       response.body = {}.to_json
       guard_bi_access env, params, request do |_request_hash|

@@ -445,7 +445,7 @@
   "s151": {
     "claimSummary": {
       "hifTotalFundingRequest": "10000",
-      "hifSpendToDate": "0.0",
+      "hifSpendToDate": null,
       "AmountOfThisClaim": null,
       "certifiedClaimForm": null,
       "runningClaimTotal": null

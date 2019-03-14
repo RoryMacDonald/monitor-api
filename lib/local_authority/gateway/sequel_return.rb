@@ -6,6 +6,7 @@ class LocalAuthority::Gateway::SequelReturn
   def create(new_return)
     @database[:returns].insert(
       project_id: new_return.project_id,
+      baseline_version: new_return.baseline_version,
       status: new_return.status
     )
   end
@@ -20,6 +21,7 @@ class LocalAuthority::Gateway::SequelReturn
 
     LocalAuthority::Domain::Return.new.tap do |r|
       r.id = row[:return_id]
+      r.baseline_version = row[:baseline_version]
       r.bid_id = row[:bid_id]
       r.type = row[:type]
       r.project_id = row[:project_id]
@@ -32,6 +34,7 @@ class LocalAuthority::Gateway::SequelReturn
     @database[:returns].where(project_id: project_id).order(:id).all.map do |db_r|
       LocalAuthority::Domain::Return.new.tap do |r|
         r.id = db_r[:id]
+        r.baseline_version = db_r[:baseline_version]
         r.project_id = db_r[:project_id]
         r.status = db_r[:status]
         r.timestamp = db_r[:timestamp]

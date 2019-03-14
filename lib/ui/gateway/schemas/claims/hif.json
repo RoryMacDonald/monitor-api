@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema",
   "title": "s151 Return - Claim",
   "description": "Screen only editable by S.151 officer or delegated officer.",
   "type": "object",
@@ -38,7 +39,10 @@
           "description": "Please attach the form here.",
           "uploadFile": "single"
         }
-      }
+      },
+      "required": [
+        "AmountOfThisClaim"
+      ]
     },
     "supportingEvidence": {
       "type": "object",

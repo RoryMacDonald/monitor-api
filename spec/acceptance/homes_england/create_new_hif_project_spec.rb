@@ -34,6 +34,7 @@ describe 'Creating a new HIF FileProject' do
 
     expect(project[:type]).to eq('hif')
     expect(project[:bid_id]).to eq('HIF/MV/16')
+    expect(project[:version]).to eq(1)
     expect(project[:data][:summary]).to eq(project_baseline[:summary])
     expect(project[:data][:infrastructure]).to eq(project_baseline[:infrastructure])
     expect(project[:data][:financial]).to eq(project_baseline[:financial])

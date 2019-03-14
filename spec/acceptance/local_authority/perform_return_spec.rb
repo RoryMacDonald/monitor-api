@@ -184,6 +184,7 @@ describe 'Performing Return on HIF Project' do
     )
 
     expected_initial_return = {
+      baseline_version: 1,
       project_id: project_id,
       status: 'Draft',
       updates: [
@@ -379,6 +380,7 @@ describe 'Performing Return on HIF Project' do
     soft_update_return(id: return_id, data: updated_return_data)
 
     expected_updated_return = {
+      baseline_version: 1,
       project_id: project_id,
       status: 'Draft',
       updates: [
@@ -398,13 +400,23 @@ describe 'Performing Return on HIF Project' do
 
     # A draft
     create_new_return(
-      project_id: initial_return[:project_id],
+      project_id: project_id,
       data: initial_return[:data]
     )
 
     second_base_return = get_use_case(:get_base_return).execute(project_id: project_id)
 
     expect(second_base_return[:base_return][:data][:infrastructures]).to eq(expected_second_base_return[:infrastructures])
+
+    return_data = get_use_case(:get_return).execute(id: return_id)
+    expect(return_data[:baseline_version]).to eq(1)
+
+    get_use_case(:amend_baseline).execute(project_id: project_id, data: project_baseline, timestamp: 0)
+
+    second_return_id = create_new_return(project_id: project_id, data: initial_return[:data])
+    
+    return_data = get_use_case(:get_return).execute(id: second_return_id)
+    expect(return_data[:baseline_version]).to eq(2)
   end
 
   it 'should keep track of LAAC Returns' do
