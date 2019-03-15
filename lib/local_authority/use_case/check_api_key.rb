@@ -1,17 +1,21 @@
 class LocalAuthority::UseCase::CheckApiKey
+  def initialize(get_user_projects:)
+    @get_user_projects = get_user_projects
+  end
+
   def execute(api_key:, project_id:)
 
     project_id = project_id.to_i unless project_id.nil?
 
     begin
       payload = get_payload(api_key)
-      api_key_projects = payload['projects']
       api_key_email = payload['email']
       api_key_role = payload['role']
+      user_projects = @get_user_projects.execute(email: api_key_email)[:project_list]
 
       if project_id.nil?
         { valid: true, email: api_key_email, role: api_key_role }
-      elsif api_key_projects.include?(project_id)
+      elsif user_projects.any? { |p| p[:id] == project_id }
         { valid: true, email: api_key_email, role: api_key_role }
       else
         { valid: false }
