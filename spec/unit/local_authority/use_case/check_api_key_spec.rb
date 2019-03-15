@@ -181,7 +181,7 @@ fdescribe LocalAuthority::UseCase::CheckApiKey do
         end
 
         it 'does not return an email' do
-          api_key = api_key_for_user('cats@meow.com', 's151', 'meow')
+          api_key_for_user('cats@meow.com', 's151', 'meow')
 
           response = use_case.execute(api_key: 'dogs', project_id: '1')
           expect(response[:email]).to eq(nil)
