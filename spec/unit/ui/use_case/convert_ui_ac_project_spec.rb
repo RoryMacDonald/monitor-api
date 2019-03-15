@@ -22,4 +22,21 @@ describe UI::UseCase::ConvertUIACProject do
 
     expect(converted_project).to eq(core_data_project)
   end
+
+  context 'nil data causing errors' do 
+    let(:nil_data_to_convert) do
+      {
+      }
+    end
+  
+    let(:returned_empty_project) do
+      {
+      }
+    end
+  
+    it 'Converts nil data' do
+      converted_project = described_class.new.execute(project_data: nil_data_to_convert)
+      expect(converted_project).to eq(returned_empty_project)
+    end
+  end
 end

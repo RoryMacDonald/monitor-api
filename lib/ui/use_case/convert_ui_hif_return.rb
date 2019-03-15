@@ -322,38 +322,42 @@ class UI::UseCase::ConvertUIHIFReturn
     @converted_return[:fundingProfiles] = {}
     @converted_return[:fundingProfiles][:totalHIFGrant] = @return[:fundingProfiles][:totalHIFGrant]
 
+    unless @return[:fundingProfiles][:fundingRequest].nil?
+      unless @return[:fundingProfiles][:fundingRequest][:forecast].nil?
+        @converted_return[:fundingProfiles][:fundingRequest] = @return[:fundingProfiles][:fundingRequest][:forecast].map do |request|
+          next if request.nil?
 
-    @converted_return[:fundingProfiles][:fundingRequest] = @return[:fundingProfiles][:fundingRequest][:forecast].map do |request|
-      next if request.nil?
+          new_request = { period: request[:period] }
 
-      new_request = { period: request[:period] }
-
-      next new_request if request.nil?
-      new_request[:forecast] = {
-        instalment1: request[:instalment1],
-        instalment2: request[:instalment2],
-        instalment3: request[:instalment3],
-        instalment4: request[:instalment4],
-        total: request.dig(:totalHolder, :total)
-      }
-      new_request
+          next new_request if request.nil?
+          new_request[:forecast] = {
+            instalment1: request[:instalment1],
+            instalment2: request[:instalment2],
+            instalment3: request[:instalment3],
+            instalment4: request[:instalment4],
+            total: request.dig(:totalHolder, :total)
+          }
+          new_request
+        end
+      end
     end
 
 
     unless @return[:fundingProfiles][:currentFunding].nil?
-      @converted_return[:fundingProfiles][:currentFunding] = {}
-
-      @converted_return[:fundingProfiles][:currentFunding][:forecast] = @return[:fundingProfiles][:currentFunding][:forecast].map do |request|
-        next if request.nil?
-        new_profile = {
-          period: request[:period],
-          instalment1: request[:instalment1],
-          instalment2: request[:instalment2],
-          instalment3: request[:instalment3],
-          instalment4: request[:instalment4],
-          total: request.dig(:totalHolder, :total)
-        }
-        new_profile
+      unless @return[:fundingProfiles][:currentFunding][:forecast].nil?
+        @converted_return[:fundingProfiles][:currentFunding] = {}
+        @converted_return[:fundingProfiles][:currentFunding][:forecast] = @return[:fundingProfiles][:currentFunding][:forecast].map do |request|
+          next if request.nil?
+          new_profile = {
+            period: request[:period],
+            instalment1: request[:instalment1],
+            instalment2: request[:instalment2],
+            instalment3: request[:instalment3],
+            instalment4: request[:instalment4],
+            total: request.dig(:totalHolder, :total)
+          }
+          new_profile
+        end
       end
     end
 
@@ -361,19 +365,23 @@ class UI::UseCase::ConvertUIHIFReturn
     @converted_return[:fundingProfiles][:reasonForRequest] = @return[:fundingProfiles][:reasonForRequest]
     @converted_return[:fundingProfiles][:mitigationInPlace] = @return[:fundingProfiles][:mitigationInPlace]
 
-    @converted_return[:fundingProfiles][:requestedProfiles] = @return[:fundingProfiles][:requestedProfiles][:newProfile].map do |request|
-      next if request.nil?
+    unless @return[:fundingProfiles][:requestedProfiles].nil?
+      unless @return[:fundingProfiles][:requestedProfiles][:newProfile].nil?
+        @converted_return[:fundingProfiles][:requestedProfiles] = @return[:fundingProfiles][:requestedProfiles][:newProfile].map do |request|
+          next if request.nil?
 
-      new_request = { period: request[:period] }
+          new_request = { period: request[:period] }
 
-      new_request[:newProfile] = {
-        instalment1: request[:instalment1],
-        instalment2: request[:instalment2],
-        instalment3: request[:instalment3],
-        instalment4: request[:instalment4],
-        total: request.dig(:totalHolder, :total)
-      }
-      new_request
+          new_request[:newProfile] = {
+            instalment1: request[:instalment1],
+            instalment2: request[:instalment2],
+            instalment3: request[:instalment3],
+            instalment4: request[:instalment4],
+            total: request.dig(:totalHolder, :total)
+          }
+          new_request
+        end
+      end
     end
 
     @converted_return[:fundingProfiles][:projectCashflows] = @return[:fundingProfiles][:projectCashflows]
@@ -574,6 +582,7 @@ class UI::UseCase::ConvertUIHIFReturn
 
   def convert_wider_scheme
     return if @return[:widerScheme].nil?
+    return if @return[:widerScheme][0].nil?
 
     @converted_return[:widerScheme] = [{}]
 
@@ -589,31 +598,33 @@ class UI::UseCase::ConvertUIHIFReturn
       end
     end
 
-    @converted_return[:widerScheme][0][:keyLiveIssues] = @return[:widerScheme][0][:keyLiveIssues].map do |issue|
-      next if issue.nil?
-      new_issue = {
-        description: issue[:description],
-      }
-
-      unless issue[:dates].nil?
-        new_issue[:dates] = {
-          dateRaised: issue[:dates][:dateRaised],
-          estimatedCompletionDate: issue[:dates][:estimatedCompletionDate]
+    unless @return[:widerScheme][0][:keyLiveIssues].nil?
+      @converted_return[:widerScheme][0][:keyLiveIssues] = @return[:widerScheme][0][:keyLiveIssues].map do |issue|
+        next if issue.nil?
+        new_issue = {
+          description: issue[:description],
         }
+
+        unless issue[:dates].nil?
+          new_issue[:dates] = {
+            dateRaised: issue[:dates][:dateRaised],
+            estimatedCompletionDate: issue[:dates][:estimatedCompletionDate]
+          }
+        end
+
+        unless issue[:currentdetails].nil?
+          new_issue[:currentdetails] = {
+            impact: issue[:currentdetails][:impact],
+            currentStatus: issue[:currentdetails][:currentStatus],
+            currentReturnLikelihood: issue[:currentdetails][:currentReturnLikelihood]
+          }
+        end
+
+        new_issue[:mitigationActions] = issue[:mitigationActions]
+        new_issue[:ratingAfterMitigation] = issue[:ratingAfterMitigation]
+
+        new_issue
       end
-
-      unless issue[:currentdetails].nil?
-        new_issue[:currentdetails] = {
-          impact: issue[:currentdetails][:impact],
-          currentStatus: issue[:currentdetails][:currentStatus],
-          currentReturnLikelihood: issue[:currentdetails][:currentReturnLikelihood]
-        }
-      end
-
-      new_issue[:mitigationActions] = issue[:mitigationActions]
-      new_issue[:ratingAfterMitigation] = issue[:ratingAfterMitigation]
-
-      new_issue
     end
 
     unless @return[:widerScheme][0][:topRisks].nil?
@@ -699,20 +710,23 @@ class UI::UseCase::ConvertUIHIFReturn
 
     unless @return[:outputsForecast][:housingStarts].nil?
       @converted_return[:outputsForecast][:housingStarts] = {}
-
-      @converted_return[:outputsForecast][:housingStarts][:baselineAmounts] = @return[:outputsForecast][:housingStarts][:baselineAmounts].map do |amount|
-        {
-          period: amount[:period],
-          baselineAmounts: amount[:baselineAmounts]
-        }
+      unless @return[:outputsForecast][:housingStarts][:baselineAmounts].nil?
+        @converted_return[:outputsForecast][:housingStarts][:baselineAmounts] = @return[:outputsForecast][:housingStarts][:baselineAmounts].map do |amount|
+          {
+            period: amount[:period],
+            baselineAmounts: amount[:baselineAmounts]
+          }
+        end
       end
 
       @converted_return[:outputsForecast][:housingStarts][:anyChanges] = @return[:outputsForecast][:housingStarts][:anyChanges]
-      @converted_return[:outputsForecast][:housingStarts][:currentReturnAmounts] = @return[:outputsForecast][:housingStarts][:currentReturnAmounts] do |amount|
-        {
-          period: amount[:period],
-          currentReturnForecast: amount[:currentReturnForecast]
-        }
+      unless @return[:outputsForecast][:housingStarts][:currentReturnAmounts].nil?
+        @converted_return[:outputsForecast][:housingStarts][:currentReturnAmounts] = @return[:outputsForecast][:housingStarts][:currentReturnAmounts].map do |amount|
+          {
+            period: amount[:period],
+            currentReturnForecast: amount[:currentReturnForecast]
+          }
+        end
       end
     end
 
@@ -744,22 +758,25 @@ class UI::UseCase::ConvertUIHIFReturn
     unless @return[:outputsForecast][:housingCompletions].nil?
       @converted_return[:outputsForecast][:housingCompletions] = {}
 
-      @converted_return[:outputsForecast][:housingCompletions][:baselineAmounts] = @return[:outputsForecast][:housingCompletions][:baselineAmounts].map do |amount|
-        {
-          period: amount[:period],
-          baselineAmounts: amount[:baselineAmounts]
-        }
+      unless @return[:outputsForecast][:housingCompletions][:baselineAmounts].nil?
+        @converted_return[:outputsForecast][:housingCompletions][:baselineAmounts] = @return[:outputsForecast][:housingCompletions][:baselineAmounts].map do |amount|
+          {
+            period: amount[:period],
+            baselineAmounts: amount[:baselineAmounts]
+          }
+        end
       end
 
       @converted_return[:outputsForecast][:housingCompletions][:anyChanges] = @return[:outputsForecast][:housingCompletions][:anyChanges]
-      @converted_return[:outputsForecast][:housingCompletions][:currentReturnAmounts] = @return[:outputsForecast][:housingCompletions][:currentReturnAmounts] do |amount|
-        {
-          period: amount[:period],
-          currentReturnForecast: amount[:currentReturnForecast]
-        }
+      
+      unless @return[:outputsForecast][:housingCompletions][:currentReturnAmounts].nil?
+        @converted_return[:outputsForecast][:housingCompletions][:currentReturnAmounts] = @return[:outputsForecast][:housingCompletions][:currentReturnAmounts].map do |amount|
+          {
+            period: amount[:period],
+            currentReturnForecast: amount[:currentReturnForecast]
+          }
+        end
       end
-
-
     end
 
     unless @return[:outputsForecast][:inYearHousingCompletions].nil?
@@ -807,34 +824,33 @@ class UI::UseCase::ConvertUIHIFReturn
         @converted_return[:s151Confirmation][:hifFunding][:mitigationInPlace] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:mitigationInPlace]
       end
 
-      @converted_return[:s151Confirmation][:hifFunding][:hifFundingProfile] = @return[:s151Confirmation][:hifFunding][:hifFundingProfile].map do |profile|
-        {
-          period: profile[:period],
-          instalment1: profile[:instalment1],
-          instalment2: profile[:instalment2],
-          instalment3: profile[:instalment3],
-          instalment4: profile[:instalment4],
-          total: profile[:total],
-          baselineVariance1: profile[:baselineVariance1],
-          baselineVariance2: profile[:baselineVariance2],
-          baselineVariance3: profile[:baselineVariance3],
-          baselineVariance4: profile[:baselineVariance4],
-          lastMovement1: profile[:lastMovement1],
-          lastMovement2: profile[:lastMovement2],
-          lastMovement3: profile[:lastMovement3],
-          lastMovement4: profile[:lastMovement4],
-          movementVariance1: profile[:movementVariance1],
-          movementVariance2: profile[:movementVariance2],
-          movementVariance3: profile[:movementVariance3],
-          movementVariance4: profile[:movementVariance4]
-        }
+      unless @return[:s151Confirmation][:hifFunding][:hifFundingProfile].nil?
+        @converted_return[:s151Confirmation][:hifFunding][:hifFundingProfile] = @return[:s151Confirmation][:hifFunding][:hifFundingProfile].map do |profile|
+          {
+            period: profile[:period],
+            instalment1: profile[:instalment1],
+            instalment2: profile[:instalment2],
+            instalment3: profile[:instalment3],
+            instalment4: profile[:instalment4],
+            total: profile[:total],
+            baselineVariance1: profile[:baselineVariance1],
+            baselineVariance2: profile[:baselineVariance2],
+            baselineVariance3: profile[:baselineVariance3],
+            baselineVariance4: profile[:baselineVariance4],
+            lastMovement1: profile[:lastMovement1],
+            lastMovement2: profile[:lastMovement2],
+            lastMovement3: profile[:lastMovement3],
+            lastMovement4: profile[:lastMovement4],
+            movementVariance1: profile[:movementVariance1],
+            movementVariance2: profile[:movementVariance2],
+            movementVariance3: profile[:movementVariance3],
+            movementVariance4: profile[:movementVariance4]
+          }
+        end
       end
 
       @converted_return[:s151Confirmation][:hifFunding][:amendmentConfirmation] = @return[:s151Confirmation][:hifFunding][:amendmentConfirmation]
       @converted_return[:s151Confirmation][:hifFunding][:cashflowConfirmation] = @return[:s151Confirmation][:hifFunding][:cashflowConfirmation]
-      @converted_return[:s151Confirmation][:hifFunding][:reasonForRequest] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:reasonForRequest]
-      @converted_return[:s151Confirmation][:hifFunding][:requestedAmount] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:requestedAmount]
-      @converted_return[:s151Confirmation][:hifFunding][:mitigationInPlace] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:mitigationInPlace]
     end
 
     return if @return[:s151Confirmation][:submission].nil?

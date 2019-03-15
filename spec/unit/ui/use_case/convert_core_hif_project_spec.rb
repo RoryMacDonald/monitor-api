@@ -22,4 +22,27 @@ describe UI::UseCase::ConvertCoreHIFProject do
 
     expect(converted_project).to eq(ui_data_project)
   end
+
+  let(:nil_data_to_convert) do
+    {
+      outputsForecast: {
+        housingForecast: nil
+      }
+    }
+  end
+
+  let(:returned_empty_project) do
+    {
+      infrastructures: [{}],
+      outputs: [{
+        outputsActuals: {},
+        outputsForecast: {}
+      }]
+    }
+  end
+
+  it 'Converts nil data' do
+    converted_project = described_class.new.execute(project_data: nil_data_to_convert)
+    expect(converted_project).to eq(returned_empty_project)
+  end
 end

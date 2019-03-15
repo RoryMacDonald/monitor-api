@@ -94,6 +94,130 @@ describe UI::UseCase::ConvertUIReturn do
         expect(response).to eq({ wrong_data: 'needs to be converted' })
       end
     end
+
+    context 'removing nils' do
+      let(:convert_ui_hif_return_spy) { spy(execute: data)}
+      let(:response) { use_case.execute(return_data: data, type: 'hif')}
+      before { response }
+      context 'a simple hash' do
+        let(:data) do
+          {
+            one: nil,
+            two: 'nil',
+            three: nil,
+            four: nil
+          }
+        end
+
+        it 'removes the nil values' do
+          expect(response).to eq({ two: 'nil'})
+        end 
+      end
+
+      context 'a nested hash' do
+        let(:data) do
+          {
+            one: nil,
+            two: 'nil',
+            three: {
+              five: nil,
+              six: 'two'
+            },
+            four: nil
+          }
+        end
+
+        it 'removes the nil values' do
+          expect(response).to eq(
+            {
+              two: 'nil',
+              three: {
+                six: 'two'
+              }
+            }
+          )
+        end 
+      end
+
+      context 'an array' do
+        let(:data) do
+          [{
+            one: nil,
+            two: 'nil',
+            three: [{
+              four: nil,
+              five: 'five'
+            }]
+          }]
+        end
+
+        it 'removes the nil values' do
+          expect(response).to eq(
+            [{
+              two: 'nil',
+              three: [{
+                five: 'five'
+              }]
+            }]
+          )
+        end 
+      end
+
+      context 'an array of nils' do
+        let(:data) do
+          [{
+            one: nil,
+            two: 'nil',
+            three: [ nil ],
+            four: ['2']
+          }]
+        end
+
+        it 'removes the nil values' do
+          expect(response).to eq(
+            [{
+              two: 'nil',
+              three: [],
+              four: ['2']
+            }]
+          )
+        end 
+      end
+
+      context 'a complex array' do
+        let(:data) do
+          {
+            one: nil,
+            two: 'nil',
+            three: [{
+              four: nil,
+              five: 'five',
+              six: {
+                seven: [
+                  eight: nil
+                ],
+                nine: 'nine'
+              }
+            }]
+          }
+        end
+
+        it 'removes the nil values' do
+          expect(response).to eq(
+            {
+              two: 'nil',
+              three: [{
+                five: 'five',
+                six: {
+                  nine: 'nine',
+                  seven: [{}]
+                }
+              }]
+            }
+          )
+        end 
+      end
+    end
   end
 
   context 'Example 2' do

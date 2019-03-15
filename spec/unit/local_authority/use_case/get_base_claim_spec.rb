@@ -232,7 +232,7 @@ describe LocalAuthority::UseCase::GetBaseClaim do
           expect(populate_claim_spy).to have_received(:execute).with(
             schema: schema.schema,
             data: {
-              baseline_data: project.data,
+              baseline_data: project[:data],
             }
           )
         end

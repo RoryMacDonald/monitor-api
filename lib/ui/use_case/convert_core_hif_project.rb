@@ -45,6 +45,7 @@ class UI::UseCase::ConvertCoreHIFProject
   end
 
   def convert_infrastructures
+    return @converted_project[:infrastructures] = [{}] if @project[:infrastructures].nil?
     @converted_project[:infrastructures] = @project[:infrastructures].map do |infrastructure|
       convert_infrastructure(infrastructure)
     end

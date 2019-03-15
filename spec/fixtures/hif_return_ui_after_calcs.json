@@ -195,7 +195,6 @@
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
             "riskBaselineMitigationsInPlace": "Do not do the thing",
-            "riskCurrentReturnLikelihood": null,
             "riskAnyChange": "No",
             "riskCurrentReturnMitigationsInPlace": "None",
             "riskMet": "Yes",
@@ -885,7 +884,7 @@
     }
   },
   "rmMonthlyCatchup": {
-    "catchUp": [null]
+    "catchUp": []
   },
   "outputsActuals": [{
     "siteOutputs": {

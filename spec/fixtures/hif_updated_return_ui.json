@@ -40,15 +40,7 @@
           "statutoryConsents": [{
             "detailsOfConsent": "Details of consent",
             "statusOfConsent": {
-              "baseline": "2020-01-01",
-              "completedDate": null,
-              "current": null,
-              "percentComplete": null,
-              "previousReturn": null,
-              "reason": null,
-              "status": null,
-              "varianceAgainstBaseline": null,
-              "varianceAgainstLastReturn": null
+              "baseline": "2020-01-01"
             }
           }]
         }
@@ -71,16 +63,7 @@
         "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
         "procurementStatusAgainstLastReturn":{
-          "baseline": "2020-01-01",
-          "current": null,
-          "status": null,
-          "previousReturn": null,
-          "reason": null,
-          "procurementVarianceAgainstLastReturn": null,
-          "procurementVarianceAgainstBaseline": null,
-          "percentComplete": null,
-          "completedDate": null,
-          "onCompletedNameOfContractor": null
+          "baseline": "2020-01-01"
         }
       },
       "milestones": {
@@ -88,15 +71,7 @@
           {
             "description": "Milestone One",
             "milestoneBaselineCompletion": "2020-01-01",
-            "milestoneSummaryOfCriticalPath": "Summary of critical path",
-            "milestoneVarianceAgainstLastReturn": null,
-            "milestoneVarianceAgainstBaseline": null,
-            "statusAgainstLastReturn": null,
-            "milestoneLastReturnDate": null,
-            "currentReturn": null,
-            "reasonForVariance": null,
-            "milestonePercentCompleted": null,
-            "milestoneCompletedDate": null
+            "milestoneSummaryOfCriticalPath": "Summary of critical path"
           }
         ],
         "startAndCompletionMilestones": {
@@ -114,12 +89,7 @@
             "riskBaselineRisk": "Risk one",
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
-            "riskCurrentReturnLikelihood": null,
-            "riskBaselineMitigationsInPlace": "Do not do the thing",
-            "riskAnyChange": null,
-            "riskCurrentReturnMitigationsInPlace": null,
-            "riskMet": null,
-            "riskCompletionDate": null
+            "riskBaselineMitigationsInPlace": "Do not do the thing"
 
           }
         ]
@@ -128,7 +98,6 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
-    "projectCashflows": null,
     "currentFunding": {
       "forecast": [
         {
@@ -140,12 +109,7 @@
         "totalHolder": {"total": "4000"}
         },
         {
-          "period": null,
-          "instalment1": null,
-          "instalment2": null,
-          "instalment3": null,
-          "instalment4": null,
-          "totalHolder": {"total": null}
+          "totalHolder": {}
         }
       ]
     },
@@ -160,37 +124,16 @@
         "instalment4": "1000",
         "totalHolder": {"total": "4000"}
         },
-        {
-          "period": null,
-          "instalment1": null,
-          "instalment2": null,
-          "instalment3": null,
-          "instalment4": null,
-          "totalHolder": {"total": null}
-        }
+        { "totalHolder": {} }
       ]
     },
-    "changeRequired": null,
-    "reasonForRequest": null,
-    "mitigationInPlace": null,
     "requestedProfiles": {
       "newProfile": [
         {
-          "instalment1": null,
-          "instalment2": null,
-          "instalment3": null,
-          "instalment4": null,
           "period": "2019/2020",
-          "totalHolder": {"total": null}
+          "totalHolder": {}
         },
-        {
-          "instalment1": null,
-          "instalment2": null,
-          "instalment3": null,
-          "instalment4": null,
-          "period": null,
-          "totalHolder": {"total": null}
-        }
+        { "totalHolder": {} }
       ]
     }
   },
@@ -198,16 +141,9 @@
     "recovery": {
       "aimToRecoverFunding": "Yes",
       "expectedAmountToRecover": {
-        "amountRecovered": {
-          "cumulative": null,
-          "previousCumulator": null
-        },
+        "amountRecovered": {},
         "baselineAmount": "1234",
-        "changeToBaseline": {
-          "confirmation": null,
-          "currentCopy": null,
-          "lastReturn": null
-        },
+        "changeToBaseline": {},
         "methodOfRecovery": "Recovery will be undertaken"
       }
     }
@@ -216,20 +152,11 @@
     {
       "fundingStack": {
         "descriptionOfInfrastructure": "A house of cats",
-        "currentFundingStackDescription": null,
         "totalCost": {
           "previousAmounts": {
-            "baseline": "20000",
-            "lastReturn": null
+            "baseline": "20000"
           },
-          "anyChange": null,
-          "varianceReason": null,
-          "variance": {
-            "current": null,
-            "currentAmount": null,
-            "baseline": null,
-            "lastReturn": null
-          }
+          "variance": {}
         },
         "fundedThroughHIF": {
           "fundedThroughHIFCurrent": "No",
@@ -237,24 +164,18 @@
           "descriptionOfFundingStack": "Funding stack description",
           "public": {
             "previousAmounts": {
-              "baseline": "5000",
-              "lastReturn": null
+              "baseline": "5000"
             }
           },
           "private": {
             "previousAmounts": {
-              "baseline": "5000",
-              "lastReturn": null
+              "baseline": "5000"
             },
-            "anyChangeToBaseline": {
-              "reason": null,
-              "confirmation": null
-            }
+            "anyChangeToBaseline": {}
           },
           "hifSpend": {
             "previousAmounts": {
-              "baseline": "10000",
-              "lastReturn": null
+              "baseline": "10000"
             }
           }
         }
@@ -268,102 +189,76 @@
     },
     "housingStarts": {
       "baselineAmounts": [
-        { "period": "18/19", "baselineAmounts": "100" },
-        { "period": "19/20", "baselineAmounts": "50" }
+        {
+          "period": "18/19",
+          "baselineAmounts": "100"
+        },
+        {
+          "period": "19/20",
+          "baselineAmounts": "50"
+        }
       ],
-      "anyChanges": null,
-      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+      "currentReturnAmounts": [
+        {
+          "period": "18/19"
+        },
+        {
+          "period": "19/20"
+        }
+      ]
     },
     "inYearHousingCompletions": {
-      "baselineAmounts": {
-        "quarter1": null,
-        "quarter2": null,
-        "quarter3": null,
-        "quarter4": null
-      },
-      "currentAmounts": {
-        "quarter1": null,
-        "quarter2": null,
-        "quarter3": null,
-        "quarter4": null
-      },
-      "progress": null
+      "baselineAmounts": {},
+      "currentAmounts": {}
     },
     "inYearHousingStarts": {
-      "actualAmounts": {
-        "quarter1": null,
-        "quarter2": null,
-        "quarter3": null,
-        "quarter4": null
-      },
-      "baselineAmounts": {
-        "quarter1": null,
-        "quarter2": null,
-        "quarter3": null,
-        "quarter4": null
-      },
-      "currentAmounts": {
-        "quarter1": null,
-        "quarter2": null,
-        "quarter3": null,
-        "quarter4": null
-      },
-      "progress": null
+      "actualAmounts": {},
+      "baselineAmounts": {},
+      "currentAmounts": {}
     },
     "housingCompletions": {
       "baselineAmounts": [
-        { "period": "18/19", "baselineAmounts": "0" },
-        { "period": "19/20", "baselineAmounts": "50" }
+        {
+          "period": "18/19",
+          "baselineAmounts": "0"
+        },
+        {
+          "period": "19/20",
+          "baselineAmounts": "50"
+        }
       ],
-      "anyChanges": null,
-      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+      "currentReturnAmounts": [
+        {
+          "period": "18/19"
+        },
+        {
+          "period": "19/20"
+        }
+      ]
     }
   },
   "outputsActuals": [{
     "siteOutputs": {
       "details": {
         "localAuthority": "Local Authority",
-        "noOfUnits": "123",
-        "size": null
+        "noOfUnits": "123"
       },
       "starts": {
-        "starts": {
-          "previousStarts": null,
-          "startsSinceLastReturn": null,
-          "previousCompletions": null,
-          "completionsSinceLastReturn": null,
-          "currentCompletions": null,
-          "currentStarts": null
-        }
+        "starts": {}
       },
-      "ownership": {
-        "laOwned": null,
-        "pslLand": null
-      },
-      "percentages": {
-        "brownfieldPercent": null,
-        "leaseholdPercent": null,
-        "smePercent": null,
-        "mmcPercent": null
-      }
+      "ownership": {},
+      "percentages": {}
     }
   }],
   "widerScheme": [
     {
-      "keyLiveIssues": [{"description": null, "mitigationActions": null, "ratingAfterMitigation": null}]
+      "keyLiveIssues": [{}]
     }
   ],
   "s151Confirmation": {
     "hifFunding": {
       "changesToRequest": {
-        "hifTotalFundingRequest": "10000",
-        "evidenceOfVariance": null,
-        "changesToRequestConfirmation": null,
-        "requestedAmount": null,
-        "reasonForRequest": null,
-        "variance": null,
-        "varianceFromBaselinePercent": null,
-        "mitigationInPlace": null
+        "hifTotalFundingRequest": "10000"
       },
       "hifFundingProfile": [
         {
@@ -372,110 +267,34 @@
           "instalment2": "1000",
           "instalment3": "1000",
           "instalment4": "1000",
-          "total": "4000",
-          "baselineVariance1": null,
-          "baselineVariance2": null,
-          "baselineVariance3": null,
-          "baselineVariance4": null,
-          "lastMovement1": null,
-          "lastMovement2": null,
-          "lastMovement3": null,
-          "lastMovement4": null,
-          "movementVariance1": null,
-          "movementVariance2": null,
-          "movementVariance3": null,
-          "movementVariance4": null
+          "total": "4000"
         },
-        {
-          "period": null,
-          "instalment1": null,
-          "instalment2": null,
-          "instalment3": null,
-          "instalment4": null,
-          "total": null,
-          "baselineVariance1": null,
-          "baselineVariance2": null,
-          "baselineVariance3": null,
-          "baselineVariance4": null,
-          "lastMovement1": null,
-          "lastMovement2": null,
-          "lastMovement3": null,
-          "lastMovement4": null,
-          "movementVariance1": null,
-          "movementVariance2": null,
-          "movementVariance3": null,
-          "movementVariance4": null
-        }
-      ],
-      "amendmentConfirmation": null,
-      "cashflowConfirmation": null
+        {}
+      ]
     },
     "submission": {
-      "signoff": null,
-      "changeToMilestones": {
-        "changeToMilestonesConfirmation": null,
-        "reasonForRequestOfMilestoneChange": null,
-        "requestedAmendments": null,
-        "mitigationInPlaceMilestone": null
-      },
-      "changesToEndDate": {
-        "changesToEndDateConfirmation": null,
-        "reasonForRequestOfDateChange": null,
-        "requestedChangedEndDate": null,
-        "varianceFromEndDateBaseline": null,
-        "mitigationInPlaceEndDate": null,
-        "evidenceUpload": null
-      },
+      "changeToMilestones": {},
+      "changesToEndDate": {},
       "hifFundingEndDate": "2020-01-01",
       "projectLongstopDate": "2020-01-01",
-      "changesToLongstopDate": {
-        "changesToLongstopDateConfirmation": null,
-        "reasonForRequestOfLongstopChange": null,
-        "requestedLongstopEndDate": null,
-        "varianceFromLongStopBaseline": null,
-        "mitigationInPlaceLongstopDate": null,
-        "evidenceUploadLongstopDate": null
-      },
-      "recoverFunding": {
-        "recoverFundingConfirmation": null,
-        "usedOnFutureHousing": null
-      }
+      "changesToLongstopDate": {},
+      "recoverFunding": {}
     }
   },
   "s151": {
     "claimSummary": {
       "hifTotalFundingRequest": "10000",
-      "hifSpendToDate": null,
-      "AmountOfThisClaim": null,
-      "certifiedClaimForm": null,
-      "runningClaimTotal": null
+      "hifSpendToDate": "0.0"
     }
   },
   "rmMonthlyCatchup": {
-    "catchUp": [{
-    "commentOnProgress": null,
-    "dateOfCatchUp": null,
-    "issuesToRaise": null,
-    "overallRatingForScheme": null,
-    "overviewOfEngagement": null
-  }]},
+    "catchUp": [{}]},
   "reviewAndAssurance": {
-    "meetingDetails": {
-      "date": null,
-      "meetingHeld": null
-    },
-    "attendance": null,
-    "overallCommentary": null,
-    "summaryOfMeeting": null,
-    "commentary": null,
-    "meetingsAttended": null,
+    "meetingDetails": {},
     "infrastructureDelivery": [
       {
         "infrastructureDesc": "A house of cats",
-        "reviewDetails": {
-          "details": null,
-          "riskRating": null
-        }
+        "reviewDetails": {}
       }
     ]
   }

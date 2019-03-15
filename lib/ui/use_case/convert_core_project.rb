@@ -7,10 +7,25 @@ class UI::UseCase::ConvertCoreProject
   end
 
   def execute(project_data:, type: nil)
-    return @convert_core_hif_project.execute(project_data: project_data) if type == 'hif'
-    return @convert_core_ac_project.execute(project_data: project_data) if type == 'ac'
-    return @convert_core_ff_project.execute(project_data: project_data) if type == 'ff'
+    project_data = @convert_core_hif_project.execute(project_data: project_data) if type == 'hif'
+    project_data = @convert_core_ac_project.execute(project_data: project_data) if type == 'ac'
+    project_data = @convert_core_ff_project.execute(project_data: project_data) if type == 'ff'
 
-    project_data
+    compact(project_data)
+  end
+
+  private
+
+  def compact(data)  
+    if complex_object?(data)
+      data.compact!
+      data.each do |value|
+        compact(value)
+      end
+    end
+  end
+
+  def complex_object?(obj)
+    (obj.class == Hash || obj.class == Array)
   end
 end

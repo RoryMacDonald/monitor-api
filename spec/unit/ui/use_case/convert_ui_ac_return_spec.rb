@@ -22,4 +22,21 @@ describe UI::UseCase::ConvertUIACReturn do
 
     expect(converted_return).to eq(core_data_return)
   end
+
+  context 'nil data causing errors' do 
+    let(:nil_data_to_convert) do
+      {
+      }
+    end
+  
+    let(:returned_empty_return) do
+      {
+      }
+    end
+  
+    it 'Converts nil data' do
+      converted_return = described_class.new.execute(return_data: nil_data_to_convert)
+      expect(converted_return).to eq(returned_empty_return)
+    end
+  end
 end
