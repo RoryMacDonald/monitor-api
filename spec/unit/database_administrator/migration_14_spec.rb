@@ -109,4 +109,20 @@ describe 'Migration 14' do
       end
     end
   end
+
+  context 'without a project_id' do
+    let(:return_data) do
+      {
+        project_id: nil
+      }
+    end
+
+    it 'Does nothing' do
+      expect(
+        database[:return_updates]
+            .all
+            .first[:data]['reviewAndAssurance']
+      ).to eq(nil)
+    end
+  end
 end

@@ -5,6 +5,9 @@ Sequel.migration do
     return_updates = from(:return_updates)
     return_updates.each do |return_update|
       return_data = from(:returns).where(id: return_update[:return_id]).first
+
+      next if return_data[:project_id].nil?
+
       project = from(:projects).where(id: return_data[:project_id]).first
 
       next if !project.nil? && project[:type] != 'hif'
