@@ -1,4 +1,4 @@
-fdescribe LocalAuthority::UseCase::CheckApiKey do
+describe LocalAuthority::UseCase::CheckApiKey do
   let(:user_projects) { { project_list: [] } }
   let(:get_user_projects_stub) { double(execute: user_projects) }
   let(:use_case) do

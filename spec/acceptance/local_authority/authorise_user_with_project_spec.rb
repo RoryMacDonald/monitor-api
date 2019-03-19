@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative '../shared_context/dependency_factory'
 
-fdescribe 'Authorises the user' do
+describe 'Authorises the user' do
   let(:project_id) do
     get_use_case(:ui_create_project).execute(
       type: 'hif',
