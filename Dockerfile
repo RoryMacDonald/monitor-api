@@ -1,4 +1,4 @@
-FROM ruby:2.5.3-alpine3.7
+FROM ruby:2.6.2-alpine3.9
 
 RUN apk --no-cache add postgresql-dev postgresql-libs postgresql-client less
 
