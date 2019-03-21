@@ -1290,7 +1290,7 @@
           "milestones": {
             "type": "array",
             "title": "Key Infrastructure Milestones",
-            "addable": true,
+            "heAdjustableOnly": true,
             "items": {
               "title": "Milestone",
               "type": "object",
