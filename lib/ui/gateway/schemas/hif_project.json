@@ -1322,7 +1322,7 @@
           "risksToAchievingTimescales": {
             "type": "array",
             "title": "Risks to achieving timescales",
-            "addable": true,
+            "heAdjustableOnly": true,
             "items": {
               "title": "Risk",
               "type": "object",
