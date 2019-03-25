@@ -41,7 +41,7 @@ describe UI::UseCase::GetBaselines do
     it 'calls the convertor use case' do
       expect(convert_core_project_spy).to have_received(:execute).twice.with(
         type: 'ac',
-        data: {new: '2'}
+        project_data: {new: '2'}
       )
     end
 
@@ -84,7 +84,7 @@ describe UI::UseCase::GetBaselines do
     it 'calls the convertor use case' do
       expect(convert_core_project_spy).to have_received(:execute).twice.with(
         type: 'ff',
-        data: {new: '3'}
+        project_data: {new: '3'}
       )
     end
 
