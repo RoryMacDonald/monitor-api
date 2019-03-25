@@ -25,7 +25,7 @@ describe 'Amending a project' do
     expect(response[:version]).to eq(1)
 
     id = get_use_case(:amend_baseline).execute(project_id: project_id, data: {}, timestamp: 0)[:id]
-    
+
     project = get_use_case(:find_project).execute(id: project_id)
     baselines = get_use_case(:get_baselines).execute(project_id: project_id)[:baselines]
 

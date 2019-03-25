@@ -5567,9 +5567,15 @@
                 }
               }
             },
+            "formDownload": {
+              "title": "Submission sign-off",
+              "type": "boolean",
+              "description": "Please download and sign this attachment, then scan and upload below",
+              "label": "Section 151 Officer MR Approval",
+              "downloadURI": "/S151_MR_Approval_template.docx"
+            },
             "signoff": {
-              "title": "Submission sign off",
-              "description": "Please attach your signature",
+              "description": "Attach your sign-off here",
               "type": "string",
               "uploadFile": "single"
             }
