@@ -1067,7 +1067,8 @@
                     "type": "string",
                     "title": "Any Statutory Consents?",
                     "enum": ["Yes", "No"],
-                    "radio": true
+                    "radio": true,
+                    "laReadonly": true
                   }
                 },
                 "required": ["anyConsents"],
@@ -1088,10 +1089,12 @@
                                 "detailsOfConsent": {
                                   "type": "string",
                                   "title": "Details of consent",
+                                  "laReadonly": true,
                                   "extendedText": true
                                 },
                                 "targetDateToBeMet": {
                                   "type": "string",
+                                  "laReadonly": true,
                                   "format": "date",
                                   "title": "Target date to be met"
                                 }
