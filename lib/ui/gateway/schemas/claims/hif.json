@@ -103,7 +103,7 @@
           "title": "Evidence of Spend for the Past Quarter",
           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
           "uploadFile": "multiple",
-          "type": "string",
+          "type": "array",
           "s151WriteOnly": true
         },
         "breakdownOfNextQuarterSpend": {
@@ -126,7 +126,7 @@
               "title": "Evidence to Support Forecast Spend for Next Quarter",
               "description": "Evidence can include contract/ quotes. Please attach here.",
               "uploadFile": "multiple",
-              "type": "string",
+              "type": "array",
               "s151WriteOnly": true
             }
           }

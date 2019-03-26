@@ -805,7 +805,7 @@
           "title": "Site Plans",
           "description": "Upload any relevant files here.",
           "uploadFile": "multiple",
-          "type": "string"
+          "type": "array"
         }
       },
       "required": [
@@ -1429,7 +1429,7 @@
                 "currency": true
               },
               "baselineCashflows": {
-                "type": "string",
+                "type": "array",
                 "uploadFile": "multiple",
                 "title": "Baseline Cashflow(s)",
                 "description": "Uploads any relevant files here."
