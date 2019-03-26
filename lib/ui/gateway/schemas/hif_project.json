@@ -1068,7 +1068,7 @@
                     "title": "Any Statutory Consents?",
                     "enum": ["Yes", "No"],
                     "radio": true,
-                    "laReadonly": true
+                    "laReadOnly": true
                   }
                 },
                 "required": ["anyConsents"],
@@ -1089,12 +1089,12 @@
                                 "detailsOfConsent": {
                                   "type": "string",
                                   "title": "Details of consent",
-                                  "laReadonly": true,
+                                  "laReadOnly": true,
                                   "extendedText": true
                                 },
                                 "targetDateToBeMet": {
                                   "type": "string",
-                                  "laReadonly": true,
+                                  "laReadOnly": true,
                                   "format": "date",
                                   "title": "Target date to be met"
                                 }
@@ -1542,13 +1542,13 @@
         "s151FundingEndDate": {
           "type": "string",
           "format": "date",
-          "s151WriteOnly": true,
+          "laReadOnly": true,
           "title": "HIF Funding End Date"
         },
         "s151ProjectLongstopDate": {
           "type": "string",
           "format": "date",
-          "s151WriteOnly": true,
+          "laReadOnly": true,
           "title": "Project Longstop date"
         }
       }
