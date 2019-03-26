@@ -1035,6 +1035,7 @@
                   "requirement": {
                     "type": "string",
                     "title": "Is this a requirement?",
+                    "laReadOnly": true,
                     "enum": ["Yes", "No"],
                     "radio": true
                   }
@@ -1048,6 +1049,7 @@
                           "requirement": { "enum": ["Yes"] },
                           "summaryOfRequirement": {
                             "type": "string",
+                            "laReadOnly": true,
                             "title": "If Yes: Summary of requirement",
                             "extendedText": true
                           }
@@ -1067,7 +1069,8 @@
                     "type": "string",
                     "title": "Any Statutory Consents?",
                     "enum": ["Yes", "No"],
-                    "radio": true
+                    "radio": true,
+                    "laReadOnly": true
                   }
                 },
                 "required": ["anyConsents"],
@@ -1088,10 +1091,12 @@
                                 "detailsOfConsent": {
                                   "type": "string",
                                   "title": "Details of consent",
+                                  "laReadOnly": true,
                                   "extendedText": true
                                 },
                                 "targetDateToBeMet": {
                                   "type": "string",
+                                  "laReadOnly": true,
                                   "format": "date",
                                   "title": "Target date to be met"
                                 }
@@ -1539,13 +1544,13 @@
         "s151FundingEndDate": {
           "type": "string",
           "format": "date",
-          "s151WriteOnly": true,
+          "laReadOnly": true,
           "title": "HIF Funding End Date"
         },
         "s151ProjectLongstopDate": {
           "type": "string",
           "format": "date",
-          "s151WriteOnly": true,
+          "laReadOnly": true,
           "title": "Project Longstop date"
         }
       }
