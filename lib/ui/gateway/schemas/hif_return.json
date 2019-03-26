@@ -2956,7 +2956,7 @@
                   "extendedText": true
                 },
                 "ratingAfterMitigation": {
-                  "title": "Rating after mitigation",
+                  "title": "Likelihood after mitigation",
                   "type": "string",
                   "enum": ["1", "2", "3", "4", "5"]
                 }
@@ -5031,7 +5031,7 @@
                 "extendedText": true
               },
               "actionsLastQuarter": {
-                "title": "Describe actions for last quarter",
+                "title": "Describe actions for next quarter",
                 "type": "string",
                 "extendedText": true
               },
