@@ -2072,209 +2072,29 @@
                     },
                     {
                       "properties": {
-                        "programmes": { "enum": ["Accelerated Construction"] },
+                        "programmes": {
+                          "enum": [
+                            "Accelerated Construction",
+                            "Accelerated Land Disposal",
+                            "Affordable Homes Programme",
+                            "Build to Rent",
+                            "City Deals",
+                            "Economic Assets",
+                            "Estate Regeneration",
+                            "Get Britain Building",
+                            "Local Infrastructure Fund",
+                            "Pilot Transfer",
+                            "Property and Regeneration",
+                            "Public Land Investment Fund",
+                            "Public Sector Land Acquisitions",
+                            "Single Land",
+                            "THBF - Long Term Fund",
+                            "THBF - Short Term Fund"
+                            ]
+                          },
                         "description": {
                           "type": "string",
                           "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Accelerated Land Disposal"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Affordable Homes Programme"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Build to Rent"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["City Deals"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Economic Assets"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Estate Regeneration"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Get Britain Building"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Local Infrastructure Fund"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Pilot Transfer"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Property and Regeneration"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Public Land Investment Fund"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Public Sector Land Acquisitions"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["Single Land"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["THBF - Long Term Fund"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["THBF - Short Term Fund"] },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        },
-                        "pcsRef": {
-                          "type": "string",
-                          "title": "PCS Reference"
                         }
                       }
                     }
