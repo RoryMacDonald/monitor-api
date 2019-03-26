@@ -371,7 +371,7 @@
                             "extendedText": true
                           },
                           "upload": {
-                            "type": "string",
+                            "type": "array",
                             "title": "Evidence",
                             "description": "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders, soft market testing or planning",
                             "uploadFile": "multiple"
@@ -436,7 +436,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -553,7 +553,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -670,7 +670,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -787,7 +787,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -904,7 +904,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1021,7 +1021,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1142,7 +1142,7 @@
                                 "title": "Planning Reference Number"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1261,7 +1261,7 @@
                                 "title": "Planning Reference Number"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1378,7 +1378,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1499,7 +1499,7 @@
                                 "extendedText": true
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1616,7 +1616,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1733,7 +1733,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1850,7 +1850,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -1967,7 +1967,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -2084,7 +2084,7 @@
                                 "format": "date"
                               },
                               "upload": {
-                                "type": "string",
+                                "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                 "uploadFile": "multiple"
@@ -2214,7 +2214,7 @@
                                   "format": "date"
                                 },
                                 "upload": {
-                                  "type": "string",
+                                  "type": "array",
                                   "title": "Evidence",
                                   "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
                                   "uploadFile": "multiple"
@@ -2652,7 +2652,7 @@
                   "extendedText": true
                 },
                 "evidenceUpload": {
-                  "type": "string",
+                  "type": "array",
                   "title": "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders.",
                   "uploadFile": "multiple"
                 }
@@ -2890,7 +2890,7 @@
                   "radio": true
                 },
                 "signature": {
-                  "type": "string",
+                  "type": "array",
                   "title": "Please attach your signature",
                   "uploadFile": "multiple"
                 }

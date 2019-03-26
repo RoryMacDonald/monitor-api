@@ -835,7 +835,7 @@
       "title": "Site Plans",
       "description": "Upload any relevant files here.",
       "uploadFile": "multiple",
-      "type": "string"
+      "type": "array"
     }
   },
   "required": [

@@ -26,7 +26,7 @@
           "currency": true
         },
         "conditionsToGrantDrawdown": {
-          "type": "string",
+          "type": "array",
           "title": "Conditions precedent to draw down of grant",
           "uploadFile": "multiple",
           "description": "If you have conditions to meet before you can draw down grant, please email any evidence for meeting these to your Homes England projects lead, or attach the documents below."
@@ -41,7 +41,7 @@
           "title": "Evidence of Spend for the Past Quarter.",
           "description": "Evidence can include contract/ quotes. Please attach here.",
           "uploadFile": "multiple",
-          "type": "string"
+          "type": "array"
         },
         "breakdownOfNextQuarterSpend": {
           "title": "Next Quarter Spend",

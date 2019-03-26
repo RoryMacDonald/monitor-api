@@ -1772,7 +1772,7 @@
         },
         "projectCashflows": {
           "title": "Project Cashflow(s)",
-          "type": "string",
+          "type": "array",
           "uploadFile": "multiple",
           "description": "Any changes to agreed cashflow will need to be agreed by s.151 officer - you will be asked to agree to this on submission."
         }
@@ -5115,7 +5115,7 @@
                           "readonly": true
                         },
                         "evidenceOfVariance": {
-                          "type": "string",
+                          "type": "array",
                           "title": "Evidence of Variance",
                           "description": "Please attach any evidence here.",
                           "uploadFile": "multiple"
@@ -5455,7 +5455,7 @@
                           "title": "Evidence of Change to End Date",
                           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
                           "uploadFile": "multiple",
-                          "type": "string",
+                          "type": "array",
                           "s151WriteOnly": true
                         }
                       }
@@ -5522,7 +5522,7 @@
                           "title": "Evidence of Change to Project Longstop Date",
                           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
                           "uploadFile": "multiple",
-                          "type": "string",
+                          "type": "array",
                           "s151WriteOnly": true
                         }
                       }
