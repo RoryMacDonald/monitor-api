@@ -1824,7 +1824,7 @@
               "startOnFirstUnitDate": {
                 "title": "Start of first unit date",
                 "type": "object",
-                "required": ["completed"],
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
@@ -2674,7 +2674,7 @@
           "details": {
             "type": "object",
             "title": "Housing Completions",
-            "required": ["remainingEstimate", "changesRequired"],
+            "required": ["remainingEstimate"],
             "calculation": "periodTotal(formData, ['total'], 'achievedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
             "properties": {
               "siteDetails": {
