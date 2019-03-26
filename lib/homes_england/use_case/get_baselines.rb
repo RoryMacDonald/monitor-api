@@ -9,7 +9,8 @@ class HomesEngland::UseCase::GetBaselines
         data: baseline.data,
         version: baseline.version,
         status: baseline.status,
-        id: baseline.id
+        id: baseline.id,
+        timestamp: baseline.timestamp
       }
     end
 

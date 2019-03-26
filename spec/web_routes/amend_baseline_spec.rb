@@ -8,7 +8,7 @@ describe 'Ammending a baseline' do
 
   before do
     stub_const(
-      'UI::UseCase::AmendBaseline',
+      'HomesEngland::UseCase::AmendBaseline',
       double(new: amend_baseline_spy)
     )
 
@@ -22,7 +22,7 @@ describe 'Ammending a baseline' do
     let(:check_api_key_spy) { spy(execute: { valid: false })}
 
     it 'returns 401' do
-      post 'baseline/amend', { project_id: '1', data: {}, timestamp: 0 }.to_json, 'HTTP_API_KEY' => 'notSoSecret'
+      post 'baseline/amend', { project_id: '1'}.to_json, 'HTTP_API_KEY' => 'notSoSecret'
 
       expect(last_response.status).to eq(401)
     end
@@ -37,36 +37,34 @@ describe 'Ammending a baseline' do
     end
 
     it 'returns 200 when submitting a valid id' do
-      post 'baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2' }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      post 'baseline/amend', { project_id: '1'}.to_json, 'HTTP_API_KEY' => 'superSecret'
       expect(last_response.status).to eq(200)
     end
 
     context 'example one' do
       it 'will run amend baseline use case with project_id and data' do
-        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '1' }.to_json, 'HTTP_API_KEY' => 'superSecret'
         expect(amend_baseline_spy).to have_received(:execute).with(
-          project_id: 1,
-          data: { data: 'data' },
-          timestamp: 2
+          project_id: 1
           )
       end
 
       let(:amend_baseline_spy) { spy(execute: {success: true, id: 34, errors: [:incorrect_timestamp], timestamp: 3}) }
       
       it 'returns a status of 200' do
-        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '1'}.to_json, 'HTTP_API_KEY' => 'superSecret'
         expect(last_response.status).to eq(200)        
       end
 
       it 'returns the id of the baseline' do
-        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '1'}.to_json, 'HTTP_API_KEY' => 'superSecret'
         response_body = JSON.parse(last_response.body)
         
         expect(response_body['baselineId']).to eq(34)        
       end
 
       it 'returns the timestamp' do
-        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '1'}.to_json, 'HTTP_API_KEY' => 'superSecret'
         response_body = JSON.parse(last_response.body)
         
         expect(response_body['timestamp']).to eq(3)        
@@ -74,7 +72,7 @@ describe 'Ammending a baseline' do
 
 
       it 'returns any errors' do
-        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '1'}.to_json, 'HTTP_API_KEY' => 'superSecret'
         response_body = JSON.parse(last_response.body)
         
         expect(response_body['errors']).to eq(['incorrect_timestamp'])        
@@ -84,25 +82,23 @@ describe 'Ammending a baseline' do
 
     context 'example two' do
       it 'will run amend baseline use case with project_id and data' do
-        post '/baseline/amend', { project_id: '5', data: { cats: 'meow' }, timestamp: '4556'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '5'}.to_json, 'HTTP_API_KEY' => 'superSecret'
         expect(amend_baseline_spy).to have_received(:execute).with(
-          project_id: 5,
-          data: { cats: 'meow' },
-          timestamp: 4556
+          project_id: 5
         )
       end
 
       let(:amend_baseline_spy) { spy(execute: {success: true, id: 56, timestamp: 44444, errors: []}) }
       
       it 'returns the id from the baseline' do
-        post '/baseline/amend', { project_id: '5', data: { cats: 'meow' }, timestamp: '4556'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '5'}.to_json, 'HTTP_API_KEY' => 'superSecret'
         response_body = JSON.parse(last_response.body)
         
         expect(response_body['baselineId']).to eq(56)        
       end
 
       it 'returns the timestamp' do
-        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '1'}.to_json, 'HTTP_API_KEY' => 'superSecret'
         response_body = JSON.parse(last_response.body)
         
         expect(response_body['timestamp']).to eq(44444)        
@@ -110,7 +106,7 @@ describe 'Ammending a baseline' do
 
 
       it 'returns any errors' do
-        post '/baseline/amend', { project_id: '1', data: { data: 'data' }, timestamp: '2'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+        post '/baseline/amend', { project_id: '1'}.to_json, 'HTTP_API_KEY' => 'superSecret'
         response_body = JSON.parse(last_response.body)
         
         expect(response_body['errors']).to eq([])        

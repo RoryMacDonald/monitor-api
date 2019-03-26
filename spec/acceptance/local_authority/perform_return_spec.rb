@@ -411,7 +411,7 @@ describe 'Performing Return on HIF Project' do
     return_data = get_use_case(:get_return).execute(id: return_id)
     expect(return_data[:baseline_version]).to eq(1)
 
-    get_use_case(:amend_baseline).execute(project_id: project_id, data: project_baseline, timestamp: 0)
+    get_use_case(:amend_baseline).execute(project_id: project_id)
 
     second_return_id = create_new_return(project_id: project_id, data: initial_return[:data])
     

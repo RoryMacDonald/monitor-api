@@ -9,7 +9,7 @@ class UI::UseCase::GetBaselines
     type = @find_project.execute(id: project_id)[:type]
     baselines = @get_baselines.execute(project_id: project_id)[:baselines]
     baselines.each do |baseline|
-      baseline[:data] = @convert_core_project.execute(type: type, data: baseline[:data])
+      baseline[:data] = @convert_core_project.execute(type: type, project_data: baseline[:data])
     end
 
     { baselines: baselines }
