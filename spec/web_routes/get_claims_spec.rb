@@ -7,15 +7,8 @@ describe 'Getting return history' do
   let(:get_claims_spy) { spy(execute: returned_hashes) }
 
   before do
-    stub_const(
-      'UI::UseCase::GetClaims',
-      double(new: get_claims_spy)
-    )
-
-    stub_const(
-      'LocalAuthority::UseCase::CheckApiKey',
-      double(new: double(execute: {valid: true}))
-    )
+    stub_instances(UI::UseCase::GetClaims, get_claims_spy)
+    stub_instances(LocalAuthority::UseCase::CheckApiKey, double(execute: {valid: true}))
 
     header 'API_KEY', 'superSecret'
   end
