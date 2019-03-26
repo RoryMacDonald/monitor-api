@@ -1035,6 +1035,7 @@
                   "requirement": {
                     "type": "string",
                     "title": "Is this a requirement?",
+                    "laReadOnly": true,
                     "enum": ["Yes", "No"],
                     "radio": true
                   }
@@ -1048,6 +1049,7 @@
                           "requirement": { "enum": ["Yes"] },
                           "summaryOfRequirement": {
                             "type": "string",
+                            "laReadOnly": true,
                             "title": "If Yes: Summary of requirement",
                             "extendedText": true
                           }
