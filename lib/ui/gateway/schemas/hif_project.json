@@ -2071,14 +2071,45 @@
                     "THBF - Long Term Fund",
                     "THBF - Short Term Fund"
                   ]
-                },
-                "description": {
-                  "type": "string",
-                  "title": "Description"
-                },
-                "pcsRef": {
-                  "type": "string",
-                  "title": "PCS Reference"
+                }
+              },
+              "dependencies": {
+                "programmes": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "programmes": { "enum": ["N/A"] }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "programmes": {
+                          "enum": [
+                            "Accelerated Construction",
+                            "Accelerated Land Disposal",
+                            "Affordable Homes Programme",
+                            "Build to Rent",
+                            "City Deals",
+                            "Economic Assets",
+                            "Estate Regeneration",
+                            "Get Britain Building",
+                            "Local Infrastructure Fund",
+                            "Pilot Transfer",
+                            "Property and Regeneration",
+                            "Public Land Investment Fund",
+                            "Public Sector Land Acquisitions",
+                            "Single Land",
+                            "THBF - Long Term Fund",
+                            "THBF - Short Term Fund"
+                            ]
+                          },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -2133,10 +2164,74 @@
                     "RIS2",
                     "Other"
                   ]
-                },
-                "description": {
-                  "type": "string",
-                  "title": "Description"
+                }
+              },
+              "dependencies": {
+                "programmes": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "programmes": {
+                          "enum": ["N/A"]
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "programmes": {
+                          "enum": ["NPIF"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "programmes": {
+                          "enum": ["Growth and Housing Fund"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "programmes": {
+                          "enum": ["RIS"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "programmes": {
+                          "enum": ["RIS2"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "programmes": {
+                          "enum": ["Other"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -2161,10 +2256,118 @@
                     "HMT",
                     "MOD"
                   ]
-                },
-                "description": {
-                  "type": "string",
-                  "title": "Description"
+                }
+              },
+              "dependencies": {
+                "departments": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["N/A"]
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["DfT"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["MHCLG"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["BEIS"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["DECC"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["DEFRA"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["DfE"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["DH"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["HMT"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "departments": {
+                          "enum": ["MOD"]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             },
