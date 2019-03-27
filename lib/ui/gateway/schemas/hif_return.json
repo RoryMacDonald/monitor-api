@@ -6616,12 +6616,14 @@
         "meetingDetails": {
           "title": "",
           "type": "object",
+          "heAlwaysWritable": true,
           "properties": {
             "meetingHeld": {
               "type": "string",
               "title": "Quarterly meeting held?",
               "enum": ["Yes", "No"],
-              "radio": true
+              "radio": true,
+              "heAlwaysWritable": true
             }
           },
           "dependencies": {
@@ -6630,11 +6632,13 @@
                 {
                   "properties": {
                     "meetingHeld": {
+                      "heAlwaysWritable": true,
                       "enum": ["Yes"]
                     },
                     "date": {
                       "title": "Date",
                       "type": "string",
+                      "heAlwaysWritable": true,
                       "format": "date"
                     }
                   }
@@ -6642,6 +6646,7 @@
                 {
                   "properties": {
                     "meetingHeld": {
+                      "heAlwaysWritable": true,
                       "enum": ["No"]
                     }
                   }
@@ -6652,19 +6657,23 @@
         },
         "attendance": {
           "title": "Who was in attendance?",
-          "type": "string"
+          "type": "string",
+          "heAlwaysWritable": true
         },
         "summaryOfMeeting": {
           "type": "string",
           "title": "Summary Of Meeting",
-          "extendedText": true
+          "extendedText": true,
+          "heAlwaysWritable": true
         },
         "meetingsAttended": {
           "title": "Boards/Governance meetings attended",
-          "type": "string"
+          "type": "string",
+          "heAlwaysWritable": true
         },
         "infrastructureDelivery": {
           "type": "array",
+          "heAlwaysWritable": true,
           "title": "Summary of Infrastructures",
           "items": {
             "type": "object",
@@ -6673,6 +6682,7 @@
               "infrastructureDesc": {
                 "type": "string",
                 "readonly": true,
+                "heAlwaysWritable": true,
                 "title": "Infrastructure Description"
               },
               "reviewDetails": {
@@ -6682,10 +6692,12 @@
                 "properties": {
                   "details": {
                     "type": "string",
+                    "heAlwaysWritable": true,
                     "title": "Summary of Infrastructure Delivery"
                   },
                   "riskRating": {
                     "type": "string",
+                    "heAlwaysWritable": true,
                     "title": "Risk Rating",
                     "enum": [
                       "High",
@@ -6707,11 +6719,13 @@
           "properties": {
             "summary": {
               "title": "Summary",
+              "heAlwaysWritable": true,
               "type": "string"
             },
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
+              "heAlwaysWritable": true,
               "enum": [
                 "High",
                 "Medium High",
@@ -6729,10 +6743,12 @@
           "properties": {
             "summary": {
               "title": "Summary",
+              "heAlwaysWritable": true,
               "type": "string"
             },
             "riskRating": {
               "type": "string",
+              "heAlwaysWritable": true,
               "title": "Risk Rating",
               "enum": [
                 "High",
@@ -6751,11 +6767,13 @@
           "properties": {
             "summary": {
               "title": "Summary",
+              "heAlwaysWritable": true,
               "type": "string"
             },
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
+              "heAlwaysWritable": true,
               "enum": [
                 "High",
                 "Medium High",
@@ -6773,12 +6791,14 @@
             "significantIssues": {
               "type": "array",
               "title": "Significant Issues",
+              "heAlwaysWritable": true,
               "addable": true,
               "items": {
                 "type": "object",
                 "properties": {
                   "barrierType": {
                     "title": "Type",
+                    "heAlwaysWritable": true,
                     "type": "string",
                     "enum": [
                       "Land acquisition",
@@ -6796,11 +6816,13 @@
                   "commentary": {
                     "title": "Commentary",
                     "type": "string",
+                    "heAlwaysWritable": true,
                     "extendedText": true
                   },
                   "overview": {
                     "title": "Overview",
                     "type": "string",
+                    "heAlwaysWritable": true,
                     "extendedText": true
                   }
                 },
@@ -6811,6 +6833,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Land acquisition"]
                           }
                         }
@@ -6819,6 +6842,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Site Access - Road"]
                           }
                         }
@@ -6827,6 +6851,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Site Access - Railway"]
                           }
                         }
@@ -6835,6 +6860,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Flood risk"]
                           }
                         }
@@ -6843,6 +6869,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Funding - sources / cashflow"]
                           }
                         }
@@ -6851,6 +6878,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Planning"]
                           }
                         }
@@ -6859,6 +6887,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Land Remediation"]
                           }
                         }
@@ -6867,6 +6896,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Utilities Provision"]
                           }
                         }
@@ -6875,6 +6905,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Procurement"]
                           }
                         }
@@ -6883,10 +6914,12 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Other"]
                           },
                           "details": {
                             "title": "Details",
+                            "heAlwaysWritable": true,
                             "type": "string"
                           }
                         }
@@ -6899,12 +6932,14 @@
             "liveIssues": {
               "type": "array",
               "title": "Live Issues (with mitigation)",
+              "heAlwaysWritable": true,
               "addable": true,
               "items": {
                 "type": "object",
                 "properties": {
                   "barrierType": {
                     "title": "Type",
+                    "heAlwaysWritable": true,
                     "type": "string",
                     "enum": [
                       "Land acquisition",
@@ -6922,11 +6957,13 @@
                   "commentary": {
                     "title": "Commentary",
                     "type": "string",
+                    "heAlwaysWritable": true,
                     "extendedText": true
                   },
                   "overview": {
                     "title": "Overview",
                     "type": "string",
+                    "heAlwaysWritable": true,
                     "extendedText": true
                   }
                 },
@@ -6937,6 +6974,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Land acquisition"]
                           }
                         }
@@ -6945,6 +6983,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Site Access - Road"]
                           }
                         }
@@ -6953,6 +6992,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Site Access - Railway"]
                           }
                         }
@@ -6961,6 +7001,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Flood risk"]
                           }
                         }
@@ -6969,6 +7010,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Funding - sources / cashflow"]
                           }
                         }
@@ -6977,6 +7019,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Planning"]
                           }
                         }
@@ -6985,6 +7028,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Land Remediation"]
                           }
                         }
@@ -6993,6 +7037,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Utilities Provision"]
                           }
                         }
@@ -7001,6 +7046,7 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Procurement"]
                           }
                         }
@@ -7009,10 +7055,12 @@
                         "properties": {
                           "barrierType": {
                             "type": "string",
+                            "heAlwaysWritable": true,
                             "enum": ["Other"]
                           },
                           "details": {
                             "title": "Details",
+                            "heAlwaysWritable": true,
                             "type": "string"
                           }
                         }
@@ -7032,12 +7080,14 @@
             "rating": {
               "type": "string",
               "title": "",
+              "heAlwaysWritable": true,
               "radio": true,
               "enum": ["Red", "Amber", "Green"]
             },
             "reason": {
               "type": "string",
               "title": "Reason for Rating",
+              "heAlwaysWritable": true,
               "extendedText": true
             }
           }
@@ -7045,6 +7095,7 @@
         "overallCommentary": {
           "type": "string",
           "title": "Overall Commentary on Performance",
+          "heAlwaysWritable": true,
           "extendedText": true
         },
         "riskAssessmentSpend": {
@@ -7055,11 +7106,13 @@
             "currentYear": {
               "type": "string",
               "title": "Current Year",
+              "heAlwaysWritable": true,
               "enum": ["Low", "Medium Low", "Medium High", "High"]
             },
             "nextYear": {
               "type": "string",
               "title": "Next Year",
+              "heAlwaysWritable": true,
               "enum": ["Low", "Medium Low", "Medium High", "High"]
             }
           }
@@ -7072,11 +7125,13 @@
             "currentYear": {
               "type": "string",
               "title": "Current Year",
+              "heAlwaysWritable": true,
               "enum": ["Low", "Medium Low", "Medium High", "High"]
             },
             "nextYear": {
               "type": "string",
               "title": "Next Year",
+              "heAlwaysWritable": true,
               "enum": ["Low", "Medium Low", "Medium High", "High"]
             }
           }
@@ -7089,6 +7144,7 @@
               "type": "string",
               "title": "Any issues requiring escalation?",
               "radio": true,
+              "heAlwaysWritable": true,
               "enum": ["Yes", "No"]
             }
           },
@@ -7098,11 +7154,13 @@
                 {
                   "properties": {
                     "anyIssuesToEscalate": {
+                      "heAlwaysWritable": true,
                       "enum": ["Yes"]
                     },
                     "escalationProposals": {
                       "type": "string",
                       "title": "Escalation Proposals",
+                      "heAlwaysWritable": true,
                       "extendedText": true
                     }
                   }
@@ -7110,6 +7168,7 @@
                 {
                   "properties": {
                     "anyIssuesToEscalate": {
+                      "heAlwaysWritable": true,
                       "enum": ["No"]
                     }
                   }
@@ -7126,6 +7185,7 @@
               "type": "string",
               "title": "More regular monitoring required?",
               "enum": ["Yes", "No"],
+              "heAlwaysWritable": true,
               "radio": true
             }
           },
@@ -7135,11 +7195,13 @@
                 {
                   "properties": {
                     "moreMonitoringRequired": {
+                      "heAlwaysWritable": true,
                       "enum": ["Yes"]
                     },
                     "requiredFrequency": {
                       "type": "string",
                       "title": "Required Frequency",
+                      "heAlwaysWritable": true,
                       "enum": [
                         "Fortnightly",
                         "Monthly",
@@ -7153,6 +7215,7 @@
                 {
                   "properties": {
                     "moreMonitoringRequired": {
+                      "heAlwaysWritable": true,
                       "enum": ["No"]
                     }
                   }
@@ -7164,6 +7227,7 @@
         "commentary": {
           "type": "string",
           "title": "Commentary",
+          "heAlwaysWritable": true,
           "extendedText": true
         }
       }
