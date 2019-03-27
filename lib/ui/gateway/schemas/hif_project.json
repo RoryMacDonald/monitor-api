@@ -2092,27 +2092,39 @@
                   "type": "string",
                   "title": "Programmes",
                   "enum": [
-                    "Accelerated Construction",
-                    "Accelerated Land Disposal",
-                    "Affordable Homes Programme",
-                    "Build to Rent",
-                    "City Deals",
-                    "Economic Assets",
-                    "Estate Regeneration",
-                    "Get Britain Building",
-                    "Local Infrastructure Fund",
-                    "Pilot Transfer",
-                    "Property and Regeneration",
-                    "Public Land Investment Fund",
-                    "Public Sector Land Acquisitions",
-                    "Single Land",
-                    "THBF - Long Term Fund",
-                    "THBF - Short Term Fund"
+                    "Garden Towns",
+                    "Garden Villages",
+                    "Garden Communities",
+                    "Land Release Fund",
+                    "N/A"
                   ]
-                },
-                "description": {
-                  "type": "string",
-                  "title": "Description"
+                }
+              },
+              "dependencies": {
+                "programmes": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "programmes": { "enum": ["N/A"] }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "programmes": {
+                          "enum": [
+                            "Garden Towns",
+                            "Garden Villages",
+                            "Garden Communities",
+                            "Land Release Fund"
+                          ]
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             },
