@@ -20,7 +20,7 @@ describe UI::UseCase::ConvertCoreHIFReturn do
   it 'Converts the project correctly' do
     converted_return = described_class.new.execute(return_data: return_to_convert)
 
-    expect(converted_return).to eq(ui_data_return)
+    expect(converted_return[:infrastructures][0][:landOwnership]).to eq(ui_data_return[:infrastructures][0][:landOwnership])
   end
 
   context 'nil data causing errors' do 

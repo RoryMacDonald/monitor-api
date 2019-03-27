@@ -47,12 +47,7 @@
       "landOwnership": {
         "underControlOfLA": "Yes",
         "ownershipOfLandOtherThanLA": "Dave",
-        "landAcquisitionRequired": "Yes",
-        "howManySitesToAcquire": "10",
         "isLandAcquisitionRequired": "No",
-        "toBeAcquiredBy": "LA",
-        "targetDateToAcquire": "2020-01-01",
-        "summaryOfCriticalPath": "Summary of critical path",
         "criticalPath": "path",
         "dateToAcquire": "01/01/01",
         "acquiredBy" :"me",

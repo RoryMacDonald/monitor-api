@@ -125,18 +125,17 @@ class UI::UseCase::ConvertCoreHIFProject
 
     unless infrastructure[:landOwnership].nil?
       converted_infrastructure[:landOwnership] = {
-        underControlOfLA: infrastructure[:landOwnership][:underControlOfLA],
-        ownershipOfLandOtherThanLA: infrastructure[:landOwnership][:ownershipOfLandOtherThanLA],
-        landAcquisitionRequired: infrastructure[:landOwnership][:landAcquisitionRequired],
-        isLandAcquisitionRequired: infrastructure[:landOwnership][:isLandAcquisitionRequired],
-        criticalPath: infrastructure[:landOwnership][:criticalPath],
-        dateToAcquire: infrastructure[:landOwnership][:dateToAcquire],
-        acquiredBy: infrastructure[:landOwnership][:acquiredBy],
-        sitesToAcquire: infrastructure[:landOwnership][:sitesToAcquire],
-        howManySitesToAcquire: infrastructure[:landOwnership][:howManySitesToAcquire],
-        toBeAcquiredBy: infrastructure[:landOwnership][:toBeAcquiredBy],
-        targetDateToAcquire: infrastructure[:landOwnership][:targetDateToAcquire],
-        summaryOfCriticalPath: infrastructure[:landOwnership][:summaryOfCriticalPath]
+        landControl: {
+          underControlOfLA: infrastructure[:landOwnership][:underControlOfLA],
+          ownershipOfLandOtherThanLA: infrastructure[:landOwnership][:ownershipOfLandOtherThanLA]
+        },
+        acquisitionRequired: {
+          isLandAcquisitionRequired: infrastructure[:landOwnership][:isLandAcquisitionRequired],
+          criticalPath: infrastructure[:landOwnership][:criticalPath],
+          dateToAcquire: infrastructure[:landOwnership][:dateToAcquire],
+          acquiredBy: infrastructure[:landOwnership][:acquiredBy],
+          sitesToAcquire: infrastructure[:landOwnership][:sitesToAcquire]
+        }
       }
     end
 

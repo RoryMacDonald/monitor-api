@@ -104,12 +104,17 @@ class UI::UseCase::ConvertCoreHIFReturn
 
   def convert_land_ownership(land_ownership)
     new_land_ownership = {
-      laHasControlOfSite: land_ownership[:laHasControlOfSite]
+      landControl: {
+        laHasControlOfSite: land_ownership[:laHasControlOfSite]
+      }
     }
 
     unless land_ownership[:laDoesNotControlSite].nil?
-      new_land_ownership[:laDoesNotControlSite] = {
-        whoOwnsSite: land_ownership[:laDoesNotControlSite][:whoOwnsSite],
+      new_land_ownership[:landControl][:laDoesNotControlSite] = {
+        whoOwnsSite: land_ownership[:laDoesNotControlSite][:whoOwnsSite]
+      }
+
+      new_land_ownership[:acquisitionRequired] = {
         landAcquisitionRequired: land_ownership[:laDoesNotControlSite][:landAcquisitionRequired],
         howManySitesToAquire: land_ownership[:laDoesNotControlSite][:howManySitesToAquire],
         toBeAquiredBy: land_ownership[:laDoesNotControlSite][:toBeAquiredBy],

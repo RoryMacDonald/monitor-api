@@ -1124,129 +1124,94 @@
             "type": "object",
             "title": "Land Ownership",
             "properties": {
-              "underControlOfLA": {
-                "type": "string",
-                "title": "Is land under control of the Local Authority?",
-                "enum": ["Yes", "No"],
-                "radio": true
-              }
-            },
-            "required": ["underControlOfLA"],
-            "dependencies": {
-              "underControlOfLA": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "underControlOfLA": { "enum": ["No"] },
-                      "ownershipOfLandOtherThanLA": {
-                        "type": "string",
-                        "title": "Who owns it?"
-                      },
-                      "isLandAcquisitionRequired": {
-                        "type": "string",
-                        "title": "Is land acquisition required?",
-                        "enum": ["Yes", "No"],
-                        "radio": true
-                      }
-                    },
-                    "required": [
-                      "ownershipOfLandOtherThanLA",
-                      "isLandAcquisitionRequired"
-                    ],
-                    "dependencies": {
-                      "isLandAcquisitionRequired": {
-                        "oneOf": [
-                          {
-                            "properties": {
-                              "isLandAcquisitionRequired": { "enum": ["No"] }
-                            }
-                          },
-                          {
-                            "properties": {
-                              "isLandAcquisitionRequired": { "enum": ["Yes"] },
-                              "sitesToAcquire": {
-                                "type": "string",
-                                "title": "How many sites?"
-                              },
-                              "acquiredBy": {
-                                "type": "string",
-                                "title": "Is this to be acquired by LA or developer?"
-                              },
-                              "dateToAcquire": {
-                                "type": "string",
-                                "format": "date",
-                                "title": "Target date to aquire sites"
-                              },
-                              "criticalPath": {
-                                "type": "string",
-                                "title": "Summary of Critical Path",
-                                "extendedText": true
-                              }
-                            },
-                            "required": [
-                              "sitesToAcquire",
-                              "acquiredBy",
-                              "dateToAcquire",
-                              "criticalPath"
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "properties": {
-                      "underControlOfLA": { "enum": ["Yes"] },
-                      "landAcquisitionRequired": {
-                        "type": "string",
-                        "title": "Is land acquisition required?",
-                        "enum": ["Yes", "No"],
-                        "radio": true
-                      }
-                    },
-                    "required": ["landAcquisitionRequired"],
-                    "dependencies": {
-                      "landAcquisitionRequired": {
-                        "oneOf": [
-                          {
-                            "properties": {
-                              "landAcquisitionRequired": { "enum": ["No"] }
-                            }
-                          },
-                          {
-                            "properties": {
-                              "landAcquisitionRequired": { "enum": ["Yes"] },
-                              "howManySitesToAcquire": {
-                                "type": "string",
-                                "title": "How many sites?"
-                              },
-                              "toBeAcquiredBy": {
-                                "type": "string",
-                                "title": "Is this to be acquired by LA or developer?"
-                              },
-                              "targetDateToAcquire": {
-                                "type": "string",
-                                "format": "date",
-                                "title": "Target date to aquire sites"
-                              },
-                              "summaryOfCriticalPath": {
-                                "type": "string",
-                                "title": "Summary of Critical Path",
-                                "extendedText": true
-                              }
-                            },
-                            "required": [
-                              "howManySitesToAcquire",
-                              "toBeAcquiredBy",
-                              "targetDateToAcquire",
-                              "summaryOfCriticalPath"
-                            ]
-                          }
-                        ]
-                      }
-                    }
+              "landControl": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "underControlOfLA": {
+                    "type": "string",
+                    "title": "Is land under control of the Local Authority?",
+                    "enum": ["Yes", "No"],
+                    "radio": true
                   }
-                ]
+                },
+                "dependencies": {
+                  "underControlOfLA": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "underControlOfLA": { "enum": ["No"] },
+                          "ownershipOfLandOtherThanLA": {
+                            "type": "string",
+                            "title": "Who owns it?"
+                          }
+                        },
+                        "required": [
+                          "ownershipOfLandOtherThanLA"
+                        ]
+                      },
+                      {
+                        "properties": {
+                          "underControlOfLA": { "enum": ["Yes"] }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "required": ["underControlOfLA"]
+              },
+              "acquisitionRequired": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "isLandAcquisitionRequired": {
+                    "type": "string",
+                    "title": "Is land acquisition required?",
+                    "enum": ["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "isLandAcquisitionRequired": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "isLandAcquisitionRequired": { "enum": ["No"] }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "isLandAcquisitionRequired": { "enum": ["Yes"] },
+                          "sitesToAcquire": {
+                            "type": "string",
+                            "title": "How many sites?"
+                          },
+                          "acquiredBy": {
+                            "type": "string",
+                            "title": "Is this to be acquired by LA or developer?"
+                          },
+                          "dateToAcquire": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Target date to aquire sites"
+                          },
+                          "criticalPath": {
+                            "type": "string",
+                            "title": "Summary of Critical Path",
+                            "extendedText": true
+                          }
+                        },
+                        "required": [
+                          "sitesToAcquire",
+                          "acquiredBy",
+                          "dateToAcquire",
+                          "criticalPath"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [ "isLandAcquisitionRequired"]
               }
             }
           },
