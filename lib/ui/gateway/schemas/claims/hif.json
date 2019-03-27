@@ -34,10 +34,13 @@
           "hidden": true
         },
         "certifiedClaimForm": {
-          "type": "string",
+          "type": "array",
           "title": "Certified claim form",
           "description": "Please attach the form here.",
-          "uploadFile": "single"
+          "uploadFile": "single",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -104,6 +107,9 @@
           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
           "uploadFile": "multiple",
           "type": "array",
+          "items": {
+            "type": "string"
+          },
           "s151WriteOnly": true
         },
         "breakdownOfNextQuarterSpend": {
@@ -127,7 +133,10 @@
               "description": "Evidence can include contract/ quotes. Please attach here.",
               "uploadFile": "multiple",
               "type": "array",
-              "s151WriteOnly": true
+              "s151WriteOnly": true,
+              "items": {
+                "type": "string"
+              }
             }
           }
         }

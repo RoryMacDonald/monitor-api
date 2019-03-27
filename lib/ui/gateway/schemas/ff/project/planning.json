@@ -23,7 +23,10 @@
                 "planAttachment": {
                   "title": "Please attach masterplans here.",
                   "type": "array",
-                  "uploadFile": "multiple"
+                  "uploadFile": "multiple",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             },

@@ -4,10 +4,21 @@
   "sharedData": [
     {
       "from": ["sites", "#", "housingOutputs", "units", "numberOfUnitsTotal"],
-      "to": ["housingCompletions", "#", "details", "siteDetails", "totalLiveUnits"]
+      "to": [
+        "housingCompletions",
+        "#",
+        "details",
+        "siteDetails",
+        "totalLiveUnits"
+      ]
     }
   ],
-  "required": ["sites", "grantExpenditure", "housingCompletions", "s151submission"],
+  "required": [
+    "sites",
+    "grantExpenditure",
+    "housingCompletions",
+    "s151submission"
+  ],
   "properties": {
     "sites": {
       "type": "array",
@@ -87,7 +98,12 @@
           "housingOutputs": {
             "type": "object",
             "title": "Housing Outputs",
-            "required": ["units", "paceOfConstruction", "modernMethodsOfConstruction", "changesRequired"],
+            "required": [
+              "units",
+              "paceOfConstruction",
+              "modernMethodsOfConstruction",
+              "changesRequired"
+            ],
             "properties": {
               "baselineTotals": {
                 "type": "object",
@@ -356,14 +372,18 @@
                       {
                         "properties": {
                           "changesConfirmation": {
-                            "enum": ["Do not change the baseline for MMC, pace or scheme units – where there are variances these will be rectified in due course"]
+                            "enum": [
+                              "Do not change the baseline for MMC, pace or scheme units – where there are variances these will be rectified in due course"
+                            ]
                           }
                         }
                       },
                       {
                         "properties": {
                           "changesConfirmation": {
-                            "enum": ["Request change to baseline to match latest estimates"]
+                            "enum": [
+                              "Request change to baseline to match latest estimates"
+                            ]
                           },
                           "reason": {
                             "type": "string",
@@ -374,7 +394,10 @@
                             "type": "array",
                             "title": "Evidence",
                             "description": "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders, soft market testing or planning",
-                            "uploadFile": "multiple"
+                            "uploadFile": "multiple",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         }
                       }
@@ -439,7 +462,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -450,7 +476,10 @@
                               "details": {
                                 "horizontal": true,
                                 "type": "object",
-                                "required": ["estimatedPercentageComplete", "currentEstimatedDate"],
+                                "required": [
+                                  "estimatedPercentageComplete",
+                                  "currentEstimatedDate"
+                                ],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -481,7 +510,10 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -556,7 +588,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -568,7 +603,10 @@
                                 "horizontal": true,
                                 "type": "object",
                                 "title": "",
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -597,7 +635,10 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -673,7 +714,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -685,7 +729,10 @@
                                 "type": "object",
                                 "horizontal": true,
                                 "title": "",
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -715,7 +762,10 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -790,7 +840,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -802,7 +855,10 @@
                                 "horizontal": true,
                                 "type": "object",
                                 "title": "",
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -831,7 +887,10 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -907,7 +966,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -918,7 +980,10 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -949,7 +1014,10 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1024,7 +1092,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -1035,7 +1106,10 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -1065,7 +1139,10 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -1116,7 +1193,7 @@
                 "properties": {
                   "completion": {
                     "type": "object",
-                    "required":["completed"],
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -1145,10 +1222,16 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
-                            "required": ["dateOfCompletion", "planningReferenceNumber"]
+                            "required": [
+                              "dateOfCompletion",
+                              "planningReferenceNumber"
+                            ]
                           },
                           {
                             "properties": {
@@ -1207,7 +1290,7 @@
                                 }
                               }
                             },
-                            "required":["details", "risk"]
+                            "required": ["details", "risk"]
                           },
                           {
                             "properties": {
@@ -1264,10 +1347,16 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
-                            "required": ["dateOfCompletion", "planningReferenceNumber"]
+                            "required": [
+                              "dateOfCompletion",
+                              "planningReferenceNumber"
+                            ]
                           },
                           {
                             "properties": {
@@ -1276,7 +1365,10 @@
                                 "type": "object",
                                 "horizontal": true,
                                 "title": "",
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -1306,7 +1398,10 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1381,7 +1476,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -1391,7 +1489,10 @@
                               "completed": { "enum": ["No"] },
                               "details": {
                                 "type": "object",
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "horizontal": true,
                                 "title": "",
                                 "properties": {
@@ -1421,7 +1522,10 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
-                                "required": ["reasonForVariance", "riskToAchievingBaseline"],
+                                "required": [
+                                  "reasonForVariance",
+                                  "riskToAchievingBaseline"
+                                ],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -1502,10 +1606,16 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
-                            "required": ["dateOfCompletion", "namesOfContractors"]
+                            "required": [
+                              "dateOfCompletion",
+                              "namesOfContractors"
+                            ]
                           },
                           {
                             "properties": {
@@ -1513,7 +1623,10 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -1544,7 +1657,10 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1619,7 +1735,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -1630,7 +1749,10 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -1661,7 +1783,10 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1736,7 +1861,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -1748,7 +1876,10 @@
                                 "horizontal": true,
                                 "type": "object",
                                 "title": "",
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -1777,7 +1908,10 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -1853,7 +1987,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -1865,7 +2002,10 @@
                                 "horizontal": true,
                                 "type": "object",
                                 "title": "",
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -1895,7 +2035,10 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1970,7 +2113,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -1981,7 +2127,10 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -2012,7 +2161,10 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -2087,7 +2239,10 @@
                                 "type": "array",
                                 "title": "Evidence",
                                 "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                "uploadFile": "multiple"
+                                "uploadFile": "multiple",
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "required": ["dateOfCompletion"]
@@ -2098,7 +2253,10 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
-                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                "required": [
+                                  "currentEstimatedDate",
+                                  "estimatedPercentageComplete"
+                                ],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -2128,7 +2286,10 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
-                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                "required": [
+                                  "riskToAchievingBaseline",
+                                  "reasonForVariance"
+                                ],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -2151,7 +2312,7 @@
                                 }
                               }
                             },
-                            "required":["details", "risk"]
+                            "required": ["details", "risk"]
                           },
                           {
                             "properties": {
@@ -2217,7 +2378,10 @@
                                   "type": "array",
                                   "title": "Evidence",
                                   "description": "Please submit any evidence to demonstrate the achievement of this milestones, for example a planning application reference, tender materials, bids, technical studies",
-                                  "uploadFile": "multiple"
+                                  "uploadFile": "multiple",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "required": ["dateOfCompletion"]
@@ -2228,7 +2392,10 @@
                                 "details": {
                                   "type": "object",
                                   "horizontal": true,
-                                  "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
+                                  "required": [
+                                    "currentEstimatedDate",
+                                    "estimatedPercentageComplete"
+                                  ],
                                   "title": "",
                                   "properties": {
                                     "baselineDate": {
@@ -2258,7 +2425,10 @@
                                 "risk": {
                                   "title": "",
                                   "type": "object",
-                                  "required": ["riskToAchievingBaseline", "reasonForVariance"],
+                                  "required": [
+                                    "riskToAchievingBaseline",
+                                    "reasonForVariance"
+                                  ],
                                   "horizontal": true,
                                   "properties": {
                                     "riskToAchievingBaseline": {
@@ -2281,7 +2451,7 @@
                                   }
                                 }
                               },
-                              "required":["details", "risk"]
+                              "required": ["details", "risk"]
                             },
                             {
                               "properties": {
@@ -2349,7 +2519,9 @@
                       },
                       {
                         "properties": {
-                          "changeRequiredConfirmation": { "enum": ["Do not change baseline"] }
+                          "changeRequiredConfirmation": {
+                            "enum": ["Do not change baseline"]
+                          }
                         }
                       }
                     ]
@@ -2499,7 +2671,13 @@
           "quarterly": true,
           "items": {
             "type": "object",
-            "required": ["year", "Q1Amount", "Q2Amount", "Q3Amount", "Q4Amount"],
+            "required": [
+              "year",
+              "Q1Amount",
+              "Q2Amount",
+              "Q3Amount",
+              "Q4Amount"
+            ],
             "title": "",
             "properties": {
               "year": {
@@ -2636,7 +2814,11 @@
           "oneOf": [
             {
               "properties": {
-                "changesRequired": { "enum": ["Do not change the baseline - Where there are variances, these will be rectified in due course"] }
+                "changesRequired": {
+                  "enum": [
+                    "Do not change the baseline - Where there are variances, these will be rectified in due course"
+                  ]
+                }
               }
             },
             {
@@ -2654,7 +2836,10 @@
                 "evidenceUpload": {
                   "type": "array",
                   "title": "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders.",
-                  "uploadFile": "multiple"
+                  "uploadFile": "multiple",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               },
               "required": ["reasonForChange"]
@@ -2686,7 +2871,13 @@
                     "type": "string",
                     "title": "Site Name",
                     "readonly": true,
-                    "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "name"]
+                    "sourceKey": [
+                      "baseline_data",
+                      "summary",
+                      "sitesSummary",
+                      "summary",
+                      "name"
+                    ]
                   },
                   "totalLiveUnits": {
                     "type": "string",
@@ -2764,7 +2955,15 @@
               "remainingEstimate": {
                 "type": "array",
                 "title": "Remaining Estimate",
-                "required": ["year", "Q1Amount", "Q2Amount", "Q3Amount", "Q4Amount", "total", "riskRating"],
+                "required": [
+                  "year",
+                  "Q1Amount",
+                  "Q2Amount",
+                  "Q3Amount",
+                  "Q4Amount",
+                  "total",
+                  "riskRating"
+                ],
                 "quarterly": true,
                 "addable": true,
                 "items": {
@@ -2892,7 +3091,10 @@
                 "signature": {
                   "type": "array",
                   "title": "Please attach your signature",
-                  "uploadFile": "multiple"
+                  "uploadFile": "multiple",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -2945,7 +3147,13 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
+              "enum": [
+                "High",
+                "Medium High",
+                "Medium Low",
+                "Low",
+                "Contractual"
+              ]
             }
           }
         },
@@ -2962,7 +3170,13 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
+              "enum": [
+                "High",
+                "Medium High",
+                "Medium Low",
+                "Low",
+                "Contractual"
+              ]
             }
           }
         },
@@ -2979,7 +3193,13 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
+              "enum": [
+                "High",
+                "Medium High",
+                "Medium Low",
+                "Low",
+                "Contractual"
+              ]
             }
           }
         },
@@ -2996,7 +3216,13 @@
             "riskRating": {
               "type": "string",
               "title": "Overall risk rating",
-              "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
+              "enum": [
+                "High",
+                "Medium High",
+                "Medium Low",
+                "Low",
+                "Contractual"
+              ]
             }
           }
         },
