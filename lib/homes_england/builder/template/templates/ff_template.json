@@ -840,7 +840,10 @@
           "title": "Site Plans",
           "description": "Upload any relevant files here.",
           "uploadFile": "multiple",
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -953,7 +956,10 @@
                     "planAttachment": {
                       "title": "Please attach masterplans here.",
                       "type": "array",
-                      "uploadFile": "multiple"
+                      "uploadFile": "multiple",
+                      "items": {
+                        "type": "string"
+                      }
                     }
                   }
                 },

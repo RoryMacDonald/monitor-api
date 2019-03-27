@@ -1774,7 +1774,10 @@
           "title": "Project Cashflow(s)",
           "type": "array",
           "uploadFile": "multiple",
-          "description": "Any changes to agreed cashflow will need to be agreed by s.151 officer - you will be asked to agree to this on submission."
+          "description": "Any changes to agreed cashflow will need to be agreed by s.151 officer - you will be asked to agree to this on submission.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "dependencies": {
@@ -2828,7 +2831,10 @@
                               "title": "",
                               "description": "Please attach the evidence here.",
                               "uploadFile": "single",
-                              "type": "string"
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
                             }
                           }
                         }
@@ -2876,7 +2882,10 @@
                             "title": "",
                             "description": "Please attach the plan here.",
                             "uploadFile": "single",
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         }
                       },
@@ -5039,7 +5048,10 @@
                 "title": "Current risk register for scheme.",
                 "description": "Please attach here.",
                 "uploadFile": "single",
-                "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -5118,7 +5130,10 @@
                           "type": "array",
                           "title": "Evidence of Variance",
                           "description": "Please attach any evidence here.",
-                          "uploadFile": "multiple"
+                          "uploadFile": "multiple",
+                          "items": {
+                            "type": "string"
+                          }
                         },
                         "mitigationInPlace": {
                           "type": "string",
@@ -5456,7 +5471,10 @@
                           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
                           "uploadFile": "multiple",
                           "type": "array",
-                          "s151WriteOnly": true
+                          "s151WriteOnly": true,
+                          "items": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
@@ -5523,7 +5541,10 @@
                           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
                           "uploadFile": "multiple",
                           "type": "array",
-                          "s151WriteOnly": true
+                          "s151WriteOnly": true,
+                          "items": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
@@ -5576,8 +5597,11 @@
             },
             "signoff": {
               "description": "Attach your sign-off here",
-              "type": "string",
-              "uploadFile": "single"
+              "type": "array",
+              "uploadFile": "single",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }

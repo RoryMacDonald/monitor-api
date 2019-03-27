@@ -802,10 +802,13 @@
           "extendedText": true
         },
         "sitePlans": {
+          "type": "array",
+          "uploadFile": "multiple",
           "title": "Site Plans",
           "description": "Upload any relevant files here.",
-          "uploadFile": "multiple",
-          "type": "array"
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -1437,7 +1440,10 @@
                 "type": "array",
                 "uploadFile": "multiple",
                 "title": "Baseline Cashflow(s)",
-                "description": "Uploads any relevant files here."
+                "description": "Uploads any relevant files here.",
+                "items": {
+                  "type": "string"
+                }
               },
               "fundedThroughHif": {
                 "type": "object",
