@@ -30,7 +30,7 @@ class UI::UseCase::ConvertUIHIFProject
       BIDReference: @project[:summary][:BIDReference],
       projectName: @project[:summary][:projectName],
       leadAuthority: @project[:summary][:leadAuthority],
-      jointBidAreas: @project[:summary][:jointBidAreas],
+      jointBidAuthorityAreas: @project[:summary][:jointBidAuthorityAreas],
       projectDescription: @project[:summary][:projectDescription],
       greenOrBrownField: @project[:summary][:greenOrBrownField],
       noOfHousingSites: @project[:summary][:noOfHousingSites],

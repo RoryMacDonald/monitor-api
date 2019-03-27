@@ -675,6 +675,15 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           type: 'string',
           title: 'Joint Bid Areas'
         },
+        jointBidAuthorityAreas: {
+          type: "array",
+          addable: true,
+          title: "",
+          items: {
+            type: "string",
+            title: "Joint Bid Areas"
+          }
+        },
         projectDescription: {
           type: 'string',
           laReadOnly: true,
