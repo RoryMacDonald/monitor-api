@@ -44,9 +44,13 @@
         }
       },
       "landOwnership": {
-        "laHasControlOfSite": "Yes",
-        "laDoesNotControlSite": {
-          "whoOwnsSite": "Dave",
+        "landControl": {
+          "laHasControlOfSite": "Yes",
+          "laDoesNotControlSite": {
+            "whoOwnsSite": "Dave"
+          }
+        },
+        "acquisitionRequired": {
           "landAcquisitionRequired": "No",
           "howManySitesToAquire": "23",
           "toBeAquiredBy": "me",

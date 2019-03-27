@@ -115,20 +115,19 @@ class UI::UseCase::ConvertUIHIFProject
       end
 
       unless infrastructure[:landOwnership].nil?
-        converted_infrastructure[:landOwnership] = {
-          underControlOfLA: infrastructure[:landOwnership][:underControlOfLA],
-          ownershipOfLandOtherThanLA: infrastructure[:landOwnership][:ownershipOfLandOtherThanLA],
-          landAcquisitionRequired: infrastructure[:landOwnership][:landAcquisitionRequired],
-          isLandAcquisitionRequired: infrastructure[:landOwnership][:isLandAcquisitionRequired],
-          criticalPath: infrastructure[:landOwnership][:criticalPath],
-          dateToAcquire: infrastructure[:landOwnership][:dateToAcquire],
-          acquiredBy: infrastructure[:landOwnership][:acquiredBy],
-          sitesToAcquire: infrastructure[:landOwnership][:sitesToAcquire],
-          howManySitesToAcquire: infrastructure[:landOwnership][:howManySitesToAcquire],
-          toBeAcquiredBy: infrastructure[:landOwnership][:toBeAcquiredBy],
-          targetDateToAcquire: infrastructure[:landOwnership][:targetDateToAcquire],
-          summaryOfCriticalPath: infrastructure[:landOwnership][:summaryOfCriticalPath]
-        }
+        converted_infrastructure[:landOwnership] = {}
+        unless infrastructure[:landOwnership][:landControl].nil? 
+          converted_infrastructure[:landOwnership][:underControlOfLA] = infrastructure[:landOwnership][:landControl][:underControlOfLA]
+          converted_infrastructure[:landOwnership][:ownershipOfLandOtherThanLA] = infrastructure[:landOwnership][:landControl][:ownershipOfLandOtherThanLA]
+        end
+
+        unless infrastructure[:landOwnership][:acquisitionRequired].nil?
+          converted_infrastructure[:landOwnership][:isLandAcquisitionRequired] = infrastructure[:landOwnership][:acquisitionRequired][:isLandAcquisitionRequired]
+          converted_infrastructure[:landOwnership][:criticalPath] = infrastructure[:landOwnership][:acquisitionRequired][:criticalPath]
+          converted_infrastructure[:landOwnership][:dateToAcquire] = infrastructure[:landOwnership][:acquisitionRequired][:dateToAcquire]
+          converted_infrastructure[:landOwnership][:acquiredBy] = infrastructure[:landOwnership][:acquisitionRequired][:acquiredBy]
+          converted_infrastructure[:landOwnership][:sitesToAcquire] = infrastructure[:landOwnership][:acquisitionRequired][:sitesToAcquire]
+        end
       end
 
       unless infrastructure[:procurement].nil?

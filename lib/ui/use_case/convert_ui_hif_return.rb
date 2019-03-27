@@ -111,18 +111,23 @@ class UI::UseCase::ConvertUIHIFReturn
 
   def convert_land_ownership(land_ownership)
     new_land_ownership = {
-      laHasControlOfSite: land_ownership[:laHasControlOfSite]
+      laDoesNotControlSite: {}
     }
 
-    unless land_ownership[:laDoesNotControlSite].nil?
-      new_land_ownership[:laDoesNotControlSite] = {
-        whoOwnsSite: land_ownership[:laDoesNotControlSite][:whoOwnsSite],
-        landAcquisitionRequired: land_ownership[:laDoesNotControlSite][:landAcquisitionRequired],
-        howManySitesToAquire: land_ownership[:laDoesNotControlSite][:howManySitesToAquire],
-        toBeAquiredBy: land_ownership[:laDoesNotControlSite][:toBeAquiredBy],
-        summaryOfAcquisitionRequired: land_ownership[:laDoesNotControlSite][:summaryOfAcquisitionRequired],
-        allLandAssemblyAchieved: land_ownership[:laDoesNotControlSite][:allLandAssemblyAchieved]
-      }
+    unless land_ownership[:landControl].nil?
+      new_land_ownership[:laHasControlOfSite] = land_ownership[:landControl][:laHasControlOfSite]
+
+      unless land_ownership[:landControl][:laDoesNotControlSite].nil?
+        new_land_ownership[:laDoesNotControlSite][:whoOwnsSite] = land_ownership[:landControl][:laDoesNotControlSite][:whoOwnsSite]
+      end
+    end
+
+    unless land_ownership[:acquisitionRequired].nil?
+      new_land_ownership[:laDoesNotControlSite][:landAcquisitionRequired] = land_ownership[:acquisitionRequired][:landAcquisitionRequired]
+      new_land_ownership[:laDoesNotControlSite][:howManySitesToAquire] = land_ownership[:acquisitionRequired][:howManySitesToAquire]
+      new_land_ownership[:laDoesNotControlSite][:toBeAquiredBy] = land_ownership[:acquisitionRequired][:toBeAquiredBy]
+      new_land_ownership[:laDoesNotControlSite][:summaryOfAcquisitionRequired] = land_ownership[:acquisitionRequired][:summaryOfAcquisitionRequired]
+      new_land_ownership[:laDoesNotControlSite][:allLandAssemblyAchieved] = land_ownership[:acquisitionRequired][:allLandAssemblyAchieved]
     end
 
     new_land_ownership

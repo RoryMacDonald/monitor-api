@@ -640,183 +640,195 @@
             "type": "object",
             "title": "Land Ownership",
             "properties": {
-              "laHasControlOfSite": {
-                "type": "string",
-                "title": "LA Control of site(s) (related to infrastructure)? ",
-                "sourceKey": [
-                  "baseline_data",
-                  "infrastructures",
-                  "landOwnership",
-                  "underControlOfLA"
-                ],
-                "readonly": true,
-                "radio": true,
-                "enum": ["Yes", "No"]
-              }
-            },
-            "dependencies": {
-              "laHasControlOfSite": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "laHasControlOfSite": { "enum": ["No"] },
-                      "laDoesNotControlSite": {
-                        "type": "object",
-                        "calculation": "set(formData['allLandAssemblyAchieved'], 'landAssemblyVarianceAgainstBaseReturn', weeksPassed(get(formData, 'allLandAssemblyAchieved', 'baseline'), get(formData, 'allLandAssemblyAchieved', 'current')));",
-                        "title": "Land ownership",
+              "landControl": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "laHasControlOfSite": {
+                    "type": "string",
+                    "title": "LA Control of site(s) (related to infrastructure)? ",
+                    "sourceKey": [
+                      "baseline_data",
+                      "infrastructures",
+                      "landOwnership",
+                      "underControlOfLA"
+                    ],
+                    "readonly": true,
+                    "radio": true,
+                    "enum": ["Yes", "No"]
+                  }
+                },
+                "dependencies": {
+                  "laHasControlOfSite": {
+                    "oneOf": [
+                      {
                         "properties": {
-                          "whoOwnsSite": {
+                          "laHasControlOfSite": { "enum": ["No"] },
+                          "laDoesNotControlSite": {
+                            "type": "object",
+                            "title": "Land ownership",
+                            "properties": {
+                              "whoOwnsSite": {
+                                "type": "string",
+                                "title": "Who owns site?",
+                                "sourceKey": [
+                                  "baseline_data",
+                                  "infrastructures",
+                                  "landOwnership",
+                                  "ownershipOfLandOtherThanLA"
+                                ],
+                                "readonly": true
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "laHasControlOfSite": { "enum": ["Yes"] }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "acquisitionRequired": {
+                "type": "object",
+                "title": "",
+                "calculation": "set(formData['allLandAssemblyAchieved'], 'landAssemblyVarianceAgainstBaseReturn', weeksPassed(get(formData, 'allLandAssemblyAchieved', 'baseline'), get(formData, 'allLandAssemblyAchieved', 'current')));",
+                "properties": {
+                  "landAcquisitionRequired": {
+                    "type": "string",
+                    "title": "Land acquisition required (related to infrastructure)?",
+                    "sourceKey": [
+                      "baseline_data",
+                      "infrastructures",
+                      "landOwnership",
+                      "landAcquisitionRequired"
+                    ],
+                    "readonly": true,
+                    "radio": true,
+                    "enum": ["Yes", "No"]
+                  }
+                },
+                "dependencies": {
+                  "landAcquisitionRequired": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "landAcquisitionRequired": {
+                            "enum": ["Yes"]
+                          },
+                          "howManySitesToAquire": {
                             "type": "string",
-                            "title": "Who owns site?",
+                            "title": "Number of Sites to aquire?",
                             "sourceKey": [
                               "baseline_data",
                               "infrastructures",
                               "landOwnership",
-                              "ownershipOfLandOtherThanLA"
+                              "howManySitesToAcquire"
                             ],
                             "readonly": true
                           },
-                          "landAcquisitionRequired": {
+                          "toBeAquiredBy": {
                             "type": "string",
-                            "title": "Land acquisition required (related to infrastructure)?",
+                            "title": "Acquired by LA or Developer?",
                             "sourceKey": [
                               "baseline_data",
                               "infrastructures",
                               "landOwnership",
-                              "landAcquisitionRequired"
+                              "toBeAcquiredBy"
                             ],
-                            "readonly": true,
-                            "radio": true,
-                            "enum": ["Yes", "No"]
-                          }
-                        },
-                        "dependencies": {
-                          "landAcquisitionRequired": {
-                            "oneOf": [
-                              {
-                                "properties": {
-                                  "landAcquisitionRequired": {
-                                    "enum": ["Yes"]
-                                  },
-                                  "howManySitesToAquire": {
-                                    "type": "string",
-                                    "title": "Number of Sites to aquire?",
-                                    "sourceKey": [
-                                      "baseline_data",
-                                      "infrastructures",
-                                      "landOwnership",
-                                      "howManySitesToAcquire"
-                                    ],
-                                    "readonly": true
-                                  },
-                                  "toBeAquiredBy": {
-                                    "type": "string",
-                                    "title": "Acquired by LA or Developer?",
-                                    "sourceKey": [
-                                      "baseline_data",
-                                      "infrastructures",
-                                      "landOwnership",
-                                      "toBeAcquiredBy"
-                                    ],
-                                    "readonly": true
-                                  },
-                                  "summaryOfAcquisitionRequired": {
-                                    "type": "string",
-                                    "title": "Summary of acquisition required",
-                                    "sourceKey": [
-                                      "baseline_data",
-                                      "infrastructures",
-                                      "landOwnership",
-                                      "summaryOfCriticalPath"
-                                    ],
-                                    "readonly": true
-                                  },
-                                  "allLandAssemblyAchieved": {
-                                    "type": "object",
-                                    "title": "All land assembly achieved",
-                                    "variance": true,
-                                    "properties": {
-                                      "baseline": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "title": "Baseline Target",
-                                        "sourceKey": [
-                                          "baseline_data",
-                                          "infrastructures",
-                                          "landOwnership",
-                                          "targetDateToAcquire"
-                                        ],
-                                        "readonly": true
-                                      },
-                                      "previousReturn": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "readonly": true
-                                      },
-                                      "landAssemblyVarianceAgainstLastReturn": {
-                                        "type": "string",
-                                        "readonly": true,
-                                        "title": "Variance Against Last Return (weeks) (Calculated)"
-                                      },
-                                      "landAssemblyVarianceAgainstBaseReturn": {
-                                        "type": "string",
-                                        "readonly": true,
-                                        "title": "Variance Against Base Return (weeks) (Calculated)"
-                                      },
-                                      "status": {
-                                        "title": "Status against last return?",
-                                        "type": "string",
-                                        "radio": true,
-                                        "enum": [
-                                          "Completed",
-                                          "On schedule",
-                                          "Delayed"
-                                        ],
-                                        "default": "On schedule"
-                                      },
-                                      "current": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "title": "Current Return"
-                                      },
-                                      "reason": {
-                                        "type": "string",
-                                        "title": "Reason for Variance"
-                                      },
-                                      "percentComplete": {
-                                        "type": "string",
-                                        "title": "Percent complete",
-                                        "percentage": true
-                                      },
-                                      "completedDate": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "readonly": true,
-                                        "title": "On Completed Date"
-                                      }
-                                    }
-                                  }
-                                }
+                            "readonly": true
+                          },
+                          "summaryOfAcquisitionRequired": {
+                            "type": "string",
+                            "title": "Summary of acquisition required",
+                            "sourceKey": [
+                              "baseline_data",
+                              "infrastructures",
+                              "landOwnership",
+                              "summaryOfCriticalPath"
+                            ],
+                            "readonly": true
+                          },
+                          "allLandAssemblyAchieved": {
+                            "type": "object",
+                            "title": "All land assembly achieved",
+                            "variance": true,
+                            "properties": {
+                              "baseline": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Baseline Target",
+                                "sourceKey": [
+                                  "baseline_data",
+                                  "infrastructures",
+                                  "landOwnership",
+                                  "targetDateToAcquire"
+                                ],
+                                "readonly": true
                               },
-                              {
-                                "properties": {
-                                  "landAcquisitionRequired": {
-                                    "enum": ["No"]
-                                  }
-                                }
+                              "previousReturn": {
+                                "type": "string",
+                                "format": "date",
+                                "readonly": true
+                              },
+                              "landAssemblyVarianceAgainstLastReturn": {
+                                "type": "string",
+                                "readonly": true,
+                                "title": "Variance Against Last Return (weeks) (Calculated)"
+                              },
+                              "landAssemblyVarianceAgainstBaseReturn": {
+                                "type": "string",
+                                "readonly": true,
+                                "title": "Variance Against Base Return (weeks) (Calculated)"
+                              },
+                              "status": {
+                                "title": "Status against last return?",
+                                "type": "string",
+                                "radio": true,
+                                "enum": [
+                                  "Completed",
+                                  "On schedule",
+                                  "Delayed"
+                                ],
+                                "default": "On schedule"
+                              },
+                              "current": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Current Return"
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason for Variance"
+                              },
+                              "percentComplete": {
+                                "type": "string",
+                                "title": "Percent complete",
+                                "percentage": true
+                              },
+                              "completedDate": {
+                                "type": "string",
+                                "format": "date",
+                                "readonly": true,
+                                "title": "On Completed Date"
                               }
-                            ]
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "landAcquisitionRequired": {
+                            "enum": ["No"]
                           }
                         }
                       }
-                    }
-                  },
-                  {
-                    "properties": {
-                      "laHasControlOfSite": { "enum": ["Yes"] }
-                    }
+                    ]
                   }
-                ]
+                }
               }
             }
           },
