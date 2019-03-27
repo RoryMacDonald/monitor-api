@@ -123,7 +123,6 @@ class UI::UseCase::ConvertUIHIFReturn
     end
 
     unless land_ownership[:acquisitionRequired].nil?
-      pp new_land_ownership[:laDoesNotControlSite]
       new_land_ownership[:laDoesNotControlSite][:landAcquisitionRequired] = land_ownership[:acquisitionRequired][:landAcquisitionRequired]
       new_land_ownership[:laDoesNotControlSite][:howManySitesToAquire] = land_ownership[:acquisitionRequired][:howManySitesToAquire]
       new_land_ownership[:laDoesNotControlSite][:toBeAquiredBy] = land_ownership[:acquisitionRequired][:toBeAquiredBy]
