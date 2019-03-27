@@ -25,7 +25,7 @@ describe HomesEngland::UseCase::FindProject do
         proj.name = 'Dog project'
         proj.type = 'hif'
         proj.status = 'Draft'
-        proj.data = { dogs: 'woof' }
+        proj.data = { name: 'myName' }
         proj.bid_id = 'HIF/MV/155'
       end
     end
@@ -63,6 +63,10 @@ describe HomesEngland::UseCase::FindProject do
       expect(response[:bid_id]).to eq('HIF/MV/155')
     end
 
+    it 'returns a hash containing the project admin data' do
+      expect(response[:admin_data]).to eq(name: 'myName')
+    end
+
     it 'returns a hash containing the projects data' do
       expect(response[:data]).to eq(dogs: 'woof')
     end
@@ -85,6 +89,7 @@ describe HomesEngland::UseCase::FindProject do
       HomesEngland::Domain::Project.new.tap do |proj|
         proj.name = 'meow cats'
         proj.type = 'abc'
+        proj.data = { projectInfo: 'details' }
         proj.status = 'Submitted'
         proj.bid_id = 'AC/MV/256'
       end
@@ -141,6 +146,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'returns a hash containing the bid id' do
       expect(response[:bid_id]).to eq('AC/MV/256')
+    end
+
+    it 'returns a hash containing the admin data' do
+      expect(response[:admin_data]).to eq(projectInfo: 'details')
     end
 
     it 'returns a hash containing the last submitted baseline data' do

@@ -13,6 +13,7 @@ class HomesEngland::UseCase::FindProject
       name: project.name,
       type: project.type,
       data: baseline.data,
+      admin_data: project.data,
       status: project.status,
       bid_id: project.bid_id,
       version: baseline.version,

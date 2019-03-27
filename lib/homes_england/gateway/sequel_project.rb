@@ -20,9 +20,18 @@ class HomesEngland::Gateway::SequelProject
     HomesEngland::Domain::Project.new.tap do |p|
       p.name = row[:name]
       p.type = row[:type]
+      p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
       p.status = row[:status]
       p.bid_id = row[:bid_id]
+      p.timestamp = row[:timestamp]
     end
+  end
+
+  def update(id:, data:, timestamp:)
+    @database[:projects].where(id: id).update(
+      data: Sequel.pg_json(data),
+      timestamp: timestamp
+    )
   end
 
   def all()

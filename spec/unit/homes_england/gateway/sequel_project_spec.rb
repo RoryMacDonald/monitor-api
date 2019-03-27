@@ -25,6 +25,22 @@ describe HomesEngland::Gateway::SequelProject do
       end
     end
 
+    context 'updating a project' do
+      let(:data) { { contact: 'name' } }
+
+      before { project_gateway.update(id: project_id, data: data, timestamp: 1234) }
+      
+      let(:updated_project) { project_gateway.find_by(id: project_id) }
+      
+      it 'updates the saved data' do
+        expect(updated_project.data).to eq(data)
+      end
+      
+      it 'updates the timestamp' do
+        expect(updated_project.timestamp).to eq(1234)
+      end
+    end
+
     context 'submitting the project' do
       it 'sets the status as submitted' do 
         project_gateway.submit(id: project_id, status: 'Submitted')
@@ -54,6 +70,26 @@ describe HomesEngland::Gateway::SequelProject do
         expect(created_project.name).to eq('New project')
         expect(created_project.type).to eq('FarmAnimals')
         expect(created_project.bid_id).to eq('HIF/MV/5')
+      end
+    end
+
+    context 'updating a project' do
+      let(:data) do
+        {
+          mainContact: 'myName',
+          supportingContact: 'anotherNAme'
+        }
+      end
+
+      before { project_gateway.update(id: project_id, data: data, timestamp: 56) }
+      let(:updated_project) { project_gateway.find_by(id: project_id) }
+      
+      it 'updates the saved data' do
+        expect(updated_project.data).to eq(data)
+      end
+
+      it 'updates the timestamp' do
+        expect(updated_project.timestamp).to eq(56)
       end
     end
   end

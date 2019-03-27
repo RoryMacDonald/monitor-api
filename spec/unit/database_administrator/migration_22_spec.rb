@@ -58,5 +58,9 @@ describe 'Migration 22' do
         }
       })
     end
+
+    it 'Add a timestamp to the project' do
+      expect(migrated_project_data[:timestamp]).to eq(0)
+    end
   end
 end

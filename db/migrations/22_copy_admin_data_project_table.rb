@@ -2,6 +2,7 @@ Sequel.migration do
   up do
     alter_table(:projects) do
       add_column :data, 'json'
+      add_column :timestamp, Integer, default: 0
     end
     
     projects = from(:projects)
@@ -21,6 +22,7 @@ Sequel.migration do
   down do
     alter_table(:projects) do
       drop_column :data
+      drop_column :timestamp
     end
   end
 end

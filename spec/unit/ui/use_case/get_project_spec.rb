@@ -16,6 +16,7 @@ describe UI::UseCase::GetProject do
           name: 'Big Buildings',
           type: 'hif',
           data: { building1: 'a house' },
+          admin_data: { contact: 'an email' },
           status: 'Draft',
           timestamp: 0,
           bid_id: "HIF/MV/14"
@@ -74,6 +75,10 @@ describe UI::UseCase::GetProject do
       expect(response[:timestamp]).to eq(0)
     end
 
+    it 'Returns the admin data from find project' do
+      expect(response[:admin_data]).to eq(contact: 'an email')
+    end
+
     it 'Calls execute on the convert core hif project use case' do
       expect(convert_core_project_spy).to have_received(:execute)
     end
@@ -106,6 +111,7 @@ describe UI::UseCase::GetProject do
           name: 'Big ol woof',
           type: 'hif',
           data: { noise: 'bark' },
+          admin_data: { a_name: 'Bob' },
           status: 'Barking',
           timestamp: 345,
           bid_id: "HIF/MV/155"
@@ -162,6 +168,10 @@ describe UI::UseCase::GetProject do
 
     it 'Return the timestamp from find project' do
       expect(response[:timestamp]).to eq(345)
+    end
+
+    it 'Returns the admin data from find project' do
+      expect(response[:admin_data]).to eq(a_name: 'Bob')
     end
 
     it 'Calls execute on the convert core hif project use case' do

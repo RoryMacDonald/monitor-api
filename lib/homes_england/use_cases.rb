@@ -132,5 +132,11 @@ class HomesEngland::UseCases
         baseline_gateway: builder.get_gateway(:baseline)
       )
     end
+
+    builder.define_use_case :update_project_admin do
+      HomesEngland::UseCase::UpdateProjectAdmin.new(
+        project_gateway: builder.get_gateway(:project)
+      )
+    end
   end
 end
