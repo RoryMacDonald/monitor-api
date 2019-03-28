@@ -2008,371 +2008,395 @@
           "title": "Strategic Links",
           "required": ["heProgrammeLinks", "mhclgLinks", "ogdLinks", "otherGovDepts", "housingPolicyAreas"],
           "properties": {
-            "heProgrammeLinks": {
-              "type": "object",
+            "heProgrammeLinksMultiple": {
+              "type": "array",
+              "addable": true,
               "title": "Links with Homes England Programmes",
-              "required": ["programmes", "description", "pcsRef"],
-              "horizontal": true,
-              "properties": {
-                "programmes": {
-                  "type": "string",
-                  "title": "Programmes",
-                  "enum": [
-                    "N/A",
-                    "Accelerated Construction",
-                    "Accelerated Land Disposal",
-                    "Affordable Homes Programme",
-                    "Build to Rent",
-                    "City Deals",
-                    "Economic Assets",
-                    "Estate Regeneration",
-                    "Get Britain Building",
-                    "Local Infrastructure Fund",
-                    "Pilot Transfer",
-                    "Property and Regeneration",
-                    "Public Land Investment Fund",
-                    "Public Sector Land Acquisitions",
-                    "Single Land",
-                    "THBF - Long Term Fund",
-                    "THBF - Short Term Fund"
-                  ]
-                }
-              },
-              "dependencies": {
-                "programmes": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["N/A"] }
+              "items": {
+                "type": "object",
+                "required": ["programmes", "description", "pcsRef"],
+                "horizontal": true,
+                "properties": {
+                  "programmes": {
+                    "type": "string",
+                    "title": "Programmes",
+                    "enum": [
+                      "N/A",
+                      "Accelerated Construction",
+                      "Accelerated Land Disposal",
+                      "Affordable Homes Programme",
+                      "Build to Rent",
+                      "City Deals",
+                      "Economic Assets",
+                      "Estate Regeneration",
+                      "Get Britain Building",
+                      "Local Infrastructure Fund",
+                      "Pilot Transfer",
+                      "Property and Regeneration",
+                      "Public Land Investment Fund",
+                      "Public Sector Land Acquisitions",
+                      "Single Land",
+                      "THBF - Long Term Fund",
+                      "THBF - Short Term Fund"
+                    ]
+                  }
+                },
+                "dependencies": {
+                  "programmes": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "programmes": { "enum": ["N/A"] }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": [
+                              "Accelerated Construction",
+                              "Accelerated Land Disposal",
+                              "Affordable Homes Programme",
+                              "Build to Rent",
+                              "City Deals",
+                              "Economic Assets",
+                              "Estate Regeneration",
+                              "Get Britain Building",
+                              "Local Infrastructure Fund",
+                              "Pilot Transfer",
+                              "Property and Regeneration",
+                              "Public Land Investment Fund",
+                              "Public Sector Land Acquisitions",
+                              "Single Land",
+                              "THBF - Long Term Fund",
+                              "THBF - Short Term Fund"
+                              ]
+                            },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          },
+                          "pcsRef": {
+                            "type": "string",
+                            "title": "PCS Reference"
+                          }
+                        }
                       }
-                    },
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": [
-                            "Accelerated Construction",
-                            "Accelerated Land Disposal",
-                            "Affordable Homes Programme",
-                            "Build to Rent",
-                            "City Deals",
-                            "Economic Assets",
-                            "Estate Regeneration",
-                            "Get Britain Building",
-                            "Local Infrastructure Fund",
-                            "Pilot Transfer",
-                            "Property and Regeneration",
-                            "Public Land Investment Fund",
-                            "Public Sector Land Acquisitions",
-                            "Single Land",
-                            "THBF - Long Term Fund",
-                            "THBF - Short Term Fund"
+                    ]
+                  }
+                }
+              }
+            },
+            "mhclgProgrammeLinks": {
+              "type": "array",
+              "addable": true,
+              "title": "Links with other MHCLG Programmes",
+              "items": {
+                "type": "object",
+                "horizontal": true,
+                "required": ["programmes", "description"],
+                "properties": {
+                  "programmes": {
+                    "type": "string",
+                    "title": "Programmes",
+                    "enum": [
+                      "Garden Towns",
+                      "Garden Villages",
+                      "Garden Communities",
+                      "Land Release Fund",
+                      "N/A"
+                    ]
+                  }
+                },
+                "dependencies": {
+                  "programmes": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "programmes": { "enum": ["N/A"] }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": [
+                              "Garden Towns",
+                              "Garden Villages",
+                              "Garden Communities",
+                              "Land Release Fund"
                             ]
                           },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
                         }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             },
-            "mhclgLinks": {
-              "type": "object",
-              "title": "Links with other MHCLG Programmes",
-              "horizontal": true,
-              "required": ["programmes", "description"],
-              "properties": {
-                "programmes": {
-                  "type": "string",
-                  "title": "Programmes",
-                  "enum": [
-                    "Garden Towns",
-                    "Garden Villages",
-                    "Garden Communities",
-                    "Land Release Fund",
-                    "N/A"
-                  ]
-                }
-              },
-              "dependencies": {
-                "programmes": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["N/A"] }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": [
-                            "Garden Towns",
-                            "Garden Villages",
-                            "Garden Communities",
-                            "Land Release Fund"
-                          ]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "ogdLinks": {
-              "type": "object",
+            "ogdProgrammeLinks": {
+              "type": "array",
+              "addable": true,
               "title": "Links with OGB programmes",
-              "required": ["programmes", "description"],
-              "horizontal": true,
-              "properties": {
-                "programmes": {
-                  "type": "string",
-                  "title": "Programmes",
-                  "enum": [
-                    "N/A",
-                    "NPIF",
-                    "Growth and Housing Fund",
-                    "RIS",
-                    "RIS2",
-                    "Other"
-                  ]
-                }
-              },
-              "dependencies": {
-                "programmes": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": ["N/A"]
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": ["NPIF"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": ["Growth and Housing Fund"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": ["RIS"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": ["RIS2"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": ["Other"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "otherGovDepts": {
-              "type": "object",
-              "title": "Other Government Deparments interested",
-              "horizontal": true,
-              "required": ["departments", "description"],
-              "properties": {
-                "departments": {
-                  "type": "string",
-                  "title": "Departments",
-                  "enum": [
-                    "N/A",
-                    "DfT",
-                    "MHCLG",
-                    "BEIS",
-                    "DECC",
-                    "DEFRA",
-                    "DfE",
-                    "DH",
-                    "HMT",
-                    "MOD"
-                  ]
-                }
-              },
-              "dependencies": {
-                "departments": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["N/A"]
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["DfT"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["MHCLG"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["BEIS"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["DECC"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["DEFRA"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["DfE"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["DH"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["HMT"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "departments": {
-                          "enum": ["MOD"]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "housingPolicyAreas": {
-              "type": "object",
-              "title": "Housing Policy Areas",
-              "horizontal": true,
-              "required": ["policies", "description"],
-              "properties": {
-                "policies": {
-                  "type": "string",
-                  "title": "Housing Policy Areas",
-                  "enum": [
-                    "Custom Builds",
-                    "Modern Method of Construction",
-                    "SME",
-                    "Garden Towns / Villages / Communities",
-                    "Public Sector Land",
-                    "Housing Zones",
-                    "Accelerated Construction",
-                    "Housing Deal",
-                    "Brownfield Land",
-                    "Large Development"
-                  ]
+              "items": {
+                "type": "object",
+                "required": ["programmes", "description"],
+                "horizontal": true,
+                "properties": {
+                  "programmes": {
+                    "type": "string",
+                    "title": "Programmes",
+                    "enum": [
+                      "N/A",
+                      "NPIF",
+                      "Growth and Housing Fund",
+                      "RIS",
+                      "RIS2",
+                      "Other"
+                    ]
+                  }
                 },
-                "description": {
-                  "type": "string",
-                  "title": "Description"
+                "dependencies": {
+                  "programmes": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": ["N/A"]
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": ["NPIF"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": ["Growth and Housing Fund"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": ["RIS"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": ["RIS2"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": ["Other"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "otherLinkedGovDepts": {
+              "type": "array",
+              "addable": true,
+              "title": "Other Government Deparments interested",
+              "items": {
+                "type": "object",
+                "horizontal": true,
+                "required": ["departments", "description"],
+                "properties": {
+                  "departments": {
+                    "type": "string",
+                    "title": "Departments",
+                    "enum": [
+                      "N/A",
+                      "DfT",
+                      "MHCLG",
+                      "BEIS",
+                      "DECC",
+                      "DEFRA",
+                      "DfE",
+                      "DH",
+                      "HMT",
+                      "MOD"
+                    ]
+                  }
+                },
+                "dependencies": {
+                  "departments": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["N/A"]
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["DfT"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["MHCLG"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["BEIS"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["DECC"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["DEFRA"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["DfE"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["DH"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["HMT"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "departments": {
+                            "enum": ["MOD"]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "linkedHousingPolicyAreas": {
+              "type": "array",
+              "addable": true,
+              "title": "Housing Policy Areas",
+              "items": {
+                "type": "object",
+                "horizontal": true,
+                "required": ["policies", "description"],
+                "properties": {
+                  "policies": {
+                    "type": "string",
+                    "title": "Housing Policy Areas",
+                    "enum": [
+                      "Custom Builds",
+                      "Modern Method of Construction",
+                      "SME",
+                      "Garden Towns / Villages / Communities",
+                      "Public Sector Land",
+                      "Housing Zones",
+                      "Accelerated Construction",
+                      "Housing Deal",
+                      "Brownfield Land",
+                      "Large Development"
+                    ]
+                  },
+                  "description": {
+                    "type": "string",
+                    "title": "Description"
+                  }
                 }
               }
             }

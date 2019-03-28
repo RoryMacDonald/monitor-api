@@ -837,6 +837,45 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           type: 'object',
           title: 'Strategic Links',
           properties: {
+            heProgrammeLinksMultiple: {
+              type: 'array',
+              title: 'Links with Homes England Programmes',
+              items: {
+                type: 'object',
+                properties: {
+                  programmes: {
+                    type: 'string',
+                    title: 'Programmes',
+                    enum: [
+                      'Accelerated Construction',
+                      'Accelerated Land Disposal',
+                      'Affordable Homes Programme',
+                      'Build to Rent',
+                      'City Deals',
+                      'Economic Assets',
+                      'Estate Regeneration',
+                      'Get Britain Building',
+                      'Local Infrastructure Fund',
+                      'Pilot Transfer',
+                      'Property and Regeneration',
+                      'Public Land Investment Fund',
+                      'Public Sector Land Acquisitions',
+                      'Single Land',
+                      'THBF - Long Term Fund',
+                      'THBF - Short Term Fund'
+                    ]
+                  },
+                  description: {
+                    type: 'string',
+                    title: 'Description'
+                  },
+                  pcsRef: {
+                    type: 'string',
+                    title: 'PCS Reference'
+                  }
+                }
+              }
+            },
             heProgrammeLinks: {
               type: 'object',
               title: 'Links with Homes England Programmes',
@@ -870,6 +909,41 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 pcsRef: {
                   type: 'string',
                   title: 'PCS Reference'
+                }
+              }
+            },
+            mhclgProgrammeLinks: {
+              type: 'array',
+              title: 'Links with other MHCLG Programmes',
+              items: {
+                type: 'object',
+                properties: {
+                  programmes: {
+                    type: 'string',
+                    title: 'Programmes',
+                    enum: [
+                      'Accelerated Construction',
+                      'Accelerated Land Disposal',
+                      'Affordable Homes Programme',
+                      'Build to Rent',
+                      'City Deals',
+                      'Economic Assets',
+                      'Estate Regeneration',
+                      'Get Britain Building',
+                      'Local Infrastructure Fund',
+                      'Pilot Transfer',
+                      'Property and Regeneration',
+                      'Public Land Investment Fund',
+                      'Public Sector Land Acquisitions',
+                      'Single Land',
+                      'THBF - Long Term Fund',
+                      'THBF - Short Term Fund'
+                    ]
+                  },
+                  description: {
+                    type: 'string',
+                    title: 'Description'
+                  }
                 }
               }
             },
@@ -926,6 +1000,30 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 }
               }
             },
+            ogdProgrammeLinks: {
+              type: 'array',
+              title: 'Links with OGB programmes',
+              items: {
+                type: 'object',
+                properties: {
+                  programmes: {
+                    type: 'string',
+                    title: 'Programmes',
+                    enum: [
+                      'NPIF',
+                      'Growth and Housing Fund',
+                      'RIS',
+                      'RIS2',
+                      'Other'
+                    ]
+                  },
+                  description: {
+                    type: 'string',
+                    title: 'Description'
+                  }
+                }
+              }
+            },
             otherGovDepts: {
               type: 'object',
               title: 'Other Government Deparments interested',
@@ -948,6 +1046,34 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 description: {
                   type: 'string',
                   title: 'Description'
+                }
+              }
+            },
+            otherLinkedGovDepts: {
+              type: 'array',
+              title: 'Other Government Departments interested',
+              items: {
+                type: 'object',
+                properties: {
+                  departments: {
+                    type: 'string',
+                    title: 'Departments',
+                    enum: %w[
+                      DfT
+                      MHCLG
+                      BEIS
+                      DECC
+                      DEFRA
+                      DfE
+                      DH
+                      HMT
+                      MOD
+                    ]
+                  },
+                  description: {
+                    type: 'string',
+                    title: 'Description'
+                  }
                 }
               }
             },
@@ -974,6 +1100,35 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 description: {
                   type: 'string',
                   title: 'Description'
+                }
+              }
+            },
+            linkedHousingPolicyAreas: {
+              type: 'array',
+              title: 'Housing Policy Areas',
+              items: {
+                type: 'object',
+                properties: {
+                  policies: {
+                    type: 'string',
+                    title: 'Housing Policy Areas',
+                    enum: [
+                      'Custom Builds',
+                      'Modern Method of Construction',
+                      'SME',
+                      'Garden Towns / Villages / Communities',
+                      'Public Sector Land',
+                      'Housing Zones',
+                      'Accelerated Construction',
+                      'Housing Deal',
+                      'Brownfield Land',
+                      'Large Development'
+                    ]
+                  },
+                  description: {
+                    type: 'string',
+                    title: 'Description'
+                  }
                 }
               }
             }
