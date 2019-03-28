@@ -98,9 +98,9 @@ class UI::UseCases
       )
     end
 
-    builder.define_use_case :ui_update_project do
-      UI::UseCase::UpdateProject.new(
-        update_project: builder.get_use_case(:update_project),
+    builder.define_use_case :ui_update_baseline do
+      UI::UseCase::UpdateBaseline.new(
+        update_baseline: builder.get_use_case(:update_baseline),
         convert_ui_project: builder.get_use_case(:convert_ui_project)
       )
     end

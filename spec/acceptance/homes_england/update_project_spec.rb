@@ -34,7 +34,7 @@ describe 'Updating a HIF Project' do
   end
 
   it 'should update a project' do
-    success = get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: 123)
+    success = get_use_case(:update_baseline).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: 123)
 
     expect(success[:successful]).to eq(true)
 
@@ -49,12 +49,12 @@ describe 'Updating a HIF Project' do
       time_now = Time.now
       Timecop.freeze(time_now)
 
-      get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: time_now.to_i)
+      get_use_case(:update_baseline).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: time_now.to_i)
       updated_project = get_use_case(:find_project).execute(id: project_id)
 
       expect(updated_project[:timestamp]).to eq(time_now.to_i)
 
-      response = get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: time_now.to_i - 2000)
+      response = get_use_case(:update_baseline).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: time_now.to_i - 2000)
 
       expect(response).to eq({successful: false, errors: [:incorrect_timestamp], timestamp: time_now.to_i - 2000})
       expect(updated_project[:data]).to eq({ cats: 'meow'})

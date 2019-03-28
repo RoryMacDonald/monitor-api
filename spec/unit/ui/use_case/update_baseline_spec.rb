@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-describe UI::UseCase::UpdateProject do
+describe UI::UseCase::UpdateBaseline do
   context 'Example one' do
-    let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 4 }) }
+    let(:update_baseline_spy) { spy(execute: { successful: true, errors: [], timestamp: 4 }) }
     let(:convert_ui_project_spy) { spy(execute: { catto: 'meow' }) }
     let(:use_case) do
       described_class.new(
-        update_project: update_project_spy,
+        update_baseline: update_baseline_spy,
         convert_ui_project: convert_ui_project_spy
       )
     end
@@ -17,11 +17,11 @@ describe UI::UseCase::UpdateProject do
     before { response }
 
     it 'Calls execute on the update project usecase' do
-      expect(update_project_spy).to have_received(:execute)
+      expect(update_baseline_spy).to have_received(:execute)
     end
 
     it 'Passes the update project use case the project ID' do
-      expect(update_project_spy).to(
+      expect(update_baseline_spy).to(
         have_received(:execute).with(hash_including(project_id: 7))
       )
     end
@@ -39,7 +39,7 @@ describe UI::UseCase::UpdateProject do
     end
 
     it 'Passes the update project use case the timestamp' do
-      expect(update_project_spy).to have_received(:execute).with(
+      expect(update_baseline_spy).to have_received(:execute).with(
         hash_including(
           timestamp: 5
         )
@@ -57,7 +57,7 @@ describe UI::UseCase::UpdateProject do
     end
 
     it 'Passes the update project use case the converted project data' do
-      expect(update_project_spy).to(
+      expect(update_baseline_spy).to(
         have_received(:execute).with(
           hash_including(
             project_data: { catto: 'meow' }
@@ -68,11 +68,11 @@ describe UI::UseCase::UpdateProject do
   end
 
   context 'Example two' do
-    let(:update_project_spy) { spy(execute: { successful: false, errors: [:incorrect_timestamp], timestamp: 8 }) }
+    let(:update_baseline_spy) { spy(execute: { successful: false, errors: [:incorrect_timestamp], timestamp: 8 }) }
     let(:convert_ui_project_spy) { spy(execute: { doggo: 'woof' }) }
     let(:use_case) do
       described_class.new(
-        update_project: update_project_spy,
+        update_baseline: update_baseline_spy,
         convert_ui_project: convert_ui_project_spy
       )
     end
@@ -81,11 +81,11 @@ describe UI::UseCase::UpdateProject do
     before { response }
 
     it 'Calls execute on the update project usecase' do
-      expect(update_project_spy).to have_received(:execute)
+      expect(update_baseline_spy).to have_received(:execute)
     end
 
     it 'Passes the update project use case the project ID' do
-      expect(update_project_spy).to(
+      expect(update_baseline_spy).to(
         have_received(:execute).with(hash_including(project_id: 2))
       )
     end
@@ -103,7 +103,7 @@ describe UI::UseCase::UpdateProject do
     end
     
     it 'Passes the update project use case the timestamp' do
-      expect(update_project_spy).to have_received(:execute).with(
+      expect(update_baseline_spy).to have_received(:execute).with(
         hash_including(
           timestamp: 8
         )
@@ -121,7 +121,7 @@ describe UI::UseCase::UpdateProject do
     end
 
     it 'Passes the update project use case the converted project data' do
-      expect(update_project_spy).to(
+      expect(update_baseline_spy).to(
         have_received(:execute).with(
           hash_including(
             project_data: { doggo: 'woof' }

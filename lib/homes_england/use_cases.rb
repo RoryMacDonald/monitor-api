@@ -16,8 +16,8 @@ class HomesEngland::UseCases
       )
     end
 
-    builder.define_use_case :update_project do
-      HomesEngland::UseCase::UpdateProject.new(
+    builder.define_use_case :update_baseline do
+      HomesEngland::UseCase::UpdateBaseline.new(
         baseline_gateway: builder.get_gateway(:baseline)
       )
     end

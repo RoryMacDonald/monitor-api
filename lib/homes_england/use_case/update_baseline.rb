@@ -1,4 +1,4 @@
-class HomesEngland::UseCase::UpdateProject
+class HomesEngland::UseCase::UpdateBaseline
   def initialize(baseline_gateway:)
     @baseline_gateway = baseline_gateway
   end

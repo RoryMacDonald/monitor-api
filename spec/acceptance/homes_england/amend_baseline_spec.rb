@@ -34,7 +34,7 @@ describe 'Amending a project' do
     expect(baselines.last[:version]).to eq(2)
     expect(baselines.last[:status]).to eq('Draft')
 
-    get_use_case(:update_project).execute(
+    get_use_case(:update_baseline).execute(
       project_id: project_id,
       project_data:
       {new_data: 'new baseline'},

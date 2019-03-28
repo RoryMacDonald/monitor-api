@@ -2,8 +2,8 @@
 
 require 'rspec'
 
-describe HomesEngland::UseCase::UpdateProject do
-  context 'first update' do
+describe HomesEngland::UseCase::UpdateBaseline do
+  context 'first update' do 
     let(:use_case) do
       described_class.new(
         baseline_gateway: baseline_gateway_spy
