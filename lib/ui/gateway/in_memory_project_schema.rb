@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class UI::Gateway::InMemoryProjectSchema
-  def find_by(type:)
-    return create_template('hif_project.json') if type == 'hif'
-    return create_template('ac_project.json') if type == 'ac'
+  def find_by(type:, data: 'baseline')
+    return create_template("hif_#{data}.json") if type == 'hif'
+    return nil if data == 'admin'
+    return create_template('ac_baseline.json') if type == 'ac'
 
     ff_template if type == 'ff'
   end
@@ -20,7 +21,7 @@ class UI::Gateway::InMemoryProjectSchema
   end
 
   def ff_template
-    builder = UI::Builder::Template.new(path: "#{__dir__}/schemas/ff/project", title: 'FF Project')
+    builder = UI::Builder::Template.new(path: "#{__dir__}/schemas/ff/baseline", title: 'FF Project')
 
     builder.add_shared_data(file_name: 'shared_data.json')
 

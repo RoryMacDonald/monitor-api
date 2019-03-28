@@ -1,0 +1,245 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "HIF Project Admin",
+  "type": "object",
+  "required": ["heContacts", "strategicLinks", "laContacts"],
+  "properties": {
+    "heContacts": {
+      "type": "object",
+      "horizontal": true,
+      "required": ["relationshipManager", "projectAssuranceManager"],
+      "title": "Homes England Contacts",
+      "properties": {
+        "relationshipManager": {
+          "type": "string",
+          "title": "Relationship Manager"
+        },
+        "projectAssuranceManager": {
+          "type": "string",
+          "title": "Project Assurance Manager"
+        }
+      }
+    },
+    "strategicLinks": {
+      "type": "object",
+      "title": "Strategic Links",
+      "required": ["heProgrammeLinks", "mhclgLinks", "ogdLinks", "otherGovDepts", "housingPolicyAreas"],
+      "properties": {
+        "heProgrammeLinks": {
+          "type": "object",
+          "title": "Links with Homes England Programmes",
+          "required": ["programmes", "description", "pcsRef"],
+          "horizontal": true,
+          "properties": {
+            "programmes": {
+              "type": "string",
+              "title": "Programmes",
+              "enum": [
+                "N/A",
+                "Accelerated Construction",
+                "Accelerated Land Disposal",
+                "Affordable Homes Programme",
+                "Build to Rent",
+                "City Deals",
+                "Economic Assets",
+                "Estate Regeneration",
+                "Get Britain Building",
+                "Local Infrastructure Fund",
+                "Pilot Transfer",
+                "Property and Regeneration",
+                "Public Land Investment Fund",
+                "Public Sector Land Acquisitions",
+                "Single Land",
+                "THBF - Long Term Fund",
+                "THBF - Short Term Fund"
+              ]
+            },
+            "description": {
+              "type": "string",
+              "title": "Description"
+            },
+            "pcsRef": {
+              "type": "string",
+              "title": "PCS Reference"
+            }
+          }
+        },
+        "mhclgLinks": {
+          "type": "object",
+          "title": "Links with other MHCLG Programmes",
+          "horizontal": true,
+          "required": ["programmes", "description"],
+          "properties": {
+            "programmes": {
+              "type": "string",
+              "title": "Programmes",
+              "enum": [
+                "Accelerated Construction",
+                "Accelerated Land Disposal",
+                "Affordable Homes Programme",
+                "Build to Rent",
+                "City Deals",
+                "Economic Assets",
+                "Estate Regeneration",
+                "Get Britain Building",
+                "Local Infrastructure Fund",
+                "Pilot Transfer",
+                "Property and Regeneration",
+                "Public Land Investment Fund",
+                "Public Sector Land Acquisitions",
+                "Single Land",
+                "THBF - Long Term Fund",
+                "THBF - Short Term Fund"
+              ]
+            },
+            "description": {
+              "type": "string",
+              "title": "Description"
+            }
+          }
+        },
+        "ogdLinks": {
+          "type": "object",
+          "title": "Links with OGB programmes",
+          "required": ["programmes", "description"],
+          "horizontal": true,
+          "properties": {
+            "programmes": {
+              "type": "string",
+              "title": "Programmes",
+              "enum": [
+                "N/A",
+                "NPIF",
+                "Growth and Housing Fund",
+                "RIS",
+                "RIS2",
+                "Other"
+              ]
+            },
+            "description": {
+              "type": "string",
+              "title": "Description"
+            }
+          }
+        },
+        "otherGovDepts": {
+          "type": "object",
+          "title": "Other Government Deparments interested",
+          "horizontal": true,
+          "required": ["departments", "description"],
+          "properties": {
+            "departments": {
+              "type": "string",
+              "title": "Departments",
+              "enum": [
+                "N/A",
+                "DfT",
+                "MHCLG",
+                "BEIS",
+                "DECC",
+                "DEFRA",
+                "DfE",
+                "DH",
+                "HMT",
+                "MOD"
+              ]
+            },
+            "description": {
+              "type": "string",
+              "title": "Description"
+            }
+          }
+        },
+        "housingPolicyAreas": {
+          "type": "object",
+          "title": "Housing Policy Areas",
+          "horizontal": true,
+          "required": ["policies", "description"],
+          "properties": {
+            "policies": {
+              "type": "string",
+              "title": "Housing Policy Areas",
+              "enum": [
+                "Custom Builds",
+                "Modern Method of Construction",
+                "SME",
+                "Garden Towns / Villages / Communities",
+                "Public Sector Land",
+                "Housing Zones",
+                "Accelerated Construction",
+                "Housing Deal",
+                "Brownfield Land",
+                "Large Development"
+              ]
+            },
+            "description": {
+              "type": "string",
+              "title": "Description"
+            }
+          }
+        }
+      }
+    },
+    "laContacts": {
+      "type": "object",
+      "title": "LA Contacts",
+      "required": ["laLead", "laSupporting", "laS151"],
+      "properties": {
+        "laLead": {
+          "type": "object",
+          "title": "LA Lead Contact",
+          "horizontal": true,
+          "required": ["name", "email"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name"
+            },
+            "email": {
+              "type": "string",
+              "title": "Email",
+              "format": "email"
+            }
+          }
+        },
+        "laSupporting": {
+          "title": "LA Supporting Contacts",
+          "type": "array",
+          "addable": true,
+          "items": {
+            "title": "Contacts",
+            "type": "object",
+            "required": ["name", "email"],
+            "horizontal": true,
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name"
+              },
+              "email": {
+                "type": "string",
+                "title": "Email"
+              }
+            }
+          }
+        },
+        "laS151": {
+          "type": "object",
+          "title": "LA S151 Officer",
+          "horizontal": true,
+          "required": ["name", "email"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name"
+            },
+            "email": {
+              "type": "string",
+              "title": "Email"
+            }
+          }
+        }
+      }
+    }
+  }
+}

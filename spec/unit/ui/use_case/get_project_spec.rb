@@ -5,11 +5,13 @@ describe UI::UseCase::GetProject do
     let(:project_schema_gateway_spy) do
       spy(find_by: found_template)
     end
+
     let(:found_template) do
       Common::Domain::Template.new.tap do |t|
         t.schema = { cat: 'meow' }
       end
     end
+
     let(:find_project_spy) do
       spy(
         execute: {
@@ -45,14 +47,24 @@ describe UI::UseCase::GetProject do
       expect(find_project_spy).to have_received(:execute).with(hash_including(project_id: 1))
     end
 
-    it 'Finds the schema from the gateway' do
+    it 'Finds the baseline schema from the gateway' do
       expect(project_schema_gateway_spy).to have_received(:find_by).with(
         type: 'hif'
       )
     end
 
-    it 'Returns the schema from the gateway' do
+    it 'Finds the admin schema from the gateway' do
+      expect(project_schema_gateway_spy).to have_received(:find_by).with(
+        type: 'hif', data: 'admin'
+      )
+    end
+
+    it 'Returns the baseline schema from the gateway' do
       expect(response[:schema]).to eq(cat: 'meow')
+    end
+
+    it 'Returns the admin schema from the gateway' do
+      expect(response[:admin_schema]).to eq(cat: 'meow')
     end
 
     it 'Return the name from find project' do
@@ -146,11 +158,21 @@ describe UI::UseCase::GetProject do
       )
     end
 
+    it 'Finds the admin schema from the gateway' do
+      expect(project_schema_gateway_spy).to have_received(:find_by).with(
+        type: 'hif', data: 'admin'
+      )
+    end
+
     it 'Return the bid id from find project' do
       expect(response[:bid_id]).to eq('HIF/MV/155')
     end
 
     it 'Returns the schema from the gateway' do
+      expect(response[:schema]).to eq(dog: 'woof')
+    end
+
+    it 'Returns the admin schema from the gateway' do
       expect(response[:schema]).to eq(dog: 'woof')
     end
 

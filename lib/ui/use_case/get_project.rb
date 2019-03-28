@@ -10,7 +10,8 @@ class UI::UseCase::GetProject
   def execute(id:)
     found_project = @find_project.execute(project_id: id)
 
-    template = @project_schema_gateway.find_by(type: found_project[:type])
+    baseline_schema = @project_schema_gateway.find_by(type: found_project[:type]).schema
+    admin_schema = @project_schema_gateway.find_by(type: found_project[:type], data: 'admin').schema
 
     found_project[:data] = @convert_core_project.execute(project_data: found_project[:data], type: found_project[:type])
 
@@ -21,7 +22,8 @@ class UI::UseCase::GetProject
       admin_data: found_project[:admin_data],
       bid_id: found_project[:bid_id],
       status: found_project[:status],
-      schema: template.schema,
+      schema: baseline_schema,
+      admin_schema: admin_schema,
       timestamp: found_project[:timestamp]
     }
   end
