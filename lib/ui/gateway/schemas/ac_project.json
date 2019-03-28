@@ -487,7 +487,11 @@
               },
               "units": {
                 "type": "object",
-                "calculation": "set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",
+                "calculation": "
+set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ?
+  parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')):
+  0
+);",
                 "title": "",
                 "properties": {
                   "numberOfUnits": {
@@ -637,7 +641,10 @@
         "receipts": {
           "type": "object",
           "title": "Receipts",
-          "calculation": "set(formData, 'projectValue', accumulateMoney(get(formData, 'expectedDisposalReceipt'), 'amount', 2));",
+          "calculation": "
+set(formData, 'projectValue',
+  accumulateMoney(get(formData, 'expectedDisposalReceipt'), 'amount', 2)
+);",
           "properties": {
             "detailsOnPaymentStructure": {
               "type": "string",
@@ -687,7 +694,30 @@
         "dates": {
           "type": "object",
           "title": "",
-          "calculation": "validateDatesSequential(formData, ['surveysAndDueDiligence', 'commencementOfDueDiligence'], ['surveysAndDueDiligence','completionOfSurveysHolder','completionOfSurveys']); validateDatesSequential(formData, ['procurementProvision', 'procurementOfWorksCommencementDate'], ['procurementProvision','provisionOfDetailedWorksHolder','provisionOfDetailedWorks'], ['worksDate', 'commencementDateHolder', 'commencementDate'], ['worksDate', 'completionDateHolder', 'completionDate']); validateDatesSequential(formData, ['outlinePlanning', 'outlinePlanningGrantedDate'], ['outlinePlanning','reservedMatterPermissionGrantedDateHolder','reservedMatterPermissionGrantedDate']); validateDatesSequential(formData, ['marketingCommenced'], ['contractSigned','conditionalContractSignedHolder','conditionalContractSigned'], ['contractSigned', 'unconditionalContractSignedHolder', 'unconditionalContractSigned'], ['workDates', 'startOnSiteDateHolder', 'startOnSiteDate'], ['workDates', 'startOnFirstUnitDateHolder', 'startOnFirstUnitDate'], ['completionDates', 'completionOfFinalUnitDateHolder', 'completionOfFinalUnitData']);",
+          "calculation": "
+validateDatesSequential(formData,
+  path('surveysAndDueDiligence', 'commencementOfDueDiligence'),
+  path('surveysAndDueDiligence','completionOfSurveysHolder','completionOfSurveys')
+);
+validateDatesSequential(formData,
+  path('procurementProvision', 'procurementOfWorksCommencementDate'),
+  path('procurementProvision', 'provisionOfDetailedWorksHolder', 'provisionOfDetailedWorks'),
+  path('worksDate', 'commencementDateHolder', 'commencementDate'),
+  path('worksDate', 'completionDateHolder', 'completionDate')
+);
+validateDatesSequential(formData,
+  path('outlinePlanning', 'outlinePlanningGrantedDate'),
+  path('outlinePlanning','reservedMatterPermissionGrantedDateHolder','reservedMatterPermissionGrantedDate')
+);
+validateDatesSequential(formData,
+  path('marketingCommenced'),
+  path('contractSigned','conditionalContractSignedHolder','conditionalContractSigned'),
+  path('contractSigned', 'unconditionalContractSignedHolder', 'unconditionalContractSigned'),
+  path('workDates', 'startOnSiteDateHolder', 'startOnSiteDate'),
+  path('workDates', 'startOnFirstUnitDateHolder', 'startOnFirstUnitDate'),
+  path('completionDates', 'completionOfFinalUnitDateHolder', 'completionOfFinalUnitData')
+);
+",
           "properties": {
             "surveysAndDueDiligence": {
               "type": "object",
