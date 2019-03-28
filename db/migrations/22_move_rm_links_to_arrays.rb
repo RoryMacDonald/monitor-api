@@ -26,7 +26,7 @@
         end
 
         if new_data['rmBaseline']['housingPolicyAreas']
-          new_data['rmBaseline']['linekdHousingPolicyAreas'] = [new_data['rmBaseline']['housingPolicyAreas']]
+          new_data['rmBaseline']['linkedHousingPolicyAreas'] = [new_data['rmBaseline']['housingPolicyAreas']]
         end
 
         if new_data['rmBaseline']['heProgrammeLinks']

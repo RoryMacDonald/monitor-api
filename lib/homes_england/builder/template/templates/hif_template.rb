@@ -1051,7 +1051,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             },
             otherLinkedGovDepts: {
               type: 'array',
-              title: 'Other Government Deparments interested',
+              title: 'Other Government Departments interested',
               items: {
                 type: 'object',
                 properties: {
@@ -1103,7 +1103,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 }
               }
             },
-            linekdHousingPolicyAreas: {
+            linkedHousingPolicyAreas: {
               type: 'array',
               title: 'Housing Policy Areas',
               items: {

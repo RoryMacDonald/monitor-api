@@ -172,7 +172,7 @@
         "descriptions": "Regenerating some properties",
         "pcsRef": "ABC123"
       }],
-      "linekdHousingPolicyAreas": [{
+      "linkedHousingPolicyAreas": [{
         "policies": "Garden Policy",
         "description": "Garden policy in effect"
       }],

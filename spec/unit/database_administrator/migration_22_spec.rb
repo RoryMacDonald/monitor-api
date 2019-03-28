@@ -52,7 +52,7 @@ describe 'Migration 22' do
           otherGovDepts: {gov: 'fish'},
           otherLinkedGovDepts: [{gov: 'fish'}],
           housingPolicyAreas: {house: 'shark'},
-          linekdHousingPolicyAreas:[{house: 'shark'}],
+          linkedHousingPolicyAreas:[{house: 'shark'}],
           heProgrammeLinks: {programmes: 'many'},
           heProgrammeLinksMultiple: [{programmes: 'many'}]
         }

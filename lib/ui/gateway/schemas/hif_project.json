@@ -2368,7 +2368,7 @@
                 }
               }
             },
-            "linekdHousingPolicyAreas": {
+            "linkedHousingPolicyAreas": {
               "type": "array",
               "addable": true,
               "title": "Housing Policy Areas",
