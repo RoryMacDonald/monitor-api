@@ -2083,48 +2083,52 @@
               }
             },
             "mhclgLinks": {
-              "type": "object",
+              "type": "array",
+              "addable": true,
               "title": "Links with other MHCLG Programmes",
-              "horizontal": true,
-              "required": ["programmes", "description"],
-              "properties": {
-                "programmes": {
-                  "type": "string",
-                  "title": "Programmes",
-                  "enum": [
-                    "Garden Towns",
-                    "Garden Villages",
-                    "Garden Communities",
-                    "Land Release Fund",
-                    "N/A"
-                  ]
-                }
-              },
-              "dependencies": {
-                "programmes": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "programmes": { "enum": ["N/A"] }
-                      }
-                    },
-                    {
-                      "properties": {
-                        "programmes": {
-                          "enum": [
-                            "Garden Towns",
-                            "Garden Villages",
-                            "Garden Communities",
-                            "Land Release Fund"
-                          ]
-                        },
-                        "description": {
-                          "type": "string",
-                          "title": "Description"
+              "items": {
+                "horizontal": true,
+                "type": "object",
+                "required": ["programmes", "description"],
+                "properties": {
+                  "programmes": {
+                    "type": "string",
+                    "title": "Programmes",
+                    "enum": [
+                      "Garden Towns",
+                      "Garden Villages",
+                      "Garden Communities",
+                      "Land Release Fund",
+                      "N/A"
+                    ]
+                  }
+                },
+                "dependencies": {
+                  "programmes": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "programmes": { "enum": ["N/A"] }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "programmes": {
+                            "enum": [
+                              "Garden Towns",
+                              "Garden Villages",
+                              "Garden Communities",
+                              "Land Release Fund"
+                            ]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
                         }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             },
