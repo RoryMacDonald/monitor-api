@@ -167,24 +167,24 @@
       ]
     },
     "strategicLinks": {
-      "heProgrammeLinks": {
+      "heProgrammeLinksMultiple": [{
         "programmes": "Property and Regeneration",
         "descriptions": "Regenerating some properties",
         "pcsRef": "ABC123"
-      },
-      "housingPolicyAreas": {
+      }],
+      "linekdHousingPolicyAreas": [{
         "policies": "Garden Policy",
         "description": "Garden policy in effect"
-      },
-      "mhclgLinks": {
+      }],
+      "mhclgProgrammeLinks": [{
         "programmes": "Make more houses",
         "description": "Apartments division"
-      },
-      "ogdLinks": {
+      }],
+      "ogdProgrammeLinks": [{
         "programmes": "Underground Homes",
         "description": "Build houses underground"
-      },
-      "otherGovDepts": "ABC",
+      }],
+      "otherLinkedGovDepts": ["ABC"],
       "description": "Early development department"
     }
   }
