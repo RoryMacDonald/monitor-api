@@ -2071,6 +2071,10 @@
                         "description": {
                           "type": "string",
                           "title": "Description"
+                        },
+                        "pcsRef": {
+                          "type": "string",
+                          "title": "PCS Reference"
                         }
                       }
                     }
