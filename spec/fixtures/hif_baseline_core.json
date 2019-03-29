@@ -5,7 +5,7 @@
     "BIDReference": "12345",
     "projectName": "Project name",
     "leadAuthority": "Made Tech",
-    "jointBidAreas": "Made Tech 2",
+    "jointBidAuthorityAreas": ["Made Tech 2"],
     "projectDescription": "Descripion of project",
     "greenOrBrownField": "Greenfield",
     "noOfHousingSites": "10",
