@@ -19,12 +19,9 @@ class UI::Gateway::InMemoryReturnSchema
     @template = Common::Domain::Template.new
 
     File.open("#{__dir__}/schemas/#{schema}", 'r') do |f|
-      @template.schema = JSON.parse(
-        f.read,
-        symbolize_names: true
-      )
+      @template.schema = Common::PreprocessJSON.parse(f.read)
     end
-    
+
     check_hif_tab_flags if type == 'hif'
 
     @template
