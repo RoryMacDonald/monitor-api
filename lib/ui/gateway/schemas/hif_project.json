@@ -2386,6 +2386,7 @@
                     "type": "string",
                     "title": "Housing Policy Areas",
                     "enum": [
+                      "N/A",
                       "Custom Builds",
                       "Modern Method of Construction",
                       "SME",
@@ -2397,10 +2398,39 @@
                       "Brownfield Land",
                       "Large Development"
                     ]
-                  },
-                  "description": {
-                    "type": "string",
-                    "title": "Description"
+                  }
+                },
+                "dependencies": {
+                  "policies": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "policies": { "enum": ["N/A"]}
+                        }
+                      },
+                      {
+                        "properties": {
+                          "policies": {
+                            "enum": [
+                              "Custom Builds",
+                              "Modern Method of Construction",
+                              "SME",
+                              "Garden Towns / Villages / Communities",
+                              "Public Sector Land",
+                              "Housing Zones",
+                              "Accelerated Construction",
+                              "Housing Deal",
+                              "Brownfield Land",
+                              "Large Development"
+                            ]
+                          },
+                          "description": {
+                            "type": "string",
+                            "title": "Description"
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               }
