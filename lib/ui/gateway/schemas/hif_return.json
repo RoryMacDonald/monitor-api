@@ -2100,6 +2100,7 @@ get(formData,'previousAmounts', 'lastReturn') ?
               "fundedThroughHIF": {
                 "type": "object",
                 "calculation": "
+                get(formData, 'descriptionOfFundingStack') ? null : set(formData, 'descriptionOfFundingStack', 'N/A');
 get(formData, 'anyChange', 'confirmation') === 'Yes' ?
   get(formData, 'fundedThroughHIFbaseline') === 'Yes' ?
     set(formData, 'fundedThroughHIFCurrent', 'No') :
