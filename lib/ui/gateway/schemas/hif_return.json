@@ -865,7 +865,8 @@
                         ],
                         "type": "string",
                         "title": "Name of Contractor",
-                        "readonly": true
+                        "heWritable": true,
+                        "laReadOnly": true
                       }
                     }
                   },
@@ -928,7 +929,9 @@
                           },
                           "onCompletedNameOfContractor": {
                             "type": "string",
-                            "title": "Name of Contractor"
+                            "title": "Name of Contractor",
+                            "heWritable": true,
+                            "laReadOnly": true
                           },
                           "percentComplete": {
                             "type": "string",
