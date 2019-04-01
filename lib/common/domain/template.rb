@@ -44,11 +44,20 @@ class Common::Domain::Template
     all_error_paths
   end
 
+  def unselected_enum_option(error)
+    error.each do |suberror|
+      return true if suberror.to_s.include? "is not a member of"
+    end
+
+    false
+  end
+
   def get_dependency_failed_path_names(error, project_data)
     paths = []
     error.sub_errors.each do |error|
+      next if unselected_enum_option(error)
+
       error.each do |message|
-        next if message.to_s.include? "is not a member of"
         next if message.data.nil?
         next if message_is_array_index?(message)
 

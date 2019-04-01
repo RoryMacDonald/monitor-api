@@ -974,7 +974,77 @@ describe UI::UseCase::ValidateReturn do
       let(:invalid_return_data) {{ percentComplete: 'Yes', planningSubmitted: {}}}
       let(:invalid_return_data_paths) { [[:planningSubmitted, :dogs]] }
       let(:invalid_return_data_pretty_paths) { [['Planning Submitted', 'Dogs']] }
+    end
+  end
 
+  context 'complex dependencies' do
+    context 'example 1' do
+      it_should_behave_like 'required field validation'
+
+      let(:template) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            properties: {
+              percentComplete: {
+                type: 'string',
+                title: 'Percent complete',
+                enum: %w[Yes No]
+              }
+            },
+            dependencies: {
+              percentComplete: {
+                oneOf: [
+                  {
+                    type: 'object',
+                    properties: {
+                      percentComplete: {
+                        enum: ['No']
+                      },
+                      anotherField: {
+                        type: 'string'
+                      }
+                    },
+                    required: ['anotherField']
+                  },
+                  {
+                    type: 'object',
+                    properties: {
+                      percentComplete: {
+                        enum: ['Yes']
+                      },
+                      planningSubmitted: {
+                        type: 'object',
+                        title: 'Planning Submitted',
+                        properties: {
+                          dogs: {
+                            title: 'Dogs',
+                            type: 'string'
+                          }
+                        },
+                        required: ['dogs']
+                      }
+                    },
+                    required: ['planningSubmitted']
+                  }
+                ]
+              }
+            }
+          }
+        end
+      end
+
+      let(:valid_return_data) do
+        {
+          percentComplete: 'Yes',
+          planningSubmitted: {dogs: 'hi'}
+        }
+      end
+
+      let(:invalid_return_data) {{ percentComplete: 'Yes', planningSubmitted: {} }}
+      let(:invalid_return_data_paths) { [[:planningSubmitted, :dogs]] }
+      let(:invalid_return_data_pretty_paths) { [['Planning Submitted', 'Dogs']] }
     end
   end
 end
