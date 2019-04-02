@@ -6,7 +6,9 @@ class HomesEngland::UseCase::UpdateProject
   def execute(project_id:, project_data:, timestamp:)
     current_baseline = @baseline_gateway.versions_for(project_id: project_id).last
 
-    return { successful: false, errors: [:incorrect_timestamp], timestamp: timestamp } unless valid_timestamps?(current_baseline.timestamp, timestamp)
+    return project_already_submitted_response unless current_baseline.status != 'Submitted'
+    return incorrect_timestamp_response(timestamp) unless valid_timestamps?(current_baseline.timestamp, timestamp)
+
     current_time = Time.now.to_i
     current_baseline.data = project_data
     current_baseline.status = 'Draft'
@@ -14,10 +16,18 @@ class HomesEngland::UseCase::UpdateProject
 
     @baseline_gateway.update(id: current_baseline.id, baseline: current_baseline)
 
-    { successful: true, errors: [], timestamp:  current_time}
+    { successful: true, errors: [], timestamp: current_time }
   end
 
   private
+
+  def incorrect_timestamp_response(timestamp)
+    { successful: false, errors: [:incorrect_timestamp], timestamp: timestamp }
+  end
+
+  def project_already_submitted_response
+    { successful: false, errors: [:project_already_submitted] }
+  end
 
   def valid_timestamps?(saved_timestamp, new_timestamp)
     saved_timestamp == new_timestamp || saved_timestamp.zero?
