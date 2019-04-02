@@ -11,53 +11,76 @@ describe 'Migration 24' do
     migrator.migrate_to(database, 24)
   end
 
-   let(:project_id) { database[:projects].insert(status: 'Draft', type: 'hif') }
-
-   def create_baseline(project_id, data)
-    database[:baselines].insert(project_id: project_id, data: Sequel.pg_json(data))
+  def create_project(name:, type:, status:)
+    database[:projects].insert(
+      name: name,
+      type: type,
+      status: status
+    )
   end
 
-   let(:migrator) { ::Migrator.new }
-
-   let(:migrated_baseline_data) do
-    Common::DeepSymbolizeKeys.to_symbolized_hash(database[:baselines]
-      .all
-      .first[:data].to_h)
+  def create_baseline(project_id:, data:, status:, version:)
+    database[:baselines].insert(
+      project_id: project_id,
+      data: data,
+      status: status,
+      version: version
+    )
   end
 
-   before do 
-    synchronize_to_non_migrated_version
-    create_baseline(project_id, data)
-    synchronize_to_migrated_version
-  end
+  let(:migrator) { ::Migrator.new }
 
-   context 'links in HIF RM Baseline to arrays' do
-    let(:data) do
+  before { synchronize_to_non_migrated_version }
+
+  context 'Example 1' do
+    let(:baseline_data) do
       {
+        summary: { noOfHousingSites: 15, totalArea: 12, hifFundingAmount: 10_000 },
+        infrastructures: [
+          {
+            landOwnership: {
+              howManySitesToAcquire: 10
+            }
+          }
+        ],
+        outputsForecast: {
+          totalUnits: 5
+        },
         rmBaseline: {
-          mhclgLinks: {mhclg: 'cat'},
-          ogdLinks: {odg: 'dog'},
-          otherGovDepts: {gov: 'fish'},
-          housingPolicyAreas: {house: 'shark'},
-          heProgrammeLinks: {programmes: 'many'}
+          details: 'names',
+          address: 'my address',
+          phone: '0121012'
         }
       }
     end
 
-     it 'migrates successfully' do
-      expect(migrated_baseline_data).to eq({
-        rmBaseline: {
-          mhclgLinks: {mhclg: 'cat'},
-          mhclgProgrammeLinks: [{mhclg: 'cat'}],
-          ogdLinks: {odg: 'dog'},
-          ogdProgrammeLinks: [{odg: 'dog'}],
-          otherGovDepts: {gov: 'fish'},
-          otherLinkedGovDepts: [{gov: 'fish'}],
-          housingPolicyAreas: {house: 'shark'},
-          linkedHousingPolicyAreas:[{house: 'shark'}],
-          heProgrammeLinks: {programmes: 'many'},
-          heProgrammeLinksMultiple: [{programmes: 'many'}]
-        }
+    let(:migrated_baseline_data) { database[:baselines].all.first }
+    let(:migrated_project_data) { database[:projects].all.first }
+
+    before do
+      project_id = create_project(
+        type: 'hif',
+        status: 'Submitted',
+        name: 'My HIF project'
+      )
+
+      baseline_id = create_baseline(
+        project_id: project_id,
+        data: Sequel.pg_json(baseline_data),
+        status: 'Submitted',
+        version: 1
+      )
+
+      synchronize_to_migrated_version
+    end
+
+    it 'Migrates the rm baseline data to the project table' do
+      stored_project_data = Common::DeepSymbolizeKeys.to_symbolized_hash(migrated_project_data[:data].to_h)
+
+      expect(stored_project_data).to eq({
+        details: 'names',
+        address: 'my address',
+        phone: '0121012'
       })
     end
 
