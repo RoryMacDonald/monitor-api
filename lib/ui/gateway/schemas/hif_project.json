@@ -2019,7 +2019,7 @@
               "title": "Links with Homes England Programmes",
               "items": {
                 "type": "object",
-                "required": ["programmes", "description", "pcsRef"],
+                "required": ["programmes"],
                 "horizontal": true,
                 "properties": {
                   "programmes": {
@@ -2084,7 +2084,8 @@
                             "type": "string",
                             "title": "PCS Reference"
                           }
-                        }
+                        },
+                        "required": ["description", "pcsRef"]
                       }
                     ]
                   }
@@ -2098,7 +2099,7 @@
               "items": {
                 "type": "object",
                 "horizontal": true,
-                "required": ["programmes", "description"],
+                "required": ["programmes"],
                 "properties": {
                   "programmes": {
                     "type": "string",
@@ -2134,7 +2135,8 @@
                             "type": "string",
                             "title": "Description"
                           }
-                        }
+                        },
+                        "required": ["description"]
                       }
                     ]
                   }
@@ -2147,7 +2149,7 @@
               "title": "Links with OGB programmes",
               "items": {
                 "type": "object",
-                "required": ["programmes", "description"],
+                "required": ["programmes"],
                 "horizontal": true,
                 "properties": {
                   "programmes": {
@@ -2176,57 +2178,20 @@
                       {
                         "properties": {
                           "programmes": {
-                            "enum": ["NPIF"]
+                            "enum": [
+                              "NPIF",
+                              "Growth and Housing Fund",
+                              "RIS",
+                              "RIS2",
+                              "Other"
+                            ]
                           },
                           "description": {
                             "type": "string",
                             "title": "Description"
                           }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "programmes": {
-                            "enum": ["Growth and Housing Fund"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "programmes": {
-                            "enum": ["RIS"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "programmes": {
-                            "enum": ["RIS2"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "programmes": {
-                            "enum": ["Other"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
+                        },
+                        "required": ["description"]
                       }
                     ]
                   }
@@ -2240,7 +2205,7 @@
               "items": {
                 "type": "object",
                 "horizontal": true,
-                "required": ["departments", "description"],
+                "required": ["departments"],
                 "properties": {
                   "departments": {
                     "type": "string",
@@ -2272,101 +2237,24 @@
                       {
                         "properties": {
                           "departments": {
-                            "enum": ["DfT"]
+                            "enum": [
+                              "DfT",
+                              "MHCLG",
+                              "BEIS",
+                              "DECC",
+                              "DEFRA",
+                              "DfE",
+                              "DH",
+                              "HMT",
+                              "MOD"
+                            ]
                           },
                           "description": {
                             "type": "string",
                             "title": "Description"
                           }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "departments": {
-                            "enum": ["MHCLG"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "departments": {
-                            "enum": ["BEIS"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "departments": {
-                            "enum": ["DECC"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "departments": {
-                            "enum": ["DEFRA"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "departments": {
-                            "enum": ["DfE"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "departments": {
-                            "enum": ["DH"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "departments": {
-                            "enum": ["HMT"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "departments": {
-                            "enum": ["MOD"]
-                          },
-                          "description": {
-                            "type": "string",
-                            "title": "Description"
-                          }
-                        }
+                        },
+                        "required": ["description"]
                       }
                     ]
                   }
@@ -2381,7 +2269,7 @@
                 "type": "object",
                 "horizontal": true,
                 "title": "",
-                "required": ["policies", "description"],
+                "required": ["policies"],
                 "properties": {
                   "policies": {
                     "type": "string",
@@ -2429,7 +2317,8 @@
                             "type": "string",
                             "title": "Description"
                           }
-                        }
+                        },
+                        "required": ["description"]
                       }
                     ]
                   }
