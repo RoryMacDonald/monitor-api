@@ -2011,7 +2011,6 @@
         "strategicLinks": {
           "type": "object",
           "title": "Strategic Links",
-          "required": ["heProgrammeLinksMultiple", "mhclgProgrammeLinks", "ogdProgrammeLinks", "otherLinkedGovDepts", "linkedHousingPolicyAreas"],
           "properties": {
             "heProgrammeLinksMultiple": {
               "type": "array",
