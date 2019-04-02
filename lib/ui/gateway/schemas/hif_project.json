@@ -2329,7 +2329,7 @@
         "laContacts": {
           "type": "object",
           "title": "LA Contacts",
-          "required": ["laLead", "laSupporting", "laS151"],
+          "required": ["laLead", "laS151"],
           "properties": {
             "laLead": {
               "type": "object",
