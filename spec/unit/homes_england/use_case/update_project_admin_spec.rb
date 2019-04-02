@@ -51,7 +51,7 @@
         end
 
         it 'returns successly' do
-          expect(response[:success]).to eq(true)
+          expect(response[:successful]).to eq(true)
         end
 
         it 'returns the new timestamp' do
@@ -124,7 +124,7 @@
       end
 
       it 'returns unsuccessful' do
-        expect(response[:success]).to eq(false)
+        expect(response[:successful]).to eq(false)
       end
 
       it 'returns an incorrect timestamp error' do 

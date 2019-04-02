@@ -1,12 +1,14 @@
-describe 'Migration 22' do
+# frozen_string_literal: true
+
+describe 'Migration 24' do
   include_context 'with database'
 
-   def synchronize_to_non_migrated_version
-    migrator.migrate_to(database, 21)
+  def synchronize_to_non_migrated_version
+    migrator.migrate_to(database, 23)
   end
 
-   def synchronize_to_migrated_version
-    migrator.migrate_to(database, 22)
+  def synchronize_to_migrated_version
+    migrator.migrate_to(database, 24)
   end
 
    let(:project_id) { database[:projects].insert(status: 'Draft', type: 'hif') }

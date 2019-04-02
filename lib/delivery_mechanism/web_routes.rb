@@ -131,6 +131,7 @@ module DeliveryMechanism
     end
 
     def update_successful?(update_response)
+      pp update_response
       update_response[:successful] || !update_response[:errors].empty?
     end
 

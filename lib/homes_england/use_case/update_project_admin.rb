@@ -11,6 +11,6 @@ class HomesEngland::UseCase::UpdateProjectAdmin
     timestamp = Time.now.to_i
     @project_gateway.update(id: project_id, data: data, timestamp: timestamp)
 
-    { success: true, timestamp: timestamp, errors: [] }
+    { successful: true, timestamp: timestamp, errors: [] }
   end
 end
