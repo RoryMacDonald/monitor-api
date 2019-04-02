@@ -57,6 +57,10 @@
         it 'returns the new timestamp' do
           expect(response[:timestamp]).to eq(timestamp + 3)
         end
+
+        it 'returns no errors' do
+          expect(response[:errors]).to eq([])
+        end
       end
 
       context 'example two' do   
