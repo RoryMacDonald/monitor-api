@@ -227,14 +227,14 @@ module DeliveryMechanism
 
     def guard_access(env, params, request)
       request_hash = get_hash(request)
-      access_status = get_access_status(env, params, request_hash)
+      access_status, user_info = get_access_status(env, params, request_hash)
 
       if access_status == :bad_request
         response.status = 400
       elsif access_status == :forbidden
         response.status = 401
       else
-        yield request_hash
+        yield request_hash, user_info
       end
     end
 
@@ -248,14 +248,17 @@ module DeliveryMechanism
 
     def check_post_access(env, request_hash)
       if env['HTTP_API_KEY'].nil? || request_hash.nil?
-        :bad_request
-      elsif !@dependency_factory.get_use_case(:check_api_key).execute(
-        api_key: env['HTTP_API_KEY'],
-        project_id: request_hash[:project_id]
-      )[:valid]
-        :forbidden
+        [:bad_request]
       else
-        :proceed
+        user_info = @dependency_factory.get_use_case(:check_api_key).execute(
+          api_key: env['HTTP_API_KEY'],
+          project_id: request_hash[:project_id]
+        )
+        if !user_info[:valid]
+          [:forbidden]
+        else
+          [:proceed, user_info]
+        end
       end
     end
 

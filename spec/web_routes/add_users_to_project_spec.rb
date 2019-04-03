@@ -25,10 +25,10 @@ describe 'Adding users to a project' do
 
   context 'when correct authorization provided' do
     before do
-      stub_const(
-        'LocalAuthority::UseCase::CheckApiKey',
-        double(new: double(execute: {valid: true}))
-        )
+      stub_instances(
+        LocalAuthority::UseCase::CheckApiKey,
+        double(execute: {valid: true})
+      )
 
       set_correct_auth_header
     end
@@ -57,9 +57,9 @@ describe 'Adding users to a project' do
       let(:valid_request_body) { { users: [{ email: 'mt@mt.com' }] } }
 
       before do
-        stub_const(
-          'HomesEngland::UseCase::AddUserToProject',
-          double(new: add_user_to_project_usecase_spy)
+        stub_instances(
+          HomesEngland::UseCase::AddUserToProject,
+          add_user_to_project_usecase_spy
         )
       end
 
@@ -77,8 +77,8 @@ describe 'Adding users to a project' do
         end
       end
 
-      context 'it adds a single user' do
-        example 'example 1' do
+      context 'it adds a single specified user' do
+        example 1 do
           request_body = { users: [{ email: 'mt1@mt1.com', role: 'S151' }] }
           post('project/33/add_users', request_body.to_json)
           expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
@@ -88,14 +88,47 @@ describe 'Adding users to a project' do
           )
         end
 
-
-        example 'example 2' do
+        example 2 do
           request_body = { users: [{ email: 'cat@mouse.com' }] }
           post('project/24/add_users', request_body.to_json)
           expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
             project_id: 24,
             role: nil,
             email: 'cat@mouse.com'
+          )
+        end
+      end
+
+      context 'it adds the user making the request' do
+        example 1 do
+          stub_const(
+            'LocalAuthority::UseCase::CheckApiKey',
+            double(new: double(execute: {email: 'self@me.com', valid: true}))
+          )
+
+          request_body = { users: [{ self: true }] }
+          post('project/14/add_users', request_body.to_json)
+
+          expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
+            project_id: 14,
+            role: nil,
+            email: 'self@me.com'
+          )
+        end
+
+        example 2 do
+          stub_const(
+            'LocalAuthority::UseCase::CheckApiKey',
+            double(new: double(execute: {email: 'my@email.net', valid: true}))
+          )
+
+          request_body = { users: [{ self: true }] }
+          post('project/68/add_users', request_body.to_json)
+
+          expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
+            project_id: 68,
+            role: nil,
+            email: 'my@email.net'
           )
         end
       end
