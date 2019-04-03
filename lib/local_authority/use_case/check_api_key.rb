@@ -1,6 +1,7 @@
 class LocalAuthority::UseCase::CheckApiKey
-  def initialize(get_user_projects:)
+  def initialize(get_user_projects:, user_gateway:)
     @get_user_projects = get_user_projects
+    @user_gateway = user_gateway
   end
 
   def execute(api_key:, project_id:)
@@ -9,7 +10,7 @@ class LocalAuthority::UseCase::CheckApiKey
     begin
       payload = get_payload(api_key)
       api_key_email = payload['email']
-      api_key_role = payload['role']
+      api_key_role = @user_gateway.find_by(email: api_key_email).role
       user_projects = @get_user_projects.execute(email: api_key_email)[:project_list]
 
       if project_id.nil?

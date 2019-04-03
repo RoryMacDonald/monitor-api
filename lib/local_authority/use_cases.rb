@@ -118,7 +118,8 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :check_api_key do
       LocalAuthority::UseCase::CheckApiKey.new(
-        get_user_projects: builder.get_use_case(:get_user_projects)
+        get_user_projects: builder.get_use_case(:get_user_projects),
+        user_gateway: builder.get_gateway(:users)
       )
     end
 
