@@ -26,12 +26,12 @@
         "projectManager": {
           "type": "string",
           "title": "Project Manager",
-          "readonly": true
+          "hidden": true
         },
         "sponsor": {
           "type": "string",
           "title": "Sponsor",
-          "readonly": true
+          "hidden": true
         },
         "leadAuthority": {
           "type": "string",
