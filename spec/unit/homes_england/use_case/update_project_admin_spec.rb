@@ -2,6 +2,7 @@
     let(:project) do
       HomesEngland::Domain::Project.new.tap do |p|
         p.timestamp = timestamp
+        p.bid_id = bid_id
       end
     end
     let(:project_gateway_spy) { spy(find_by: project) }
@@ -26,9 +27,14 @@
               name: 'la',
               email: 'la@la.com',
               link: 'he'
+            },
+            projectDetails: {
+              BIDReference: 'HIF/MV/11111'
             }
           }
         end
+
+        let(:bid_id) { 'HIF/MV/2' }
 
         let(:project_id) { 1 }
 
@@ -41,6 +47,12 @@
         it 'calls the update method on the project gateway with the data' do
           expect(project_gateway_spy).to have_received(:update).with(
             hash_including(data: data)
+          )
+        end
+
+        it 'calls the update method on the project gateway with the bid id' do
+          expect(project_gateway_spy).to have_received(:update).with(
+            hash_including(bid_id: 'HIF/MV/11111')
           )
         end
 
@@ -72,15 +84,23 @@
               name2: 'la',
               email2: 'la@la.com',
               link2: 'he'
-            }
+            },
+            projectDetails: { BIDReference: 'HIF/MV/6' }
           }
         end
+        let(:bid_id) { 'HIF/MV/6' }
 
         let(:project_id) { 5 }
 
         it 'calls the update method on the project gateway with the project id' do
           expect(project_gateway_spy).to have_received(:update).with(
             hash_including(id: 5)
+          )
+        end
+
+        it 'calls the update method on the project gateway with the bid id' do
+          expect(project_gateway_spy).to have_received(:update).with(
+            hash_including(bid_id: 'HIF/MV/6')
           )
         end
 
@@ -98,6 +118,9 @@
         Timecop.freeze(time_now)
         time_now = time_now.to_i - 3
       end
+
+      let(:bid_id) { 'HIF/MV/6' }
+
 
       let(:data) do
         {

@@ -28,12 +28,16 @@ describe HomesEngland::Gateway::SequelProject do
     context 'updating a project' do
       let(:data) { { contact: 'name' } }
 
-      before { project_gateway.update(id: project_id, data: data, timestamp: 1234) }
+      before { project_gateway.update(id: project_id, data: data, timestamp: 1234, bid_id: 'HIF/MV/67') }
       
       let(:updated_project) { project_gateway.find_by(id: project_id) }
       
       it 'updates the saved data' do
         expect(updated_project.data).to eq(data)
+      end
+
+      it 'update the bid id' do 
+        expect(updated_project.bid_id).to eq('HIF/MV/67')
       end
       
       it 'updates the timestamp' do
@@ -81,7 +85,7 @@ describe HomesEngland::Gateway::SequelProject do
         }
       end
 
-      before { project_gateway.update(id: project_id, data: data, timestamp: 56) }
+      before { project_gateway.update(id: project_id, data: data, timestamp: 56, bid_id: 'HIF/MV/999') }
       let(:updated_project) { project_gateway.find_by(id: project_id) }
       
       it 'updates the saved data' do
@@ -90,6 +94,10 @@ describe HomesEngland::Gateway::SequelProject do
 
       it 'updates the timestamp' do
         expect(updated_project.timestamp).to eq(56)
+      end
+
+      it 'updates the bid id' do
+        expect(updated_project.bid_id).to eq('HIF/MV/999')
       end
     end
   end

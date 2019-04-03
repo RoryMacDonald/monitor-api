@@ -27,10 +27,11 @@ class HomesEngland::Gateway::SequelProject
     end
   end
 
-  def update(id:, data:, timestamp:)
+  def update(id:, data:, timestamp:, bid_id:)
     @database[:projects].where(id: id).update(
       data: Sequel.pg_json(data),
-      timestamp: timestamp
+      timestamp: timestamp,
+      bid_id: bid_id
     )
   end
 

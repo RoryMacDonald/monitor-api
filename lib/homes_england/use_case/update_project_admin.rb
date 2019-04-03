@@ -8,8 +8,10 @@ class HomesEngland::UseCase::UpdateProjectAdmin
 
     return { successful: false, errors: [:incorrect_timestamp] } if timestamp > saved_timestamp
 
+    bid_id = data[:projectDetails][:BIDReference] unless data.nil? || data[:projectDetails].nil?
+
     timestamp = Time.now.to_i
-    @project_gateway.update(id: project_id, data: data, timestamp: timestamp)
+    @project_gateway.update(id: project_id, data: data, timestamp: timestamp, bid_id: bid_id)
 
     { successful: true, timestamp: timestamp, errors: [] }
   end
