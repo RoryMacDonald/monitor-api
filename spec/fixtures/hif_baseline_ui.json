@@ -94,17 +94,19 @@
     }
   ],
   "fundingProfiles": {
-    "profiles": [
-      {
-        "period": "2019/2020",
-        "instalment1": "1000",
-        "instalment2": "1000",
-        "instalment3": "1000",
-        "instalment4": "1000",
-        "total": "4000"
-      },
-      {}
-    ]
+    "profilesHolder": {
+      "profiles": [
+        {
+          "period": "2019/2020",
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "total": "4000"
+        },
+        {}
+      ]
+    }
   },
   "costs": [
     {

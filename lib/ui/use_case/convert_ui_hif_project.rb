@@ -167,11 +167,12 @@ class UI::UseCase::ConvertUIHIFProject
 
   def convert_funding_profiles
     return if @project[:fundingProfiles].nil?
-    return if @project[:fundingProfiles][:profiles].nil?
+    return if @project[:fundingProfiles][:profilesHolder].nil?
+    return if @project[:fundingProfiles][:profilesHolder][:profiles].nil?
 
     @converted_project[:fundingProfiles] = []
 
-    @converted_project[:fundingProfiles] = @project[:fundingProfiles][:profiles].map do |profile|
+    @converted_project[:fundingProfiles] = @project[:fundingProfiles][:profilesHolder][:profiles].map do |profile|
       next if profile.nil?
       {
         period: profile[:period],
