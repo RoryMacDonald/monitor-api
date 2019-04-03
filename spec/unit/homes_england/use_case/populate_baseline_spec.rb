@@ -157,6 +157,37 @@ describe HomesEngland::UseCase::PopulateBaseline do
       end
     end
 
+    context 'with no response from PCS' do
+      let(:find_project) do
+        spy(
+          execute: {
+            name: "A project",
+            type: "HIF",
+            data: {},
+            status: "Draft",
+            bid_id: "HIF/MV/1119"
+          }
+        )
+      end
+
+      let(:pcs_gateway) do
+        spy(
+          get_project: nil
+        )
+      end
+
+      it 'is inert' do
+        project = use_case.execute(project_id: 1)
+        expect(project).to eq({
+          name: "A project",
+          type: "HIF",
+          data: {},
+          status: "Draft",
+          bid_id: "HIF/MV/1119"
+        })
+      end
+    end
+
     context 'without a bid id' do
       let(:find_project) do
         spy(
