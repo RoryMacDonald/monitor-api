@@ -19,7 +19,6 @@ class LocalAuthority::UseCase::GetUserProjects
     end
 
     { project_list: projects }
-
   end
 
   private
