@@ -1584,7 +1584,7 @@
                       ],
                       "type": "string",
                       "readonly": true,
-                      "title": "Description of Live Action (Calculated)"
+                      "title": "Description of Live Action"
                     },
                     "met": {
                       "type": "string",
