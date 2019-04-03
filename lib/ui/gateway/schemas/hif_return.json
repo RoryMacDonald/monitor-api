@@ -1647,7 +1647,7 @@
     "fundingProfiles": {
       "type": "object",
       "title": "HIF Grant Expenditure",
-      "calculation": "get(formData, 'changeRequired') === 'Change required' ? set(formData['currentFunding'], 'forecast', get(formData, 'requestedProfiles', 'newProfile')) : set(formData['currentFunding'], 'forecast', get(formData, 'fundingRequest', 'forecast')); validateArrayPropertyIsLessThan(formData['requestedProfiles']['newProfile'], ['totalHolder', 'total'], parseMoney(get(formData, 'totalHIFGrant'))); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment1', formData['requestedProfiles']['newProfile'], 'instalment1', 'instalment1Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment2', formData['requestedProfiles']['newProfile'], 'instalment2', 'instalment2Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment3', formData['requestedProfiles']['newProfile'], 'instalment3', 'instalment3Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment4', formData['requestedProfiles']['newProfile'], 'instalment4', 'instalment4Variance');",
+      "calculation": "get(formData, 'changeRequired') === 'Change required' ? set(formData['currentFunding'], 'forecast', get(formData, 'requestedProfiles', 'newProfile')) : set(formData['currentFunding'], 'forecast', get(formData, 'fundingRequest', 'forecast')); validateCumulativeArrayPropertyIsLessThan(formData['requestedProfiles']['newProfile'], ['totalHolder', 'total'], parseMoney(get(formData, 'totalHIFGrant'))); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment1', formData['requestedProfiles']['newProfile'], 'instalment1', 'instalment1Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment2', formData['requestedProfiles']['newProfile'], 'instalment2', 'instalment2Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment3', formData['requestedProfiles']['newProfile'], 'instalment3', 'instalment3Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment4', formData['requestedProfiles']['newProfile'], 'instalment4', 'instalment4Variance');",
       "properties": {
         "totalHIFGrant": {
           "type": "string",
@@ -1720,7 +1720,7 @@
                   "totalHolder": {
                     "type": "object",
                     "title": "Total",
-                    "validated": true,
+                    "validated": false,
                     "invalidText": "Total exceeds HIF grant",
                     "properties": {
                       "total": {
