@@ -52,24 +52,6 @@ module DeliveryMechanism
       end
     end
 
-    get '/user/projects' do
-      guard_access env, params, request do |_|
-        email = @dependency_factory.get_use_case(:check_api_key).execute(
-          api_key: env['HTTP_API_KEY'],
-          project_id: nil
-          )[:email]
-
-        project_list = @dependency_factory.get_use_case(:get_user_projects).execute(email: email)[:project_list]
-
-        content_type 'application/json'
-        response.body = {
-          project_list: project_list
-        }.to_json
-        response.headers['Cache-Control'] = 'no-cache'
-        response.status = 200
-      end
-    end
-
     get '/projects/export' do
       response.body = {}.to_json
       guard_bi_access env, params, request do |_request_hash|
@@ -248,16 +230,16 @@ module DeliveryMechanism
 
     def check_post_access(env, request_hash)
       if env['HTTP_API_KEY'].nil? || request_hash.nil?
-        [:bad_request]
+        :bad_request
       else
         user_info = @dependency_factory.get_use_case(:check_api_key).execute(
           api_key: env['HTTP_API_KEY'],
           project_id: request_hash[:project_id]
         )
-        if !user_info[:valid]
-          [:forbidden]
-        else
+        if user_info[:valid]
           [:proceed, user_info]
+        else
+          :forbidden
         end
       end
     end
@@ -265,13 +247,16 @@ module DeliveryMechanism
     def check_get_access(env, params)
       if env['HTTP_API_KEY'].nil?
         :bad_request
-      elsif !@dependency_factory.get_use_case(:check_api_key).execute(
+      else
+        user_info = @dependency_factory.get_use_case(:check_api_key).execute(
           api_key: env['HTTP_API_KEY'],
           project_id: params['id']
-        )[:valid]
+        )
+        if user_info[:valid]
+          [:proceed, user_info]
+        else
           :forbidden
-      else
-        :proceed
+        end
       end
     end
 
