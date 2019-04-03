@@ -29,12 +29,15 @@ describe HomesEngland::UseCase::PopulateBaseline do
       expect(find_project).to have_received(:execute).with(id: 1)
     end
 
-    it 'is inert' do
+    it 'add the bid id to summary data and admin data' do
       project = use_case.execute(project_id: 1)
       expect(project).to eq({
         name: "A project",
         type: "HIF",
-        data: {},
+        data: {
+          summary: { BIDReference: "HIF/MV/255" }
+        },
+        admin_data: { projectDetails: { BIDReference: "HIF/MV/255" }},
         status: "Draft",
         bid_id: "HIF/MV/255"
       })
@@ -95,6 +98,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
                 BIDReference: "HIF/MV/1119"
               }
             },
+            admin_data: { projectDetails: { BIDReference: "HIF/MV/1119" }},
             status: "Draft",
             bid_id: "HIF/MV/1119"
           })
@@ -152,6 +156,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
                 BIDReference: "HIF/MV/461"
               }
             },
+            admin_data: { projectDetails: { BIDReference: "HIF/MV/461" }},
             status: "Draft",
             bid_id: "HIF/MV/461"
           })
@@ -178,7 +183,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
         )
       end
 
-      it 'is inert' do
+      it 'copies the bid reference ot relevent places' do
         project = use_case.execute(project_id: 1)
         expect(project).to eq({
           name: "A project",
@@ -188,6 +193,7 @@ describe HomesEngland::UseCase::PopulateBaseline do
               BIDReference: "HIF/MV/1119"
             }
           },
+          admin_data: { projectDetails: { BIDReference: "HIF/MV/1119" }},
           status: "Draft",
           bid_id: "HIF/MV/1119"
         })

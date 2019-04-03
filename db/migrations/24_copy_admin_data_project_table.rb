@@ -13,9 +13,15 @@ Sequel.migration do
 
       baselines = baselines.select { |base| base[:status] == 'Submitted' } if baselines.length > 1
 
-      last_baseline = baselines.last
+      last_baselines_data = baselines.last[:data]
+      admin_data = last_baselines_data['rmBaseline']
+      admin_data['projectDetails'] = {
+        'BIDReference': project[:bid_id],
+        'pcsNumber': last_baselines_data['summary']['pcsNumber']
 
-      from(:projects).where(id: project[:id]).update(data: Sequel.pg_json(last_baseline[:data]['rmBaseline']))
+      }
+
+      from(:projects).where(id: project[:id]).update(data: Sequel.pg_json(admin_data))
     end
   end
 

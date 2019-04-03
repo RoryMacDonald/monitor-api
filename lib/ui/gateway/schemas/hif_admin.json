@@ -4,6 +4,20 @@
   "type": "object",
   "required": ["heContacts", "strategicLinks", "laContacts"],
   "properties": {
+    "projectDetails": {
+      "type": "object",
+      "title": "",
+      "properties": {
+        "pcsNumber": {
+          "type": "string",
+          "title": "PCS Reference"
+        },
+        "BIDReference": {
+          "type": "string",
+          "title": "BID Reference"
+        }
+      }
+    },
     "heContacts": {
       "type": "object",
       "horizontal": true,

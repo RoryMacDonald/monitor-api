@@ -15,7 +15,8 @@ describe 'Migration 24' do
     database[:projects].insert(
       name: name,
       type: type,
-      status: status
+      status: status,
+      bid_id: 'HIF/MV/1234'
     )
   end
 
@@ -35,7 +36,12 @@ describe 'Migration 24' do
   context 'Example 1' do
     let(:baseline_data) do
       {
-        summary: { noOfHousingSites: 15, totalArea: 12, hifFundingAmount: 10_000 },
+        summary: {
+          noOfHousingSites: 15,
+          totalArea: 12,
+          hifFundingAmount: 10_000,
+          pcsNumber: '26354'
+        },
         infrastructures: [
           {
             landOwnership: {
@@ -80,7 +86,11 @@ describe 'Migration 24' do
       expect(stored_project_data).to eq({
         details: 'names',
         address: 'my address',
-        phone: '0121012'
+        phone: '0121012',
+        projectDetails: {
+          BIDReference: 'HIF/MV/1234',
+          pcsNumber: '26354'
+        }
       })
     end
 
