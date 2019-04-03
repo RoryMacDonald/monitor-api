@@ -269,6 +269,21 @@
           "type": "string",
           "title": "Project reference"
         },
+        "BIDReference": {
+          "type": "string",
+          "title": "BID Reference",
+          "readonly": true
+        },
+        "projectManager": {
+          "type": "string",
+          "title": "Project Manager",
+          "hidden": true
+        },
+        "sponsor": {
+          "type": "string",
+          "title": "Sponsor",
+          "hidden": true
+        },
         "projectDescription": {
           "type": "string",
           "title": "Project Description",

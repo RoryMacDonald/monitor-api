@@ -10,13 +10,28 @@
       "properties": {
         "BIDReference": {
           "type": "string",
-          "laReadOnly": true,
+          "readonly": true,
           "title": "BID Reference"
+        },
+        "pcsNumber": {
+          "type": "string",
+          "title": "PCS Reference",
+          "laReadOnly": true
         },
         "projectName": {
           "type": "string",
           "laReadOnly": true,
           "title": "Project Name"
+        },
+        "projectManager": {
+          "type": "string",
+          "title": "Project Manager",
+          "hidden": true
+        },
+        "sponsor": {
+          "type": "string",
+          "title": "Sponsor",
+          "hidden": true
         },
         "leadAuthority": {
           "type": "string",
