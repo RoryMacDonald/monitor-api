@@ -29,6 +29,7 @@ class UI::UseCase::ConvertCoreHIFProject
       BIDReference: @project[:summary][:BIDReference],
       projectName: @project[:summary][:projectName],
       leadAuthority: @project[:summary][:leadAuthority],
+      pcsNumber: @project[:summary][:pcsNumber],
       jointBidAuthorityAreas: @project[:summary][:jointBidAuthorityAreas],
       projectDescription: @project[:summary][:projectDescription],
       greenOrBrownField: @project[:summary][:greenOrBrownField],

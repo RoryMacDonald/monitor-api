@@ -37,6 +37,21 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           type: 'string',
           title: 'Project reference'
         },
+        BIDReference: {
+          type: "string",
+          title: "BID Reference",
+          readonly: true
+        },
+        projectManager: {
+          type: "string",
+          title: "Project Manager",
+          readonly: true
+        },
+        sponsor: {
+          type: "string",
+          title: "Sponsor",
+          readonly: true
+        },
         projectDescription: {
           type: 'string',
           title: 'Project Description',

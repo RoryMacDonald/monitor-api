@@ -29,6 +29,7 @@ class UI::UseCase::ConvertUIHIFProject
       sponsor: @project[:summary][:sponsor],
       BIDReference: @project[:summary][:BIDReference],
       projectName: @project[:summary][:projectName],
+      pcsNumber: @project[:summary][:pcsNumber],
       leadAuthority: @project[:summary][:leadAuthority],
       jointBidAuthorityAreas: @project[:summary][:jointBidAuthorityAreas],
       projectDescription: @project[:summary][:projectDescription],

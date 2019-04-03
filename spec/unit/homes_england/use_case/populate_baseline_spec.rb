@@ -91,7 +91,8 @@ describe HomesEngland::UseCase::PopulateBaseline do
             data: {
               summary: {
                 projectManager: "Michael",
-                sponsor: "MSPC"
+                sponsor: "MSPC",
+                BIDReference: "HIF/MV/1119"
               }
             },
             status: "Draft",
@@ -147,7 +148,8 @@ describe HomesEngland::UseCase::PopulateBaseline do
                 description: "An important project",
                 misc: {},
                 projectManager: "Aaron",
-                sponsor: "LZMA"
+                sponsor: "LZMA",
+                BIDReference: "HIF/MV/461"
               }
             },
             status: "Draft",
@@ -181,7 +183,11 @@ describe HomesEngland::UseCase::PopulateBaseline do
         expect(project).to eq({
           name: "A project",
           type: "HIF",
-          data: {},
+          data: {
+            summary: {
+              BIDReference: "HIF/MV/1119"
+            }
+          },
           status: "Draft",
           bid_id: "HIF/MV/1119"
         })

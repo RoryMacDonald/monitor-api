@@ -666,6 +666,21 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           laReadOnly: true,
           title: 'Project Name'
         },
+        projectManager: {
+          type: "string",
+          title: "Project Manager",
+          readonly: true
+        },
+        sponsor: {
+          type: "string",
+          title: "Sponsor",
+          readonly: true
+        },
+        pcsNumber: {
+          type: "string",
+          title: "PCS Reference",
+          laReadOnly: true
+        },
         leadAuthority: {
           type: 'string',
           laReadOnly: true,
