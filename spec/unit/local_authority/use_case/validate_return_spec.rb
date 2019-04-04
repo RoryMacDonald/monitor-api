@@ -105,47 +105,6 @@ describe LocalAuthority::UseCase::ValidateReturn do
   end
 
   context 'required field validation' do
-    context 'nils should be acceptable values' do
-      context 'example 1' do
-        it_should_behave_like 'required field validation'
-        let(:template) do
-          Common::Domain::Template.new.tap do |p|
-            p.schema = {
-              title: 'HIF Project',
-              type: 'object',
-              required: [:complete],
-              properties: {
-                complete: {
-                  type: 'boolean',
-                  title: 'Complete'
-                }
-              }
-            }
-          end
-        end
-
-        let(:valid_return_data) do
-          {
-            complete: nil
-          }
-        end
-
-        let(:invalid_return_data) do
-          {
-
-          }
-        end
-
-        let(:invalid_return_data_paths) do
-          [[:complete]]
-        end
-
-        let(:invalid_return_data_pretty_paths) do
-          [["Complete"]]
-        end
-      end
-    end
-
     context 'single field' do
       context 'example 1' do
         it_should_behave_like 'required field validation'
@@ -686,10 +645,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
             }
           }
         end
-        let(:invalid_return_data_paths) { [[:dogs]] }
+        let(:invalid_return_data_paths) { [[:dogs], [:planning, :catsComplete]] }
 
         let(:invalid_return_data_pretty_paths) do
-          [['HIF Project', 'Dogs R Us']]
+          [['HIF Project', 'Dogs R Us'], ['HIF Project', 'Planning', 'cats compete on the beach to complete the complex beat']]
         end
       end
     end
