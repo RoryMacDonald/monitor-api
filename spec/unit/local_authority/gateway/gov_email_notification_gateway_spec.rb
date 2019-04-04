@@ -115,6 +115,46 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
     end
   end
 
+  context 'sending a claim submission notification' do
+    context 'example 1' do
+      let(:notification_url) { 'https://dog.woof/' }
+      before do
+        ENV['GOV_NOTIFY_API_URL'] = 'https://dog.woof'
+        simulator.send_notification(to: 'dog@doghouse.com')
+        described_class.new.send_claim_notification(to: 'dog@doghouse.com', url: 'http://dogs.com', by: 'Dog', project_name: 'Kennel')
+      end
+
+      context 'given email address and url' do
+        it 'contacts the notification API' do
+          simulator.expect_notifier_to_have_been_accessed
+        end
+
+        it 'will run send_email with address, url and print url within personalisation hash' do
+          simulator.expect_notification(email_address: 'dog@doghouse.com', personalisation: {access_url: 'http://dogs.com', print_url: 'http://dogs.com/print', by: 'Dog', project_name: 'Kennel'})
+        end
+      end
+    end
+
+    context 'example 2' do
+      let(:notification_url) { 'https://meow.com/' }
+
+      before do
+        ENV['GOV_NOTIFY_API_URL'] = 'https://meow.com'
+        simulator.send_notification(to: 'cat@cathouse.com')
+        described_class.new.send_claim_notification(to: 'cat@cathouse.com', url: 'http://cats.com', by: 'Cat', project_name: 'Flap')
+      end
+
+      context 'given email address and url' do
+        it 'contacts the notification API' do
+          simulator.expect_notifier_to_have_been_accessed
+        end
+
+        it 'will run send_email with address, url and print url within personalisation hash' do
+          simulator.expect_notification(email_address: 'cat@cathouse.com', personalisation: {access_url: 'http://cats.com', print_url: 'http://cats.com/print', by: 'Cat', project_name: 'Flap'})
+        end
+      end
+    end
+  end
 
   context 'sending a project creation notification' do
     context 'example 1' do

@@ -22,6 +22,14 @@ class LocalAuthority::Gateway::GovEmailNotificationGateway
     )
   end
 
+  def send_claim_notification(to:, url:, by:, project_name:)
+    @client.send_email(
+      email_address: to,
+      template_id: '2d59a3b6-b2c0-481e-9d2c-7defaee392a8',
+      personalisation: { access_url: url, print_url: "#{url}/print", by: by, project_name: project_name }
+    )
+  end
+
   def send_project_creation_notification(to:, url:)
     @client.send_email(
       email_address: to,

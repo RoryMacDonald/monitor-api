@@ -140,9 +140,16 @@ class LocalAuthority::UseCases
       )
     end
 
+    builder.define_use_case :send_claim_submission_notification do
+      LocalAuthority::UseCase::SendClaimSubmissionNotification.new(
+        email_notification_gateway: builder.get_gateway(:notification)
+      )
+    end
+
     builder.define_use_case :notify_project_members_of_submission do
       LocalAuthority::UseCase::NotifyProjectMembers.new(
         send_return_submission_notification: builder.get_use_case(:send_return_submission_notification),
+        send_claim_submission_notification: builder.get_use_case(:send_claim_submission_notification),
         get_project_users: builder.get_use_case(:get_project_users),
         find_project: builder.get_use_case(:find_project)
       )
