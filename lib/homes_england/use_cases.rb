@@ -61,6 +61,12 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :change_user_role do
+      HomesEngland::UseCase::ChangeUserRole.new(
+        user_gateway: builder.get_gateway(:users)
+      )
+    end
+
     builder.define_use_case :delete_user do
       HomesEngland::UseCase::DeleteUser.new(
         user_gateway: builder.get_gateway(:users)
