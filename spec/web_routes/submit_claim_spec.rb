@@ -3,6 +3,7 @@ require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Submitting a claim' do
   let(:notify_project_members_of_submission_spy) { spy }
+  let(:send_return_submission_notification_spy) { spy }
   let(:submit_claim_spy) { spy(execute: nil) }
   let(:check_api_key_spy) { spy(execute: { valid: true, email: email }) }
   let(:email) { '' }
@@ -18,6 +19,11 @@ describe 'Submitting a claim' do
     stub_instances(
       LocalAuthority::UseCase::CheckApiKey,
       check_api_key_spy
+    )
+
+    stub_instances(
+      LocalAuthority::UseCase::SendClaimSubmissionNotification,
+      send_return_submission_notification_spy
     )
   end
 
@@ -37,13 +43,23 @@ describe 'Submitting a claim' do
       post '/claim/submit', { claim_id: '1', project_id: '1', url: 'placeholder.com' }.to_json, 'HTTP_API_KEY' => 'superSecret'
       expect(submit_claim_spy).to have_received(:execute).with(claim_id: 1)
     end
+
+    it 'will run notify project members use case with id' do
+      post '/claim/submit', { claim_id: '1', project_id: '1', url: 'placeholder.com' }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      expect(notify_project_members_of_submission_spy).to have_received(:execute).with(project_id: 1, url: 'placeholder.com', by: 'cow@barn.net', type: :claim)
+    end
   end
 
   context 'example two' do
     let(:email) { 'dog@kennel.co' }
     it 'will run submit return use case with id' do
-      post '/claim/submit', { claim_id: '42', project_id: '1', url: 'example.net' }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      post '/claim/submit', { claim_id: '42', project_id: '3', url: 'example.net' }.to_json, 'HTTP_API_KEY' => 'superSecret'
       expect(submit_claim_spy).to have_received(:execute).with(claim_id: 42)
+    end
+
+    it 'will run notify project members use case with id' do
+      post '/claim/submit', { claim_id: '42', project_id: '3', url: 'example.net' }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      expect(notify_project_members_of_submission_spy).to have_received(:execute).with(project_id: 3, url: 'example.net', by: 'dog@kennel.co', type: :claim)
     end
   end
 end
