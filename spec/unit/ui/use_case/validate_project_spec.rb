@@ -1289,5 +1289,62 @@ describe UI::UseCase::ValidateProject do
         let(:invalid_project_data_pretty_paths) { [['Planning', 'Item 1', 'cats compete on the beach to complete the complex beat']] }
       end
     end
+
+    context 'errors that arent captured' do
+      it_should_behave_like 'required field validation'
+
+      let(:template) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            properties: {
+              doggies: {
+                type: 'object',
+                title: 'doggies',
+                properties: {
+                  goodDog: {
+                    type: 'string',
+                    title: 'Is this a good dog?',
+                    enum: %w[Yes No]
+                  }
+                },
+                dependencies: {
+                  goodDog: {
+                    oneOf: [
+                      {
+                        properties: {
+                          goodDog: { enum: ['Yes'] },
+                          dogDay: {
+                            type: 'string',
+                            format: 'date',
+                            title: 'Dog Date'
+                          },
+                          somethingElse: {
+                            type: 'string',
+                            title: 'Hi'
+                          }
+                        },
+                        required: ['somethingElse']
+                      },
+                      {
+                        properties: {
+                          goodDog: { enum: ['No']}
+                        }
+                      }
+                    ]
+                  }
+                }            
+              }
+            }
+          }
+        end
+      end
+
+      let(:valid_project_data) { { doggies: { goodDog: 'Yes', dogDay: 'blah', somethingElse: 'hi' } } }
+      let(:invalid_project_data) { { doggies: { goodDog: 'Yes', dogDay: 'blah' } } }
+      let(:invalid_project_data_paths) { [[:doggies, :somethingElse]] }
+      let(:invalid_project_data_pretty_paths) { [['doggies', 'Hi']] }
+    end
   end
 end

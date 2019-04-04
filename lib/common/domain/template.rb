@@ -56,10 +56,11 @@ class Common::Domain::Template
     paths = []
     error.sub_errors.each do |error|
       next if unselected_enum_option(error)
-
+      
       error.each do |message|
         next if message.data.nil?
         next if message_is_array_index?(message)
+        next unless message.data.kind_of?(Array)
 
         path =  message.path
         path.shift
