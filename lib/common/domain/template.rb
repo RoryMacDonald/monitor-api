@@ -5,11 +5,27 @@ class Common::Domain::Template
   attr_accessor :layout, :schema
 
   def invalid_paths(project_data)
+    project_data = compact_data(project_data)
     schema = parse_json_schema(@schema)
     get_invalid_paths(schema, project_data) || []
   end
 
   private
+
+  def data_present?(value)
+    return false if value.nil?
+    return true unless value.is_a?(String)
+    return !value.strip.empty?
+  end
+  
+  def compact_data(data)
+    if data.is_a?(Hash)
+      data.keep_if { |key, value| data_present?(value) }
+      data.each_value { |child| compact_data(child) }
+    elsif data.is_a?(Array)
+      data.each { |item| compact_data(item)}
+    end
+  end
 
   def parse_json(schema)
     JSON.parse(schema.to_json)
@@ -56,7 +72,7 @@ class Common::Domain::Template
     paths = []
     error.sub_errors.each do |error|
       next if unselected_enum_option(error)
-      
+
       error.each do |message|
         next if message.data.nil?
         next if message_is_array_index?(message)
