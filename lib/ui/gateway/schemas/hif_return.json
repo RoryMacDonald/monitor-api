@@ -1915,7 +1915,7 @@
             "title": "Funding stack",
             "calculation": "
 setCreate(formData,
-  path('hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'remaining'),
+  path('fundedThroughHIF', 'hifSpend', 'hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'remaining'),
   String(
     (parseMoney(
       (get(formData, path('fundedThroughHIF','fundedThroughHIFCurrent')) === 'Yes') ?
@@ -1924,7 +1924,7 @@ setCreate(formData,
       )
     ) -
     parseMoney(
-      get(formData, path('hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'cumulativeIncCurrentReturn')))
+      get(formData, path('fundedThroughHIF', 'hifSpend', 'hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'cumulativeIncCurrentReturn')))
     )
   )
 );
@@ -2346,6 +2346,37 @@ get(formData, path('previousAmounts', 'lastReturn')) ?
                                     ]
                                   }
                                 }
+                              },
+                              "hifSpendSinceLastReturn": {
+                                "title": "",
+                                "type": "object",
+                                "calculation": "setCreate(formData, ['hifSpendSinceLastReturnHolder','cumulativeIncCurrentReturn'], ''+sum(formData['hifSpendSinceLastReturnHolder'], 'currentReturn', 'cumulativeExCurrentReturn'));",
+                                "properties": {
+                                  "hifSpendSinceLastReturnHolder": {
+                                    "title": "HIF Spend Since Last Return",
+                                    "type": "object",
+                                    "horizontal": true,
+                                    "properties": {
+                                      "currentReturn": {
+                                        "title": "Current Return",
+                                        "type": "string",
+                                        "currency": true
+                                      },
+                                      "cumulativeIncCurrentReturn": {
+                                        "title": "Cumulative Including Current Return",
+                                        "type": "string",
+                                        "currency": true,
+                                        "readonly": true
+                                      },
+                                      "remaining": {
+                                        "title": "Remaining",
+                                        "type": "string",
+                                        "currency": true,
+                                        "readonly": true
+                                      }
+                                    }
+                                  }
+                                }
                               }
                             }
                           },
@@ -2701,37 +2732,6 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         }
                       }
                     ]
-                  }
-                }
-              },
-              "hifSpendSinceLastReturn": {
-                "title": "",
-                "type": "object",
-                "calculation": "setCreate(formData, ['hifSpendSinceLastReturnHolder','cumulativeIncCurrentReturn'], ''+sum(formData['hifSpendSinceLastReturnHolder'], 'currentReturn', 'cumulativeExCurrentReturn'));",
-                "properties": {
-                  "hifSpendSinceLastReturnHolder": {
-                    "title": "HIF Spend Since Last Return",
-                    "type": "object",
-                    "horizontal": true,
-                    "properties": {
-                      "currentReturn": {
-                        "title": "Current Return",
-                        "type": "string",
-                        "currency": true
-                      },
-                      "cumulativeIncCurrentReturn": {
-                        "title": "Cumulative Including Current Return",
-                        "type": "string",
-                        "currency": true,
-                        "readonly": true
-                      },
-                      "remaining": {
-                        "title": "Remaining",
-                        "type": "string",
-                        "currency": true,
-                        "readonly": true
-                      }
-                    }
                   }
                 }
               }
