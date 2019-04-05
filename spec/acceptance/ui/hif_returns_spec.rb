@@ -54,7 +54,7 @@ describe 'Interacting with a HIF Return from the UI' do
   end
 
   let(:hif_get_return) do
-    File.open("#{__dir__}/../../fixtures/hif_saved_base_return_ui.json") do |f|
+    File.open("#{__dir__}/../../fixtures/hif_saved_base_return_ui.json", 'r') do |f|
       JSON.parse(
         f.read,
         symbolize_names: true
