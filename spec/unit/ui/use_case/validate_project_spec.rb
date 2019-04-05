@@ -1120,174 +1120,61 @@ describe UI::UseCase::ValidateProject do
       end
     end
 
-    context 'given null data' do 
-      context 'example 1' do
-        it_should_behave_like 'required field validation'
-        let(:template) do
-          Common::Domain::Template.new.tap do |p|
-            p.schema = {
-              title: 'HIF Project',
-              type: 'object',
-              properties: {
-                planning: {
-                  type: 'object',
-                  title: 'Planning',
-                  required: ['catsComplete'],
-                  properties: {
-                    catsComplete: {
-                      type: 'string',
-                      title: 'cats compete on the beach to complete the complex beat'
-                    }
+    context 'errors that arent captured' do
+      it_should_behave_like 'required field validation'
+
+      let(:template) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            properties: {
+              doggies: {
+                type: 'object',
+                title: 'doggies',
+                properties: {
+                  goodDog: {
+                    type: 'string',
+                    title: 'Is this a good dog?',
+                    enum: %w[Yes No]
                   }
-                }
-              }
-            }
-          end
-        end
-
-        let(:valid_project_data) do
-          {
-            planning: {
-              catsComplete: '99'
-            }
-          }
-        end
-
-        let(:invalid_project_data) { { planning: { catsComplete: nil } } }
-        let(:invalid_project_data_paths) { [%i[planning catsComplete]] }
-        let(:invalid_project_data_pretty_paths) { [['Planning', 'Cats Complete']] }
-      end
-
-      context 'example 2' do
-        it_should_behave_like 'required field validation'
-        let(:template) do
-          Common::Domain::Template.new.tap do |p|
-            p.schema = {
-              title: 'HIF Project',
-              type: 'object',
-              required: ['train'],
-              properties: {
-                planning: {
-                  type: 'object',
-                  title: 'Planning',
-                  required: ['catsComplete'],
-                  properties: {
-                    catsComplete: {
-                      type: 'string',
-                      title: 'cats compete on the beach to complete the complex beat'
-                    },
-                    dogComplete: {
-                      type: 'string',
-                      title: 'Dog Complete',
-                      required: ['anotherDog', 'oneMoreDog'],
-                      properties: {
-                        anotherDog: {
-                          type: 'string',
-                          title: 'Another Dog'
+                },
+                dependencies: {
+                  goodDog: {
+                    oneOf: [
+                      {
+                        properties: {
+                          goodDog: { enum: ['Yes'] },
+                          dogDay: {
+                            type: 'string',
+                            format: 'date',
+                            title: 'Dog Date'
+                          },
+                          somethingElse: {
+                            type: 'string',
+                            title: 'Hi'
+                          }
                         },
-                        thisDog: {
-                          type: 'string',
-                          title: 'This Dog'
-                        },
-                        oneMoreDog: {
-                          type: 'string',
-                          title: 'One More Dog'
+                        required: ['somethingElse']
+                      },
+                      {
+                        properties: {
+                          goodDog: { enum: ['No']}
                         }
                       }
-                    }
+                    ]
                   }
-                },
-                train: {
-                  title: 'Train',
-                  type: 'string'
-                },
-                car: {
-                  title: 'Car',
-                  type: 'string'
-                }
+                }            
               }
             }
-          end
-        end
-
-        let(:valid_project_data) do
-          {
-            planning: {
-              catsComplete: '99',
-              dogComplete: {
-                anotherDog: '23',
-                oneMoreDog: '3'
-              }
-            },
-            train: 'A train'
           }
-        end
-
-        let(:invalid_project_data) do 
-          {
-            planning: {
-              catsComplete: nil,
-              dogComplete: {
-                anotherDog: nil,
-                thisDog: nil
-              }
-            },
-            train: nil,
-            car: 'broom'
-          }
-        end
-
-        let(:invalid_project_data_paths) { [%i[planning catsComplete], %i[planning dogComplete anotherDog], %i[planning dogComplete oneMoreDog], %i[train]] }
-        let(:invalid_project_data_pretty_paths) do
-          [
-            ['Planning', 'Cats Complete'],
-            ['Planning', 'Dog Complete', 'Another Dog'],
-            ['Planning', 'Dog Complete', 'One More Dog'],
-            ['Train']
-          ]
         end
       end
 
-      context 'example 3 - an array' do
-        it_should_behave_like 'required field validation'
-        let(:template) do
-          Common::Domain::Template.new.tap do |p|
-            p.schema = {
-              title: 'HIF Project',
-              type: 'object',
-              properties: {
-                planning: {
-                  type: 'array',
-                  title: 'Planning',
-                  items: {
-                    type: 'object',
-                    title: 'item',
-                    required: ['catsComplete'],
-                    properties: {
-                      catsComplete: {
-                        type: 'string',
-                        title: 'cats compete on the beach to complete the complex beat'
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          end
-        end
-
-        let(:valid_project_data) do
-          {
-            planning: [{
-              catsComplete: '99'
-            }]
-          }
-        end
-
-        let(:invalid_project_data) { { planning: [{ catsComplete: nil }] } }
-        let(:invalid_project_data_paths) { [[:planning, 0, :catsComplete]] }
-        let(:invalid_project_data_pretty_paths) { [['Planning', 'Item 1', 'cats compete on the beach to complete the complex beat']] }
-      end
+      let(:valid_project_data) { { doggies: { goodDog: 'Yes', dogDay: 'blah', somethingElse: 'hi' } } }
+      let(:invalid_project_data) { { doggies: { goodDog: 'Yes', dogDay: 'blah' } } }
+      let(:invalid_project_data_paths) { [[:doggies, :somethingElse]] }
+      let(:invalid_project_data_pretty_paths) { [['doggies', 'Hi']] }
     end
   end
 end

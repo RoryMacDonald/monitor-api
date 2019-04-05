@@ -6,8 +6,10 @@ DeliveryMechanism::WebRoutes.post '/return/update' do
       return 400
     end
 
+    data = @dependency_factory.get_use_case(:sanitise_data).execute(data: request_hash[:return_data])
+
     @dependency_factory.get_use_case(:ui_update_return).execute(
-      return_id: request_hash[:return_id], return_data: request_hash[:return_data]
+      return_id: request_hash[:return_id], return_data: data
     )
 
     200

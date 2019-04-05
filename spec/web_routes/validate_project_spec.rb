@@ -7,7 +7,7 @@ describe 'Checking if Project is valid' do
   let(:check_api_key_spy) { spy }
   let(:api_key_gateway_spy) { nil }
   let(:api_key) { 'Cats' }
-
+  let(:sanitise_data_spy) { spy(execute: { dogs: 'in hats' }) }
   let(:type) { 'hif' }
   let(:project_data) { { cats: 'in hats' } }
   let(:valid_response) { true }
@@ -19,15 +19,9 @@ describe 'Checking if Project is valid' do
                    pretty_invalid_paths: pretty_invalid_paths })
   end
   before do
-    stub_const(
-      'UI::UseCase::ValidateProject',
-      double(new: validate_project_spy)
-    )
-
-    stub_const(
-      'LocalAuthority::UseCase::CheckApiKey',
-      double(new: check_api_key_spy)
-    )
+    stub_instances(Common::UseCase::SanitiseData, sanitise_data_spy)
+    stub_instances(UI::UseCase::ValidateProject, validate_project_spy)
+    stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
   end
 
   context 'API Key' do
@@ -77,10 +71,16 @@ describe 'Checking if Project is valid' do
         post '/project/validate', { type: type, data: project_data }.to_json, 'HTTP_API_KEY' => api_key
       end
 
+      it 'will sanitise the data' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: project_data
+        )
+      end
+
       it 'will run validate project use case' do
         expect(validate_project_spy).to have_received(:execute).with(
           type: type,
-          project_data: project_data
+          project_data: { dogs: 'in hats' }
         )
       end
 
@@ -105,10 +105,16 @@ describe 'Checking if Project is valid' do
         post '/project/validate', { type: type, data: project_data }.to_json, 'HTTP_API_KEY' => api_key
       end
 
+      it 'will sanitise the data' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { cats: 'in hats' }
+        )
+      end
+
       it 'will run validate project use case' do
         expect(validate_project_spy).to have_received(:execute).with(
           type: type,
-          project_data: project_data
+          project_data: {dogs: 'in hats'}
         )
       end
 

@@ -30,7 +30,8 @@ class UI::UseCases
       UI::UseCase::ConvertCoreProject.new(
         convert_core_hif_project: builder.get_use_case(:convert_core_hif_project),
         convert_core_ac_project: builder.get_use_case(:convert_core_ac_project),
-        convert_core_ff_project: builder.get_use_case(:convert_core_ff_project)
+        convert_core_ff_project: builder.get_use_case(:convert_core_ff_project),
+        sanitise_data: builder.get_use_case(:sanitise_data)
       )
     end
 
@@ -38,7 +39,45 @@ class UI::UseCases
       UI::UseCase::ConvertUIProject.new(
         convert_ui_hif_project: builder.get_use_case(:convert_ui_hif_project),
         convert_ui_ac_project: builder.get_use_case(:convert_ui_ac_project),
-        convert_ui_ff_project: builder.get_use_case(:convert_ui_ff_project)
+        convert_ui_ff_project: builder.get_use_case(:convert_ui_ff_project),
+        sanitise_data: builder.get_use_case(:sanitise_data)
+      )
+    end
+
+
+    builder.define_use_case :convert_core_claim do
+      UI::UseCase::ConvertCoreClaim.new(
+        convert_core_ac_claim: builder.get_use_case(:convert_core_ac_claim),
+        convert_core_hif_claim: builder.get_use_case(:convert_core_hif_claim),
+        convert_core_ff_claim: builder.get_use_case(:convert_core_ff_claim),
+        sanitise_data: builder.get_use_case(:sanitise_data)
+      )
+    end
+
+    builder.define_use_case :convert_core_return do
+      UI::UseCase::ConvertCoreReturn.new(
+        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return),
+        convert_core_ac_return: builder.get_use_case(:convert_core_ac_return),
+        convert_core_ff_return: builder.get_use_case(:convert_core_ff_return),
+        sanitise_data: builder.get_use_case(:sanitise_data)
+      )
+    end
+
+    builder.define_use_case :convert_ui_return do
+      UI::UseCase::ConvertUIReturn.new(
+        convert_ui_hif_return: builder.get_use_case(:convert_ui_hif_return),
+        convert_ui_ac_return: builder.get_use_case(:convert_ui_ac_return),
+        convert_ui_ff_return: builder.get_use_case(:convert_ui_ff_return),
+        sanitise_data: builder.get_use_case(:sanitise_data)
+      )
+    end
+
+    builder.define_use_case :convert_ui_claim do
+      UI::UseCase::ConvertUIClaim.new(
+        convert_ui_ac_claim: builder.get_use_case(:convert_ui_ac_claim),
+        convert_ui_hif_claim: builder.get_use_case(:convert_ui_hif_claim),
+        convert_ui_ff_claim: builder.get_use_case(:convert_ui_ff_claim),
+        sanitise_data: builder.get_use_case(:sanitise_data)
       )
     end
 
@@ -54,14 +93,6 @@ class UI::UseCases
       UI::UseCase::ConvertCoreFFReturn.new
     end
 
-    builder.define_use_case :convert_core_return do
-      UI::UseCase::ConvertCoreReturn.new(
-        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return),
-        convert_core_ac_return: builder.get_use_case(:convert_core_ac_return),
-        convert_core_ff_return: builder.get_use_case(:convert_core_ff_return)
-      )
-    end
-
     builder.define_use_case :convert_ui_hif_return do
       UI::UseCase::ConvertUIHIFReturn.new
     end
@@ -72,14 +103,6 @@ class UI::UseCases
 
     builder.define_use_case :convert_ui_ff_return do
       UI::UseCase::ConvertUIFFReturn.new
-    end
-
-    builder.define_use_case :convert_ui_return do
-      UI::UseCase::ConvertUIReturn.new(
-        convert_ui_hif_return: builder.get_use_case(:convert_ui_hif_return),
-        convert_ui_ac_return: builder.get_use_case(:convert_ui_ac_return),
-        convert_ui_ff_return: builder.get_use_case(:convert_ui_ff_return)
-      )
     end
 
     builder.define_use_case :ui_create_project do
@@ -196,14 +219,6 @@ class UI::UseCases
       )
     end
 
-    builder.define_use_case :convert_ui_claim do
-      UI::UseCase::ConvertUIClaim.new(
-        convert_ui_ac_claim: builder.get_use_case(:convert_ui_ac_claim),
-        convert_ui_hif_claim: builder.get_use_case(:convert_ui_hif_claim),
-        convert_ui_ff_claim: builder.get_use_case(:convert_ui_ff_claim)
-      )
-    end
-
     builder.define_use_case :convert_ui_ac_claim do
       UI::UseCase::ConvertUIACClaim.new
     end
@@ -229,14 +244,6 @@ class UI::UseCases
         get_claim: builder.get_use_case(:get_claim),
         update_claim_core: builder.get_use_case(:update_claim),
         convert_ui_claim: builder.get_use_case(:convert_ui_claim)
-      )
-    end
-
-    builder.define_use_case :convert_core_claim do
-      UI::UseCase::ConvertCoreClaim.new(
-        convert_core_ac_claim: builder.get_use_case(:convert_core_ac_claim),
-        convert_core_hif_claim: builder.get_use_case(:convert_core_hif_claim),
-        convert_core_ff_claim: builder.get_use_case(:convert_core_ff_claim)
       )
     end
 

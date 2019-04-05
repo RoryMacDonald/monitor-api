@@ -6,12 +6,22 @@ describe UI::UseCase::ConvertCoreProject do
     let(:convert_core_ac_project_spy) { spy(execute: { data: 'ac_converted' })}
     let(:convert_core_hif_project_spy) { spy(execute: { data: 'converted' })}
     let(:convert_core_ff_project_spy) { spy(execute: {data: 'ff converted'}) }
+    let(:sanitise_data_spy) { spy(execute: {data: 'nonempty'}) }
 
     let(:use_case) do
       described_class.new(
         convert_core_hif_project: convert_core_hif_project_spy,
         convert_core_ac_project: convert_core_ac_project_spy,
-        convert_core_ff_project: convert_core_ff_project_spy
+        convert_core_ff_project: convert_core_ff_project_spy,
+        sanitise_data: sanitise_data_spy
+      )
+    end
+
+    it 'sanitises the data' do
+      use_case.execute(type: 'hif', project_data: { some_data: 'data value' })
+
+      expect(sanitise_data_spy).to have_received(:execute).with(
+        data: { data: 'converted' }
       )
     end
 
@@ -25,10 +35,6 @@ describe UI::UseCase::ConvertCoreProject do
           project_data: { data: 'from the core' }
         )
       end
-
-      it 'Returns the data passed from convert core hif project usecase' do
-        expect(response).to eq({ data: 'converted' })
-      end
     end
 
     context 'AC data' do
@@ -40,10 +46,6 @@ describe UI::UseCase::ConvertCoreProject do
         expect(convert_core_ac_project_spy).to have_received(:execute).with(
           project_data: { data: 'from the core' }
         )
-      end
-
-      it 'Returns the data passed from convert core hif project usecase' do
-        expect(response).to eq({ data: 'ac_converted' })
       end
     end
 
@@ -58,10 +60,6 @@ describe UI::UseCase::ConvertCoreProject do
           project_data: { data: 'from the core' }
         )
       end
-
-      it 'Returns the data passed from convert core hif project usecase' do
-        expect(response).to eq({ data: 'ff converted' })
-      end
     end
 
     context 'another type' do
@@ -72,134 +70,13 @@ describe UI::UseCase::ConvertCoreProject do
       it 'Calls the convert core hif project use case with the project data' do
         expect(convert_core_ac_project_spy).not_to have_received(:execute)
       end
-
-      it 'Returns the data passed from convert core hif project usecase' do
-        expect(response).to eq({ data: 'from the core' })
-      end
     end
 
-    context 'removing nils' do
-      let(:convert_core_hif_project_spy) { spy(execute: data)}
-      let(:response) { use_case.execute(project_data: data, type: 'hif')}
-      before { response }
-      context 'a simple hash' do
-        let(:data) do
-          {
-            one: nil,
-            two: 'nil',
-            three: nil,
-            four: nil
-          }
-        end
+      
+    it 'returns the sanitised data' do
+      response = use_case.execute(type: 'hif', project_data: { some_data: 'data value' })
 
-        it 'removes the nil values' do
-          expect(response).to eq({ two: 'nil'})
-        end 
-      end
-
-      context 'a nested hash' do
-        let(:data) do
-          {
-            one: nil,
-            two: 'nil',
-            three: {
-              five: nil,
-              six: 'two'
-            },
-            four: nil
-          }
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq(
-            {
-              two: 'nil',
-              three: {
-                six: 'two'
-              }
-            }
-          )
-        end 
-      end
-
-      context 'an array' do
-        let(:data) do
-          [{
-            one: nil,
-            two: 'nil',
-            three: [{
-              four: nil,
-              five: 'five'
-            }]
-          }]
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq(
-            [{
-              two: 'nil',
-              three: [{
-                five: 'five'
-              }]
-            }]
-          )
-        end 
-      end
-
-      context 'an array of nils' do
-        let(:data) do
-          [{
-            one: nil,
-            two: 'nil',
-            three: [ nil ],
-            four: ['2']
-          }]
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq(
-            [{
-              two: 'nil',
-              three: [],
-              four: ['2']
-            }]
-          )
-        end 
-      end
-
-      context 'a complex array' do
-        let(:data) do
-          {
-            one: nil,
-            two: 'nil',
-            three: [{
-              four: nil,
-              five: 'five',
-              six: {
-                seven: [
-                  eight: nil
-                ],
-                nine: 'nine'
-              }
-            }]
-          }
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq(
-            {
-              two: 'nil',
-              three: [{
-                five: 'five',
-                six: {
-                  nine: 'nine',
-                  seven: [{}]
-                }
-              }]
-            }
-          )
-        end 
-      end
+      expect(response).to eq({data: 'nonempty'})
     end
   end
 
@@ -207,11 +84,22 @@ describe UI::UseCase::ConvertCoreProject do
     let(:convert_core_ac_project_spy) { spy(execute: { data: 'ready for the ac core' })}
     let(:convert_core_ff_project_spy) { spy(execute: { data: 'ready for the ff core' })}
     let(:convert_core_hif_project_spy) { spy(execute: { data: 'done for hif' })}
+    let(:sanitise_data_spy) { spy(execute: {data: 'no nils'}) }
+
     let(:use_case) do
       described_class.new(
         convert_core_hif_project: convert_core_hif_project_spy,
         convert_core_ac_project: convert_core_ac_project_spy,
-        convert_core_ff_project: convert_core_ff_project_spy
+        convert_core_ff_project: convert_core_ff_project_spy,
+        sanitise_data: sanitise_data_spy
+      )
+    end
+
+    it 'sanitises the data' do
+      use_case.execute(type: 'hif', project_data: { some_data: 'data value' })
+
+      expect(sanitise_data_spy).to have_received(:execute).with(
+        data: { data: 'done for hif' }
       )
     end
 
@@ -225,10 +113,6 @@ describe UI::UseCase::ConvertCoreProject do
           project_data: { data: 'data ready to be changed' }
         )
       end
-
-      it 'Returns the data passed from convert core hif project usecase' do
-        expect(response).to eq({ data: 'done for hif' })
-      end
     end
 
     context 'AC data' do
@@ -240,10 +124,6 @@ describe UI::UseCase::ConvertCoreProject do
         expect(convert_core_ac_project_spy).to have_received(:execute).with(
           project_data: { data: 'data ready to be changed' }
         )
-      end
-
-      it 'Returns the data passed from convert core ac project usecase' do
-        expect(response).to eq({ data: 'ready for the ac core' })
       end
     end
 
@@ -257,10 +137,6 @@ describe UI::UseCase::ConvertCoreProject do
           project_data: { data: 'data ready to be changed' }
         )
       end
-
-      it 'Returns the data passed from convert core ff project usecase' do
-        expect(response).to eq({ data: 'ready for the ff core' })
-      end
     end
 
     context 'another type' do
@@ -271,10 +147,13 @@ describe UI::UseCase::ConvertCoreProject do
       it 'Calls the convert core hif project use case with the project data' do
         expect(convert_core_ac_project_spy).not_to have_received(:execute)
       end
-
-      it 'Returns the data passed from convert core hif project usecase' do
-        expect(response).to eq({ data: 'data ready to be changed' })
-      end
     end
+
+    it 'returns the sanitised data' do
+      response = use_case.execute(type: 'hif', project_data: { some_data: 'data value' })
+
+      expect(response).to eq({data: 'no nils'})
+    end
+
   end
 end

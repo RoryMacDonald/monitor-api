@@ -4,12 +4,22 @@ describe UI::UseCase::ConvertUIReturn do
     let(:convert_ui_hif_return_spy) { spy(execute: { data: 'converted_return_data' })}
     let(:convert_ui_ac_return_spy) { spy(execute: { data: 'ac_converted_return_data' })}
     let(:convert_ui_ff_return_spy) { spy(execute: { data: 'ff_converted_return_data' })}
+    let(:sanitise_data_spy) { spy(execute: {data: 'nonempty'}) }
 
     let(:use_case) do
       described_class.new(
         convert_ui_hif_return: convert_ui_hif_return_spy,
         convert_ui_ac_return: convert_ui_ac_return_spy,
-        convert_ui_ff_return: convert_ui_ff_return_spy
+        convert_ui_ff_return: convert_ui_ff_return_spy,
+        sanitise_data: sanitise_data_spy
+      )
+    end
+
+    it 'sanitises the data' do
+      use_case.execute(type: 'hif', return_data: { some_data: 'data value' })
+
+      expect(sanitise_data_spy).to have_received(:execute).with(
+        data: { data: 'converted_return_data' }
       )
     end
 
@@ -28,10 +38,6 @@ describe UI::UseCase::ConvertUIReturn do
           return_data: { wrong_data: 'needs to be converted' }
         )
       end
-
-      it 'Returns the response from the hif convertor' do
-        expect(response).to eq({ data: 'converted_return_data' })
-      end
     end
 
     context 'ac data' do
@@ -49,10 +55,6 @@ describe UI::UseCase::ConvertUIReturn do
           return_data: { wrong_data: 'needs to be converted' }
         )
       end
-
-      it 'Returns the response from the ac convertor' do
-        expect(response).to eq({ data: 'ac_converted_return_data' })
-      end
     end
 
     context 'ff data' do
@@ -68,11 +70,7 @@ describe UI::UseCase::ConvertUIReturn do
       it 'Calls the convert ui ff use case' do
         expect(convert_ui_ff_return_spy).to have_received(:execute).with(
           return_data: { wrong_data: 'needs to be converted' }
-        )
-      end
-
-      it 'Returns the response from the ff convertor' do
-        expect(response).to eq({ data: 'ff_converted_return_data' })
+        )      
       end
     end
 
@@ -89,134 +87,12 @@ describe UI::UseCase::ConvertUIReturn do
       it 'doesnt call the convert hif use case' do
         expect(convert_ui_hif_return_spy).not_to have_received(:execute)
       end
-
-      it 'returns the same data that was input' do
-        expect(response).to eq({ wrong_data: 'needs to be converted' })
-      end
     end
+  
+    it 'returns the sanitised data' do
+      response = use_case.execute(type: 'hif', return_data: { some_data: 'data value' })
 
-    context 'removing nils' do
-      let(:convert_ui_hif_return_spy) { spy(execute: data)}
-      let(:response) { use_case.execute(return_data: data, type: 'hif')}
-      before { response }
-      context 'a simple hash' do
-        let(:data) do
-          {
-            one: nil,
-            two: 'nil',
-            three: nil,
-            four: nil
-          }
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq({ two: 'nil'})
-        end 
-      end
-
-      context 'a nested hash' do
-        let(:data) do
-          {
-            one: nil,
-            two: 'nil',
-            three: {
-              five: nil,
-              six: 'two'
-            },
-            four: nil
-          }
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq(
-            {
-              two: 'nil',
-              three: {
-                six: 'two'
-              }
-            }
-          )
-        end 
-      end
-
-      context 'an array' do
-        let(:data) do
-          [{
-            one: nil,
-            two: 'nil',
-            three: [{
-              four: nil,
-              five: 'five'
-            }]
-          }]
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq(
-            [{
-              two: 'nil',
-              three: [{
-                five: 'five'
-              }]
-            }]
-          )
-        end 
-      end
-
-      context 'an array of nils' do
-        let(:data) do
-          [{
-            one: nil,
-            two: 'nil',
-            three: [ nil ],
-            four: ['2']
-          }]
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq(
-            [{
-              two: 'nil',
-              three: [],
-              four: ['2']
-            }]
-          )
-        end 
-      end
-
-      context 'a complex array' do
-        let(:data) do
-          {
-            one: nil,
-            two: 'nil',
-            three: [{
-              four: nil,
-              five: 'five',
-              six: {
-                seven: [
-                  eight: nil
-                ],
-                nine: 'nine'
-              }
-            }]
-          }
-        end
-
-        it 'removes the nil values' do
-          expect(response).to eq(
-            {
-              two: 'nil',
-              three: [{
-                five: 'five',
-                six: {
-                  nine: 'nine',
-                  seven: [{}]
-                }
-              }]
-            }
-          )
-        end 
-      end
+      expect(response).to eq({data: 'nonempty'})
     end
   end
 
@@ -224,11 +100,23 @@ describe UI::UseCase::ConvertUIReturn do
     let(:convert_ui_hif_return_spy) { spy(execute: { my_second_return: 'Also been converted'})}
     let(:convert_ui_ac_return_spy) { spy(execute: { my_second_return: 'Also been converted by ac'})}
     let(:convert_ui_ff_return_spy) { spy(execute: { my_second_return: 'Also been converted by ff'})}
+    let(:sanitise_data_spy) { spy(execute: {data: 'no nils'}) }
+
     let(:use_case) do
       described_class.new(
         convert_ui_hif_return: convert_ui_hif_return_spy,
         convert_ui_ac_return: convert_ui_ac_return_spy,
-        convert_ui_ff_return: convert_ui_ff_return_spy
+        convert_ui_ff_return: convert_ui_ff_return_spy,
+        sanitise_data: sanitise_data_spy
+
+      )
+    end
+
+    it 'sanitises the data' do
+      use_case.execute(type: 'hif', return_data: { some_data: 'data value' })
+
+      expect(sanitise_data_spy).to have_received(:execute).with(
+        data: { my_second_return: 'Also been converted' }
       )
     end
 
@@ -247,10 +135,6 @@ describe UI::UseCase::ConvertUIReturn do
           return_data: { before_conversion: 'Must check type' }
         )
       end
-
-      it 'Returns the response from the hif convertor' do
-        expect(response).to eq({ my_second_return: 'Also been converted'})
-      end
     end
 
     context 'ac data' do
@@ -267,10 +151,6 @@ describe UI::UseCase::ConvertUIReturn do
         expect(convert_ui_ac_return_spy).to have_received(:execute).with(
           return_data: { before_conversion: 'Must check type' }
         )
-      end
-
-      it 'Returns the response from the ac convertor' do
-        expect(response).to eq({ my_second_return: 'Also been converted by ac'})
       end
     end
 
@@ -289,10 +169,6 @@ describe UI::UseCase::ConvertUIReturn do
           return_data: { before_conversion: 'Must check type' }
         )
       end
-
-      it 'Returns the response from the ff convertor' do
-        expect(response).to eq({ my_second_return: 'Also been converted by ff'})
-      end
     end
 
     context 'a different type of data' do
@@ -308,10 +184,14 @@ describe UI::UseCase::ConvertUIReturn do
       it 'doesnt call the convert hif use case' do
         expect(convert_ui_hif_return_spy).not_to have_received(:execute)
       end
-
-      it 'returns the same data that was input' do
-        expect(response).to eq({ before_conversion: 'Must check type' })
-      end
     end
+
+      
+    it 'returns the sanitised data' do
+      response = use_case.execute(type: 'hif', return_data: { some_data: 'data value' })
+
+      expect(response).to eq({data: 'no nils'})
+    end
+
   end
 end
