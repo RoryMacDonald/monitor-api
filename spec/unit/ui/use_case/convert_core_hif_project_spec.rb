@@ -45,18 +45,4 @@ describe UI::UseCase::ConvertCoreHIFProject do
     converted_project = described_class.new.execute(project_data: nil_data_to_convert)
     expect(converted_project).to eq(returned_empty_project)
   end
-
-  # let(:invalid_project) do
-  #   File.open("#{__dir__}/../../fixtures/hif_baseline_missing_core.json") do |f|
-  #     JSON.parse(
-  #       f.read,
-  #       symbolize_names: true
-  #     )
-  #   end
-  # end
-
-  # it 'converts' do
-  #   converted_project = described_class.new.execute(project_data: invalid_project)
-  #   expect(converted_project).to eq(invalid_project_ui)
-  # end
 end

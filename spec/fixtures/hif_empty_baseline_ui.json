@@ -5,6 +5,6 @@
   },
   "infrastructures": [{}],
   "costs": [{}],
-  "baselineCashFlow": { "summaryOfRequirement": "" },
+  "baselineCashFlow": {},
   "outputs": [{ "outputsForecast": {}, "outputsActuals": {} }]
 }

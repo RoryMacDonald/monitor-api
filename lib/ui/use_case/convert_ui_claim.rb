@@ -1,13 +1,16 @@
 class UI::UseCase::ConvertUIClaim
-  def initialize(convert_ui_ac_claim:, convert_ui_hif_claim:, convert_ui_ff_claim:)
+  def initialize(convert_ui_ac_claim:, convert_ui_hif_claim:, convert_ui_ff_claim:, sanitise_data:)
     @convert_ui_hif_claim = convert_ui_hif_claim
     @convert_ui_ac_claim = convert_ui_ac_claim
     @convert_ui_ff_claim = convert_ui_ff_claim
+    @sanitise_data = sanitise_data
   end
 
   def execute(claim_data:, type:)
-    return @convert_ui_hif_claim.execute(claim_data: claim_data) if type == 'hif'
-    return @convert_ui_ff_claim.execute(claim_data: claim_data) if type == 'ff'
-    @convert_ui_ac_claim.execute(claim_data: claim_data)
+    claim_data = @convert_ui_hif_claim.execute(claim_data: claim_data) if type == 'hif'
+    claim_data =  @convert_ui_ff_claim.execute(claim_data: claim_data) if type == 'ff'
+    claim_data = @convert_ui_ac_claim.execute(claim_data: claim_data) if type == 'ac'
+
+    @sanitise_data.execute(data: claim_data)
   end
 end
