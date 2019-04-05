@@ -640,7 +640,6 @@ describe UI::UseCase::ValidateReturn do
         let(:invalid_return_data) do
           {
             planning: {
-              catsComplete: '',
               theAnswer: 43
             }
           }
