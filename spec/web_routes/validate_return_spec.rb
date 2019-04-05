@@ -7,7 +7,7 @@ describe 'Checking if Return is valid' do
   let(:check_api_key_spy) { spy }
   let(:api_key_gateway_spy) { nil }
   let(:api_key) { 'Cats' }
-
+  let(:sanitise_data_spy) { spy(execute: { dogs: 'in hats' }) }
   let(:type) { 'hif' }
   let(:return_data) { { cats: 'in hats' } }
   let(:valid_response) { true }
@@ -19,20 +19,10 @@ describe 'Checking if Return is valid' do
                    pretty_invalid_paths: pretty_invalid_paths })
   end
   before do
-    stub_const(
-      'UI::UseCase::ValidateReturn',
-      double(new: validate_return_spy)
-    )
-
-    stub_const(
-      'LocalAuthority::UseCase::CheckApiKey',
-      double(new: check_api_key_spy)
-    )
-
-    stub_const(
-      'LocalAuthority::Gateway::InMemoryAPIKeyGateway',
-      double(new: api_key_gateway_spy)
-    )
+    stub_instances(Common::UseCase::SanitiseData, sanitise_data_spy)
+    stub_instances(UI::UseCase::ValidateReturn, validate_return_spy)
+    stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
+    stub_instances(LocalAuthority::Gateway::InMemoryAPIKeyGateway, api_key_gateway_spy)
   end
 
   context 'API key' do
@@ -82,10 +72,16 @@ describe 'Checking if Return is valid' do
         post '/return/validate', { type: type, data: return_data }.to_json, 'HTTP_API_KEY' => api_key
       end
 
+      it 'will sanitise the data' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { cats: 'in hats' }
+        )
+      end
+
       it 'will run validate return use case' do
         expect(validate_return_spy).to have_received(:execute).with(
           type: type,
-          return_data: return_data
+          return_data: { dogs: 'in hats' }
         )
       end
 
@@ -110,10 +106,16 @@ describe 'Checking if Return is valid' do
         post '/return/validate', { type: type, data: return_data }.to_json, 'HTTP_API_KEY' => api_key
       end
 
+      it 'will sanitise the data' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { cats: 'in hats' }
+        )
+      end
+
       it 'will run validate return use case' do
         expect(validate_return_spy).to have_received(:execute).with(
           type: type,
-          return_data: return_data
+          return_data: { dogs: 'in hats'}
         )
       end
 

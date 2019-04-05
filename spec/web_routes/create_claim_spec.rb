@@ -5,14 +5,14 @@ require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Creating claims' do
   let(:create_claim_spy) { spy(execute: { claim_id: 0 }) }
-
   let(:check_api_key_spy) { spy }
-
   let(:api_key_gateway_spy) { nil }
-
   let(:api_key) { 'Cats' }
+  let(:sanitised_data) {{}}
+  let(:sanitise_data_spy) { spy(execute: sanitised_data)}
 
   before do
+      stub_instances(Common::UseCase::SanitiseData, sanitise_data_spy)
       stub_instances(UI::UseCase::CreateClaim, create_claim_spy)
       stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
       stub_instances(LocalAuthority::Gateway::InMemoryAPIKeyGateway, api_key_gateway_spy)
@@ -110,14 +110,21 @@ describe 'Creating claims' do
   context 'with a single claim' do
     context 'example 1' do
       let(:create_claim_spy) { spy(execute: { claim_id: 0 }) }
+      let(:sanitised_data) { { dogs: 'Woof' }}
 
       before do
         post '/claim/create',
              { project_id: 1, data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
       end
 
-      it 'passes data to CreateClaim' do
-        expect(create_claim_spy).to have_received(:execute).with(project_id: 1, claim_data: { cats: 'Meow' })
+      it 'sanitises the data' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { cats: 'Meow' }
+        )
+      end
+
+      it 'passes sanitised data to CreateClaim' do
+        expect(create_claim_spy).to have_received(:execute).with(project_id: 1, claim_data: { dogs: 'Woof' })
       end
 
       it 'will claim a 201' do
@@ -132,14 +139,21 @@ describe 'Creating claims' do
 
     context 'example 2' do
       let(:create_claim_spy) { spy(execute: { claim_id: 3 }) }
+      let(:sanitised_data) { {cats: 'Meow'} }
 
       before do
         post '/claim/create',
              { project_id: 3, data: { dogs: 'Woof' } }.to_json, 'HTTP_API_KEY' => api_key
       end
 
-      it 'passes data to CreateClaim' do
-        expect(create_claim_spy).to have_received(:execute).with(project_id: 3, claim_data: { dogs: 'Woof' })
+      it 'sanitises the data' do 
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { dogs: 'Woof' }
+        )
+      end
+
+      it 'passes sanitised data to CreateClaim' do
+        expect(create_claim_spy).to have_received(:execute).with(project_id: 3, claim_data: {cats: 'Meow'})
       end
 
       it 'will claim a 201' do

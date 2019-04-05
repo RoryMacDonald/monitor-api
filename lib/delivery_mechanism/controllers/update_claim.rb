@@ -6,8 +6,10 @@ DeliveryMechanism::WebRoutes.post '/claim/update' do
       return 400
     end
 
+    data = @dependency_factory.get_use_case(:sanitise_data).execute(data: request_hash[:claim_data])
+
     @dependency_factory.get_use_case(:ui_update_claim).execute(
-      claim_id: request_hash[:claim_id], claim_data: request_hash[:claim_data]
+      claim_id: request_hash[:claim_id], claim_data: data
     )
 
     200

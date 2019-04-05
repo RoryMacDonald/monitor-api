@@ -7,10 +7,12 @@ DeliveryMechanism::WebRoutes.post '/project/update' do
       project = get_project_use_case.execute(id: request_hash[:project_id].to_i)
       use_case = @dependency_factory.get_use_case(:ui_update_project)
 
+      data = @dependency_factory.get_use_case(:sanitise_data).execute(data: request_hash[:project_data])
+
       update_response = use_case.execute(
         id: request_hash[:project_id].to_i,
         type: project[:type],
-        data: request_hash[:project_data],
+        data: data,
         timestamp: request_hash[:timestamp].to_i
       )
 

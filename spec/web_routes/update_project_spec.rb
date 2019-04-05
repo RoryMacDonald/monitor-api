@@ -8,6 +8,7 @@ describe 'Updating a project' do
     let(:check_api_key_spy) { double(execute: { valid: true }) }
     let(:get_project_spy) { spy(execute: { type: 'hif' }) }
     let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 6 }) }
+    let(:sanitise_data_spy) { spy(execute: { ducks: 'quack', cats: 'baa' }) }
     let(:create_new_project_spy) { spy(execute: project_id) }
     let(:project_id) { 1 }
 
@@ -32,6 +33,7 @@ describe 'Updating a project' do
     end
 
     before do
+      stub_instances(Common::UseCase::SanitiseData, sanitise_data_spy)
       stub_instances(UI::UseCase::GetProject, get_project_spy)
       stub_instances(UI::UseCase::UpdateProject, update_project_spy)
       stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
@@ -93,12 +95,18 @@ describe 'Updating a project' do
         )
       end
 
+      it 'should sanitize the data received' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { cats: 'quack', dogs: 'baa' }
+        )
+      end
+
       it 'should update project data for id' do
         expect(update_project_spy).to(
           have_received(:execute).with(
             id: project_id,
             type: 'hif',
-            data: { cats: 'quack', dogs: 'baa' },
+            data: { ducks: 'quack', cats: 'baa' },
             timestamp: 67
           )
         )
@@ -121,6 +129,7 @@ describe 'Updating a project' do
     let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 7 }) }
     let(:create_new_project_spy) { spy(execute: project_id) }
     let(:project_id) { 2 }
+    let(:sanitise_data_spy) { spy(execute: {cows: 'moo', ducks: 'quack'})}
 
     let(:existing_project_data) do
       {
@@ -143,6 +152,7 @@ describe 'Updating a project' do
     end
 
     before do
+      stub_instances(Common::UseCase::SanitiseData, sanitise_data_spy)
       stub_instances(UI::UseCase::GetProject, get_project_spy)
       stub_instances(UI::UseCase::UpdateProject, update_project_spy)
       stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
@@ -204,12 +214,18 @@ describe 'Updating a project' do
         )
       end
 
+      it 'Should sanitise the data' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { cats: 'moo', dogs: 'quack' }
+        )
+      end
+
       it 'should update project data for id' do
         expect(update_project_spy).to(
           have_received(:execute).with(
             id: project_id,
             type: 'hif',
-            data: { cats: 'moo', dogs: 'quack' },
+            data: { cows: 'moo', ducks: 'quack' },
             timestamp: 67
           )
         )

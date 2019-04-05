@@ -7,7 +7,7 @@ describe 'Checking if Claim is valid' do
   let(:check_api_key_spy) { spy }
   let(:api_key_gateway_spy) { nil }
   let(:api_key) { 'Cats' }
-
+  let(:sanitise_data_spy) { spy(execute: {dogs: 'in hats'}) }
   let(:type) { 'hif' }
   let(:claim_data) { { cats: 'in hats' } }
   let(:valid_response) { true }
@@ -19,6 +19,7 @@ describe 'Checking if Claim is valid' do
                    pretty_invalid_paths: pretty_invalid_paths })
   end
   before do
+    stub_instances(Common::UseCase::SanitiseData, sanitise_data_spy)
     stub_instances(UI::UseCase::ValidateClaim, validate_claim_spy)
     stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
     stub_instances(LocalAuthority::Gateway::InMemoryAPIKeyGateway, api_key_gateway_spy)
@@ -63,6 +64,7 @@ describe 'Checking if Claim is valid' do
       end
     end
   end
+
   context 'given valid data' do
     context 'given a valid claim' do
       let(:invalid_paths) { [] }
@@ -71,10 +73,16 @@ describe 'Checking if Claim is valid' do
         post '/claim/validate', { type: type, data: claim_data }.to_json, 'HTTP_API_KEY' => api_key
       end
 
+      it 'wil sanitise the data' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { cats: 'in hats' }
+        )
+      end
+
       it 'will run validate return use case' do
         expect(validate_claim_spy).to have_received(:execute).with(
           type: type,
-          claim_data: claim_data
+          claim_data: { dogs: 'in hats'}
         )
       end
 
@@ -99,10 +107,16 @@ describe 'Checking if Claim is valid' do
         post '/claim/validate', { type: type, data: claim_data }.to_json, 'HTTP_API_KEY' => api_key
       end
 
+      it 'wil sanitise the data' do
+        expect(sanitise_data_spy).to have_received(:execute).with(
+          data: { cats: 'in hats' }
+        )
+      end
+
       it 'will run validate return use case' do
         expect(validate_claim_spy).to have_received(:execute).with(
           type: type,
-          claim_data: claim_data
+          claim_data: { dogs: 'in hats' }
         )
       end
 

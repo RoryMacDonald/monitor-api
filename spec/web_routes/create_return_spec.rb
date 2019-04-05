@@ -5,28 +5,16 @@ require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Creating returns' do
   let(:create_return_spy) { spy(execute: { id: 0 }) }
-
   let(:check_api_key_spy) { spy }
-
   let(:api_key_gateway_spy) { nil }
-
   let(:api_key) { 'Cats' }
+  let(:sanitise_date_spy) { spy(execute: {dogs: 'Meow'}) }
 
   before do
-      stub_const(
-        'UI::UseCase::CreateReturn',
-        double(new: create_return_spy)
-      )
-
-      stub_const(
-        'LocalAuthority::UseCase::CheckApiKey',
-        double(new: check_api_key_spy)
-      )
-
-      stub_const(
-        'LocalAuthority::Gateway::InMemoryAPIKeyGateway',
-        double(new: api_key_gateway_spy)
-      )
+      stub_instances(Common::UseCase::SanitiseData, sanitise_date_spy)
+      stub_instances(UI::UseCase::CreateReturn, create_return_spy)
+      stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
+      stub_instances(LocalAuthority::Gateway::InMemoryAPIKeyGateway, api_key_gateway_spy)
   end
 
   context 'API Key' do
@@ -125,8 +113,14 @@ describe 'Creating returns' do
              { project_id: 1, data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
       end
 
-      it 'passes data to CreateReturn' do
-        expect(create_return_spy).to have_received(:execute).with(project_id: 1, data: {cats: 'Meow'})
+      it 'sanitised the data' do
+        expect(sanitise_date_spy).to have_received(:execute).with(
+          data: { cats: 'Meow' }
+        )
+      end
+
+      it 'passes the sanitised data to CreateReturn' do
+        expect(create_return_spy).to have_received(:execute).with(project_id: 1, data: {dogs: 'Meow'})
       end
 
       it 'will return a 201' do
