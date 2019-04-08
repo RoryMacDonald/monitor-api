@@ -14,9 +14,17 @@ describe 'Changing user role' do
   end
   include_context 'dependency factory'
 
+  let(:env_before) { ENV }
+
   before do
+    env_before
     ENV['PCS_SECRET'] = 'Woof'
     ENV['HMAC_SECRET'] = 'Meow'
+  end
+
+  after do
+    ENV['PCS_SECRET'] = env_before['PCS_SECRET']
+    ENV['HMAC_SECRET'] = env_before['HMAC_SECRET']
   end
 
   it 'make Homes England user a Superuser' do

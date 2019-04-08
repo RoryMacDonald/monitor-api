@@ -4,7 +4,16 @@ require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Admin changing user role' do
-  ENV['ADMIN_HTTP_API_KEY'] = 'supersecret'
+  let(:env_before) { ENV }
+
+  before do
+    env_before
+    ENV['ADMIN_HTTP_API_KEY'] = 'supersecret'
+  end
+
+  after do
+    ENV['ADMIN_HTTP_API_KEY'] = env_before['ADMIN_HTTP_API_KEY']
+  end
 
   def set_correct_auth_header
     header 'API_KEY', ENV['ADMIN_HTTP_API_KEY']
@@ -18,7 +27,7 @@ describe 'Admin changing user role' do
     let(:body) { { users: [{ email: 'person1@mt.com' }] } }
 
     it 'returns 401' do
-      post('/admin/user/update', body.to_json)
+      post('/admin/user/role', body.to_json)
       expect(last_response.status).to eq(401)
     end
   end
@@ -38,7 +47,7 @@ describe 'Admin changing user role' do
         let(:invalid_body) { { email: 'super@user.cc' } }
 
         it 'returns 400' do
-          post('/admin/user/update', invalid_body.to_json)
+          post('/admin/user/role', invalid_body.to_json)
           expect(last_response.status).to eq(400)
         end
       end
@@ -47,7 +56,7 @@ describe 'Admin changing user role' do
         let(:invalid_body) { { role: 'Superuser' } }
 
         it 'returns 400' do
-          post('/admin/user/update', invalid_body.to_json)
+          post('/admin/user/role', invalid_body.to_json)
           expect(last_response.status).to eq(400)
         end
       end
@@ -65,14 +74,14 @@ describe 'Admin changing user role' do
       end
 
       it 'returns 200' do
-        post('/admin/user/update', valid_request_body.to_json)
+        post('/admin/user/role', valid_request_body.to_json)
         expect(last_response.status).to eq(200)
       end
 
       context 'it changes the role of a user' do
         example 'example 1' do
           request_body = { email: 'my@mail.com', role: 'Homes England' }
-          post('/admin/user/update', request_body.to_json)
+          post('/admin/user/role', request_body.to_json)
           expect(change_user_role_spy).to have_received(:execute).with(
             email: 'my@mail.com',
             role: 'Homes England'
@@ -81,7 +90,7 @@ describe 'Admin changing user role' do
 
         example 'example 2' do
           request_body = { email: 'user@me.com', role: 'Local Authority' }
-          post('/admin/user/update', request_body.to_json)
+          post('/admin/user/role', request_body.to_json)
           expect(change_user_role_spy).to have_received(:execute).with(
             email: 'user@me.com',
             role: 'Local Authority'
