@@ -423,12 +423,12 @@ describe UI::UseCase::ValidateReturn do
                     type: 'object',
                     required: ['name'],
                     properties:
-                    {
-                      name: {
-                        type: 'string',
-                        title: 'Dog Name'
+                      {
+                        name: {
+                          type: 'string',
+                          title: 'Dog Name'
+                        }
                       }
-                    }
                   }
                 }
               }
@@ -925,11 +925,11 @@ describe UI::UseCase::ValidateReturn do
       let(:valid_return_data) do
         {
           percentComplete: 'Yes',
-          planningSubmitted: {dogs: 'hi'}
+          planningSubmitted: { dogs: 'hi' }
         }
       end
 
-      let(:invalid_return_data) {{ percentComplete: 'Yes', planningSubmitted: {}}}
+      let(:invalid_return_data) { { percentComplete: 'Yes', planningSubmitted: {} } }
       let(:invalid_return_data_paths) { [[:planningSubmitted, :dogs]] }
       let(:invalid_return_data_pretty_paths) { [['Planning Submitted', 'Dogs']] }
     end
@@ -996,13 +996,112 @@ describe UI::UseCase::ValidateReturn do
       let(:valid_return_data) do
         {
           percentComplete: 'Yes',
-          planningSubmitted: {dogs: 'hi'}
+          planningSubmitted: { dogs: 'hi' }
         }
       end
 
-      let(:invalid_return_data) {{ percentComplete: 'Yes', planningSubmitted: {} }}
+      let(:invalid_return_data) { { percentComplete: 'Yes', planningSubmitted: {} } }
       let(:invalid_return_data_paths) { [[:planningSubmitted, :dogs]] }
       let(:invalid_return_data_pretty_paths) { [['Planning Submitted', 'Dogs']] }
+    end
+  end
+
+  context 'Minimum items in an array' do
+    context 'example 1' do
+      it_should_behave_like 'required field validation'
+      let(:template) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            required: ['cats'],
+            properties: {
+              cats: {
+                type: 'array',
+                title: 'Wearing hats',
+                minItems: 1,
+                items: {
+                  type: 'object',
+                  title: 'Cats',
+                  properties: {
+                    name: {
+                      type: 'string',
+                      title: 'Cat Name'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        end
+      end
+
+      let(:invalid_return_data) { { cats: [] } }
+
+      let(:valid_return_data) do
+        {
+          cats: [{ name: 'Love the hats' }]
+        }
+      end
+
+      let(:invalid_return_data_paths) { [[:cats]] }
+
+      let(:invalid_return_data_pretty_paths) do
+        [['Cats']]
+      end
+    end
+
+    context 'example 2' do
+      it_should_behave_like 'required field validation'
+      let(:template) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            required: ['cats'],
+            properties: {
+              cats: {
+                type: 'array',
+                title: 'Cat array',
+                items: {
+                  type: 'object',
+                  title: 'Cats',
+                  properties: {
+                    toys: {
+                      type: 'array',
+                      title: 'Cat toys',
+                      minItems: 1,
+                      items: {
+                        type: 'object',
+                        properties: {
+                          description: {
+                            title: 'Description',
+                            type: 'string'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        end
+      end
+
+      let(:invalid_return_data) { { cats: [{ toys: [] }] } }
+
+      let(:valid_return_data) do
+        {
+          cats: [{ toys: [{ description: 'Fluffy mouse' }] }]
+        }
+      end
+
+      let(:invalid_return_data_paths) { [[:cats, 0, :toys]] }
+
+      let(:invalid_return_data_pretty_paths) do
+        [['Cats', '0', 'Cat toys']]
+      end
     end
   end
 end
