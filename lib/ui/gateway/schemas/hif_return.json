@@ -2793,6 +2793,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "title": "Method of Recovery",
                           "type": "string",
                           "readonly": true,
+                          "extendedText": true,
                           "sourceKey": [
                             "baseline_data",
                             "recovery",
