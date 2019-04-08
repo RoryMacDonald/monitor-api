@@ -446,7 +446,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -550,7 +550,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -660,7 +660,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -770,7 +770,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -880,7 +880,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -990,7 +990,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1104,7 +1104,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1218,7 +1218,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1328,7 +1328,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1443,7 +1443,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1553,7 +1553,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1663,7 +1663,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1773,7 +1773,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1883,7 +1883,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -1993,7 +1993,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         },
                                         reasonForVariance: {
                                           type: 'string',
-                                          title: 'Reasn for risk/ variance',
+                                          title: 'Reason for risk/ variance',
                                           extendedText: true
                                         }
                                       }
@@ -2119,7 +2119,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           },
                                           reasonForVariance: {
                                             type: 'string',
-                                            title: 'Reasn for risk/ variance',
+                                            title: 'Reason for risk/ variance',
                                             extendedText: true
                                           }
                                         }
