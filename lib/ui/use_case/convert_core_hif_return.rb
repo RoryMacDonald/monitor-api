@@ -400,17 +400,6 @@ class UI::UseCase::ConvertCoreHIFReturn
         currentFundingStackDescription: package[:fundingStack][:currentFundingStackDescription]
       }
 
-      unless package[:fundingStack][:hifSpendSinceLastReturn].nil?
-        new_package[:fundingStack][:hifSpendSinceLastReturn] = {}
-
-        new_package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder] = {
-          currentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:currentReturn],
-          cumulativeIncCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:cumulativeIncCurrentReturn],
-          cumulativeExCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:cumulativeExCurrentReturn],
-          remaining: package[:fundingStack][:hifSpendSinceLastReturn][:remaining]
-        }
-      end
-
       unless package[:fundingStack][:totalCost].nil?
         new_package[:fundingStack][:totalCost] = {
           previousAmounts: {
@@ -468,6 +457,17 @@ class UI::UseCase::ConvertCoreHIFReturn
             lastReturn: package[:fundingStack][:hifSpend][:lastReturn]
           }
         }
+        unless package[:fundingStack][:hifSpendSinceLastReturn].nil?
+          new_package[:fundingStack][:fundedThroughHIF][:hifSpend][:hifSpendSinceLastReturn] = {}
+
+          new_package[:fundingStack][:fundedThroughHIF][:hifSpend][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder] = {
+            currentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:currentReturn],
+            cumulativeIncCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:cumulativeIncCurrentReturn],
+            cumulativeExCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:cumulativeExCurrentReturn],
+            remaining: package[:fundingStack][:hifSpendSinceLastReturn][:remaining]
+          }
+        end
+
         unless package[:fundingStack][:hifSpend][:anyChangeToBaseline].nil?
           new_package[:fundingStack][:fundedThroughHIF][:hifSpend][:anyChangeToBaseline] = {
             confirmation: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:confirmation],
@@ -1089,7 +1089,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       unless @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring].nil?
         @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring] = @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring]
       end
-      
+
       @converted_return[:reviewAndAssurance][:commentary] = @return[:reviewAndAssurance][:assuranceReview][:commentary]
     end
   end

@@ -68,20 +68,20 @@ class UI::UseCase::ConvertUIHIFReturn
     end
 
     if planning[:section106].nil?
-      new_planning[:section106] = {} 
+      new_planning[:section106] = {}
     else
       new_planning[:section106] = {
         s106Requirement: planning[:section106][:s106Requirement],
         s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement]
       }
     end
-    
+
     unless planning[:statutoryConsents].nil?
       new_planning[:section106][:statutoryConsents] =  {
         anyStatutoryConsents: planning[:statutoryConsents][:anyStatutoryConsents]
       }
 
-      unless planning[:statutoryConsents][:statutoryConsents].nil?  
+      unless planning[:statutoryConsents][:statutoryConsents].nil?
         new_planning[:section106][:statutoryConsents][:statutoryConsents] = planning[:statutoryConsents][:statutoryConsents].map do |consent|
           next if consent.nil?
           new_consent = {}
@@ -406,13 +406,13 @@ class UI::UseCase::ConvertUIHIFReturn
         currentFundingStackDescription: package[:fundingStack][:currentFundingStackDescription]
       }
 
-      unless package[:fundingStack][:hifSpendSinceLastReturn].nil?
-        unless package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder].nil?
+      unless package[:fundingStack][:fundedThroughHIF][:hifSpend][:hifSpendSinceLastReturn].nil?
+        unless package[:fundingStack][:fundedThroughHIF][:hifSpend][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder].nil?
           new_package[:fundingStack][:hifSpendSinceLastReturn] = {
-            currentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:currentReturn],
-            cumulativeIncCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:cumulativeIncCurrentReturn],
-            cumulativeExCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:cumulativeExCurrentReturn],
-            remaining: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:remaining]
+            currentReturn: package[:fundingStack][:fundedThroughHIF][:hifSpend][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:currentReturn],
+            cumulativeIncCurrentReturn: package[:fundingStack][:fundedThroughHIF][:hifSpend][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:cumulativeIncCurrentReturn],
+            cumulativeExCurrentReturn: package[:fundingStack][:fundedThroughHIF][:hifSpend][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:cumulativeExCurrentReturn],
+            remaining: package[:fundingStack][:fundedThroughHIF][:hifSpend][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:remaining]
           }
         end
       end
@@ -478,7 +478,6 @@ class UI::UseCase::ConvertUIHIFReturn
           end
 
           unless package[:fundingStack][:fundedThroughHIF][:hifSpend][:anyChangeToBaseline].nil?
-
             new_package[:fundingStack][:hifSpend][:anyChangeToBaseline] = {
               confirmation: package[:fundingStack][:fundedThroughHIF][:hifSpend][:anyChangeToBaseline][:confirmation]
             }
@@ -773,7 +772,7 @@ class UI::UseCase::ConvertUIHIFReturn
       end
 
       @converted_return[:outputsForecast][:housingCompletions][:anyChanges] = @return[:outputsForecast][:housingCompletions][:anyChanges]
-      
+
       unless @return[:outputsForecast][:housingCompletions][:currentReturnAmounts].nil?
         @converted_return[:outputsForecast][:housingCompletions][:currentReturnAmounts] = @return[:outputsForecast][:housingCompletions][:currentReturnAmounts].map do |amount|
           {
@@ -1092,7 +1091,7 @@ class UI::UseCase::ConvertUIHIFReturn
       @converted_return[:reviewAndAssurance][:assuranceReview] = {}
 
       @converted_return[:reviewAndAssurance][:assuranceReview][:summaryOfMeeting] = @return[:reviewAndAssurance][:summaryOfMeeting]
-      
+
       unless @return[:reviewAndAssurance][:overallRAGRating].nil?
         @converted_return[:reviewAndAssurance][:assuranceReview][:overallRAGRating] = @return[:reviewAndAssurance][:overallRAGRating]
       end

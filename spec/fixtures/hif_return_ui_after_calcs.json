@@ -296,14 +296,6 @@
       "fundingStack": {
         "descriptionOfInfrastructure": "infras",
         "currentFundingStackDescription": "fund",
-        "hifSpendSinceLastReturn": {
-          "hifSpendSinceLastReturnHolder": {
-            "currentReturn": "123",
-            "cumulativeIncCurrentReturn": "128",
-            "cumulativeExCurrentReturn": "5",
-            "remaining": "22"
-          }
-        },
         "totalCost": {
           "previousAmounts": {
             "baseline": "20000",
@@ -403,6 +395,14 @@
                 "lastReturn": "1234"
               },
               "varianceReason": "a reason"
+            },
+            "hifSpendSinceLastReturn": {
+              "hifSpendSinceLastReturnHolder": {
+                "currentReturn": "123",
+                "cumulativeIncCurrentReturn": "128",
+                "cumulativeExCurrentReturn": "5",
+                "remaining": "22"
+              }
             }
           }
         }
