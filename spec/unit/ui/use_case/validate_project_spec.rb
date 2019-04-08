@@ -172,7 +172,7 @@ describe UI::UseCase::ValidateProject do
         end
 
         let(:valid_project_data) { { catsComplete: 'The Cat Plan', dogsComplete: 'The Dog Plan' } }
-        let(:invalid_project_data) { {unrequiredComplete: 'Doo wap'} }
+        let(:invalid_project_data) { { unrequiredComplete: 'Doo wap' } }
         let(:invalid_project_data_paths) { [[:catsComplete], [:dogsComplete]] }
         let(:invalid_project_data_pretty_paths) { [['Cats Complete'], ['Dogs Complete']] }
       end
@@ -205,7 +205,7 @@ describe UI::UseCase::ValidateProject do
         end
 
         let(:valid_project_data) { { horsesComplete: 'The Cat Plan', cowsComplete: 'The Dog Plan' } }
-        let(:invalid_project_data) { {randomComplete: 'Shoop da woop'} }
+        let(:invalid_project_data) { { randomComplete: 'Shoop da woop' } }
         let(:invalid_project_data_paths) { [[:horsesComplete], [:cowsComplete]] }
         let(:invalid_project_data_pretty_paths) { [['Horses Complete'], ['Cows Complete']] }
       end
@@ -406,12 +406,12 @@ describe UI::UseCase::ValidateProject do
                     type: 'object',
                     required: ['name'],
                     properties:
-                    {
-                      name: {
-                        type: 'string',
-                        title: 'Cow Name'
+                      {
+                        name: {
+                          type: 'string',
+                          title: 'Cow Name'
+                        }
                       }
-                    }
                   }
                 }
               }
@@ -553,16 +553,16 @@ describe UI::UseCase::ValidateProject do
         let(:valid_project_data) do
           {
             pairs: [{
-              class: { name: 'Jaguar', species: 'cat' },
-              owners: 'Harry and Sally'
-            }]
+                      class: { name: 'Jaguar', species: 'cat' },
+                      owners: 'Harry and Sally'
+                    }]
           }
         end
         let(:invalid_project_data) do
           {
             pairs: [{
-              class: { species: 'dog' }
-            }]
+                      class: { species: 'dog' }
+                    }]
           }
         end
         let(:invalid_project_data_paths) { [[:pairs, 0, :class, :name], [:pairs, 0, :owners]] }
@@ -722,8 +722,8 @@ describe UI::UseCase::ValidateProject do
             }
           end
         end
-        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: {dogs: 'woof'} } }
-        let(:invalid_project_data) {{ goodDog: 'Yes', planningSubmitted: {}}}
+        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: { dogs: 'woof' } } }
+        let(:invalid_project_data) { { goodDog: 'Yes', planningSubmitted: {} } }
         let(:invalid_project_data_paths) { [[:planningSubmitted, :dogs]] }
         let(:invalid_project_data_pretty_paths) { [['Planning Submitted', 'Dogs']] }
       end
@@ -777,7 +777,7 @@ describe UI::UseCase::ValidateProject do
           end
         end
         let(:valid_project_data) { { goodDog: 'Yes', doggywalked: 'woof', planningSubmitted: 'Ok' } }
-        let(:invalid_project_data) {{ goodDog: 'Yes', planningSubmitted: 'ok'}}
+        let(:invalid_project_data) { { goodDog: 'Yes', planningSubmitted: 'ok' } }
         let(:invalid_project_data_paths) { [[:doggywalked]] }
         let(:invalid_project_data_pretty_paths) { [['Doggy Walks']] }
       end
@@ -838,8 +838,8 @@ describe UI::UseCase::ValidateProject do
             }
           end
         end
-        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: {dogs: 'woof', puppies: 'aawhhooo'} } }
-        let(:invalid_project_data) {{ goodDog: 'Yes', planningSubmitted: {}}}
+        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: { dogs: 'woof', puppies: 'aawhhooo' } } }
+        let(:invalid_project_data) { { goodDog: 'Yes', planningSubmitted: {} } }
         let(:invalid_project_data_paths) { [[:planningSubmitted, :dogs], [:planningSubmitted, :puppies]] }
         let(:invalid_project_data_pretty_paths) { [['Planning Submitted', 'Dogs'], ['Planning Submitted', 'Puppies']] }
       end
@@ -897,7 +897,7 @@ describe UI::UseCase::ValidateProject do
           end
         end
         let(:valid_project_data) { { goodDog: 'Yes', doggywalked: 'woof', puppywalked: 'owwoo', planningSubmitted: 'Ok' } }
-        let(:invalid_project_data) {{ goodDog: 'Yes', planningSubmitted: 'ok'}}
+        let(:invalid_project_data) { { goodDog: 'Yes', planningSubmitted: 'ok' } }
         let(:invalid_project_data_paths) { [[:doggywalked], [:puppywalked]] }
         let(:invalid_project_data_pretty_paths) { [['Doggy Walks'], ['Puppy Walks']] }
       end
@@ -956,12 +956,12 @@ describe UI::UseCase::ValidateProject do
                     }
                   }
                 }
-              }  
+              }
             }
           end
         end
-        let(:valid_project_data) { {whatDogs: { goodDog: 'Yes', planningSubmitted: {dogs: 'woof'} }} }
-        let(:invalid_project_data) {{whatDogs: { goodDog: 'Yes', planningSubmitted: {}}}}
+        let(:valid_project_data) { { whatDogs: { goodDog: 'Yes', planningSubmitted: { dogs: 'woof' } } } }
+        let(:invalid_project_data) { { whatDogs: { goodDog: 'Yes', planningSubmitted: {} } } }
         let(:invalid_project_data_paths) { [[:whatDogs, :planningSubmitted, :dogs]] }
         let(:invalid_project_data_pretty_paths) { [['What Dogs?', 'Planning Submitted', 'Dogs']] }
       end
@@ -1044,15 +1044,15 @@ describe UI::UseCase::ValidateProject do
             }
           end
         end
-        let(:valid_project_data) do 
+        let(:valid_project_data) do
           {
             animalKingdom: {
-              anotherDog: { goodDog: 'No'},
+              anotherDog: { goodDog: 'No' },
               acat: { needed: 'Im here' }
             }
           }
         end
-        let(:invalid_project_data) { { animalKingdom: { anotherDog: { goodDog: 'Yes'}, acat: {} }} }
+        let(:invalid_project_data) { { animalKingdom: { anotherDog: { goodDog: 'Yes' }, acat: {} } } }
         let(:invalid_project_data_paths) { [[:animalKingdom, :anotherDog, :doggywalked], [:animalKingdom, :acat, :needed]] }
         let(:invalid_project_data_pretty_paths) { [['Animal Kingdom', 'Another Dog', 'Doggy Walks'], ['Animal Kingdom', 'Cat', 'Cat nip']] }
       end
@@ -1113,8 +1113,8 @@ describe UI::UseCase::ValidateProject do
             }
           end
         end
-        let(:valid_project_data) { [{ goodDog: 'Yes', planningSubmitted: {dogs: 'woof'} }] }
-        let(:invalid_project_data) {[{ goodDog: 'Yes', planningSubmitted: {}}, { goodDog: 'Yes', planningSubmitted: {dogs: 'woof'}}, { goodDog: 'Yes', planningSubmitted: {}}]}
+        let(:valid_project_data) { [{ goodDog: 'Yes', planningSubmitted: { dogs: 'woof' } }] }
+        let(:invalid_project_data) { [{ goodDog: 'Yes', planningSubmitted: {} }, { goodDog: 'Yes', planningSubmitted: { dogs: 'woof' } }, { goodDog: 'Yes', planningSubmitted: {} }] }
         let(:invalid_project_data_paths) { [[0, :planningSubmitted, :dogs], [2, :planningSubmitted, :dogs]] }
         let(:invalid_project_data_pretty_paths) { [['Array Item 1', 'Planning Submitted', 'Dogs'], ['Array Item 3', 'Planning Submitted', 'Dogs']] }
       end
@@ -1159,12 +1159,12 @@ describe UI::UseCase::ValidateProject do
                       },
                       {
                         properties: {
-                          goodDog: { enum: ['No']}
+                          goodDog: { enum: ['No'] }
                         }
                       }
                     ]
                   }
-                }            
+                }
               }
             }
           }
@@ -1175,6 +1175,105 @@ describe UI::UseCase::ValidateProject do
       let(:invalid_project_data) { { doggies: { goodDog: 'Yes', dogDay: 'blah' } } }
       let(:invalid_project_data_paths) { [[:doggies, :somethingElse]] }
       let(:invalid_project_data_pretty_paths) { [['doggies', 'Hi']] }
+    end
+  end
+
+  context 'Minimum items in an array' do
+    context 'example 1' do
+      it_should_behave_like 'required field validation'
+      let(:template) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            required: ['cats'],
+            properties: {
+              cats: {
+                type: 'array',
+                title: 'Wearing hats',
+                minItems: 1,
+                items: {
+                  type: 'object',
+                  title: 'Cats',
+                  properties: {
+                    name: {
+                      type: 'string',
+                      title: 'Cat Name'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        end
+      end
+
+      let(:invalid_project_data) { { cats: [] } }
+
+      let(:valid_project_data) do
+        {
+          cats: [{ name: 'Love the hats' }]
+        }
+      end
+
+      let(:invalid_project_data_paths) { [[:cats]] }
+
+      let(:invalid_project_data_pretty_paths) do
+        [['Cats']]
+      end
+    end
+
+    context 'example 2' do
+      it_should_behave_like 'required field validation'
+      let(:template) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            required: ['cats'],
+            properties: {
+              cats: {
+                type: 'array',
+                title: 'Cat array',
+                items: {
+                  type: 'object',
+                  title: 'Cats',
+                  properties: {
+                    toys: {
+                      type: 'array',
+                      title: 'Cat toys',
+                      minItems: 1,
+                      items: {
+                        type: 'object',
+                        properties: {
+                          description: {
+                            title: 'Description',
+                            type: 'string'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        end
+      end
+
+      let(:invalid_project_data) { { cats: [{ toys: [] }] } }
+
+      let(:valid_project_data) do
+        {
+          cats: [{ toys: [{ description: 'Fluffy mouse' }] }]
+        }
+      end
+
+      let(:invalid_project_data_paths) { [[:cats, 0, :toys]] }
+
+      let(:invalid_project_data_pretty_paths) do
+        [['Cats', '0', 'Cat toys']]
+      end
     end
   end
 end

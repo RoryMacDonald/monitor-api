@@ -31,14 +31,16 @@ class Common::Domain::Template
     get_supported_errors(aggregated_errors).each do |error|
       error_path = error.path.drop(1)
       if error.type == :required_failed
-        get_required_failed_node_names(error).each  do |error|
+        get_required_failed_node_names(error).each do |error|
           full_path = Array.new(error_path).push(error)
           all_error_paths.push(symbolize_path(full_path))
         end
-      elsif error.type = :one_of_failed
+      elsif error.type == :one_of_failed
         get_dependency_failed_path_names(error, project_data).each do |path|
           all_error_paths.push(symbolize_path(path))
         end
+      elsif error.type == :min_items_failed
+        all_error_paths.push(symbolize_path(error_path))
       end
     end
     all_error_paths
@@ -62,7 +64,7 @@ class Common::Domain::Template
         next if message_is_array_index?(message)
         next unless message.data.kind_of?(Array)
 
-        path =  message.path
+        path = message.path
         path.shift
 
         message.data.each do |node|
@@ -80,7 +82,7 @@ class Common::Domain::Template
 
   def get_supported_errors(aggregated_errors)
     aggregated_errors.errors.select do |error|
-      %i[required_failed one_of_failed].include? error.type
+      %i[required_failed one_of_failed min_items_failed].include? error.type
     end
   end
 
