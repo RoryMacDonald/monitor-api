@@ -5622,7 +5622,7 @@
                 }
               },
               "additionalRisks": {
-                "title": "Any additional Risks?",
+                "title": "Any Additional Risks?",
                 "description": "Click on the plus button to add additional risks.",
                 "type": "array",
                 "addable": true,
@@ -5630,11 +5630,13 @@
                   "type": "object",
                   "title": "",
                   "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
+                  "required": ["riskHolder"],
                   "properties": {
                     "riskHolder": {
                       "title": "Risk",
                       "horizontal": true,
                       "type": "object",
+                      "required": ["liveRisk"],
                       "properties": {
                         "liveRisk": {
                           "type": "string",
@@ -5650,6 +5652,7 @@
                         "liveRisk": {
                           "oneOf": [
                             {
+                              "required": ["liveRisk", "description"],
                               "properties": {
                                 "liveRisk": {
                                   "type": "string",
@@ -5668,6 +5671,7 @@
                               }
                             },
                             {
+                              "required": ["liveRisk"],
                               "properties": {
                                 "liveRisk": {
                                   "type": "string",
@@ -5688,10 +5692,22 @@
                     "riskHolder": {
                       "oneOf": [
                         {
+                          "required": [
+                            "riskHolder",
+                            "dates",
+                            "varianceAmount",
+                            "varianceReason",
+                            "ratings",
+                            "baselineMitigationMeasures",
+                            "anyChange",
+                            "riskAfterMitigation",
+                            "riskMet"
+                          ],
                           "properties": {
                             "riskHolder": {
                               "horizontal": true,
                               "type": "object",
+                              "required": ["liveRisk"],
                               "properties": {
                                 "liveRisk": {
                                   "type": "string",
@@ -5707,6 +5723,10 @@
                               "type": "object",
                               "title": "",
                               "horizontal": true,
+                              "required": [
+                                "expectedCompletion",
+                                "currentReturnCompletionDate"
+                              ],
                               "properties": {
                                 "expectedCompletion": {
                                   "type": "string",
@@ -5735,6 +5755,11 @@
                               "type": "object",
                               "horizontal": "true",
                               "title": "",
+                              "required": [
+                                "baselineImpact",
+                                "baselineLikelihood",
+                                "currentReturnLikelihood"
+                              ],
                               "properties": {
                                 "baselineImpact": {
                                   "type": "string",
@@ -5782,6 +5807,7 @@
                             "anyChange": {
                               "type": "object",
                               "title": " ",
+                              "required": ["confirmation"],
                               "properties": {
                                 "confirmation": {
                                   "title": "Any Change?",
@@ -5797,6 +5823,7 @@
                                 "confirmation": {
                                   "oneOf": [
                                     {
+                                      "required": ["confirmation", "updatedMeasures"],
                                       "properties": {
                                         "confirmation": {
                                           "enum": [
@@ -5811,6 +5838,7 @@
                                       }
                                     },
                                     {
+                                      "required": ["confirmation"],
                                       "properties": {
                                         "confirmation": {
                                           "enum": [
@@ -5837,6 +5865,7 @@
                             "riskMet": {
                               "type": "object",
                               "title": " ",
+                              "required": ["confirmation"],
                               "properties": {
                                 "confirmation": {
                                   "title": "Risk Met?",
@@ -5852,6 +5881,7 @@
                                 "confirmation": {
                                   "oneOf": [
                                     {
+                                      "required": ["confirmation", "dateMet"],
                                       "properties": {
                                         "confirmation": {
                                           "enum": [
@@ -5881,10 +5911,12 @@
                           }
                         },
                         {
+                          "required": ["riskHolder"],
                           "properties": {
                             "riskHolder": {
                               "horizontal": true,
                               "type": "object",
+                              "required": ["riskHolder"],
                               "properties": {
                                 "liveRisk": {
                                   "type": "string",
