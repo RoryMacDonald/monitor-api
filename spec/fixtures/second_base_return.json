@@ -12,6 +12,7 @@
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "reference": "Ref101",
           "planningSubmitted": {
+            "targetDateOfAchievingStart": "2020-01-01",
             "baseline": "2020-01-01",
             "previousReturn": null,
             "percentComplete": "12",
@@ -20,6 +21,7 @@
             "onCompletedReference": "REFPLAN"
           },
           "planningGranted": {
+            "targetDateOfAchievingStart": "2020-01-01",
             "baseline": "2020-02-01",
             "previousReturn": null,
             "percentComplete": "34",
@@ -32,6 +34,7 @@
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
           "reference": "1234",
           "submitted": {
+            "targetDateOfAchievingStart": "2020-01-01",
             "baseline": "2020-03-01",
             "previousReturn": null,
             "status": "On Shedule",
@@ -40,6 +43,7 @@
             "onCompletedReference": "REF2PLAN"
           },
           "granted": {
+            "targetDateOfAchievingStart": "2020-01-01",
             "baseline": "2020-04-01",
             "previousReturn": null,
             "status": "Delayed",

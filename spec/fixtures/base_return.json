@@ -12,9 +12,11 @@
           "reference": "Ref101",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "planningSubmitted": {
+            "targetDateOfAchievingStart": "2020-01-01",
             "baseline": "2020-01-01"
           },
           "planningGranted": {
+            "targetDateOfAchievingStart": "2020-01-01",
             "baseline": "2020-02-01"
           }
         },
@@ -23,9 +25,11 @@
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
           "reference": "1234",
           "submitted": {
+            "targetDateOfAchievingStart": "2020-01-01",
             "baseline": "2020-03-01"
           },
           "granted": {
+            "targetDateOfAchievingStart": "2020-01-01",
             "baseline": "2020-04-01"
           }
         },

@@ -12,6 +12,7 @@
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "reference": "my reference",
           "planningSubmitted": {
+            "targetDateOfAchievingStart": "1970-01-01",
             "baseline": "2020-01-01",
             "varianceBaselineFullPlanningPermissionSubmitted": "4",
             "varianceLastReturnFullPlanningPermissionSubmitted": "5",
@@ -24,6 +25,7 @@
             "previousReturn": "21/21/21"
           },
           "planningGranted": {
+            "targetDateOfAchievingStart": "1970-01-01",
             "baseline": "2020-02-01",
             "varianceBaselineFullPlanningPermissionGranted": "4",
             "varianceLastReturnFullPlanningPermissionGranted": "5",
@@ -40,6 +42,7 @@
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
           "reference": "my reference",
           "submitted": {
+            "targetDateOfAchievingStart": "1970-01-01",
             "baseline": "2020-03-01",
             "varianceBaselineFullPlanningPermissionSubmitted": "80",
             "varianceLastReturnFullPlanningPermissionSubmitted": "89",
@@ -52,6 +55,7 @@
             "previousReturn": "21/21/21"
           },
           "granted": {
+            "targetDateOfAchievingStart": "1970-01-01",
             "baseline": "2020-03-01",
             "varianceBaselineFullPlanningPermissionGranted": "80",
             "varianceLastReturnFullPlanningPermissionGranted": "89",

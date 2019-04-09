@@ -42,7 +42,6 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless planning[:outlinePlanning].nil?
       new_planning[:outlinePlanning] = {
-        #baselineTargetDateOfAchievingStart: planning[:outlinePlanning][:baselineTargetDateOfAchievingStart],
         baselineOutlinePlanningPermissionGranted: planning[:outlinePlanning][:baselineOutlinePlanningPermissionGranted],
         baselineSummaryOfCriticalPath: planning[:outlinePlanning][:baselineSummaryOfCriticalPath],
         planningSubmitted: planning[:outlinePlanning][:planningSubmitted],

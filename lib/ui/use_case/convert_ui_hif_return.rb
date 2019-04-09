@@ -68,20 +68,20 @@ class UI::UseCase::ConvertUIHIFReturn
     end
 
     if planning[:section106].nil?
-      new_planning[:section106] = {} 
+      new_planning[:section106] = {}
     else
       new_planning[:section106] = {
         s106Requirement: planning[:section106][:s106Requirement],
         s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement]
       }
     end
-    
+
     unless planning[:statutoryConsents].nil?
       new_planning[:section106][:statutoryConsents] =  {
         anyStatutoryConsents: planning[:statutoryConsents][:anyStatutoryConsents]
       }
 
-      unless planning[:statutoryConsents][:statutoryConsents].nil?  
+      unless planning[:statutoryConsents][:statutoryConsents].nil?
         new_planning[:section106][:statutoryConsents][:statutoryConsents] = planning[:statutoryConsents][:statutoryConsents].map do |consent|
           next if consent.nil?
           new_consent = {}
@@ -773,7 +773,7 @@ class UI::UseCase::ConvertUIHIFReturn
       end
 
       @converted_return[:outputsForecast][:housingCompletions][:anyChanges] = @return[:outputsForecast][:housingCompletions][:anyChanges]
-      
+
       unless @return[:outputsForecast][:housingCompletions][:currentReturnAmounts].nil?
         @converted_return[:outputsForecast][:housingCompletions][:currentReturnAmounts] = @return[:outputsForecast][:housingCompletions][:currentReturnAmounts].map do |amount|
           {
@@ -1092,7 +1092,7 @@ class UI::UseCase::ConvertUIHIFReturn
       @converted_return[:reviewAndAssurance][:assuranceReview] = {}
 
       @converted_return[:reviewAndAssurance][:assuranceReview][:summaryOfMeeting] = @return[:reviewAndAssurance][:summaryOfMeeting]
-      
+
       unless @return[:reviewAndAssurance][:overallRAGRating].nil?
         @converted_return[:reviewAndAssurance][:assuranceReview][:overallRAGRating] = @return[:reviewAndAssurance][:overallRAGRating]
       end
