@@ -42,11 +42,11 @@ describe 'Validates HIF return' do
       expect(validated_return[:valid]).to eq(false)
 
       expect(validated_return[:invalid_paths][0]).to eq([:infrastructures, 0, :planning, :outlinePlanning, :planningSubmitted, :percentComplete])
-      expect(validated_return[:invalid_paths][1]).to eq([:s151Confirmation, :hifFunding, :cashflowConfirmation])
-      expect(validated_return[:invalid_paths].length).to eq(2)
+      expect(validated_return[:invalid_paths][1]).to eq([:infrastructures, 0, :planning, :outlinePlanning, :planningGranted, :percentComplete])
+      expect(validated_return[:invalid_paths].length).to eq(20)
 
-      expect(validated_return[:pretty_invalid_paths][0]).to eq(['HIF Project', 'Infrastructures', 'Infrastructure 1', 'Planning', 'Outline Planning', 'Planning Permission Submitted', 'Percent Complete'])
-      expect(validated_return[:pretty_invalid_paths][1]).to eq(['HIF Project', 's151 Confirmation', 'HIF Funding and Profiles', 'Please confirm you are content with the submitted project cashflows'])
+      expect(validated_return[:pretty_invalid_paths][0]).to eq(["HIF Project", "Infrastructures", "Infrastructure 1", "Planning", "Outline Planning", "Planning Permission Submitted", "Percent Complete"])
+      expect(validated_return[:pretty_invalid_paths][1]).to eq(["HIF Project", "Infrastructures", "Infrastructure 1", "Planning", "Outline Planning", "Planning Permission Granted", "Percent Complete"])
     end
   end
 end

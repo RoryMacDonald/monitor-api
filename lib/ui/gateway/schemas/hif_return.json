@@ -3410,7 +3410,7 @@
             }
           },
           "topRisks": {
-            "title": "Top Risks to delivery of housing",
+            "title": "Top Risks to Delivery of Housing",
             "type": "object",
             "properties": {
               "landAssembly": {

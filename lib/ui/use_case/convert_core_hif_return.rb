@@ -42,12 +42,12 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless planning[:outlinePlanning].nil?
       new_planning[:outlinePlanning] = {
+        #baselineTargetDateOfAchievingStart: planning[:outlinePlanning][:baselineTargetDateOfAchievingStart],
         baselineOutlinePlanningPermissionGranted: planning[:outlinePlanning][:baselineOutlinePlanningPermissionGranted],
         baselineSummaryOfCriticalPath: planning[:outlinePlanning][:baselineSummaryOfCriticalPath],
         planningSubmitted: planning[:outlinePlanning][:planningSubmitted],
         planningGranted: planning[:outlinePlanning][:planningGranted],
         reference: planning[:outlinePlanning][:reference]
-
       }
     end
 
@@ -1089,7 +1089,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       unless @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring].nil?
         @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring] = @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring]
       end
-      
+
       @converted_return[:reviewAndAssurance][:commentary] = @return[:reviewAndAssurance][:assuranceReview][:commentary]
     end
   end
