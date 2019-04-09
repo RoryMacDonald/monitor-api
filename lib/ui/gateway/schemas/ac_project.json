@@ -129,7 +129,11 @@
       ]
     },
     {
-      "from": ["milestones", "dates", "marketingCommenced"],
+      "from": [
+        "milestones",
+        "dates",
+        "marketingCommenced"
+      ],
       "to": [
         "summary",
         "sitesSummary",
@@ -234,7 +238,11 @@
       ]
     },
     {
-      "from": ["milestones", "dates", "customMileStones"],
+      "from": [
+        "milestones",
+        "dates",
+        "customMileStones"
+      ],
       "to": [
         "summary",
         "sitesSummary",
@@ -244,18 +252,41 @@
       ]
     },
     {
-      "from": ["outputs", "mmcCategory"],
-      "to": ["summary", "sitesSummary", "#", "hiddenMmcCategory"]
+      "from": [
+        "outputs",
+        "mmcCategory"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenMmcCategory"
+      ]
     },
     {
-      "from": ["outputs", "keyProgrammeObjectives", "schemePace"],
-      "to": ["summary", "sitesSummary", "#", "hiddenSchemePace"]
+      "from": [
+        "outputs",
+        "keyProgrammeObjectives",
+        "schemePace"
+      ],
+      "to": [
+        "summary",
+        "sitesSummary",
+        "#",
+        "hiddenSchemePace"
+      ]
     }
   ],
   "properties": {
     "summary": {
       "type": "object",
       "title": "Project Summary",
+      "required": [
+        "localAuthority",
+        "projectName",
+        "projectRef",
+        "sitesSummary"
+      ],
       "properties": {
         "localAuthority": {
           "type": "string",
@@ -293,8 +324,10 @@
           "type": "array",
           "addable": true,
           "title": "Site(s)",
+          "minItems": 1,
           "items": {
             "type": "object",
+            "title": "",
             "properties": {
               "hiddenMilestones": {
                 "type": "object",
@@ -508,11 +541,21 @@ set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ?
   0
 );",
                 "title": "",
+                "required": [
+                  "numberOfUnits"
+                ],
                 "properties": {
                   "numberOfUnits": {
                     "type": "object",
                     "title": "Number of:",
                     "horizontal": true,
+                    "required": [
+                      "numberOfUnitsMarket",
+                      "numberOfUnitsSharedOwnership",
+                      "numberOfUnitsAffordable",
+                      "numberOfUnitsPRS",
+                      "numberOfUnitsOther"
+                    ],
                     "properties": {
                       "numberOfUnitsMarket": {
                         "type": "string",
@@ -622,13 +665,25 @@ set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ?
           "quarterly": true,
           "addable": true,
           "title": "Funding Drawdown",
+          "minItems": 3,
           "items": {
             "type": "object",
+            "required": [
+              "year",
+              "Q1Amount",
+              "Q2Amount",
+              "Q3Amount",
+              "Q4Amount"
+            ],
             "properties": {
               "year": {
                 "type": "string",
                 "title": "Year",
-                "enum": ["2018/19", "2019/20", "2020/21"]
+                "enum": [
+                  "2018/19",
+                  "2019/20",
+                  "2020/21"
+                ]
               },
               "Q1Amount": {
                 "type": "string",
@@ -654,6 +709,10 @@ set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ?
           }
         },
         "receipts": {
+          "required": [
+            "projectValue",
+            "clawback"
+          ],
           "type": "object",
           "title": "Receipts",
           "calculation": "
@@ -733,11 +792,22 @@ validateDatesSequential(formData,
   path('completionDates', 'completionOfFinalUnitDateHolder', 'completionOfFinalUnitData')
 );
 ",
+          "required": [
+            "completionDates",
+            "contractSigned",
+            "marketingCommenced",
+            "outlinePlanning",
+            "procurementProvision",
+            "surveysAndDueDiligence",
+            "workDates",
+            "worksDate"
+          ],
           "properties": {
             "surveysAndDueDiligence": {
               "type": "object",
               "title": "",
               "horizontal": true,
+              "required": ["commencementOfDueDiligence"],
               "properties": {
                 "commencementOfDueDiligence": {
                   "type": "string",
@@ -749,6 +819,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the commencement of surveys and due diligence.",
+                  "required": ["completionOfSurveys"],
                   "properties": {
                     "completionOfSurveys": {
                       "type": "string",
@@ -763,6 +834,7 @@ validateDatesSequential(formData,
               "type": "object",
               "title": "",
               "horizontal": true,
+              "required": ["procurementOfWorksCommencementDate"],
               "properties": {
                 "procurementOfWorksCommencementDate": {
                   "type": "string",
@@ -774,6 +846,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the procurement of works commencement.",
+                  "required": ["provisionOfDetailedWorks"],
                   "properties": {
                     "provisionOfDetailedWorks": {
                       "type": "string",
@@ -794,6 +867,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the provision of detailed works specification and milestones.",
+                  "required": ["commencementDate"],
                   "properties": {
                     "commencementDate": {
                       "type": "string",
@@ -807,6 +881,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the commencement of works.",
+                  "required": ["completionDate"],
                   "properties": {
                     "completionDate": {
                       "type": "string",
@@ -821,6 +896,7 @@ validateDatesSequential(formData,
               "type": "object",
               "title": "",
               "horizontal": true,
+              "required": ["outlinePlanningGrantedDate"],
               "properties": {
                 "outlinePlanningGrantedDate": {
                   "type": "string",
@@ -832,6 +908,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the outline planning permission is granted.",
+                  "required": ["reservedMatterPermissionGrantedDate"],
                   "properties": {
                     "reservedMatterPermissionGrantedDate": {
                       "type": "string",
@@ -857,6 +934,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the developer partner marketing has commenced.",
+                  "required": ["conditionalContractSigned"],
                   "properties": {
                     "conditionalContractSigned": {
                       "type": "string",
@@ -870,6 +948,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the conditional contract is signed.",
+                  "required": ["unconditionalContractSigned"],
                   "properties": {
                     "unconditionalContractSigned": {
                       "type": "string",
@@ -890,6 +969,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the unconditional contract is signed.",
+                  "required": ["startOnSiteDate"],
                   "properties": {
                     "startOnSiteDate": {
                       "type": "string",
@@ -903,6 +983,7 @@ validateDatesSequential(formData,
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the start on site.",
+                  "required": ["startOnFirstUnitDate"],
                   "properties": {
                     "startOnFirstUnitDate": {
                       "type": "string",
@@ -917,12 +998,14 @@ validateDatesSequential(formData,
               "type": "object",
               "title": "",
               "horizontal": true,
+              "required": ["projectCompletionDate"],
               "properties": {
                 "completionOfFinalUnitDateHolder": {
                   "type": "object",
                   "title": "",
                   "validated": true,
                   "invalidText": "This should occur after the start on first unit.",
+                  "required": ["completionOfFinalUnitData"],
                   "properties": {
                     "completionOfFinalUnitData": {
                       "type": "string",
@@ -943,7 +1026,9 @@ validateDatesSequential(formData,
               "addable": true,
               "title": "Custom Milestones",
               "items": {
+                "title": "",
                 "type": "object",
+                "required": ["customTitle", "customDate"],
                 "properties": {
                   "customTitle": {
                     "type": "string",
@@ -964,11 +1049,13 @@ validateDatesSequential(formData,
     "outputs": {
       "type": "object",
       "title": "Outputs",
+      "required": ["keyProgrammeObjectives", "mmcCategory"],
       "properties": {
         "keyProgrammeObjectives": {
           "type": "object",
           "title": "Key Programme Objectives",
           "horizontal": true,
+          "required": ["localMarketPace", "schemePace"],
           "properties": {
             "localMarketPace": {
               "type": "string",
@@ -985,6 +1072,7 @@ validateDatesSequential(formData,
         "mmcCategory": {
           "title": "MMC Category",
           "type": "object",
+          "required": ["catA", "catB", "catC", "catD", "catE"],
           "properties": {
             "catA": {
               "type": "string",
