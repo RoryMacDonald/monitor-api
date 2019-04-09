@@ -183,7 +183,7 @@ describe 'Admin adding users to a project' do
   context 'when no authorization provided in a header' do
     let(:body) { { users: [{ email: 'person1@mt.com' }] } }
 
-    it 'returns 400' do
+    it 'returns 401' do
       post('project/admin/1/add_users', body.to_json)
       expect(last_response.status).to eq(401)
     end

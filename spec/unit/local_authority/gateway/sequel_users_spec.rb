@@ -42,9 +42,11 @@ describe LocalAuthority::Gateway::SequelUsers do
       new_user_id
       user_to_update = gateway.find_by(email: 'example@example.com')
       user_to_update.projects = [2, 4, 8, 16]
+      user_to_update.role = 'Homes England'
       gateway.update(user_to_update)
       user = gateway.find_by(email: 'example@example.com')
       expect(user.projects).to eq([2, 4, 8, 16])
+      expect(user.role).to eq('Homes England')
     end
 
     it 'gets multiple users' do
@@ -114,6 +116,17 @@ describe LocalAuthority::Gateway::SequelUsers do
       new_user_id
       user = gateway.find_by(email: 'cats@cathouse.com')
       expect(user.projects).to eq([])
+    end
+
+    it 'updates the user' do
+      new_user_id
+      user_to_update = gateway.find_by(email: 'cats@cathouse.com')
+      user_to_update.projects = [1, 4, 1, 5, 9]
+      user_to_update.role = 'Superuser'
+      gateway.update(user_to_update)
+      user = gateway.find_by(email: 'cats@cathouse.com')
+      expect(user.projects).to eq([1, 4, 1, 5, 9])
+      expect(user.role).to eq('Superuser')
     end
 
     it 'gets multiple users' do
