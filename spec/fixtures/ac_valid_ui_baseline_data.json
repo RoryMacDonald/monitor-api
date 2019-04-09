@@ -1,0 +1,128 @@
+{
+  "summary": {
+    "localAuthority": "A",
+    "projectName": "B",
+    "projectRef": "C",
+    "sitesSummary": [
+      {
+        "hiddenMilestones": {
+          "commencementOfDueDiligence": "1111-11-11",
+          "completionOfSurveys": "1111-11-11",
+          "procurementOfWorksCommencementDate": "1111-11-11",
+          "provisionOfDetailedWorks": "1111-11-11",
+          "commencementDate": "1111-11-11",
+          "completionDate": "1111-11-11",
+          "outlinePlanningGrantedDate": "1111-11-11",
+          "reservedMatterPermissionGrantedDate": "1111-11-11",
+          "marketingCommenced": "1111-11-11",
+          "conditionalContractSigned": "1111-11-11",
+          "unconditionalContractSigned": "1111-11-11",
+          "startOnSiteDate": "1111-11-11",
+          "startOnFirstUnitDate": "1111-11-11",
+          "completionOfFinalUnitData": "1111-11-11",
+          "projectCompletionDate": "1111-11-11"
+        },
+        "hiddenMmcCategory": {
+          "catA": "10",
+          "catB": "10",
+          "catC": "10",
+          "catD": "10",
+          "catE": "10"
+        },
+        "hiddenSchemePace": "10",
+        "innerSummary": {
+          "details": {},
+          "contacts": {}
+        },
+        "units": {
+          "numberOfUnits": {
+            "numberOfUnitsMarket": "1",
+            "numberOfUnitsSharedOwnership": "1",
+            "numberOfUnitsAffordable": "1",
+            "numberOfUnitsPRS": "1",
+            "numberOfUnitsOther": "1"
+          },
+          "numberOfUnitsTotal": 5
+        }
+      }
+    ]
+  },
+  "conditions": {},
+  "financials": {},
+  "milestones": {
+    "dates": {
+      "surveysAndDueDiligence": {
+        "completionOfSurveysHolder": {
+          "_valid": true,
+          "completionOfSurveys": "1111-11-11"
+        },
+        "commencementOfDueDiligence": "1111-11-11"
+      },
+      "procurementProvision": {
+        "provisionOfDetailedWorksHolder": {
+          "_valid": true,
+          "provisionOfDetailedWorks": "1111-11-11"
+        },
+        "procurementOfWorksCommencementDate": "1111-11-11"
+      },
+      "worksDate": {
+        "commencementDateHolder": {
+          "commencementDate": "1111-11-11",
+          "_valid": true
+        },
+        "completionDateHolder": {
+          "_valid": true,
+          "completionDate": "1111-11-11"
+        }
+      },
+      "outlinePlanning": {
+        "reservedMatterPermissionGrantedDateHolder": {
+          "_valid": true,
+          "reservedMatterPermissionGrantedDate": "1111-11-11"
+        },
+        "outlinePlanningGrantedDate": "1111-11-11"
+      },
+      "marketingCommenced": "1111-11-11",
+      "contractSigned": {
+        "conditionalContractSignedHolder": {
+          "conditionalContractSigned": "1111-11-11",
+          "_valid": true
+        },
+        "unconditionalContractSignedHolder": {
+          "_valid": true,
+          "unconditionalContractSigned": "1111-11-11"
+        }
+      },
+      "workDates": {
+        "startOnSiteDateHolder": {
+          "startOnSiteDate": "1111-11-11",
+          "_valid": true
+        },
+        "startOnFirstUnitDateHolder": {
+          "_valid": true,
+          "startOnFirstUnitDate": "1111-11-11"
+        }
+      },
+      "completionDates": {
+        "completionOfFinalUnitDateHolder": {
+          "completionOfFinalUnitData": "1111-11-11",
+          "_valid": true
+        },
+        "projectCompletionDate": "1111-11-11"
+      }
+    }
+  },
+  "outputs": {
+    "keyProgrammeObjectives": {
+      "localMarketPace": "10",
+      "schemePace": "10"
+    },
+    "mmcCategory": {
+      "catA": "10",
+      "catB": "10",
+      "catC": "10",
+      "catD": "10",
+      "catE": "10"
+    }
+  }
+}
