@@ -3139,6 +3139,7 @@
                           "title": "Method of Recovery",
                           "type": "string",
                           "readonly": true,
+                          "extendedText": true,
                           "sourceKey": [
                             "baseline_data",
                             "recovery",
@@ -7310,7 +7311,7 @@
                       },
                       "currentStarts": {
                         "type": "string",
-                        "title": "Previous Starts",
+                        "title": "Current Starts",
                         "hidden": true
                       },
                       "startsSinceLastReturn": {
@@ -7324,7 +7325,7 @@
                       },
                       "currentCompletions": {
                         "type": "string",
-                        "title": "Previous Completions",
+                        "title": "Current Completions",
                         "hidden": true
                       },
                       "completionsSinceLastReturn": {
