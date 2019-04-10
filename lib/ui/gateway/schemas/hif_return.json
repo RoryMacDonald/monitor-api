@@ -6015,6 +6015,7 @@
               "title": "",
               "type": "object",
               "calculation": "setCreate(formData, ['variance'], '' + parseMoney(get(formData, 'requestedAmount')) - parseMoney(get(formData, 'hifTotalFundingRequest'))); setCreate(formData, ['varianceFromBaselinePercent'], ''+percentageDifference(parseMoney(get(formData, 'hifTotalFundingRequest')), parseMoney(get(formData, 'requestedAmount'))))",
+              "required": ["changesToRequestConfirmation"],
               "properties": {
                 "hifTotalFundingRequest": {
                   "type": "string",
@@ -6051,6 +6052,12 @@
                       }
                     },
                     {
+                      "required":  [
+                        "reasonForRequest",
+                        "requestedAmount",
+                        "evidenceOfVariance",
+                        "mitigationInPlace"
+                      ],
                       "properties": {
                         "changesToRequestConfirmation": {
                           "enum": [
@@ -6339,10 +6346,16 @@
           "type": "object",
           "title": "Submission",
           "calculation": "set(formData['changesToEndDate'], 'varianceFromEndDateBaseline', weeksPassed(get(formData, 'hifFundingEndDate'), get(formData, 'changesToEndDate', 'requestedChangedEndDate'))); set(formData['changesToLongstopDate'], 'varianceFromLongStopBaseline', weeksPassed(get(formData, 'projectLongstopDate'), get(formData, 'changesToLongstopDate', 'requestedLongstopEndDate')));",
+          "required": [
+            "signoff"
+          ],
           "properties": {
             "changeToMilestones": {
               "title": "",
               "type": "object",
+              "required": [
+                "changeToMilestonesConfirmation"
+              ],
               "properties": {
                 "changeToMilestonesConfirmation": {
                   "type": "string",
@@ -6368,6 +6381,11 @@
                       }
                     },
                     {
+                      "required": [
+                        "reasonForRequestOfMilestoneChange",
+                        "requestedAmendments",
+                        "mitigationInPlaceMilestone"
+                      ],
                       "properties": {
                         "changeToMilestonesConfirmation": {
                           "enum": [
@@ -6408,6 +6426,7 @@
             "changesToEndDate": {
               "title": "",
               "type": "object",
+              "required": ["changesToEndDateConfirmation"],
               "properties": {
                 "changesToEndDateConfirmation": {
                   "type": "string",
@@ -6433,6 +6452,12 @@
                       }
                     },
                     {
+                      "required": [
+                        "reasonForRequestOfDateChange",
+                        "requestedChangedEndDate",
+                        "mitigationInPlaceEndDate",
+                        "evidenceUpload"
+                      ],
                       "properties": {
                         "changesToEndDateConfirmation": {
                           "enum": [
@@ -6465,6 +6490,7 @@
                           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
                           "uploadFile": "multiple",
                           "type": "array",
+                          "minItems": 1,
                           "s151WriteOnly": true,
                           "items": {
                             "type": "string"
@@ -6489,6 +6515,7 @@
             "changesToLongstopDate": {
               "title": "",
               "type": "object",
+              "required": ["changesToLongstopDateConfirmation"],
               "properties": {
                 "changesToLongstopDateConfirmation": {
                   "type": "string",
@@ -6514,6 +6541,12 @@
                       }
                     },
                     {
+                      "required": [
+                        "reasonForRequestOfLongstopChange",
+                        "requestedLongstopEndDate",
+                        "mitigationInPlaceLongstopDate",
+                        "evidenceUploadLongstopDate"
+                      ],
                       "properties": {
                         "changesToLongstopDateConfirmation": {
                           "enum": [
@@ -6546,6 +6579,7 @@
                           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
                           "uploadFile": "multiple",
                           "type": "array",
+                          "minItems": 1,
                           "s151WriteOnly": true,
                           "items": {
                             "type": "string"
@@ -6560,6 +6594,7 @@
             "recoverFunding": {
               "title": "",
               "type": "object",
+              "required": ["recoverFundingConfirmation"],
               "properties": {
                 "recoverFundingConfirmation": {
                   "type": "string",
@@ -6576,6 +6611,7 @@
                 "recoverFundingConfirmation": {
                   "oneOf": [
                     {
+                      "required": ["usedOnFutureHosuing"],
                       "properties": {
                         "recoverFundingConfirmation": {
                           "enum": [
@@ -6615,6 +6651,7 @@
               "downloadURI": "/S151_MR_Approval_template.docx"
             },
             "signoff": {
+              "title": "Signoff",
               "description": "Attach your sign-off here",
               "type": "array",
               "uploadFile": "single",
