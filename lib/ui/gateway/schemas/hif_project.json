@@ -1564,11 +1564,16 @@ setCreate(formData, path('lastPeriod'), get(formData, path('profiles', -1, 'peri
       "title": "Section 151",
       "required": ["s151FundingEndDate", "s151ProjectLongstopDate"],
       "properties": {
-        "s151FundingEndDate": {
-          "type": "string",
-          "format": "date",
-          "laReadOnly": true,
-          "title": "HIF Funding End Date"
+        "s151FundingEndDateValidator": {
+          "type": "object",
+          "properties": {
+            "s151FundingEndDate": {
+              "type": "string",
+              "format": "date",
+              "laReadOnly": true,
+              "title": "HIF Funding End Date"
+            }
+          }
         },
         "s151ProjectLongstopDate": {
           "type": "string",
