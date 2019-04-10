@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema",
   "title": "HIF Project",
   "type": "object",
   "sharedData": [
@@ -6696,6 +6697,7 @@
         "housingStarts": {
           "type": "object",
           "title": "Housing Starts",
+          "required": ["anyChanges"],
           "properties": {
             "baselineAmounts": {
               "title": "Baseline Amounts",
@@ -6754,7 +6756,9 @@
                       "periods": true,
                       "title": "Current Return Amounts",
                       "items": {
+                        "title": "",
                         "type": "object",
+                        "required": ["currentReturnForecast"],
                         "properties": {
                           "period": {
                             "type": "string",
@@ -6797,6 +6801,7 @@
             "newYear": {
               "type": "object",
               "title": "In Year Housing Starts",
+              "required": ["setNewAmounts"],
               "properties": {
                 "setNewAmounts": {
                   "type": "string",
@@ -6812,6 +6817,7 @@
                 "setNewAmounts": {
                   "oneOf": [
                     {
+                      "required": ["newStarts"],
                       "properties": {
                         "setNewAmounts": {
                           "enum": [
@@ -6822,6 +6828,7 @@
                           "type": "object",
                           "horizontal": true,
                           "title": "This Years Forecasted Amounts",
+                          "required": ["quarter1", "quarter2", "quarter3", "quarter4"],
                           "properties": {
                             "quarter1": {
                               "type": "string",
@@ -7011,6 +7018,9 @@
             "anyChanges": {
               "oneOf": [
                 {
+                  "required": [
+                    "currentReturnAmounts"
+                  ],
                   "properties": {
                     "anyChanges": {
                       "enum": [
@@ -7022,7 +7032,9 @@
                       "periods": true,
                       "title": "Current Return Amounts",
                       "items": {
+                        "title": "",
                         "type": "object",
+                        "required": ["currentReturnForecast"],
                         "properties": {
                           "period": {
                             "type": "string",
@@ -7065,6 +7077,7 @@
             "newYear": {
               "type": "object",
               "title": "In Year Housing Completions",
+              "required": ["setNewAmounts"],
               "properties": {
                 "setNewAmounts": {
                   "type": "string",
@@ -7080,6 +7093,7 @@
                 "setNewAmounts": {
                   "oneOf": [
                     {
+                      "required": ["newCompletions"],
                       "properties": {
                         "setNewAmounts": {
                           "enum": [
@@ -7090,6 +7104,7 @@
                           "type": "object",
                           "horizontal": true,
                           "title": "This Years Forecasted Amounts",
+                          "required": ["quarter1", "quarter2", "quarter3", "quarter4"],
                           "properties": {
                             "quarter1": {
                               "type": "string",
@@ -7241,10 +7256,12 @@
           "siteOutputs": {
             "type": "object",
             "title": "Outputs",
+            "required": ["details", "ownership", "percentages", "starts"],
             "properties": {
               "details": {
                 "title": "",
                 "type": "object",
+                "required": ["size"],
                 "horizontal": true,
                 "properties": {
                   "localAuthority": {
@@ -7281,6 +7298,7 @@
                 "calculation": "set(formData['starts'], 'currentStarts', ''+sum(formData['starts'], 'previousStarts', 'startsSinceLastReturn')); set(formData['starts'], 'currentCompletions', ''+sum(formData['starts'], 'previousCompletions', 'completionsSinceLastReturn'));",
                 "properties": {
                   "starts": {
+                    "required": ["startsSinceLastReturn", "completionsSinceLastReturn"],
                     "type": "object",
                     "horizontal": true,
                     "title": "",
@@ -7321,6 +7339,7 @@
                 "type": "object",
                 "title": "",
                 "horizontal": true,
+                "required": ["laOwned", "pslLand"],
                 "properties": {
                   "laOwned": {
                     "type": "string",
@@ -7346,6 +7365,7 @@
                 "type": "object",
                 "title": "Percentage of the current years starts and completions that are:",
                 "horizontal": true,
+                "required": ["brownfieldPercent","leaseholdPercent","mmcPercent","smePercent"],
                 "properties": {
                   "brownfieldPercent": {
                     "type": "string",
