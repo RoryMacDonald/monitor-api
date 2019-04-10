@@ -1071,6 +1071,18 @@
                           "percentComplete"
                         ],
                         "properties": {
+                          "targetDateOfAchievingStart": {
+                            "type": "string",
+                            "title": "Start on Site",
+                            "sourceKey": [
+                              "baseline_data",
+                              "infrastructures",
+                              "expectedInfrastructureStart",
+                              "targetDateOfAchievingStart"
+                            ],
+                            "hidden": true,
+                            "readonly": true
+                          },
                           "baseline": {
                             "type": "string",
                             "format": "date",

@@ -86,7 +86,8 @@
         "nameOfContractor": "Steve",
         "procurementStatusAgainstLastReturn": {
           "previousReturn": null,
-          "statusAgainstLastReturn": "Complete"
+          "statusAgainstLastReturn": "Complete",
+          "targetDateOfAchievingStart": "2020-01-01"
         },
         "procurementCompletedDate": "23",
         "procurementCompletedNameOfContractor": "Mr"

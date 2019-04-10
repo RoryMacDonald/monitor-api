@@ -149,6 +149,7 @@ class UI::UseCase::ConvertUIHIFReturn
       new_procurement[:procurementCompletedNameOfContractor] = procurement[:procurementStatusAgainstLastReturn][:onCompletedNameOfContractor]
 
       new_procurement[:procurementStatusAgainstLastReturn] = {
+        targetDateOfAchievingStart: procurement[:procurementStatusAgainstLastReturn][:targetDateOfAchievingStart],
         statusAgainstLastReturn: procurement[:procurementStatusAgainstLastReturn][:status],
         currentReturn: procurement[:procurementStatusAgainstLastReturn][:current],
         reasonForVariance: procurement[:procurementStatusAgainstLastReturn][:reason],

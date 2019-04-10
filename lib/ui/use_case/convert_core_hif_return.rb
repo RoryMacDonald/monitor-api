@@ -135,6 +135,7 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless procurement[:procurementStatusAgainstLastReturn].nil?
       new_procurement[:procurementStatusAgainstLastReturn] = {
+        targetDateOfAchievingStart: procurement[:procurementStatusAgainstLastReturn][:targetDateOfAchievingStart],
         status: procurement[:procurementStatusAgainstLastReturn][:statusAgainstLastReturn],
         current: procurement[:procurementStatusAgainstLastReturn][:currentReturn],
         reason: procurement[:procurementStatusAgainstLastReturn][:reasonForVariance],

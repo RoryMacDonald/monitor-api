@@ -59,7 +59,10 @@
         "contractorProcured": "Yes",
         "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
-        "procurementBaselineCompletion": "2020-01-01"
+        "procurementBaselineCompletion": "2020-01-01",
+        "procurementStatusAgainstLastReturn": {
+          "targetDateOfAchievingStart": "2020-01-01"
+        }
       },
       "milestones": {
         "keyMilestones": [

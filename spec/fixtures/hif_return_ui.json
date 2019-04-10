@@ -121,6 +121,7 @@
         "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
         "procurementStatusAgainstLastReturn": {
+          "targetDateOfAchievingStart": "1970-01-01",
           "baseline": "2020-01-01",
           "procurementVarianceAgainstLastReturn": "Not Procured",
           "procurementVarianceAgainstBaseline": "Procured more than that",
