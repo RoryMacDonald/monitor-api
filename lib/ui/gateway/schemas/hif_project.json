@@ -3,6 +3,19 @@
   "title": "HIF Project",
   "type": "object",
   "required": ["summary", "infrastructures", "fundingProfiles", "costs", "recovery", "s151", "outputs", "rmBaseline"],
+  "sharedData": [
+    {
+      "from": [
+        "fundingProfiles",
+        "profilesHolder",
+        "lastPeriod"
+      ],
+      "to": [
+        "s151",
+        "lastPeriod"
+      ]
+    }
+  ],
   "properties": {
     "summary": {
       "type": "object",
@@ -1356,7 +1369,10 @@
       "properties": {
         "profilesHolder": {
           "type": "object",
-          "calculation": "formData ? periodTotal(formData, ['total'], 'profiles', 'instalment1', 'instalment2', 'instalment3', 'instalment4'): null;",
+          "calculation": "
+formData ? periodTotal(formData, ['total'], 'profiles', 'instalment1', 'instalment2', 'instalment3', 'instalment4'): null;
+setCreate(formData, path('lastPeriod'), get(formData, path('profiles', -1, 'period')));
+",
           "title": "",
           "required": ["profiles"],
           "properties": {
@@ -1405,6 +1421,10 @@
                   "instalment4"
                 ]
               }
+            },
+            "lastPeriod": {
+              "type": "string",
+              "hidden": true
             }
           }
         }
@@ -1555,6 +1575,10 @@
           "format": "date",
           "laReadOnly": true,
           "title": "Project Longstop date"
+        },
+        "lastPeriod": {
+          "type": "string",
+          "hidden": true
         }
       }
     },
