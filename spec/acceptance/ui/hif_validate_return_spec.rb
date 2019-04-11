@@ -23,16 +23,18 @@ describe 'Validates HIF return' do
       valid_return = get_use_case(:ui_validate_return).execute(type: 'hif', return_data: project_base_return_invalid)
       expect(valid_return[:valid]).to eq(false)
       expect(valid_return[:invalid_paths]).to eq([
-        [:infrastructures, 0, :planning, :outlinePlanning, :planningSubmitted, :percentComplete],
-        [:infrastructures, 0, :planning, :outlinePlanning, :planningGranted, :percentComplete],
-        [:infrastructures, 0, :planning, :fullPlanning, :submitted, :percentComplete],
-        [:infrastructures, 0, :planning, :fullPlanning, :granted, :percentComplete],
-        [:infrastructures, 0, :milestones, :keyMilestones, 0, :milestonePercentCompleted],
-        [:infrastructures, 0, :risks, :baselineRisks, 0, :riskMet],
-        [:fundingProfiles, :changeRequired],
-        [:fundingPackages, 0, :fundingStack, :totalCost, :anyChange],
-        [:s151Confirmation, :hifFunding, :cashflowConfirmation]
+          [:infrastructures, 0, :planning, :outlinePlanning, :planningSubmitted, :percentComplete],
+          [:infrastructures, 0, :planning, :outlinePlanning, :planningGranted, :percentComplete],
+          [:infrastructures, 0, :planning, :fullPlanning, :submitted, :percentComplete],
+          [:infrastructures, 0, :planning, :fullPlanning, :granted, :percentComplete],
+          [:infrastructures, 0, :milestones, :keyMilestones, 0, :milestonePercentCompleted],
+          [:infrastructures, 0, :risks, :baselineRisks, 0, :riskMet],
+          [:fundingProfiles, :changeRequired],
+          [:fundingPackages, 0, :fundingStack, :totalCost, :anyChange],
+          [:s151Confirmation, :hifFunding, :cashflowConfirmation],
+          [:s151Confirmation, :submission, :signoff]
       ])
+
       expect(valid_return[:pretty_invalid_paths]).to eq([
         ["HIF Project", "Infrastructures", "Infrastructure 1", "Planning", "Outline Planning", "Planning Permission Submitted", "Percent Complete"],
         ["HIF Project", "Infrastructures", "Infrastructure 1", "Planning", "Outline Planning", "Planning Permission Granted", "Percent Complete"],
@@ -42,7 +44,8 @@ describe 'Validates HIF return' do
         ["HIF Project", "Infrastructures", "Infrastructure 1", "Risks", "Baseline Risks", "Risk 1", "Risk Met?"],
         ["HIF Project", "HIF Grant Expenditure", "Change Required?"],
         ["HIF Project", "Funding Packages", "Funding for Infrastructure 1", "Funding stack", "", "Any change to baseline/ last return?"],
-        ["HIF Project", "s151 Confirmation", "HIF Funding and Profiles", "Please confirm you are content with the submitted project cashflows"]
+        ["HIF Project", "s151 Confirmation", "HIF Funding and Profiles", "Please confirm you are content with the submitted project cashflows"],
+        ["HIF Project", "s151 Confirmation", "Submission", "Signoff"]
       ])
     end
   end
