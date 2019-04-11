@@ -2243,7 +2243,27 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
-            "calculation": " setCreate(formData, path('hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'remaining'), String( (parseMoney( (get(formData, path('fundedThroughHIF','fundedThroughHIFCurrent')) === 'Yes') ? get(formData, path('totalCost', 'previousAmounts', 'baseline')) : get(formData, path('fundedThroughHIF', 'hifSpend', 'previousAmounts', 'baseline') ) ) - parseMoney( get(formData, path('hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'cumulativeIncCurrentReturn'))) ) ) ); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, path('anyChangeToDescription', 'updatedFundingStack'))) : set(formData, 'currentFundingStackDescription', get(formData, path('descriptionOfFundingStack'))); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData, path('totalCost', 'current'))), parseMoney(get(formData, path('totalCost', 'baseline')))));",
+            "calculation": "
+setCreate(formData,
+  path('hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'remaining'),
+  String(
+    (parseMoney(
+      (get(formData, path('fundedThroughHIF','fundedThroughHIFCurrent')) === 'Yes') ?
+        get(formData, path('totalCost', 'previousAmounts', 'baseline')) :
+        get(formData, path('fundedThroughHIF', 'hifSpend', 'previousAmounts', 'baseline')
+      )
+    ) -
+    parseMoney(
+      get(formData, path('hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'cumulativeIncCurrentReturn')))
+    )
+  )
+);
+
+get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ?
+  set(formData, 'currentFundingStackDescription', get(formData, path('anyChangeToDescription', 'updatedFundingStack'))) :
+  set(formData, 'currentFundingStackDescription', get(formData, path('descriptionOfFundingStack')));
+
+set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData, path('totalCost', 'current'))), parseMoney(get(formData, path('totalCost', 'baseline')))));",
             "properties": {
               "currentFundingStackDescription": {
                 "type": "string",
@@ -2259,7 +2279,21 @@
               "totalCost": {
                 "title": "",
                 "type": "object",
-                "calculation": " get(formData, 'anyChange') === 'Yes' ? setCreate(formData, path('variance', 'currentAmount'), get(formData, path('variance', 'current'))) : setCreate(formData, path('variance', 'currentAmount'), get(formData, path('previousAmounts', 'lastReturn'))); setCreate(formData, path('variance', 'baseline'), String(parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, path('previousAmounts', 'baseline')))) ); get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, path('variance', 'lastReturn'), String(parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, path('previousAmounts', 'lastReturn')))) ) : setCreate(formData, path('variance', 'lastReturn'), 'N/A');",
+                "calculation": "
+get(formData, 'anyChange') === 'Yes' ?
+  setCreate(formData, path('variance', 'currentAmount'), get(formData, path('variance', 'current'))) :
+  setCreate(formData, path('variance', 'currentAmount'), get(formData, path('previousAmounts', 'lastReturn')));
+
+setCreate(formData, path('variance', 'baseline'),
+  String(parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, path('previousAmounts', 'baseline'))))
+);
+
+get(formData,'previousAmounts', 'lastReturn') ?
+  setCreate(formData, path('variance', 'lastReturn'),
+    String(parseMoney(get(formData, 'variance', 'current')) -
+      parseMoney(get(formData, path('previousAmounts', 'lastReturn'))))
+  ) :
+  setCreate(formData, path('variance', 'lastReturn'), 'N/A');",
                 "required": [
                   "anyChange"
                 ],
@@ -2424,7 +2458,14 @@
               },
               "fundedThroughHIF": {
                 "type": "object",
-                "calculation": " get(formData, 'descriptionOfFundingStack') ? null : set(formData, 'descriptionOfFundingStack', 'N/A'); get(formData, 'anyChange', 'confirmation') === 'Yes' ? get(formData, 'fundedThroughHIFbaseline') === 'Yes' ? set(formData, 'fundedThroughHIFCurrent', 'No') : set(formData, 'fundedThroughHIFCurrent', 'Yes') : set(formData, 'fundedThroughHIFCurrent', get(formData, 'fundedThroughHIFbaseline'));",
+                "calculation": "
+                get(formData, 'descriptionOfFundingStack') ? null : set(formData, 'descriptionOfFundingStack', 'N/A');
+get(formData, 'anyChange', 'confirmation') === 'Yes' ?
+  get(formData, 'fundedThroughHIFbaseline') === 'Yes' ?
+    set(formData, 'fundedThroughHIFCurrent', 'No') :
+    set(formData, 'fundedThroughHIFCurrent', 'Yes')
+    :
+  set(formData, 'fundedThroughHIFCurrent', get(formData, 'fundedThroughHIFbaseline'));",
                 "title": "",
                 "properties": {
                   "fundedThroughHIFbaseline": {
@@ -2579,7 +2620,20 @@
                           },
                           "hifSpend": {
                             "title": "",
-                            "calculation": " get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, path('anyChangeToBaseline', 'variance', 'currentAmount'), get(formData, 'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, path('anyChangeToBaseline', 'variance', 'currentAmount'), get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, path('anyChangeToBaseline', 'variance', 'baseline'), String(parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current'))) - parseMoney(get(formData, 'previousAmounts', 'baseline')) ); get(formData, path('previousAmounts', 'lastReturn')) ? setCreate(formData, path('anyChangeToBaseline', 'variance', 'lastReturn'), String(parseMoney(get(formData, path('anyChangeToBaseline', 'variance', 'current'))) ) - parseMoney(get(formData, path('previousAmounts', 'lastReturn')))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
+                            "calculation": "
+get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ?
+  setCreate(formData, path('anyChangeToBaseline', 'variance', 'currentAmount'), get(formData, 'anyChangeToBaseline', 'variance', 'current')) :
+  setCreate(formData, path('anyChangeToBaseline', 'variance', 'currentAmount'), get(formData, 'previousAmounts', 'lastReturn'));
+
+setCreate(formData, path('anyChangeToBaseline', 'variance', 'baseline'),
+  String(parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current'))) -
+  parseMoney(get(formData, 'previousAmounts', 'baseline'))
+);
+get(formData, path('previousAmounts', 'lastReturn')) ?
+  setCreate(formData, path('anyChangeToBaseline', 'variance', 'lastReturn'),
+    String(parseMoney(get(formData, path('anyChangeToBaseline', 'variance', 'current')))
+  ) - parseMoney(get(formData, path('previousAmounts', 'lastReturn')))) :
+  setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
                             "type": "object",
                             "properties": {
                               "previousAmounts": {
@@ -2690,7 +2744,35 @@
                           "public": {
                             "title": "",
                             "type": "object",
-                            "calculation": " setCreate(formData, path('balancesSecured', 'securedAgainstBaseline'), calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))) ); (get(formData, 'balancesSecured', 'amountSecuredLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ? setCreate(formData, path('balancesSecured', 'increaseOnLastReturn'), '£ ' + ( ''+parseMoney(get(formData, 'balancesSecured', 'amountSecured')) - parseMoney(get(formData, 'balancesSecured', 'amountSecuredLastReturn')) ) ) : setCreate(formData, path('balancesSecured', 'increaseOnLastReturn'), ''); (get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ? setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''+get(formData, 'balancesSecured', 'securedAgainstBaseline') - get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn')) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''); get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured'))); setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A'); ",
+                            "calculation": "
+setCreate(formData, path('balancesSecured', 'securedAgainstBaseline'),
+  calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')),
+  parseMoney(get(formData, 'previousAmounts', 'baseline')))
+);
+
+(get(formData, 'balancesSecured', 'amountSecuredLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ?
+  setCreate(formData, path('balancesSecured', 'increaseOnLastReturn'),
+    '£ ' + (
+      ''+parseMoney(get(formData, 'balancesSecured', 'amountSecured')) - parseMoney(get(formData, 'balancesSecured', 'amountSecuredLastReturn'))
+    )
+  ) :
+  setCreate(formData, path('balancesSecured', 'increaseOnLastReturn'), '');
+
+(get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ?
+  setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''+get(formData, 'balancesSecured', 'securedAgainstBaseline') - get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn')) :
+  setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], '');
+
+get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ?
+  setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) :
+  setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn'));
+
+setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));
+setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));
+
+get(formData, 'previousAmounts', 'lastReturn') ?
+  setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) :
+  setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');
+",
                             "properties": {
                               "previousAmounts": {
                                 "type": "object",
