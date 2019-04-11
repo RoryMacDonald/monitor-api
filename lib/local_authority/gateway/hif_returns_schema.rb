@@ -75,6 +75,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   variance: true,
                                   required: ['percentComplete'],
                                   properties: {
+                                    targetDateOfAchievingStart: {
+                                      type: 'string',
+                                      title: 'Start on Site',
+                                      sourceKey: %i[baseline_data infrastructures expectedInfrastructureStart targetDateOfAchievingStart],
+                                      hidden: true,
+                                      readonly: true
+                                    },
                                     baseline: {
                                       type: 'string',
                                       format: 'date',
@@ -145,6 +152,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   type: 'object',
                                   variance: true,
                                   properties: {
+                                    targetDateOfAchievingStart: {
+                                      type: 'string',
+                                      title: 'Start on Site',
+                                      sourceKey: %i[baseline_data infrastructures expectedInfrastructureStart targetDateOfAchievingStart],
+                                      hidden: true,
+                                      readonly: true
+                                    },
                                     baseline: {
                                       type: 'string',
                                       format: 'date',
@@ -264,6 +278,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   type: 'object',
                                   variance: true,
                                   properties: {
+                                    targetDateOfAchievingStart: {
+                                      type: 'string',
+                                      title: 'Start on Site',
+                                      sourceKey: %i[baseline_data infrastructures expectedInfrastructureStart targetDateOfAchievingStart],
+                                      hidden: true,
+                                      readonly: true
+                                    },
                                     baseline: {
                                       type: 'string',
                                       format: 'date',
@@ -336,6 +357,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   type: 'object',
                                   variance: true,
                                   properties: {
+                                    targetDateOfAchievingStart: {
+                                      type: 'string',
+                                      title: 'Start on Site',
+                                      sourceKey: %i[baseline_data infrastructures expectedInfrastructureStart targetDateOfAchievingStart],
+                                      hidden: true,
+                                      readonly: true
+                                    },
                                     baseline: {
                                       type: 'string',
                                       format: 'date',
@@ -793,6 +821,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               type: 'object',
                               title: 'Procurement Status Against Last Return',
                               properties: {
+                                targetDateOfAchievingStart: {
+                                  type: 'string',
+                                  title: 'Start on Site',
+                                  sourceKey: %i[baseline_data infrastructures expectedInfrastructureStart targetDateOfAchievingStart],
+                                  hidden: true,
+                                  readonly: true
+                                },
                                 statusAgainstLastReturn: {
                                   title: 'Status Against Last Return?',
                                   type: 'string',
