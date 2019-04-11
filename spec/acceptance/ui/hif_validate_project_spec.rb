@@ -18,7 +18,7 @@ describe 'Validates HIF Project' do
 
     it 'should return invalid if fails validation' do
       valid_project = get_use_case(:ui_validate_project).execute(type: 'hif', project_data: invalid_project)
-      INVALID_PATH = [
+      invalid_paths = [
         %i[summary jointBidAuthorityAreas],
         %i[summary sitePlans],
         [:infrastructures, 0, :planningStatus, :planningStatus, :fullPlanningStatus, :granted],
@@ -28,7 +28,8 @@ describe 'Validates HIF Project' do
         [:outputs],
         [:rmBaseline]
       ].freeze
-      PRETTY_INVALID_PATH = [
+
+      pretty_invalid_paths = [
         ['HIF Project', 'Project Summary', 'Joint Bid Areas'],
         ['HIF Project', 'Project Summary', 'Site Plans'],
         ['HIF Project', 'Infrastructures', 'Infrastructure 1', 'Planning Status', '', 'Full Planning Status', 'Granted?'],
@@ -38,9 +39,10 @@ describe 'Validates HIF Project' do
         ['HIF Project', 'Outputs'],
         ['HIF Project', 'RM Baseline']
       ].freeze
+
       expect(valid_project[:valid]).to eq(false)
-      expect(valid_project[:invalid_paths]).to eq(INVALID_PATH)
-      expect(valid_project[:pretty_invalid_paths]).to eq(PRETTY_INVALID_PATH)
+      expect(valid_project[:invalid_paths]).to eq(invalid_paths)
+      expect(valid_project[:pretty_invalid_paths]).to eq(pretty_invalid_paths)
     end
   end
 end

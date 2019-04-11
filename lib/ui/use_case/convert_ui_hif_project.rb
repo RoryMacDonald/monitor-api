@@ -117,7 +117,7 @@ class UI::UseCase::ConvertUIHIFProject
 
       unless infrastructure[:landOwnership].nil?
         converted_infrastructure[:landOwnership] = {}
-        unless infrastructure[:landOwnership][:landControl].nil? 
+        unless infrastructure[:landOwnership][:landControl].nil?
           converted_infrastructure[:landOwnership][:underControlOfLA] = infrastructure[:landOwnership][:landControl][:underControlOfLA]
           converted_infrastructure[:landOwnership][:ownershipOfLandOtherThanLA] = infrastructure[:landOwnership][:landControl][:ownershipOfLandOtherThanLA]
         end
@@ -222,9 +222,11 @@ class UI::UseCase::ConvertUIHIFProject
     return if @project[:s151].nil?
 
     @converted_project[:s151] = {
-      s151FundingEndDate: @project[:s151][:s151FundingEndDate],
       s151ProjectLongstopDate: @project[:s151][:s151ProjectLongstopDate]
     }
+    unless @project[:s151][:s151FundingEndDateValidator].nil?
+      @converted_project[:s151][:s151FundingEndDate] = @project[:s151][:s151FundingEndDateValidator][:s151FundingEndDate]
+    end
   end
 
   def convert_outputs_forecast

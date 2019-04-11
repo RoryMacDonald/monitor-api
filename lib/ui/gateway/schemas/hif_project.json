@@ -1562,10 +1562,20 @@ setCreate(formData, path('lastPeriod'), get(formData, path('profiles', -1, 'peri
     "s151": {
       "type": "object",
       "title": "Section 151",
-      "required": ["s151FundingEndDate", "s151ProjectLongstopDate"],
+      "required": ["s151FundingEndDateValidator", "s151ProjectLongstopDate"],
+      "calculation": "
+setCreate(
+  formData,
+  path('s151FundingEndDateValidator', '_valid'),
+  (new Date(get(formData, 's151FundingEndDateValidator', 's151FundingEndDate')) >= new Date(get(formData, 'lastPeriod')))
+);
+",
       "properties": {
         "s151FundingEndDateValidator": {
           "type": "object",
+          "required": ["s151FundingEndDate"],
+          "validated": true,
+          "invalidText": "Date must not be before funding profile ends",
           "properties": {
             "s151FundingEndDate": {
               "type": "string",

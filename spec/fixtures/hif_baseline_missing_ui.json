@@ -115,7 +115,7 @@
   },
   "s151": {
     "s151FundingEndDateValidator": {
-      "s151FundingEndDate": "2020-01-01",
+      "s151FundingEndDate": "2020-01-01"
     },
     "s151ProjectLongstopDate": "2020-01-01"
   },

@@ -108,11 +108,11 @@ class UI::UseCase::ConvertCoreHIFProject
     end
 
     unless infrastructure[:statutoryConsents].nil?
-      
+
       converted_infrastructure[:planningStatus][:statutoryConsents] = {
         anyConsents: infrastructure[:statutoryConsents][:anyConsents]
       }
-      
+
       unless infrastructure[:statutoryConsents][:consents].nil?
         converted_infrastructure[:planningStatus][:statutoryConsents][:consents] = infrastructure[:statutoryConsents][:consents].map do |consent|
           {
@@ -230,7 +230,9 @@ class UI::UseCase::ConvertCoreHIFProject
     return if @project[:s151].nil?
 
     @converted_project[:s151] = {
-      s151FundingEndDate: @project[:s151][:s151FundingEndDate],
+      s151FundingEndDateValidator: {
+        s151FundingEndDate: @project[:s151][:s151FundingEndDate]
+      },
       s151ProjectLongstopDate: @project[:s151][:s151ProjectLongstopDate]
     }
   end
