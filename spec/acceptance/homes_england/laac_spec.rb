@@ -1,6 +1,6 @@
 require_relative '../shared_context/dependency_factory'
 
-describe "An LA-AC Project through the UI", focus: true do
+describe "An LA-AC Project through the UI" do
   include_context "dependency factory"
   let(:fixture_directory) { "#{__dir__}/../../fixtures" }
 
