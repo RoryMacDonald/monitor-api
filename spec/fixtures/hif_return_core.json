@@ -251,7 +251,7 @@
     "projectCashflows": "cashflows",
     "fundingRequest": [
       {
-        "period": "2019/2020",
+        "period": "2020",
         "forecast": {
           "instalment1": "1000",
           "instalment2": "1000",
@@ -264,7 +264,7 @@
     "currentFunding": {
       "forecast": [
         {
-          "period": "2019/2020",
+          "period": "2020",
           "instalment1": "1000",
           "instalment2": "1000",
           "instalment3": "1000",
@@ -278,7 +278,7 @@
     "mitigationInPlace": "buy more",
     "requestedProfiles": [
       {
-        "period": "2019/2020",
+        "period": "2020",
         "newProfile": {
           "instalment1": "1000",
           "instalment2": "1000",

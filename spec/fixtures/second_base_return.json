@@ -139,7 +139,7 @@
     "totalHIFGrant": "10000",
     "fundingRequest": [],
     "currentFunding": { "forecast": [] },
-    "requestedProfiles": [{ "period": "2019/2020" }, { "period": null }]
+    "requestedProfiles": [{ "period": "2020" }, { "period": null }]
   },
   "fundingPackages": [
     {
@@ -268,7 +268,7 @@
       "hifTotalFundingRequest": "10000",
       "hifFundingProfile": [
         {
-          "period": "2019/2020",
+          "period": "2020",
           "instalment1": "1000",
           "instalment2": "1000",
           "instalment3": "1000",

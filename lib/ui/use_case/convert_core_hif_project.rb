@@ -190,6 +190,7 @@ class UI::UseCase::ConvertCoreHIFProject
         total: profile[:total]
       }.compact
     end
+    @converted_project[:fundingProfiles][:profilesHolder][:lastPeriod] = @project[:lastFundingPeriod]
   end
 
   def convert_costs

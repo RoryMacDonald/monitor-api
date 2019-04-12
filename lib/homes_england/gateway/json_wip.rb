@@ -77,7 +77,7 @@
   ],
   financial: [
     {
-      period: '2019/2020',
+      period: '2020',
       instalments: [
         {
           dateOfInstalment: '2020-01-01',

@@ -168,6 +168,8 @@ class UI::UseCase::ConvertUIHIFProject
   def convert_funding_profiles
     return if @project[:fundingProfiles].nil?
     return if @project[:fundingProfiles][:profilesHolder].nil?
+    @converted_project[:lastFundingPeriod] = @project[:fundingProfiles][:profilesHolder][:lastPeriod]
+
     return if @project[:fundingProfiles][:profilesHolder][:profiles].nil?
 
     @converted_project[:fundingProfiles] = []
