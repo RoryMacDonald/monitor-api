@@ -1370,7 +1370,9 @@
         "profilesHolder": {
           "type": "object",
           "calculation": "
-formData ? periodTotal(formData, ['total'], 'profiles', 'instalment1', 'instalment2', 'instalment3', 'instalment4'): null;
+formData ?
+  periodTotal(formData, ['total'], 'profiles', 'instalment1', 'instalment2', 'instalment3', 'instalment4'):
+  null;
 setCreate(formData, path('lastPeriod'), get(formData, path('profiles', -1, 'period')));
 ",
           "title": "",
@@ -1567,7 +1569,7 @@ setCreate(formData, path('lastPeriod'), get(formData, path('profiles', -1, 'peri
 setCreate(
   formData,
   path('s151FundingEndDateValidator', '_valid'),
-  (new Date(get(formData, 's151FundingEndDateValidator', 's151FundingEndDate')) >= new Date(get(formData, 'lastPeriod')))
+  (date(get(formData, 's151FundingEndDateValidator', 's151FundingEndDate')) >= date(get(formData, 'lastPeriod')))
 );
 ",
       "properties": {
