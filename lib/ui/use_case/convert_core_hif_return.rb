@@ -47,7 +47,6 @@ class UI::UseCase::ConvertCoreHIFReturn
         planningSubmitted: planning[:outlinePlanning][:planningSubmitted],
         planningGranted: planning[:outlinePlanning][:planningGranted],
         reference: planning[:outlinePlanning][:reference]
-
       }
     end
 
@@ -136,6 +135,7 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless procurement[:procurementStatusAgainstLastReturn].nil?
       new_procurement[:procurementStatusAgainstLastReturn] = {
+        targetDateOfAchievingStart: procurement[:procurementStatusAgainstLastReturn][:targetDateOfAchievingStart],
         status: procurement[:procurementStatusAgainstLastReturn][:statusAgainstLastReturn],
         current: procurement[:procurementStatusAgainstLastReturn][:currentReturn],
         reason: procurement[:procurementStatusAgainstLastReturn][:reasonForVariance],
@@ -1089,7 +1089,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       unless @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring].nil?
         @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring] = @return[:reviewAndAssurance][:assuranceReview][:moreRegularMonitoring]
       end
-      
+
       @converted_return[:reviewAndAssurance][:commentary] = @return[:reviewAndAssurance][:assuranceReview][:commentary]
     end
   end

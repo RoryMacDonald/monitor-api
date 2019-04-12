@@ -1,14 +1,43 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema",
   "title": "HIF Project",
   "type": "object",
   "sharedData": [
     {
-      "from": ["outputsActuals", "#", "siteOutputs", "starts", "starts", "startsSinceLastReturn"],
-      "to": ["outputsForecast", "inYearHousingStarts", "actualAmounts", "liveStarts", "#", "startsPerSite"]
+      "from": [
+        "outputsActuals",
+        "#",
+        "siteOutputs",
+        "starts",
+        "starts",
+        "startsSinceLastReturn"
+      ],
+      "to": [
+        "outputsForecast",
+        "inYearHousingStarts",
+        "actualAmounts",
+        "liveStarts",
+        "#",
+        "startsPerSite"
+      ]
     },
     {
-      "from": ["outputsActuals", "#", "siteOutputs", "starts", "starts", "completionsSinceLastReturn"],
-      "to": ["outputsForecast", "inYearHousingCompletions", "actualAmounts", "liveCompletions", "#", "completionsPerSite"]
+      "from": [
+        "outputsActuals",
+        "#",
+        "siteOutputs",
+        "starts",
+        "starts",
+        "completionsSinceLastReturn"
+      ],
+      "to": [
+        "outputsForecast",
+        "inYearHousingCompletions",
+        "actualAmounts",
+        "liveCompletions",
+        "#",
+        "completionsPerSite"
+      ]
     }
   ],
   "properties": {
@@ -26,7 +55,11 @@
               "type": {
                 "type": "string",
                 "title": "Type",
-                "sourceKey": ["baseline_data", "infrastructures", "type"],
+                "sourceKey": [
+                  "baseline_data",
+                  "infrastructures",
+                  "type"
+                ],
                 "readonly": true
               },
               "description": {
@@ -42,7 +75,11 @@
               "housingSitesBenefitting": {
                 "type": "string",
                 "title": "Housing Sites Benefitting",
-                "sourceKey": ["baseline_data", "infrastructures", "type"],
+                "sourceKey": [
+                  "baseline_data",
+                  "infrastructures",
+                  "type"
+                ],
                 "readonly": true
               }
             }
@@ -67,7 +104,11 @@
                     ],
                     "readonly": true,
                     "radio": true,
-                    "enum": ["Yes", "No", "N/A"]
+                    "enum": [
+                      "Yes",
+                      "No",
+                      "N/A"
+                    ]
                   }
                 },
                 "dependencies": {
@@ -76,7 +117,9 @@
                       {
                         "properties": {
                           "baselineOutlinePlanningPermissionGranted": {
-                            "enum": ["No"]
+                            "enum": [
+                              "No"
+                            ]
                           },
                           "baselineSummaryOfCriticalPath": {
                             "type": "string",
@@ -93,8 +136,17 @@
                             "title": "Planning Permission Submitted",
                             "type": "object",
                             "variance": true,
-                            "required": ["percentComplete"],
+                            "required": [
+                              "percentComplete"
+                            ],
                             "properties": {
+                              "targetDateOfAchievingStart": {
+                                "type": "string",
+                                "title": "Start on Site",
+                                "sourceKey": ["infrastructures", "expectedInfrastructureStart", "targetDateOfAchievingStart"],
+                                "hidden": true,
+                                "readonly": true
+                              },
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
@@ -121,7 +173,13 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
+                                "enum": [
+                                  "Completed",
+                                  "On schedule",
+                                  "Delayed - minimal impact",
+                                  "Delayed - moderate impact",
+                                  "Delayed - critical"
+                                ],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -165,7 +223,17 @@
                             "title": "Planning Permission Granted",
                             "type": "object",
                             "variance": true,
+                            "required": [
+                              "percentComplete"
+                            ],
                             "properties": {
+                              "targetDateOfAchievingStart": {
+                                "type": "string",
+                                "title": "Start on Site",
+                                "sourceKey": ["infrastructures", "expectedInfrastructureStart", "targetDateOfAchievingStart"],
+                                "hidden": true,
+                                "readonly": true
+                              },
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
@@ -192,7 +260,13 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
+                                "enum": [
+                                  "Completed",
+                                  "On schedule",
+                                  "Delayed - minimal impact",
+                                  "Delayed - moderate impact",
+                                  "Delayed - critical"
+                                ],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -233,7 +307,9 @@
                       {
                         "properties": {
                           "baselineOutlinePlanningPermissionGranted": {
-                            "enum": ["Yes"]
+                            "enum": [
+                              "Yes"
+                            ]
                           },
                           "reference": {
                             "type": "string",
@@ -245,7 +321,9 @@
                       {
                         "properties": {
                           "baselineOutlinePlanningPermissionGranted": {
-                            "enum": ["N/A"]
+                            "enum": [
+                              "N/A"
+                            ]
                           }
                         }
                       }
@@ -269,7 +347,11 @@
                     ],
                     "readonly": true,
                     "radio": true,
-                    "enum": ["Yes", "No", "N/A"]
+                    "enum": [
+                      "Yes",
+                      "No",
+                      "N/A"
+                    ]
                   }
                 },
                 "dependencies": {
@@ -278,7 +360,11 @@
                       {
                         "type": "object",
                         "properties": {
-                          "fullPlanningPermissionGranted": { "enum": ["No"] },
+                          "fullPlanningPermissionGranted": {
+                            "enum": [
+                              "No"
+                            ]
+                          },
                           "fullPlanningPermissionSummaryOfCriticalPath": {
                             "type": "string",
                             "title": "Summary Of Full Planning Permission Critical Path",
@@ -294,7 +380,17 @@
                             "title": "Planning permission Submitted",
                             "type": "object",
                             "variance": true,
+                            "required": [
+                              "percentComplete"
+                            ],
                             "properties": {
+                              "targetDateOfAchievingStart": {
+                                "type": "string",
+                                "title": "Start on Site",
+                                "sourceKey": ["infrastructures", "expectedInfrastructureStart", "targetDateOfAchievingStart"],
+                                "hidden": true,
+                                "readonly": true
+                              },
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
@@ -321,7 +417,13 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
+                                "enum": [
+                                  "Completed",
+                                  "On schedule",
+                                  "Delayed - minimal impact",
+                                  "Delayed - moderate impact",
+                                  "Delayed - critical"
+                                ],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -365,7 +467,17 @@
                             "title": "Planning Permission Granted",
                             "type": "object",
                             "variance": true,
+                            "required": [
+                              "percentComplete"
+                            ],
                             "properties": {
+                              "targetDateOfAchievingStart": {
+                                "type": "string",
+                                "title": "Start on Site",
+                                "sourceKey": ["infrastructures", "expectedInfrastructureStart", "targetDateOfAchievingStart"],
+                                "hidden": true,
+                                "readonly": true
+                              },
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
@@ -392,7 +504,13 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
+                                "enum": [
+                                  "Completed",
+                                  "On schedule",
+                                  "Delayed - minimal impact",
+                                  "Delayed - moderate impact",
+                                  "Delayed - critical"
+                                ],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -432,7 +550,11 @@
                       },
                       {
                         "properties": {
-                          "fullPlanningPermissionGranted": { "enum": ["Yes"] },
+                          "fullPlanningPermissionGranted": {
+                            "enum": [
+                              "Yes"
+                            ]
+                          },
                           "reference": {
                             "type": "string",
                             "title": "Reference",
@@ -442,7 +564,11 @@
                       },
                       {
                         "properties": {
-                          "fullPlanningPermissionGranted": { "enum": ["N/A"] }
+                          "fullPlanningPermissionGranted": {
+                            "enum": [
+                              "N/A"
+                            ]
+                          }
                         }
                       }
                     ]
@@ -464,7 +590,10 @@
                     ],
                     "readonly": true,
                     "radio": true,
-                    "enum": ["Yes", "No"]
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ]
                   }
                 },
                 "dependencies": {
@@ -472,7 +601,11 @@
                     "oneOf": [
                       {
                         "properties": {
-                          "s106Requirement": { "enum": ["Yes"] },
+                          "s106Requirement": {
+                            "enum": [
+                              "Yes"
+                            ]
+                          },
                           "s106SummaryOfRequirement": {
                             "type": "string",
                             "title": "Summary of S016 Requirement ",
@@ -488,7 +621,11 @@
                       },
                       {
                         "properties": {
-                          "s106Requirement": { "enum": ["No"] }
+                          "s106Requirement": {
+                            "enum": [
+                              "No"
+                            ]
+                          }
                         }
                       }
                     ]
@@ -510,7 +647,10 @@
                     ],
                     "readonly": true,
                     "radio": true,
-                    "enum": ["Yes", "No"]
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ]
                   }
                 },
                 "dependencies": {
@@ -519,13 +659,16 @@
                       {
                         "properties": {
                           "anyStatutoryConsents": {
-                            "enum": ["Yes"]
+                            "enum": [
+                              "Yes"
+                            ]
                           },
                           "statutoryConsents": {
                             "title": "Status of Statutory Consents",
                             "type": "array",
                             "items": {
                               "type": "object",
+                              "title": "Statutory Consent",
                               "properties": {
                                 "detailsOfConsent": {
                                   "title": "Details of Consent",
@@ -536,6 +679,9 @@
                                   "type": "object",
                                   "title": "Status of Consent",
                                   "variance": true,
+                                  "required": [
+                                    "percentComplete"
+                                  ],
                                   "properties": {
                                     "baseline": {
                                       "title": "Baseline Target",
@@ -626,7 +772,9 @@
                       {
                         "properties": {
                           "anyStatutoryConsents": {
-                            "enum": ["No"]
+                            "enum": [
+                              "No"
+                            ]
                           }
                         }
                       }
@@ -655,7 +803,10 @@
                     ],
                     "readonly": true,
                     "radio": true,
-                    "enum": ["Yes", "No"]
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ]
                   }
                 },
                 "dependencies": {
@@ -663,7 +814,11 @@
                     "oneOf": [
                       {
                         "properties": {
-                          "laHasControlOfSite": { "enum": ["No"] },
+                          "laHasControlOfSite": {
+                            "enum": [
+                              "No"
+                            ]
+                          },
                           "laDoesNotControlSite": {
                             "type": "object",
                             "title": "Land ownership",
@@ -685,7 +840,11 @@
                       },
                       {
                         "properties": {
-                          "laHasControlOfSite": { "enum": ["Yes"] }
+                          "laHasControlOfSite": {
+                            "enum": [
+                              "Yes"
+                            ]
+                          }
                         }
                       }
                     ]
@@ -708,7 +867,10 @@
                     ],
                     "readonly": true,
                     "radio": true,
-                    "enum": ["Yes", "No"]
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ]
                   }
                 },
                 "dependencies": {
@@ -717,7 +879,9 @@
                       {
                         "properties": {
                           "landAcquisitionRequired": {
-                            "enum": ["Yes"]
+                            "enum": [
+                              "Yes"
+                            ]
                           },
                           "howManySitesToAquire": {
                             "type": "string",
@@ -755,6 +919,9 @@
                           "allLandAssemblyAchieved": {
                             "type": "object",
                             "title": "All land assembly achieved",
+                            "required": [
+                              "percentComplete"
+                            ],
                             "variance": true,
                             "properties": {
                               "baseline": {
@@ -822,7 +989,9 @@
                       {
                         "properties": {
                           "landAcquisitionRequired": {
-                            "enum": ["No"]
+                            "enum": [
+                              "No"
+                            ]
                           }
                         }
                       }
@@ -847,7 +1016,10 @@
                 ],
                 "readonly": true,
                 "radio": true,
-                "enum": ["Yes", "No"]
+                "enum": [
+                  "Yes",
+                  "No"
+                ]
               }
             },
             "dependencies": {
@@ -855,7 +1027,11 @@
                 "oneOf": [
                   {
                     "properties": {
-                      "contractorProcured": { "enum": ["Yes"] },
+                      "contractorProcured": {
+                        "enum": [
+                          "Yes"
+                        ]
+                      },
                       "nameOfContractor": {
                         "sourceKey": [
                           "baseline_data",
@@ -871,7 +1047,11 @@
                   },
                   {
                     "properties": {
-                      "contractorProcured": { "enum": ["No"] },
+                      "contractorProcured": {
+                        "enum": [
+                          "No"
+                        ]
+                      },
                       "summaryOfCriticalPath": {
                         "sourceKey": [
                           "baseline_data",
@@ -888,7 +1068,22 @@
                         "type": "object",
                         "title": "Infrastructure Contractor Procurement",
                         "variance": true,
+                        "required": [
+                          "percentComplete"
+                        ],
                         "properties": {
+                          "targetDateOfAchievingStart": {
+                            "type": "string",
+                            "title": "Start on Site",
+                            "sourceKey": [
+                              "baseline_data",
+                              "infrastructures",
+                              "expectedInfrastructureStart",
+                              "targetDateOfAchievingStart"
+                            ],
+                            "hidden": true,
+                            "readonly": true
+                          },
                           "baseline": {
                             "type": "string",
                             "format": "date",
@@ -918,7 +1113,13 @@
                             "title": "Status against last return?",
                             "type": "string",
                             "radio": true,
-                            "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
+                            "enum": [
+                              "Completed",
+                              "On schedule",
+                              "Delayed - minimal impact",
+                              "Delayed - moderate impact",
+                              "Delayed - critical"
+                            ],
                             "default": "On schedule"
                           },
                           "completedDate": {
@@ -972,7 +1173,11 @@
                 "title": "Key Project Milestones",
                 "items": {
                   "type": "object",
+                  "title": "Key Project Milestone",
                   "milestone": true,
+                  "required": [
+                    "milestonePercentCompleted"
+                  ],
                   "properties": {
                     "description": {
                       "sourceKey": [
@@ -1026,7 +1231,11 @@
                       "title": "Status against last return?",
                       "type": "string",
                       "radio": true,
-                      "enum": ["Completed", "On schedule", "Delayed"],
+                      "enum": [
+                        "Completed",
+                        "On schedule",
+                        "Delayed"
+                      ],
                       "default": "On schedule"
                     },
                     "currentReturn": {
@@ -1058,6 +1267,9 @@
                   "expectedInfrastructureStartOnSite": {
                     "type": "object",
                     "title": "Expected infrastructure start on site",
+                    "required": [
+                      "percentComplete"
+                    ],
                     "variance": true,
                     "properties": {
                       "baseline": {
@@ -1089,7 +1301,11 @@
                         "title": "Status against last return?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Completed", "On schedule", "Delayed"],
+                        "enum": [
+                          "Completed",
+                          "On schedule",
+                          "Delayed"
+                        ],
                         "default": "On schedule"
                       },
                       "current": {
@@ -1117,6 +1333,9 @@
                     "type": "object",
                     "title": "Expected Completion Date of Infrastructure",
                     "variance": true,
+                    "required": [
+                      "percentComplete"
+                    ],
                     "properties": {
                       "baseline": {
                         "sourceKey": [
@@ -1148,7 +1367,11 @@
                         "title": "Status against last return?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Completed", "On schedule", "Delayed"],
+                        "enum": [
+                          "Completed",
+                          "On schedule",
+                          "Delayed"
+                        ],
                         "default": "On schedule"
                       },
                       "current": {
@@ -1182,6 +1405,12 @@
                 "items": {
                   "type": "object",
                   "horizontal": true,
+                  "title": "Additional Milestone",
+                  "required": [
+                    "description",
+                    "milestoneBaselineCompletion",
+                    "milestoneSummaryOfCriticalPath"
+                  ],
                   "properties": {
                     "description": {
                       "type": "string",
@@ -1236,7 +1465,11 @@
                     "statusAgainstLastReturn": {
                       "type": "string",
                       "hidden": true,
-                      "enum": ["Completed", "On schedule", "Delayed"]
+                      "enum": [
+                        "Completed",
+                        "On schedule",
+                        "Delayed"
+                      ]
                     }
                   }
                 }
@@ -1247,6 +1480,9 @@
                 "items": {
                   "type": "object",
                   "milestone": true,
+                  "required": [
+                    "milestonePercentCompleted"
+                  ],
                   "properties": {
                     "description": {
                       "sourceKey": [
@@ -1305,7 +1541,11 @@
                       "title": "Status Against Last Return?",
                       "type": "string",
                       "radio": true,
-                      "enum": ["Completed", "On schedule", "Delayed"],
+                      "enum": [
+                        "Completed",
+                        "On schedule",
+                        "Delayed"
+                      ],
                       "default": "On schedule"
                     },
                     "currentReturn": {
@@ -1345,6 +1585,10 @@
                 "items": {
                   "type": "object",
                   "risk": true,
+                  "required": [
+                    "riskMet"
+                  ],
+                  "title": "Risk",
                   "properties": {
                     "riskBaselineRisk": {
                       "sourceKey": [
@@ -1382,7 +1626,13 @@
                     "riskCurrentReturnLikelihood": {
                       "type": "string",
                       "title": "Current Likelihood",
-                      "enum": ["1", "2", "3", "4", "5"]
+                      "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                      ]
                     },
                     "riskBaselineMitigationsInPlace": {
                       "sourceKey": [
@@ -1399,7 +1649,10 @@
                       "type": "string",
                       "title": "Any Change to Mitigation?",
                       "radio": true,
-                      "enum": ["Yes", "No"]
+                      "enum": [
+                        "Yes",
+                        "No"
+                      ]
                     },
                     "riskCurrentReturnMitigationsInPlace": {
                       "type": "string",
@@ -1408,7 +1661,10 @@
                     "riskMet": {
                       "type": "string",
                       "radio": true,
-                      "enum": ["Yes", "No"],
+                      "enum": [
+                        "Yes",
+                        "No"
+                      ],
                       "title": "Risk Met?"
                     },
                     "riskCompletionDate": {
@@ -1426,6 +1682,13 @@
                 "items": {
                   "type": "object",
                   "horizontal": true,
+                  "required": [
+                    "description",
+                    "impact",
+                    "likelihood",
+                    "mitigations"
+                  ],
+                  "title": "Additional Risk",
                   "properties": {
                     "description": {
                       "type": "string",
@@ -1434,12 +1697,24 @@
                     "impact": {
                       "type": "string",
                       "title": "Impact",
-                      "enum": ["1", "2", "3", "4", "5"]
+                      "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                      ]
                     },
                     "likelihood": {
                       "type": "string",
                       "title": "Likelihood",
-                      "enum": ["1", "2", "3", "4", "5"]
+                      "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                      ]
                     },
                     "mitigations": {
                       "type": "string",
@@ -1540,7 +1815,10 @@
                       "type": "string",
                       "title": "Any change in risk?",
                       "radio": true,
-                      "enum": ["Yes", "No"]
+                      "enum": [
+                        "Yes",
+                        "No"
+                      ]
                     },
                     "riskCurrentReturnMitigationsInPlace": {
                       "type": "string",
@@ -1562,6 +1840,9 @@
             "type": "object",
             "title": "Progress",
             "calculation": "setCreate(formData, ['carriedForward'], combineArrays(get(formData, 'actionsForNextQuarter'), filterForNos(get(formData, 'progressAgainstActions'), ['met'])));",
+            "required": [
+              "describeQuarterProgress"
+            ],
             "properties": {
               "describeQuarterProgress": {
                 "type": "string",
@@ -1573,6 +1854,9 @@
                 "items": {
                   "type": "object",
                   "horizontal": true,
+                  "required": [
+                    "met"
+                  ],
                   "properties": {
                     "description": {
                       "sourceKey": [
@@ -1590,7 +1874,10 @@
                       "type": "string",
                       "title": "Action Met?",
                       "radio": true,
-                      "enum": ["Yes", "No"]
+                      "enum": [
+                        "Yes",
+                        "No"
+                      ]
                     }
                   },
                   "dependencies": {
@@ -1602,17 +1889,24 @@
                               "type": "string",
                               "title": "Action Met?",
                               "radio": true,
-                              "enum": ["Yes"]
+                              "enum": [
+                                "Yes"
+                              ]
                             }
                           }
                         },
                         {
+                          "required": [
+                            "progress"
+                          ],
                           "properties": {
                             "met": {
                               "type": "string",
                               "title": "Action Met?",
                               "radio": true,
-                              "enum": ["No"]
+                              "enum": [
+                                "No"
+                              ]
                             },
                             "progress": {
                               "type": "string",
@@ -1629,8 +1923,13 @@
                 "type": "array",
                 "title": "Actions for next quarter",
                 "addable": true,
+                "minItems": 1,
                 "items": {
                   "type": "object",
+                  "title": "Action",
+                  "required": [
+                    "description"
+                  ],
                   "properties": {
                     "description": {
                       "type": "string",
@@ -1648,13 +1947,20 @@
       "type": "object",
       "title": "HIF Grant Expenditure",
       "calculation": "get(formData, 'changeRequired') === 'Change required' ? set(formData['currentFunding'], 'forecast', get(formData, 'requestedProfiles', 'newProfile')) : set(formData['currentFunding'], 'forecast', get(formData, 'fundingRequest', 'forecast')); validateCumulativeArrayPropertyIsLessThan(formData['requestedProfiles']['newProfile'], ['totalHolder', 'total'], parseMoney(get(formData, 'totalHIFGrant'))); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment1', formData['requestedProfiles']['newProfile'], 'instalment1', 'instalment1Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment2', formData['requestedProfiles']['newProfile'], 'instalment2', 'instalment2Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment3', formData['requestedProfiles']['newProfile'], 'instalment3', 'instalment3Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment4', formData['requestedProfiles']['newProfile'], 'instalment4', 'instalment4Variance');",
+      "required": [
+        "changeRequired"
+      ],
       "properties": {
         "totalHIFGrant": {
           "type": "string",
           "title": "Total HIF Grant",
           "readonly": true,
           "currency": true,
-          "sourceKey": ["baseline_data", "summary", "hifFundingAmount"]
+          "sourceKey": [
+            "baseline_data",
+            "summary",
+            "hifFundingAmount"
+          ]
         },
         "fundingRequest": {
           "type": "object",
@@ -1670,7 +1976,11 @@
                   "period": {
                     "title": "Period",
                     "type": "string",
-                    "sourceKey": ["baseline_data", "fundingProfiles", "period"],
+                    "sourceKey": [
+                      "baseline_data",
+                      "fundingProfiles",
+                      "period"
+                    ],
                     "readonly": true
                   },
                   "instalment1": {
@@ -1740,7 +2050,10 @@
           "title": "Change Required?",
           "description": "Please confirm there are no changes to be made to the funding profile",
           "radio": true,
-          "enum": ["Confirmed", "Change required"]
+          "enum": [
+            "Confirmed",
+            "Change required"
+          ]
         },
         "currentFunding": {
           "type": "object",
@@ -1796,8 +2109,17 @@
         "changeRequired": {
           "oneOf": [
             {
+              "required": [
+                "reasonForRequest",
+                "mitigationInPlace",
+                "requestedProfiles"
+              ],
               "properties": {
-                "changeRequired": { "enum": ["Change required"] },
+                "changeRequired": {
+                  "enum": [
+                    "Change required"
+                  ]
+                },
                 "reasonForRequest": {
                   "type": "string",
                   "title": "Reason for request",
@@ -1898,7 +2220,15 @@
                 }
               }
             },
-            { "properties": { "changeRequired": { "enum": ["Confirmed"] } } }
+            {
+              "properties": {
+                "changeRequired": {
+                  "enum": [
+                    "Confirmed"
+                  ]
+                }
+              }
+            }
           ]
         }
       }
@@ -1931,7 +2261,9 @@ setCreate(formData,
 
 get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ?
   set(formData, 'currentFundingStackDescription', get(formData, path('anyChangeToDescription', 'updatedFundingStack'))) :
-  set(formData, 'currentFundingStackDescription', get(formData, path('descriptionOfFundingStack'))); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData, path('totalCost', 'current'))), parseMoney(get(formData, path('totalCost', 'baseline')))));",
+  set(formData, 'currentFundingStackDescription', get(formData, path('descriptionOfFundingStack')));
+
+set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData, path('totalCost', 'current'))), parseMoney(get(formData, path('totalCost', 'baseline')))));",
             "properties": {
               "currentFundingStackDescription": {
                 "type": "string",
@@ -1962,6 +2294,9 @@ get(formData,'previousAmounts', 'lastReturn') ?
       parseMoney(get(formData, path('previousAmounts', 'lastReturn'))))
   ) :
   setCreate(formData, path('variance', 'lastReturn'), 'N/A');",
+                "required": [
+                  "anyChange"
+                ],
                 "properties": {
                   "previousAmounts": {
                     "type": "object",
@@ -1991,7 +2326,10 @@ get(formData,'previousAmounts', 'lastReturn') ?
                   "anyChange": {
                     "title": "Any change to baseline/ last return?",
                     "type": "string",
-                    "enum": ["Yes", "No"],
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ],
                     "radio": true
                   }
                 },
@@ -1999,14 +2337,23 @@ get(formData,'previousAmounts', 'lastReturn') ?
                   "anyChange": {
                     "oneOf": [
                       {
+                        "required": [
+                          "varianceReason",
+                          "areCostsFunded"
+                        ],
                         "properties": {
                           "anyChange": {
-                            "enum": ["Yes"]
+                            "enum": [
+                              "Yes"
+                            ]
                           },
                           "variance": {
                             "type": "object",
                             "title": "",
                             "horizontal": true,
+                            "required": [
+                              "current"
+                            ],
                             "properties": {
                               "current": {
                                 "type": "string",
@@ -2042,7 +2389,11 @@ get(formData,'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "type": "string",
                                 "title": "If costs have increased, are these funded?",
-                                "enum": ["Yes", "No", "N/A"],
+                                "enum": [
+                                  "Yes",
+                                  "No",
+                                  "N/A"
+                                ],
                                 "radio": true
                               }
                             },
@@ -2052,7 +2403,9 @@ get(formData,'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       },
                                       "fundingExplanation": {
                                         "title": "How are you intending to fund additional costs?",
@@ -2064,7 +2417,9 @@ get(formData,'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "description": {
                                         "title": "Desciption of how increased costs are funded",
@@ -2076,7 +2431,9 @@ get(formData,'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["N/A"]
+                                        "enum": [
+                                          "N/A"
+                                        ]
                                       }
                                     }
                                   }
@@ -2089,7 +2446,9 @@ get(formData,'previousAmounts', 'lastReturn') ?
                       {
                         "properties": {
                           "anyChange": {
-                            "enum": ["No"]
+                            "enum": [
+                              "No"
+                            ]
                           }
                         }
                       }
@@ -2113,7 +2472,10 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                     "type": "string",
                     "title": "Totally funded through HIF?",
                     "radio": true,
-                    "enum": ["Yes", "No"],
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ],
                     "readonly": true,
                     "sourceKey": [
                       "baseline_data",
@@ -2125,7 +2487,10 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                   "fundedThroughHIFCurrent": {
                     "type": "string",
                     "title": "Totally funded through HIF?",
-                    "enum": ["Yes", "No"],
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ],
                     "hidden": true,
                     "sourceKey": [
                       "baseline_data",
@@ -2141,7 +2506,10 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                       "confirmation": {
                         "type": "string",
                         "title": "Has position changed from baseline/ last return?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -2151,7 +2519,9 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                           {
                             "properties": {
                               "confirmation": {
-                                "enum": ["Yes"]
+                                "enum": [
+                                  "Yes"
+                                ]
                               },
                               "descriptionOfChange": {
                                 "type": "string",
@@ -2163,7 +2533,9 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                           {
                             "properties": {
                               "confirmation": {
-                                "enum": ["No"]
+                                "enum": [
+                                  "No"
+                                ]
                               }
                             }
                           }
@@ -2178,14 +2550,18 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                       {
                         "properties": {
                           "fundedThroughHIFCurrent": {
-                            "enum": ["Yes"]
+                            "enum": [
+                              "Yes"
+                            ]
                           }
                         }
                       },
                       {
                         "properties": {
                           "fundedThroughHIFCurrent": {
-                            "enum": ["No"]
+                            "enum": [
+                              "No"
+                            ]
                           },
                           "descriptionOfFundingStack": {
                             "type": "string",
@@ -2206,7 +2582,10 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                                 "title": "Any change to baseline/last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Yes", "No"]
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ]
                               }
                             },
                             "dependencies": {
@@ -2215,7 +2594,9 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedFundingStack": {
                                         "type": "string",
@@ -2227,7 +2608,9 @@ get(formData, 'anyChange', 'confirmation') === 'Yes' ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -2292,7 +2675,10 @@ get(formData, path('previousAmounts', 'lastReturn')) ?
                                   "confirmation": {
                                     "title": "Any change to baseline/ last return?",
                                     "type": "string",
-                                    "enum": ["Yes", "No"],
+                                    "enum": [
+                                      "Yes",
+                                      "No"
+                                    ],
                                     "radio": true
                                   }
                                 },
@@ -2302,7 +2688,9 @@ get(formData, path('previousAmounts', 'lastReturn')) ?
                                       {
                                         "properties": {
                                           "confirmation": {
-                                            "enum": ["Yes"]
+                                            "enum": [
+                                              "Yes"
+                                            ]
                                           },
                                           "variance": {
                                             "type": "object",
@@ -2340,7 +2728,11 @@ get(formData, path('previousAmounts', 'lastReturn')) ?
                                       },
                                       {
                                         "properties": {
-                                          "confirmation": { "enum": ["No"] }
+                                          "confirmation": {
+                                            "enum": [
+                                              "No"
+                                            ]
+                                          }
                                         }
                                       }
                                     ]
@@ -2414,7 +2806,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   "confirmation": {
                                     "title": "Any Change to Baseline/ Last Return.",
                                     "type": "string",
-                                    "enum": ["Yes", "No"],
+                                    "enum": [
+                                      "Yes",
+                                      "No"
+                                    ],
                                     "radio": true
                                   }
                                 },
@@ -2424,7 +2819,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                       {
                                         "properties": {
                                           "confirmation": {
-                                            "enum": ["Yes"]
+                                            "enum": [
+                                              "Yes"
+                                            ]
                                           },
                                           "variance": {
                                             "type": "object",
@@ -2463,7 +2860,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                       {
                                         "properties": {
                                           "confirmation": {
-                                            "enum": ["No"]
+                                            "enum": [
+                                              "No"
+                                            ]
                                           }
                                         }
                                       }
@@ -2581,7 +2980,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   "confirmation": {
                                     "title": "Any Change to Baseline/ Last Return.",
                                     "type": "string",
-                                    "enum": ["Yes", "No"],
+                                    "enum": [
+                                      "Yes",
+                                      "No"
+                                    ],
                                     "radio": true
                                   }
                                 },
@@ -2591,7 +2993,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                       {
                                         "properties": {
                                           "confirmation": {
-                                            "enum": ["Yes"]
+                                            "enum": [
+                                              "Yes"
+                                            ]
                                           },
                                           "variance": {
                                             "type": "object",
@@ -2630,7 +3034,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                       {
                                         "properties": {
                                           "confirmation": {
-                                            "enum": ["No"]
+                                            "enum": [
+                                              "No"
+                                            ]
                                           }
                                         }
                                       }
@@ -2726,7 +3132,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                 "title": "Are there any risks to the funding package?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Yes", "No"]
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ]
                               }
                             },
                             "dependencies": {
@@ -2734,7 +3143,11 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                 "oneOf": [
                                   {
                                     "properties": {
-                                      "risk": { "enum": ["Yes"] },
+                                      "risk": {
+                                        "enum": [
+                                          "Yes"
+                                        ]
+                                      },
                                       "description": {
                                         "title": "Description of risk",
                                         "type": "string"
@@ -2743,7 +3156,11 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   },
                                   {
                                     "properties": {
-                                      "risk": { "enum": ["No"] }
+                                      "risk": {
+                                        "enum": [
+                                          "No"
+                                        ]
+                                      }
                                     }
                                   }
                                 ]
@@ -2803,8 +3220,15 @@ get(formData, 'previousAmounts', 'lastReturn') ?
             "aimToRecoverFunding": {
               "title": "Aim to recover funding?",
               "radio": true,
-              "enum": ["Yes", "No"],
-              "sourceKey": ["baseline_data", "recovery", "aimToRecover"],
+              "enum": [
+                "Yes",
+                "No"
+              ],
+              "sourceKey": [
+                "baseline_data",
+                "recovery",
+                "aimToRecover"
+              ],
               "readonly": true
             }
           },
@@ -2815,7 +3239,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "properties": {
                     "aimToRecoverFunding": {
                       "type": "string",
-                      "enum": ["No"]
+                      "enum": [
+                        "No"
+                      ]
                     }
                   }
                 },
@@ -2823,7 +3249,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "properties": {
                     "aimToRecoverFunding": {
                       "type": "string",
-                      "enum": ["Yes"]
+                      "enum": [
+                        "Yes"
+                      ]
                     },
                     "expectedAmountToRecover": {
                       "type": "object",
@@ -2855,11 +3283,15 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         "changeToBaseline": {
                           "type": "object",
                           "title": "",
+                          "required":  ["confirmation"],
                           "properties": {
                             "confirmation": {
                               "title": "Any Change?",
                               "type": "string",
-                              "enum": ["Yes", "No"],
+                              "enum": [
+                                "Yes",
+                                "No"
+                              ],
                               "radio": true
                             }
                           },
@@ -2869,16 +3301,19 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                 {
                                   "properties": {
                                     "confirmation": {
-                                      "type": "string",
-                                      "enum": ["No"]
+                                      "enum": [
+                                        "No"
+                                      ]
                                     }
                                   }
                                 },
                                 {
+                                  "required": ["currentReturn", "reasonForVariance"],
                                   "properties": {
                                     "confirmation": {
-                                      "type": "string",
-                                      "enum": ["Yes"]
+                                      "enum": [
+                                        "Yes"
+                                      ]
                                     },
                                     "currentReturn": {
                                       "title": "Current Return",
@@ -2936,6 +3371,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "title": "Amount Recovered",
                           "type": "object",
                           "calculation": "set(formData, 'cumulative', add(get(formData, 'currentReturn'), get(formData, 'previousCumulator')));",
+                          "required": ["currentReturn", "useOfRecoveredFunding", "planAttachment"],
                           "properties": {
                             "currentReturn": {
                               "title": "Current Return",
@@ -3003,6 +3439,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
           "overview": {
             "type": "object",
             "title": "Overview",
+            "required": ["masterplan"],
             "properties": {
               "masterplan": {
                 "title": "Masterplan for Scheme",
@@ -3011,7 +3448,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "confirmation": {
                     "title": "Is there a masterplan for the scheme?",
                     "type": "string",
-                    "enum": ["Yes", "No"],
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ],
                     "radio": true
                   }
                 },
@@ -3021,7 +3461,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       {
                         "properties": {
                           "confirmation": {
-                            "enum": ["Yes"]
+                            "enum": [
+                              "Yes"
+                            ]
                           },
                           "planAttachment": {
                             "title": "",
@@ -3037,7 +3479,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       {
                         "properties": {
                           "confirmation": {
-                            "enum": ["No"]
+                            "enum": [
+                              "No"
+                            ]
                           }
                         }
                       }
@@ -3059,6 +3503,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
             "items": {
               "type": "object",
               "title": "Issue",
+              "required": ["description", "dates", "mitigationActions", "ratingAfterMitigation"],
               "properties": {
                 "description": {
                   "type": "string",
@@ -3069,6 +3514,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "type": "object",
                   "horizontal": true,
                   "title": "",
+                  "required": ["dateRaised", "estimatedCompletionDate"],
                   "properties": {
                     "dateRaised": {
                       "title": "Date raised",
@@ -3084,23 +3530,39 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 },
                 "currentdetails": {
                   "type": "object",
-                  "title": "",
                   "horizontal": true,
+                  "required": ["impact", "currentStatus", "currentReturnLikelihood"],
                   "properties": {
                     "impact": {
                       "title": "Impact",
                       "type": "string",
-                      "enum": ["1", "2", "3", "4", "5"]
+                      "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                      ]
                     },
                     "currentStatus": {
                       "title": "Current status",
                       "type": "string",
-                      "enum": ["Red", "Amber", "Green"]
+                      "enum": [
+                        "Red",
+                        "Amber",
+                        "Green"
+                      ]
                     },
                     "currentReturnLikelihood": {
                       "title": "Current return likelihood",
                       "type": "string",
-                      "enum": ["1", "2", "3", "4", "5"]
+                      "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                      ]
                     }
                   }
                 },
@@ -3112,13 +3574,19 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "ratingAfterMitigation": {
                   "title": "Likelihood after mitigation",
                   "type": "string",
-                  "enum": ["1", "2", "3", "4", "5"]
+                  "enum": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ]
                 }
               }
             }
           },
           "topRisks": {
-            "title": "Top Risks to delivery of housing",
+            "title": "Top Risks to Delivery of Housing",
             "type": "object",
             "properties": {
               "landAssembly": {
@@ -3134,7 +3602,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "liveRisk": {
                         "type": "string",
                         "title": "Live Risk?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -3146,7 +3617,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               },
                               "description": {
@@ -3162,7 +3635,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -3184,12 +3659,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               }
                             }
                           },
-
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3226,19 +3702,37 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
                                 "type": "string",
                                 "title": "Current Return Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"]
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ]
                               }
                             }
                           },
@@ -3255,7 +3749,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -3265,7 +3762,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedMeasures": {
                                         "title": "Updated Mitigation Measures",
@@ -3277,7 +3776,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -3288,7 +3789,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "riskAfterMitigation": {
                             "title": "Risk Rating after Mitigation",
                             "type": "string",
-                            "enum": ["1", "2", "3", "4", "5"]
+                            "enum": [
+                              "1",
+                              "2",
+                              "3",
+                              "4",
+                              "5"
+                            ]
                           },
                           "riskMet": {
                             "type": "object",
@@ -3297,7 +3804,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Risk Met?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -3307,7 +3817,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "dateMet": {
                                         "title": "Date Risk Met",
@@ -3319,7 +3831,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -3338,7 +3852,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -3362,7 +3878,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "liveRisk": {
                         "type": "string",
                         "title": "Live Risk?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -3374,7 +3893,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               },
                               "description": {
@@ -3390,7 +3911,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -3412,12 +3935,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               }
                             }
                           },
-
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3454,19 +3978,37 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
                                 "type": "string",
                                 "title": "Current Return Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"]
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ]
                               }
                             }
                           },
@@ -3483,7 +4025,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -3493,7 +4038,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedMeasures": {
                                         "title": "Updated Mitigation Measures",
@@ -3505,7 +4052,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -3516,7 +4065,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "riskAfterMitigation": {
                             "title": "Risk Rating after Mitigation",
                             "type": "string",
-                            "enum": ["1", "2", "3", "4", "5"]
+                            "enum": [
+                              "1",
+                              "2",
+                              "3",
+                              "4",
+                              "5"
+                            ]
                           },
                           "riskMet": {
                             "type": "object",
@@ -3525,7 +4080,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Risk Met?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -3535,7 +4093,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "dateMet": {
                                         "title": "Date Risk Met",
@@ -3547,7 +4107,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -3566,7 +4128,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -3590,7 +4154,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "liveRisk": {
                         "type": "string",
                         "title": "Live Risk?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -3602,7 +4169,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               },
                               "description": {
@@ -3618,7 +4187,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -3640,12 +4211,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               }
                             }
                           },
-
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3682,19 +4254,37 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
                                 "type": "string",
                                 "title": "Current Return Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"]
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ]
                               }
                             }
                           },
@@ -3711,7 +4301,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -3721,7 +4314,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedMeasures": {
                                         "title": "Updated Mitigation Measures",
@@ -3733,7 +4328,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -3744,7 +4341,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "riskAfterMitigation": {
                             "title": "Risk Rating after Mitigation",
                             "type": "string",
-                            "enum": ["1", "2", "3", "4", "5"]
+                            "enum": [
+                              "1",
+                              "2",
+                              "3",
+                              "4",
+                              "5"
+                            ]
                           },
                           "riskMet": {
                             "type": "object",
@@ -3753,7 +4356,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Risk Met?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -3763,7 +4369,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "dateMet": {
                                         "title": "Date Risk Met",
@@ -3775,7 +4383,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -3794,7 +4404,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -3818,7 +4430,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "liveRisk": {
                         "type": "string",
                         "title": "Live Risk?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -3830,7 +4445,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               },
                               "description": {
@@ -3846,7 +4463,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -3868,12 +4487,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               }
                             }
                           },
-
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3910,19 +4530,37 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
                                 "type": "string",
                                 "title": "Current Return Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"]
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ]
                               }
                             }
                           },
@@ -3939,7 +4577,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -3949,7 +4590,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedMeasures": {
                                         "title": "Updated Mitigation Measures",
@@ -3961,7 +4604,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -3972,7 +4617,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "riskAfterMitigation": {
                             "title": "Risk Rating after Mitigation",
                             "type": "string",
-                            "enum": ["1", "2", "3", "4", "5"]
+                            "enum": [
+                              "1",
+                              "2",
+                              "3",
+                              "4",
+                              "5"
+                            ]
                           },
                           "riskMet": {
                             "type": "object",
@@ -3981,7 +4632,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Risk Met?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -3991,7 +4645,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "dateMet": {
                                         "title": "Date Risk Met",
@@ -4003,7 +4659,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4022,7 +4680,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4046,7 +4706,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "liveRisk": {
                         "type": "string",
                         "title": "Live Risk?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -4058,7 +4721,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               },
                               "description": {
@@ -4074,7 +4739,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4096,12 +4763,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               }
                             }
                           },
-
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -4138,19 +4806,37 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
                                 "type": "string",
                                 "title": "Current Return Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"]
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ]
                               }
                             }
                           },
@@ -4167,7 +4853,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -4177,7 +4866,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedMeasures": {
                                         "title": "Updated Mitigation Measures",
@@ -4189,7 +4880,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4200,7 +4893,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "riskAfterMitigation": {
                             "title": "Risk Rating after Mitigation",
                             "type": "string",
-                            "enum": ["1", "2", "3", "4", "5"]
+                            "enum": [
+                              "1",
+                              "2",
+                              "3",
+                              "4",
+                              "5"
+                            ]
                           },
                           "riskMet": {
                             "type": "object",
@@ -4209,7 +4908,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Risk Met?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -4219,7 +4921,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "dateMet": {
                                         "title": "Date Risk Met",
@@ -4231,7 +4935,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4250,7 +4956,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4274,7 +4982,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "liveRisk": {
                         "type": "string",
                         "title": "Live Risk?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -4286,7 +4997,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               },
                               "description": {
@@ -4302,7 +5015,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4324,12 +5039,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               }
                             }
                           },
-
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -4366,19 +5082,37 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
                                 "type": "string",
                                 "title": "Current Return Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"]
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ]
                               }
                             }
                           },
@@ -4395,7 +5129,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -4405,7 +5142,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedMeasures": {
                                         "title": "Updated Mitigation Measures",
@@ -4417,7 +5156,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4428,7 +5169,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "riskAfterMitigation": {
                             "title": "Risk Rating after Mitigation",
                             "type": "string",
-                            "enum": ["1", "2", "3", "4", "5"]
+                            "enum": [
+                              "1",
+                              "2",
+                              "3",
+                              "4",
+                              "5"
+                            ]
                           },
                           "riskMet": {
                             "type": "object",
@@ -4437,7 +5184,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Risk Met?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -4447,7 +5197,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "dateMet": {
                                         "title": "Date Risk Met",
@@ -4459,7 +5211,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4478,7 +5232,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4502,7 +5258,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "liveRisk": {
                         "type": "string",
                         "title": "Live Risk?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -4514,7 +5273,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               },
                               "description": {
@@ -4530,7 +5291,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4552,12 +5315,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               }
                             }
                           },
-
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -4594,19 +5358,37 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
                                 "type": "string",
                                 "title": "Current Return Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"]
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ]
                               }
                             }
                           },
@@ -4623,7 +5405,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -4633,7 +5418,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedMeasures": {
                                         "title": "Updated Mitigation Measures",
@@ -4645,7 +5432,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4656,7 +5445,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "riskAfterMitigation": {
                             "title": "Risk Rating after Mitigation",
                             "type": "string",
-                            "enum": ["1", "2", "3", "4", "5"]
+                            "enum": [
+                              "1",
+                              "2",
+                              "3",
+                              "4",
+                              "5"
+                            ]
                           },
                           "riskMet": {
                             "type": "object",
@@ -4665,7 +5460,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Risk Met?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -4675,7 +5473,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "dateMet": {
                                         "title": "Date Risk Met",
@@ -4687,7 +5487,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4706,7 +5508,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4730,7 +5534,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "liveRisk": {
                         "type": "string",
                         "title": "Live Risk?",
-                        "enum": ["Yes", "No"],
+                        "enum": [
+                          "Yes",
+                          "No"
+                        ],
                         "radio": true
                       }
                     },
@@ -4742,7 +5549,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               },
                               "description": {
@@ -4758,7 +5567,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4780,12 +5591,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["Yes"],
+                                "enum": [
+                                  "Yes"
+                                ],
                                 "radio": true
                               }
                             }
                           },
-
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -4822,19 +5634,37 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"],
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
                                 "type": "string",
                                 "title": "Current Return Likelihood",
-                                "enum": ["1", "2", "3", "4", "5"]
+                                "enum": [
+                                  "1",
+                                  "2",
+                                  "3",
+                                  "4",
+                                  "5"
+                                ]
                               }
                             }
                           },
@@ -4851,7 +5681,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -4861,7 +5694,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "updatedMeasures": {
                                         "title": "Updated Mitigation Measures",
@@ -4873,7 +5708,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4884,7 +5721,13 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "riskAfterMitigation": {
                             "title": "Risk Rating after Mitigation",
                             "type": "string",
-                            "enum": ["1", "2", "3", "4", "5"]
+                            "enum": [
+                              "1",
+                              "2",
+                              "3",
+                              "4",
+                              "5"
+                            ]
                           },
                           "riskMet": {
                             "type": "object",
@@ -4893,7 +5736,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "confirmation": {
                                 "title": "Risk Met?",
                                 "type": "string",
-                                "enum": ["Yes", "No"],
+                                "enum": [
+                                  "Yes",
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             },
@@ -4903,7 +5749,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["Yes"]
+                                        "enum": [
+                                          "Yes"
+                                        ]
                                       },
                                       "dateMet": {
                                         "title": "Date Risk Met",
@@ -4915,7 +5763,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   {
                                     "properties": {
                                       "confirmation": {
-                                        "enum": ["No"]
+                                        "enum": [
+                                          "No"
+                                        ]
                                       }
                                     }
                                   }
@@ -4934,7 +5784,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "liveRisk": {
                                 "type": "string",
                                 "title": "Live Risk?",
-                                "enum": ["No"],
+                                "enum": [
+                                  "No"
+                                ],
                                 "radio": true
                               }
                             }
@@ -4946,7 +5798,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 }
               },
               "additionalRisks": {
-                "title": "Any additional Risks?",
+                "title": "Any Additional Risks?",
                 "description": "Click on the plus button to add additional risks.",
                 "type": "array",
                 "addable": true,
@@ -4954,16 +5806,21 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "type": "object",
                   "title": "",
                   "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
+                  "required": ["riskHolder"],
                   "properties": {
                     "riskHolder": {
                       "title": "Risk",
                       "horizontal": true,
                       "type": "object",
+                      "required": ["liveRisk"],
                       "properties": {
                         "liveRisk": {
                           "type": "string",
                           "title": "Live Risk?",
-                          "enum": ["Yes", "No"],
+                          "enum": [
+                            "Yes",
+                            "No"
+                          ],
                           "radio": true
                         }
                       },
@@ -4971,11 +5828,14 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         "liveRisk": {
                           "oneOf": [
                             {
+                              "required": ["liveRisk", "description"],
                               "properties": {
                                 "liveRisk": {
                                   "type": "string",
                                   "title": "Live Risk?",
-                                  "enum": ["Yes"],
+                                  "enum": [
+                                    "Yes"
+                                  ],
                                   "radio": true
                                 },
                                 "description": {
@@ -4987,11 +5847,14 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               }
                             },
                             {
+                              "required": ["liveRisk"],
                               "properties": {
                                 "liveRisk": {
                                   "type": "string",
                                   "title": "Live Risk?",
-                                  "enum": ["No"],
+                                  "enum": [
+                                    "No"
+                                  ],
                                   "radio": true
                                 }
                               }
@@ -5005,24 +5868,41 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     "riskHolder": {
                       "oneOf": [
                         {
+                          "required": [
+                            "riskHolder",
+                            "dates",
+                            "varianceAmount",
+                            "varianceReason",
+                            "ratings",
+                            "baselineMitigationMeasures",
+                            "anyChange",
+                            "riskAfterMitigation",
+                            "riskMet"
+                          ],
                           "properties": {
                             "riskHolder": {
                               "horizontal": true,
                               "type": "object",
+                              "required": ["liveRisk"],
                               "properties": {
                                 "liveRisk": {
                                   "type": "string",
                                   "title": "Live Risk?",
-                                  "enum": ["Yes"],
+                                  "enum": [
+                                    "Yes"
+                                  ],
                                   "radio": true
                                 }
                               }
                             },
-
                             "dates": {
                               "type": "object",
                               "title": "",
                               "horizontal": true,
+                              "required": [
+                                "expectedCompletion",
+                                "currentReturnCompletionDate"
+                              ],
                               "properties": {
                                 "expectedCompletion": {
                                   "type": "string",
@@ -5051,23 +5931,46 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                               "type": "object",
                               "horizontal": "true",
                               "title": "",
+                              "required": [
+                                "baselineImpact",
+                                "baselineLikelihood",
+                                "currentReturnLikelihood"
+                              ],
                               "properties": {
                                 "baselineImpact": {
                                   "type": "string",
                                   "title": "Baseline Impact",
-                                  "enum": ["1", "2", "3", "4", "5"],
+                                  "enum": [
+                                    "1",
+                                    "2",
+                                    "3",
+                                    "4",
+                                    "5"
+                                  ],
                                   "readonly": false
                                 },
                                 "baselineLikelihood": {
                                   "type": "string",
                                   "title": "Baseline Likelihood",
-                                  "enum": ["1", "2", "3", "4", "5"],
+                                  "enum": [
+                                    "1",
+                                    "2",
+                                    "3",
+                                    "4",
+                                    "5"
+                                  ],
                                   "readonly": false
                                 },
                                 "currentReturnLikelihood": {
                                   "type": "string",
                                   "title": "Current Return Likelihood",
-                                  "enum": ["1", "2", "3", "4", "5"]
+                                  "enum": [
+                                    "1",
+                                    "2",
+                                    "3",
+                                    "4",
+                                    "5"
+                                  ]
                                 }
                               }
                             },
@@ -5080,11 +5983,15 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                             "anyChange": {
                               "type": "object",
                               "title": " ",
+                              "required": ["confirmation"],
                               "properties": {
                                 "confirmation": {
                                   "title": "Any Change?",
                                   "type": "string",
-                                  "enum": ["Yes", "No"],
+                                  "enum": [
+                                    "Yes",
+                                    "No"
+                                  ],
                                   "radio": true
                                 }
                               },
@@ -5092,9 +5999,12 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                 "confirmation": {
                                   "oneOf": [
                                     {
+                                      "required": ["confirmation", "updatedMeasures"],
                                       "properties": {
                                         "confirmation": {
-                                          "enum": ["Yes"]
+                                          "enum": [
+                                            "Yes"
+                                          ]
                                         },
                                         "updatedMeasures": {
                                           "title": "Updated Mitigation Measures",
@@ -5104,9 +6014,12 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                       }
                                     },
                                     {
+                                      "required": ["confirmation"],
                                       "properties": {
                                         "confirmation": {
-                                          "enum": ["No"]
+                                          "enum": [
+                                            "No"
+                                          ]
                                         }
                                       }
                                     }
@@ -5117,16 +6030,26 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                             "riskAfterMitigation": {
                               "title": "Risk Rating after Mitigation",
                               "type": "string",
-                              "enum": ["1", "2", "3", "4", "5"]
+                              "enum": [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5"
+                              ]
                             },
                             "riskMet": {
                               "type": "object",
                               "title": " ",
+                              "required": ["confirmation"],
                               "properties": {
                                 "confirmation": {
                                   "title": "Risk Met?",
                                   "type": "string",
-                                  "enum": ["Yes", "No"],
+                                  "enum": [
+                                    "Yes",
+                                    "No"
+                                  ],
                                   "radio": true
                                 }
                               },
@@ -5134,9 +6057,12 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                 "confirmation": {
                                   "oneOf": [
                                     {
+                                      "required": ["confirmation", "dateMet"],
                                       "properties": {
                                         "confirmation": {
-                                          "enum": ["Yes"]
+                                          "enum": [
+                                            "Yes"
+                                          ]
                                         },
                                         "dateMet": {
                                           "title": "Date Risk Met",
@@ -5148,7 +6074,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                     {
                                       "properties": {
                                         "confirmation": {
-                                          "enum": ["No"]
+                                          "enum": [
+                                            "No"
+                                          ]
                                         }
                                       }
                                     }
@@ -5159,15 +6087,19 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           }
                         },
                         {
+                          "required": ["riskHolder"],
                           "properties": {
                             "riskHolder": {
                               "horizontal": true,
                               "type": "object",
+                              "required": ["riskHolder"],
                               "properties": {
                                 "liveRisk": {
                                   "type": "string",
                                   "title": "Live Risk?",
-                                  "enum": ["No"],
+                                  "enum": [
+                                    "No"
+                                  ],
                                   "radio": true
                                 }
                               }
@@ -5210,17 +6142,24 @@ get(formData, 'previousAmounts', 'lastReturn') ?
         "hifFunding": {
           "type": "object",
           "title": "HIF Funding and Profiles",
-          "required": ["cashflowConfirmation"],
+          "required": [
+            "cashflowConfirmation"
+          ],
           "properties": {
             "changesToRequest": {
               "title": "",
               "type": "object",
               "calculation": "setCreate(formData, ['variance'], '' + parseMoney(get(formData, 'requestedAmount')) - parseMoney(get(formData, 'hifTotalFundingRequest'))); setCreate(formData, ['varianceFromBaselinePercent'], ''+percentageDifference(parseMoney(get(formData, 'hifTotalFundingRequest')), parseMoney(get(formData, 'requestedAmount'))))",
+              "required": ["changesToRequestConfirmation"],
               "properties": {
                 "hifTotalFundingRequest": {
                   "type": "string",
                   "title": "HIF Total Funding Request",
-                  "sourceKey": ["baseline_data", "summary", "hifFundingAmount"],
+                  "sourceKey": [
+                    "baseline_data",
+                    "summary",
+                    "hifFundingAmount"
+                  ],
                   "readonly": true,
                   "currency": true
                 },
@@ -5229,7 +6168,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "title": "Please confirm there are no changes to the total HIF request",
                   "radio": true,
                   "s151WriteOnly": true,
-                  "enum": ["Confirmed", "Changes Required"]
+                  "enum": [
+                    "Confirmed",
+                    "Changes Required"
+                  ]
                 }
               },
               "dependencies": {
@@ -5238,14 +6180,24 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     {
                       "properties": {
                         "changesToRequestConfirmation": {
-                          "enum": ["Confirmed"]
+                          "enum": [
+                            "Confirmed"
+                          ]
                         }
                       }
                     },
                     {
+                      "required":  [
+                        "reasonForRequest",
+                        "requestedAmount",
+                        "evidenceOfVariance",
+                        "mitigationInPlace"
+                      ],
                       "properties": {
                         "changesToRequestConfirmation": {
-                          "enum": ["Changes Required"]
+                          "enum": [
+                            "Changes Required"
+                          ]
                         },
                         "reasonForRequest": {
                           "type": "string",
@@ -5301,7 +6253,11 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     "type": "string",
                     "title": "Period",
                     "readonly": true,
-                    "sourceKey": ["baseline_data", "fundingProfiles", "period"]
+                    "sourceKey": [
+                      "baseline_data",
+                      "fundingProfiles",
+                      "period"
+                    ]
                   },
                   "instalment1": {
                     "type": "string",
@@ -5352,7 +6308,11 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     "title": "Total",
                     "readonly": true,
                     "currency": true,
-                    "sourceKey": ["baseline_data", "fundingProfiles", "total"]
+                    "sourceKey": [
+                      "baseline_data",
+                      "fundingProfiles",
+                      "total"
+                    ]
                   },
                   "baselineVariance1": {
                     "type": "string",
@@ -5446,7 +6406,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "type": "string",
               "radio": true,
               "s151WriteOnly": true,
-              "enum": ["Yes", "No"]
+              "enum": [
+                "Yes",
+                "No"
+              ]
             }
           },
           "dependencies": {
@@ -5454,12 +6417,20 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "oneOf": [
                 {
                   "properties": {
-                    "changesToRequest": { "enum": ["Confirmed"] }
+                    "changesToRequest": {
+                      "enum": [
+                        "Confirmed"
+                      ]
+                    }
                   }
                 },
                 {
                   "properties": {
-                    "changesToRequest": { "enum": ["Changes Required"] },
+                    "changesToRequest": {
+                      "enum": [
+                        "Changes Required"
+                      ]
+                    },
                     "reasonForRequest": {
                       "type": "string",
                       "s151WriteOnly": true,
@@ -5495,7 +6466,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       "type": "string",
                       "s151WriteOnly": true,
                       "radio": true,
-                      "enum": ["Yes", "No"]
+                      "enum": [
+                        "Yes",
+                        "No"
+                      ]
                     }
                   }
                 }
@@ -5507,17 +6481,26 @@ get(formData, 'previousAmounts', 'lastReturn') ?
           "type": "object",
           "title": "Submission",
           "calculation": "set(formData['changesToEndDate'], 'varianceFromEndDateBaseline', weeksPassed(get(formData, 'hifFundingEndDate'), get(formData, 'changesToEndDate', 'requestedChangedEndDate'))); set(formData['changesToLongstopDate'], 'varianceFromLongStopBaseline', weeksPassed(get(formData, 'projectLongstopDate'), get(formData, 'changesToLongstopDate', 'requestedLongstopEndDate')));",
+          "required": [
+            "signoff"
+          ],
           "properties": {
             "changeToMilestones": {
               "title": "",
               "type": "object",
+              "required": [
+                "changeToMilestonesConfirmation"
+              ],
               "properties": {
                 "changeToMilestonesConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to contractual milestones",
                   "radio": true,
                   "s151WriteOnly": true,
-                  "enum": ["Confirmed", "Changes Required"]
+                  "enum": [
+                    "Confirmed",
+                    "Changes Required"
+                  ]
                 }
               },
               "dependencies": {
@@ -5526,14 +6509,23 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     {
                       "properties": {
                         "changeToMilestonesConfirmation": {
-                          "enum": ["Confirmed"]
+                          "enum": [
+                            "Confirmed"
+                          ]
                         }
                       }
                     },
                     {
+                      "required": [
+                        "reasonForRequestOfMilestoneChange",
+                        "requestedAmendments",
+                        "mitigationInPlaceMilestone"
+                      ],
                       "properties": {
                         "changeToMilestonesConfirmation": {
-                          "enum": ["Changes Required"]
+                          "enum": [
+                            "Changes Required"
+                          ]
                         },
                         "reasonForRequestOfMilestoneChange": {
                           "type": "string",
@@ -5560,18 +6552,26 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "type": "string",
               "title": "HIF Funding End Date",
               "readonly": true,
-              "sourceKey": ["baseline_data", "s151", "s151FundingEndDate"]
+              "sourceKey": [
+                "baseline_data",
+                "s151",
+                "s151FundingEndDate"
+              ]
             },
             "changesToEndDate": {
               "title": "",
               "type": "object",
+              "required": ["changesToEndDateConfirmation"],
               "properties": {
                 "changesToEndDateConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to Funding End Date",
                   "radio": true,
                   "s151WriteOnly": true,
-                  "enum": ["Confirmed", "Changes Required"]
+                  "enum": [
+                    "Confirmed",
+                    "Changes Required"
+                  ]
                 }
               },
               "dependencies": {
@@ -5580,14 +6580,24 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     {
                       "properties": {
                         "changesToEndDateConfirmation": {
-                          "enum": ["Confirmed"]
+                          "enum": [
+                            "Confirmed"
+                          ]
                         }
                       }
                     },
                     {
+                      "required": [
+                        "reasonForRequestOfDateChange",
+                        "requestedChangedEndDate",
+                        "mitigationInPlaceEndDate",
+                        "evidenceUpload"
+                      ],
                       "properties": {
                         "changesToEndDateConfirmation": {
-                          "enum": ["Changes Required"]
+                          "enum": [
+                            "Changes Required"
+                          ]
                         },
                         "reasonForRequestOfDateChange": {
                           "type": "string",
@@ -5615,6 +6625,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
                           "uploadFile": "multiple",
                           "type": "array",
+                          "minItems": 1,
                           "s151WriteOnly": true,
                           "items": {
                             "type": "string"
@@ -5630,18 +6641,26 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "type": "string",
               "title": "Project Longstop Date",
               "readonly": true,
-              "sourceKey": ["baseline_data", "s151", "s151ProjectLongstopDate"]
+              "sourceKey": [
+                "baseline_data",
+                "s151",
+                "s151ProjectLongstopDate"
+              ]
             },
             "changesToLongstopDate": {
               "title": "",
               "type": "object",
+              "required": ["changesToLongstopDateConfirmation"],
               "properties": {
                 "changesToLongstopDateConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to project completion date",
                   "radio": true,
                   "s151WriteOnly": true,
-                  "enum": ["Confirmed", "Changes Required"]
+                  "enum": [
+                    "Confirmed",
+                    "Changes Required"
+                  ]
                 }
               },
               "dependencies": {
@@ -5650,14 +6669,24 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     {
                       "properties": {
                         "changesToLongstopDateConfirmation": {
-                          "enum": ["Confirmed"]
+                          "enum": [
+                            "Confirmed"
+                          ]
                         }
                       }
                     },
                     {
+                      "required": [
+                        "reasonForRequestOfLongstopChange",
+                        "requestedLongstopEndDate",
+                        "mitigationInPlaceLongstopDate",
+                        "evidenceUploadLongstopDate"
+                      ],
                       "properties": {
                         "changesToLongstopDateConfirmation": {
-                          "enum": ["Changes Required"]
+                          "enum": [
+                            "Changes Required"
+                          ]
                         },
                         "reasonForRequestOfLongstopChange": {
                           "type": "string",
@@ -5685,6 +6714,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
                           "uploadFile": "multiple",
                           "type": "array",
+                          "minItems": 1,
                           "s151WriteOnly": true,
                           "items": {
                             "type": "string"
@@ -5699,33 +6729,49 @@ get(formData, 'previousAmounts', 'lastReturn') ?
             "recoverFunding": {
               "title": "",
               "type": "object",
+              "required": ["recoverFundingConfirmation"],
               "properties": {
                 "recoverFundingConfirmation": {
                   "type": "string",
                   "title": "Has any funding been recovered since last return?",
                   "s151WriteOnly": true,
                   "radio": true,
-                  "enum": ["Yes", "No"]
+                  "enum": [
+                    "Yes",
+                    "No"
+                  ]
                 }
               },
               "dependencies": {
                 "recoverFundingConfirmation": {
                   "oneOf": [
                     {
+                      "required": ["usedOnFutureHosuing"],
                       "properties": {
-                        "recoverFundingConfirmation": { "enum": ["Yes"] },
+                        "recoverFundingConfirmation": {
+                          "enum": [
+                            "Yes"
+                          ]
+                        },
                         "usedOnFutureHosuing": {
                           "type": "string",
                           "title": "Will/Has this been used on future housing?",
                           "radio": true,
                           "s151WriteOnly": true,
-                          "enum": ["Yes", "No"]
+                          "enum": [
+                            "Yes",
+                            "No"
+                          ]
                         }
                       }
                     },
                     {
                       "properties": {
-                        "recoverFundingConfirmation": { "enum": ["No"] }
+                        "recoverFundingConfirmation": {
+                          "enum": [
+                            "No"
+                          ]
+                        }
                       }
                     }
                   ]
@@ -5740,6 +6786,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "downloadURI": "/S151_MR_Approval_template.docx"
             },
             "signoff": {
+              "title": "Signoff",
               "description": "Attach your sign-off here",
               "type": "array",
               "uploadFile": "single",
@@ -5763,7 +6810,11 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "type": "string",
               "title": "Total Units",
               "readonly": true,
-              "sourceKey": ["baseline_data", "outputsForecast", "totalUnits"]
+              "sourceKey": [
+                "baseline_data",
+                "outputsForecast",
+                "totalUnits"
+              ]
             },
             "disposalStrategy": {
               "type": "string",
@@ -5781,6 +6832,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
         "housingStarts": {
           "type": "object",
           "title": "Housing Starts",
+          "required": ["anyChanges"],
           "properties": {
             "baselineAmounts": {
               "title": "Baseline Amounts",
@@ -5818,7 +6870,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "title": "Any changes to baseline amounts?",
               "type": "string",
               "radio": true,
-              "enum": ["Yes", "No"]
+              "enum": [
+                "Yes",
+                "No"
+              ]
             }
           },
           "dependencies": {
@@ -5826,13 +6881,19 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "oneOf": [
                 {
                   "properties": {
-                    "anyChanges": { "enum": ["Yes"] },
+                    "anyChanges": {
+                      "enum": [
+                        "Yes"
+                      ]
+                    },
                     "currentReturnAmounts": {
                       "type": "array",
                       "periods": true,
                       "title": "Current Return Amounts",
                       "items": {
+                        "title": "",
                         "type": "object",
+                        "required": ["currentReturnForecast"],
                         "properties": {
                           "period": {
                             "type": "string",
@@ -5854,7 +6915,15 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     }
                   }
                 },
-                { "properties": { "anyChanges": { "enum": ["No"] } } }
+                {
+                  "properties": {
+                    "anyChanges": {
+                      "enum": [
+                        "No"
+                      ]
+                    }
+                  }
+                }
               ]
             }
           }
@@ -5867,6 +6936,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
             "newYear": {
               "type": "object",
               "title": "In Year Housing Starts",
+              "required": ["setNewAmounts"],
               "properties": {
                 "setNewAmounts": {
                   "type": "string",
@@ -5882,14 +6952,18 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "setNewAmounts": {
                   "oneOf": [
                     {
+                      "required": ["newStarts"],
                       "properties": {
                         "setNewAmounts": {
-                          "enum": ["Set this years target."]
+                          "enum": [
+                            "Set this years target."
+                          ]
                         },
                         "newStarts": {
                           "type": "object",
                           "horizontal": true,
                           "title": "This Years Forecasted Amounts",
+                          "required": ["quarter1", "quarter2", "quarter3", "quarter4"],
                           "properties": {
                             "quarter1": {
                               "type": "string",
@@ -5914,7 +6988,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     {
                       "properties": {
                         "setNewAmounts": {
-                          "enum": ["This years target has already been set."]
+                          "enum": [
+                            "This years target has already been set."
+                          ]
                         }
                       }
                     }
@@ -6067,21 +7143,33 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "title": "Any changes to baseline amounts?",
               "type": "string",
               "radio": true,
-              "enum": ["Yes", "No"]
+              "enum": [
+                "Yes",
+                "No"
+              ]
             }
           },
           "dependencies": {
             "anyChanges": {
               "oneOf": [
                 {
+                  "required": [
+                    "currentReturnAmounts"
+                  ],
                   "properties": {
-                    "anyChanges": { "enum": ["Yes"] },
+                    "anyChanges": {
+                      "enum": [
+                        "Yes"
+                      ]
+                    },
                     "currentReturnAmounts": {
                       "type": "array",
                       "periods": true,
                       "title": "Current Return Amounts",
                       "items": {
+                        "title": "",
                         "type": "object",
+                        "required": ["currentReturnForecast"],
                         "properties": {
                           "period": {
                             "type": "string",
@@ -6103,7 +7191,15 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     }
                   }
                 },
-                { "properties": { "anyChanges": { "enum": ["No"] } } }
+                {
+                  "properties": {
+                    "anyChanges": {
+                      "enum": [
+                        "No"
+                      ]
+                    }
+                  }
+                }
               ]
             }
           }
@@ -6116,6 +7212,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
             "newYear": {
               "type": "object",
               "title": "In Year Housing Completions",
+              "required": ["setNewAmounts"],
               "properties": {
                 "setNewAmounts": {
                   "type": "string",
@@ -6131,14 +7228,18 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "setNewAmounts": {
                   "oneOf": [
                     {
+                      "required": ["newCompletions"],
                       "properties": {
                         "setNewAmounts": {
-                          "enum": ["Set this years target."]
+                          "enum": [
+                            "Set this years target."
+                          ]
                         },
                         "newCompletions": {
                           "type": "object",
                           "horizontal": true,
                           "title": "This Years Forecasted Amounts",
+                          "required": ["quarter1", "quarter2", "quarter3", "quarter4"],
                           "properties": {
                             "quarter1": {
                               "type": "string",
@@ -6163,7 +7264,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                     {
                       "properties": {
                         "setNewAmounts": {
-                          "enum": ["This years target has already been set."]
+                          "enum": [
+                            "This years target has already been set."
+                          ]
                         }
                       }
                     }
@@ -6288,10 +7391,12 @@ get(formData, 'previousAmounts', 'lastReturn') ?
           "siteOutputs": {
             "type": "object",
             "title": "Outputs",
+            "required": ["details", "ownership", "percentages", "starts"],
             "properties": {
               "details": {
                 "title": "",
                 "type": "object",
+                "required": ["size"],
                 "horizontal": true,
                 "properties": {
                   "localAuthority": {
@@ -6328,6 +7433,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "calculation": "set(formData['starts'], 'currentStarts', ''+sum(formData['starts'], 'previousStarts', 'startsSinceLastReturn')); set(formData['starts'], 'currentCompletions', ''+sum(formData['starts'], 'previousCompletions', 'completionsSinceLastReturn'));",
                 "properties": {
                   "starts": {
+                    "required": ["startsSinceLastReturn", "completionsSinceLastReturn"],
                     "type": "object",
                     "horizontal": true,
                     "title": "",
@@ -6339,7 +7445,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       },
                       "currentStarts": {
                         "type": "string",
-                        "title": "Previous Starts",
+                        "title": "Current Starts",
                         "hidden": true
                       },
                       "startsSinceLastReturn": {
@@ -6353,7 +7459,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                       },
                       "currentCompletions": {
                         "type": "string",
-                        "title": "Previous Completions",
+                        "title": "Current Completions",
                         "hidden": true
                       },
                       "completionsSinceLastReturn": {
@@ -6368,18 +7474,25 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "type": "object",
                 "title": "",
                 "horizontal": true,
+                "required": ["laOwned", "pslLand"],
                 "properties": {
                   "laOwned": {
                     "type": "string",
                     "title": "Local Authority owned land?",
                     "radio": true,
-                    "enum": ["Yes", "No"]
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ]
                   },
                   "pslLand": {
                     "type": "string",
                     "radio": true,
                     "title": "Public Sector Land?",
-                    "enum": ["Yes", "No"]
+                    "enum": [
+                      "Yes",
+                      "No"
+                    ]
                   }
                 }
               },
@@ -6387,6 +7500,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "type": "object",
                 "title": "Percentage of the current years starts and completions that are:",
                 "horizontal": true,
+                "required": ["brownfieldPercent","leaseholdPercent","mmcPercent","smePercent"],
                 "properties": {
                   "brownfieldPercent": {
                     "type": "string",
@@ -6438,7 +7552,11 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "type": "string",
                 "title": "Overall RAG Rating for Scheme",
                 "radio": true,
-                "enum": ["Red", "Amber", "Green"]
+                "enum": [
+                  "Red",
+                  "Amber",
+                  "Green"
+                ]
               },
               "redBarriers": {
                 "type": "array",
@@ -6471,7 +7589,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Other"]
+                              "enum": [
+                                "Other"
+                              ]
                             },
                             "description": {
                               "type": "string",
@@ -6488,7 +7608,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Land acquisition"]
+                              "enum": [
+                                "Land acquisition"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6500,7 +7622,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Site Access- Road"]
+                              "enum": [
+                                "Site Access- Road"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6512,7 +7636,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Site Access- Railway"]
+                              "enum": [
+                                "Site Access- Railway"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6524,7 +7650,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Flood risk"]
+                              "enum": [
+                                "Flood risk"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6536,7 +7664,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Funding- sources/ cashflow"]
+                              "enum": [
+                                "Funding- sources/ cashflow"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6548,7 +7678,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Planning"]
+                              "enum": [
+                                "Planning"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6560,7 +7692,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Land Remediation"]
+                              "enum": [
+                                "Land Remediation"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6572,7 +7706,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Utilities Provision"]
+                              "enum": [
+                                "Utilities Provision"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6584,7 +7720,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Procurement"]
+                              "enum": [
+                                "Procurement"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6629,7 +7767,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Other"]
+                              "enum": [
+                                "Other"
+                              ]
                             },
                             "description": {
                               "type": "string",
@@ -6646,7 +7786,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Land acquisition"]
+                              "enum": [
+                                "Land acquisition"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6658,7 +7800,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Site Access- Road"]
+                              "enum": [
+                                "Site Access- Road"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6670,7 +7814,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Site Access- Railway"]
+                              "enum": [
+                                "Site Access- Railway"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6682,7 +7828,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Flood risk"]
+                              "enum": [
+                                "Flood risk"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6694,7 +7842,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Funding- sources/ cashflow"]
+                              "enum": [
+                                "Funding- sources/ cashflow"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6706,7 +7856,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Planning"]
+                              "enum": [
+                                "Planning"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6718,7 +7870,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Land Remediation"]
+                              "enum": [
+                                "Land Remediation"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6730,7 +7884,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Utilities Provision"]
+                              "enum": [
+                                "Utilities Provision"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6742,7 +7898,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         {
                           "properties": {
                             "barrier": {
-                              "enum": ["Procurement"]
+                              "enum": [
+                                "Procurement"
+                              ]
                             },
                             "overview": {
                               "type": "string",
@@ -6789,7 +7947,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
             "meetingHeld": {
               "type": "string",
               "title": "Quarterly meeting held?",
-              "enum": ["Yes", "No"],
+              "enum": [
+                "Yes",
+                "No"
+              ],
               "radio": true,
               "heAlwaysWritable": true
             }
@@ -6801,7 +7962,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "properties": {
                     "meetingHeld": {
                       "heAlwaysWritable": true,
-                      "enum": ["Yes"]
+                      "enum": [
+                        "Yes"
+                      ]
                     },
                     "date": {
                       "title": "Date",
@@ -6815,7 +7978,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "properties": {
                     "meetingHeld": {
                       "heAlwaysWritable": true,
-                      "enum": ["No"]
+                      "enum": [
+                        "No"
+                      ]
                     }
                   }
                 }
@@ -7002,7 +8167,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Land acquisition"]
+                            "enum": [
+                              "Land acquisition"
+                            ]
                           }
                         }
                       },
@@ -7011,7 +8178,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Site Access - Road"]
+                            "enum": [
+                              "Site Access - Road"
+                            ]
                           }
                         }
                       },
@@ -7020,7 +8189,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Site Access - Railway"]
+                            "enum": [
+                              "Site Access - Railway"
+                            ]
                           }
                         }
                       },
@@ -7029,7 +8200,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Flood risk"]
+                            "enum": [
+                              "Flood risk"
+                            ]
                           }
                         }
                       },
@@ -7038,7 +8211,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Funding - sources / cashflow"]
+                            "enum": [
+                              "Funding - sources / cashflow"
+                            ]
                           }
                         }
                       },
@@ -7047,7 +8222,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Planning"]
+                            "enum": [
+                              "Planning"
+                            ]
                           }
                         }
                       },
@@ -7056,7 +8233,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Land Remediation"]
+                            "enum": [
+                              "Land Remediation"
+                            ]
                           }
                         }
                       },
@@ -7065,7 +8244,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Utilities Provision"]
+                            "enum": [
+                              "Utilities Provision"
+                            ]
                           }
                         }
                       },
@@ -7074,7 +8255,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Procurement"]
+                            "enum": [
+                              "Procurement"
+                            ]
                           }
                         }
                       },
@@ -7083,7 +8266,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Other"]
+                            "enum": [
+                              "Other"
+                            ]
                           },
                           "details": {
                             "title": "Details",
@@ -7143,7 +8328,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Land acquisition"]
+                            "enum": [
+                              "Land acquisition"
+                            ]
                           }
                         }
                       },
@@ -7152,7 +8339,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Site Access - Road"]
+                            "enum": [
+                              "Site Access - Road"
+                            ]
                           }
                         }
                       },
@@ -7161,7 +8350,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Site Access - Railway"]
+                            "enum": [
+                              "Site Access - Railway"
+                            ]
                           }
                         }
                       },
@@ -7170,7 +8361,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Flood risk"]
+                            "enum": [
+                              "Flood risk"
+                            ]
                           }
                         }
                       },
@@ -7179,7 +8372,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Funding - sources / cashflow"]
+                            "enum": [
+                              "Funding - sources / cashflow"
+                            ]
                           }
                         }
                       },
@@ -7188,7 +8383,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Planning"]
+                            "enum": [
+                              "Planning"
+                            ]
                           }
                         }
                       },
@@ -7197,7 +8394,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Land Remediation"]
+                            "enum": [
+                              "Land Remediation"
+                            ]
                           }
                         }
                       },
@@ -7206,7 +8405,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Utilities Provision"]
+                            "enum": [
+                              "Utilities Provision"
+                            ]
                           }
                         }
                       },
@@ -7215,7 +8416,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Procurement"]
+                            "enum": [
+                              "Procurement"
+                            ]
                           }
                         }
                       },
@@ -7224,7 +8427,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                           "barrierType": {
                             "type": "string",
                             "heAlwaysWritable": true,
-                            "enum": ["Other"]
+                            "enum": [
+                              "Other"
+                            ]
                           },
                           "details": {
                             "title": "Details",
@@ -7250,7 +8455,11 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "title": "",
               "heAlwaysWritable": true,
               "radio": true,
-              "enum": ["Red", "Amber", "Green"]
+              "enum": [
+                "Red",
+                "Amber",
+                "Green"
+              ]
             },
             "reason": {
               "type": "string",
@@ -7275,13 +8484,23 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "type": "string",
               "title": "Current Year",
               "heAlwaysWritable": true,
-              "enum": ["Low", "Medium Low", "Medium High", "High"]
+              "enum": [
+                "Low",
+                "Medium Low",
+                "Medium High",
+                "High"
+              ]
             },
             "nextYear": {
               "type": "string",
               "title": "Next Year",
               "heAlwaysWritable": true,
-              "enum": ["Low", "Medium Low", "Medium High", "High"]
+              "enum": [
+                "Low",
+                "Medium Low",
+                "Medium High",
+                "High"
+              ]
             }
           }
         },
@@ -7294,13 +8513,23 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "type": "string",
               "title": "Current Year",
               "heAlwaysWritable": true,
-              "enum": ["Low", "Medium Low", "Medium High", "High"]
+              "enum": [
+                "Low",
+                "Medium Low",
+                "Medium High",
+                "High"
+              ]
             },
             "nextYear": {
               "type": "string",
               "title": "Next Year",
               "heAlwaysWritable": true,
-              "enum": ["Low", "Medium Low", "Medium High", "High"]
+              "enum": [
+                "Low",
+                "Medium Low",
+                "Medium High",
+                "High"
+              ]
             }
           }
         },
@@ -7313,7 +8542,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
               "title": "Any issues requiring escalation?",
               "radio": true,
               "heAlwaysWritable": true,
-              "enum": ["Yes", "No"]
+              "enum": [
+                "Yes",
+                "No"
+              ]
             }
           },
           "dependencies": {
@@ -7323,7 +8555,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "properties": {
                     "anyIssuesToEscalate": {
                       "heAlwaysWritable": true,
-                      "enum": ["Yes"]
+                      "enum": [
+                        "Yes"
+                      ]
                     },
                     "escalationProposals": {
                       "type": "string",
@@ -7337,7 +8571,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "properties": {
                     "anyIssuesToEscalate": {
                       "heAlwaysWritable": true,
-                      "enum": ["No"]
+                      "enum": [
+                        "No"
+                      ]
                     }
                   }
                 }
@@ -7352,7 +8588,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
             "moreMonitoringRequired": {
               "type": "string",
               "title": "More regular monitoring required?",
-              "enum": ["Yes", "No"],
+              "enum": [
+                "Yes",
+                "No"
+              ],
               "heAlwaysWritable": true,
               "radio": true
             }
@@ -7364,7 +8603,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "properties": {
                     "moreMonitoringRequired": {
                       "heAlwaysWritable": true,
-                      "enum": ["Yes"]
+                      "enum": [
+                        "Yes"
+                      ]
                     },
                     "requiredFrequency": {
                       "type": "string",
@@ -7384,7 +8625,9 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                   "properties": {
                     "moreMonitoringRequired": {
                       "heAlwaysWritable": true,
-                      "enum": ["No"]
+                      "enum": [
+                        "No"
+                      ]
                     }
                   }
                 }
