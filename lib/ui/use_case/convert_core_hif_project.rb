@@ -265,7 +265,11 @@ class UI::UseCase::ConvertCoreHIFProject
 
     return {} if @project[:outputsForecast][:housingForecast].nil?
 
-    converted_outputs_forecast[:housingForecast][:forecast] = @project[:outputsForecast][:housingForecast].map do |forecast|
+    converted_outputs_forecast[:housingForecast] = {
+      forecastValidator: {}
+    }
+
+    converted_outputs_forecast[:housingForecast][:forecastValidator][:forecast] = @project[:outputsForecast][:housingForecast].map do |forecast|
       {
         period: forecast[:period],
         target: forecast[:target],

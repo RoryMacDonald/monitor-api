@@ -1616,6 +1616,19 @@ setCreate(formData, path('profilesValidator', '_valid'),
           "outputsForecast": {
             "type": "object",
             "title": "Outputs - Forecast",
+            "calculation": "
+setCreate(formData,
+  path('housingForecast', 'forecastValidator', '_valid'),
+  sumArray(
+    select(
+      get(formData,
+        path('housingForecast', 'forecastValidator', 'forecast')
+      ),
+      path('target')
+    )
+  ) === Number(get(formData, 'totalUnits'))
+);
+",
             "properties": {
               "totalUnits": {
                 "type": "string",
@@ -1629,29 +1642,38 @@ setCreate(formData, path('profilesValidator', '_valid'),
               },
               "housingForecast": {
                 "type": "object",
-                "required": ["forecast"],
+                "required": ["forecastValidator"],
                 "title": "Housing Forecast",
                 "properties": {
-                  "forecast": {
-                    "title": "Forecast",
-                    "type": "array",
-                    "periods": true,
-                    "addable": true,
-                    "items": {
-                      "title": "Forecast",
-                      "type": "object",
-                      "properties": {
-                        "period": { "type": "string", "title": "Period" },
-                        "target": {
-                          "type": "string",
-                          "title": "Housing Starts"
-                        },
-                        "housingCompletions": {
-                          "type": "string",
-                          "title": "Housing Completions"
+                  "forecastValidator": {
+                    "title": "",
+                    "type": "object",
+                    "invalidText": "Completion or starts do not amount to total units",
+                    "validated": true,
+                    "required": ["forecast"],
+                    "properties": {
+                      "forecast": {
+                        "title": "Forecast",
+                        "type": "array",
+                        "periods": true,
+                        "addable": true,
+                        "items": {
+                          "title": "Forecast",
+                          "type": "object",
+                          "properties": {
+                            "period": { "type": "string", "title": "Period" },
+                            "target": {
+                              "type": "string",
+                              "title": "Housing Starts"
+                            },
+                            "housingCompletions": {
+                              "type": "string",
+                              "title": "Housing Completions"
+                            }
+                          },
+                          "required": ["period", "target", "housingCompletions"]
                         }
-                      },
-                      "required": ["period", "target", "housingCompletions"]
+                      }
                     }
                   }
                 }

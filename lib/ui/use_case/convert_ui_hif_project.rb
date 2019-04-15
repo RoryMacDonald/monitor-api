@@ -241,10 +241,10 @@ class UI::UseCase::ConvertUIHIFProject
     @converted_project[:outputsForecast].compact!
 
     return if @project[:outputs][0][:outputsForecast][:housingForecast].nil?
+    return if @project[:outputs][0][:outputsForecast][:housingForecast][:forecastValidator].nil?
+    return if @project[:outputs][0][:outputsForecast][:housingForecast][:forecastValidator][:forecast].nil?
 
-    return if @project[:outputs][0][:outputsForecast][:housingForecast][:forecast].nil?
-
-    @converted_project[:outputsForecast][:housingForecast] = @project[:outputs][0][:outputsForecast][:housingForecast][:forecast].map do |forecast|
+    @converted_project[:outputsForecast][:housingForecast] = @project[:outputs][0][:outputsForecast][:housingForecast][:forecastValidator][:forecast].map do |forecast|
       {
         period: forecast[:period],
         target: forecast[:target],
