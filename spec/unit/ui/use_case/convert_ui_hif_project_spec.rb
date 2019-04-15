@@ -22,8 +22,10 @@ describe UI::UseCase::ConvertUIHIFProject do
       infrastructures: nil,
       outputs: [{
         outputsForecast: {
-          housingForecast: {
-            forecast: nil
+          forecastStartsValidator: {
+            housingForecast: {
+              forecast: nil
+            }
           }
         }
       }]

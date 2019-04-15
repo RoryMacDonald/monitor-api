@@ -1618,39 +1618,39 @@ setCreate(formData, path('profilesValidator', '_valid'),
             "title": "Outputs - Forecast",
             "calculation": "
 setCreate(formData,
-  path('housingForecast', 'forecastValidator', '_valid'),
+  path('forecastStartsValidator', '_valid'),
   sumArray(
     select(
       get(formData,
-        path('housingForecast', 'forecastValidator', 'forecast')
+        path('forecastStartsValidator', 'housingForecast', 'forecast')
       ),
       path('target')
     )
-  ) === Number(get(formData, 'totalUnits'))
+  ) === Number(get(formData, 'forecastStartsValidator', 'totalUnits'))
 );
 ",
             "properties": {
-              "totalUnits": {
-                "type": "string",
-                "laReadOnly": true,
-                "title": "Total Units"
-              },
-              "disposalStrategy": {
-                "type": "string",
-                "title": "Disposal Strategy / Critical Path",
-                "extendedText": true
-              },
-              "housingForecast": {
+              "forecastStartsValidator": {
+                "title": "",
                 "type": "object",
-                "required": ["forecastValidator"],
-                "title": "Housing Forecast",
+                "invalidText": "Starts do not amount to total units",
+                "validated": true,
+                "required": ["disposalStrategy", "housingForecast", "totalUnits"],
                 "properties": {
-                  "forecastValidator": {
-                    "title": "",
+                  "totalUnits": {
+                    "type": "string",
+                    "laReadOnly": true,
+                    "title": "Total Units"
+                  },
+                  "disposalStrategy": {
+                    "type": "string",
+                    "title": "Disposal Strategy / Critical Path",
+                    "extendedText": true
+                  },
+                  "housingForecast": {
                     "type": "object",
-                    "invalidText": "Completion or starts do not amount to total units",
-                    "validated": true,
                     "required": ["forecast"],
+                    "title": "Housing Forecast",
                     "properties": {
                       "forecast": {
                         "title": "Forecast",
@@ -1679,7 +1679,7 @@ setCreate(formData,
                 }
               }
             },
-            "required": ["disposalStrategy", "housingForecast", "totalUnits"]
+            "required": ["forecastStartsValidator"]
           },
           "outputsActuals": {
             "type": "object",

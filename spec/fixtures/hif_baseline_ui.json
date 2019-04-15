@@ -133,10 +133,10 @@
   "outputs": [
     {
       "outputsForecast": {
-        "totalUnits": "10",
-        "disposalStrategy": "Disposal strategy",
-        "housingForecast": {
-          "forecastValidator": {
+        "forecastStartsValidator": {
+          "totalUnits": "10",
+          "disposalStrategy": "Disposal strategy",
+          "housingForecast": {
             "forecast": [
               {
                 "period": "18/19",

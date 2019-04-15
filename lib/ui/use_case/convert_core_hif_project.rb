@@ -256,20 +256,18 @@ class UI::UseCase::ConvertCoreHIFProject
     return {} if @project[:outputsForecast].nil?
 
     converted_outputs_forecast = {
-      totalUnits: @project[:outputsForecast][:totalUnits],
-      disposalStrategy: @project[:outputsForecast][:disposalStrategy],
-      housingForecast: {}
+      forecastStartsValidator: {
+        totalUnits: @project[:outputsForecast][:totalUnits],
+        disposalStrategy: @project[:outputsForecast][:disposalStrategy],
+        housingForecast: {}
+      }
     }
 
     converted_outputs_forecast.compact!
 
     return {} if @project[:outputsForecast][:housingForecast].nil?
 
-    converted_outputs_forecast[:housingForecast] = {
-      forecastValidator: {}
-    }
-
-    converted_outputs_forecast[:housingForecast][:forecastValidator][:forecast] = @project[:outputsForecast][:housingForecast].map do |forecast|
+    converted_outputs_forecast[:forecastStartsValidator][:housingForecast][:forecast] = @project[:outputsForecast][:housingForecast].map do |forecast|
       {
         period: forecast[:period],
         target: forecast[:target],
