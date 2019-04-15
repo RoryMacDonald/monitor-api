@@ -1,0 +1,74 @@
+version: "3"
+services:
+  db:
+    image: postgres:9.4.18-alpine
+    environment:
+      - POSTGRES_PASSWORD=super-secret
+      - POSTGRES_DB=monitor_api
+    privileged: true
+    ports:
+      - "15432:5432"
+  web:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - "4567:4567"
+    links:
+      - db
+      - notify_simulator
+    command: "bundle exec rerun --background 'ash bin/serve.sh leakcheck'"
+    privileged: true
+    environment:
+      DATABASE_URL: 'postgres://postgres:super-secret@db/monitor_api'
+      PROJECT_FILE_PATH: 'projects.json'
+      GOV_NOTIFY_API_URL: 'http://notify_simulator'
+      EMAIL_WHITELIST: 'test@test.test'
+      GOV_NOTIFY_API_KEY: 'cafe-cafecafe-cafe-cafe-cafe-cafecafecafe-cafecafe-cafe-cafe-cafe-cafecafecafe'
+      HMAC_SECRET: 'E'
+      PCS_SECRET: 'supersecret'
+      PCS_DOMAIN: 'http://pcs_simulator'
+      ADMIN_HTTP_API_KEY: 'supersecret'
+      BI_HTTP_API_KEY: 'supersecret'
+      OUTPUTS_FORECAST_TAB: 'yes'
+      CONFIRMATION_TAB: 'yes'
+      S151_TAB: 'yes'
+      RM_MONTHLY_CATCHUP_TAB: 'yes'
+      OUTPUTS_ACTUALS_TAB: 'yes'
+      WIDER_SCHEME_TAB: 'yes'
+      MR_REVIEW_TAB: 'yes'
+      HIF_RECOVERY_TAB: 'yes'
+      BACK_TO_BASELINE: 'yes'
+      FF_SUMMARY_TAB: 'yes'
+      FF_INFRAS_TAB: 'yes'
+      FF_PLANNING_TAB: 'yes'
+      FF_LAND_OWNERSHIP_TAB: 'yes'
+      FF_PROCUREMENT_TAB: 'yes'
+      FF_DEMOLITION_TAB: 'yes'
+      FF_MILESTONES_TAB: 'yes'
+      FF_RISKS_TAB: 'yes'
+      FF_GRANT_EXPENDITURE_TAB: 'yes'
+      FF_OUTPUTS_TAB: 'yes'
+      FF_RECOVERY_TAB: 'yes'
+      FF_FUNDING_PACKAGE_TAB: 'yes'
+      FF_WIDER_SCHEME_TAB: 'yes'
+      NO_LOGS: 'yes'
+      FF_CREATION: 'yes'
+
+  notify_simulator:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - "7654:4567"
+    privileged: true
+    command: "bundle exec rerun --background -- ruby ./simulators/notify.rb -o 0.0.0.0 -p 80"
+
+  pcs_simulator:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - "7653:4567"
+    privileged: true
+    command: "bundle exec rerun --background -- ruby ./simulators/pcs.rb -o 0.0.0.0 -p 80"
