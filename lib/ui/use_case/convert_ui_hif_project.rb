@@ -117,7 +117,7 @@ class UI::UseCase::ConvertUIHIFProject
 
       unless infrastructure[:landOwnership].nil?
         converted_infrastructure[:landOwnership] = {}
-        unless infrastructure[:landOwnership][:landControl].nil? 
+        unless infrastructure[:landOwnership][:landControl].nil?
           converted_infrastructure[:landOwnership][:underControlOfLA] = infrastructure[:landOwnership][:landControl][:underControlOfLA]
           converted_infrastructure[:landOwnership][:ownershipOfLandOtherThanLA] = infrastructure[:landOwnership][:landControl][:ownershipOfLandOtherThanLA]
         end
@@ -168,11 +168,12 @@ class UI::UseCase::ConvertUIHIFProject
   def convert_funding_profiles
     return if @project[:fundingProfiles].nil?
     return if @project[:fundingProfiles][:profilesHolder].nil?
-    return if @project[:fundingProfiles][:profilesHolder][:profiles].nil?
+    return if @project[:fundingProfiles][:profilesHolder][:profilesValidator].nil?
+    return if @project[:fundingProfiles][:profilesHolder][:profilesValidator][:profiles].nil?
 
     @converted_project[:fundingProfiles] = []
 
-    @converted_project[:fundingProfiles] = @project[:fundingProfiles][:profilesHolder][:profiles].map do |profile|
+    @converted_project[:fundingProfiles] = @project[:fundingProfiles][:profilesHolder][:profilesValidator][:profiles].map do |profile|
       next if profile.nil?
       {
         period: profile[:period],
