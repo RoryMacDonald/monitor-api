@@ -7,6 +7,10 @@
       "title": "Summary of Claim",
       "calculation": "set(formData, 'runningClaimTotal', ''+sum(formData, 'hifSpendToDate', 'AmountOfThisClaim'));",
       "type": "object",
+      "required": [
+        "AmountOfThisClaim",
+        "certifiedClaimForm"
+      ],
       "properties": {
         "hifTotalFundingRequest": {
           "type": "string",
@@ -41,19 +45,22 @@
             "type": "string"
           }
         }
-      },
-      "required": [
-        "AmountOfThisClaim"
-      ]
+      }
     },
     "supportingEvidence": {
       "type": "object",
       "title": "Supporting Evidence",
+      "required": [
+        "lastQuarterMonthSpend",
+        "evidenceOfSpendPastQuarter",
+        "breakdownOfNextQuarterSpend"
+      ],
       "properties": {
         "lastQuarterMonthSpend": {
           "type": "object",
           "title": "Last Quarter Month Spend",
           "calculation": "setCreate(formData, ['variance','varianceAgainstForecastAmount'], ''+parseMoney(get(formData, 'actual')) - parseMoney(get(formData, 'forecast'))); set(formData['variance'],'varianceAgainstForecastPercentage', percentageDifference(parseMoney(get(formData, 'forecast')), parseMoney(get(formData, 'actual'))));",
+          "required": ["actual", "varianceReason"],
           "properties": {
             "forecast": {
               "title": "Forecasted Spend Last Quarter Month",
@@ -114,6 +121,11 @@
         "breakdownOfNextQuarterSpend": {
           "title": "Breakdown of Next Quarter Spend",
           "type": "object",
+          "required": [
+            "forecast",
+            "descriptionOfSpend",
+            "evidenceOfSpendNextQuarter"
+          ],
           "properties": {
             "forecast": {
               "title": "Forecasted Spend (£)",
@@ -133,6 +145,7 @@
               "uploadFile": "multiple",
               "type": "array",
               "s151WriteOnly": true,
+              "minItems": 1,
               "items": {
                 "type": "string"
               }
