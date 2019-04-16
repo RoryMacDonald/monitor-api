@@ -8,14 +8,14 @@ describe 'Getting the project overview' do
   let(:found_overview) { nil }
 
   before do
-    stub_const(
-      'HomesEngland::UseCase::GetProjectOverview',
-      double(new: project_overview_spy)
+    stub_instances(
+      HomesEngland::UseCase::GetProjectOverview,
+      project_overview_spy
     )
 
-    stub_const(
-      'LocalAuthority::UseCase::CheckApiKey',
-      double(new: check_api_key_spy)
+    stub_instances(
+      LocalAuthority::UseCase::CheckApiKey,
+      check_api_key_spy
     )
   end
 
