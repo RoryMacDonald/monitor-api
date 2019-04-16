@@ -1387,7 +1387,11 @@ setCreate(formData, path('lastPeriod'), get(formData, path('profiles', -1, 'peri
                 "type": "object",
                 "title": "",
                 "properties": {
-                  "period": { "type": "string", "title": "Period" },
+                  "period": {
+                    "type": "string",
+                    "title": "Period",
+                    "financialYear": true
+                  },
                   "instalment1": {
                     "type": "string",
                     "title": "1st Instalment",
