@@ -223,11 +223,14 @@ class UI::UseCase::ConvertUIHIFProject
   def convert_s151
     return if @project[:s151].nil?
 
-    @converted_project[:s151] = {
-      s151ProjectLongstopDate: @project[:s151][:s151ProjectLongstopDate]
-    }
+    @converted_project[:s151] = {}
+
     unless @project[:s151][:s151FundingEndDateValidator].nil?
       @converted_project[:s151][:s151FundingEndDate] = @project[:s151][:s151FundingEndDateValidator][:s151FundingEndDate]
+    end
+
+    unless @project[:s151][:s151ProjectLongstopDateValidator].nil?
+      @converted_project[:s151][:s151ProjectLongstopDate] = @project[:s151][:s151ProjectLongstopDateValidator][:s151ProjectLongstopDate]
     end
   end
 

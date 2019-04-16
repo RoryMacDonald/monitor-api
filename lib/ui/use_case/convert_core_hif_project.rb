@@ -234,7 +234,9 @@ class UI::UseCase::ConvertCoreHIFProject
       s151FundingEndDateValidator: {
         s151FundingEndDate: @project[:s151][:s151FundingEndDate]
       },
-      s151ProjectLongstopDate: @project[:s151][:s151ProjectLongstopDate]
+      s151ProjectLongstopDateValidator: {
+        s151ProjectLongstopDate: @project[:s151][:s151ProjectLongstopDate]
+      }
     }
   end
 

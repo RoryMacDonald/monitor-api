@@ -14,6 +14,20 @@
         "s151",
         "lastPeriod"
       ]
+    },
+    {
+      "from": [
+        "outputs",
+        -1,
+        "outputsForecast",
+        "housingForecast",
+        "lastPeriod"
+      ],
+      "to": [
+        "s151",
+        "s151ProjectLongstopDateValidator",
+        "lastPeriod"
+      ]
     }
   ],
   "properties": {
@@ -1568,12 +1582,21 @@ setCreate(formData, path('lastPeriod'), get(formData, path('profiles', -1, 'peri
     "s151": {
       "type": "object",
       "title": "Section 151",
-      "required": ["s151FundingEndDateValidator", "s151ProjectLongstopDate"],
+      "required": ["s151FundingEndDateValidator", "s151ProjectLongstopDateValidator"],
       "calculation": "
 setCreate(
   formData,
   path('s151FundingEndDateValidator', '_valid'),
   (date(get(formData, 's151FundingEndDateValidator', 's151FundingEndDate')) >= date(get(formData, 'lastPeriod')))
+);
+
+setCreate(
+  formData,
+  path('s151ProjectLongstopDateValidator', '_valid'),
+  (date(
+    get(formData, path('s151ProjectLongstopDateValidator', 's151ProjectLongstopDate'))) >=
+    date(get(formData, path('s151ProjectLongstopDateValidator', 'lastPeriod')))
+  )
 );
 ",
       "properties": {
@@ -1591,15 +1614,23 @@ setCreate(
             }
           }
         },
-        "s151ProjectLongstopDate": {
-          "type": "string",
-          "format": "date",
-          "laReadOnly": true,
-          "title": "Project Longstop date"
-        },
         "lastPeriod": {
           "type": "string",
           "hidden": true
+        },
+        "s151ProjectLongstopDateValidator": {
+          "type": "object",
+          "required": ["s151ProjectLongstopDate"],
+          "validated": true,
+          "invalidText": "Date must not be before outputs profile ends",
+          "properties": {
+            "s151ProjectLongstopDate": {
+              "type": "string",
+              "format": "date",
+              "laReadOnly": true,
+              "title": "Project Longstop date"
+            }
+          }
         }
       }
     },
@@ -1629,17 +1660,26 @@ setCreate(
                 "type": "object",
                 "required": ["forecast"],
                 "title": "Housing Forecast",
+                "calculation": "
+setCreate(formData,
+  path('lastPeriod'),
+  get(formData, path('forecast', -1, 'period'))
+);
+",
                 "properties": {
                   "forecast": {
                     "title": "Forecast",
                     "type": "array",
-                    "periods": true,
                     "addable": true,
                     "items": {
-                      "title": "Forecast",
+                      "title": "",
                       "type": "object",
                       "properties": {
-                        "period": { "type": "string", "title": "Period" },
+                        "period": {
+                          "type": "string",
+                          "title": "Period",
+                          "financialYear": true
+                        },
                         "target": {
                           "type": "string",
                           "title": "Housing Starts"
@@ -1651,6 +1691,10 @@ setCreate(
                       },
                       "required": ["period", "target", "housingCompletions"]
                     }
+                  },
+                  "lastPeriod": {
+                    "type": "string",
+                    "hidden": true
                   }
                 }
               }
