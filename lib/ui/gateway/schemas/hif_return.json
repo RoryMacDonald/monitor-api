@@ -6166,6 +6166,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "changesToRequestConfirmation": {
                   "type": "string",
                   "title": "Please confirm there are no changes to the total HIF request",
+                  "description": "Any change to funding amount will need to be agreed at an MHCLG/Homes England board and cannot be guaranteed",
                   "radio": true,
                   "s151WriteOnly": true,
                   "enum": [
