@@ -1632,6 +1632,22 @@ setCreate(formData,
     )
   )
 );
+
+setCreate(formData,
+  path('forecastCompletionsValidator', '_valid'),
+  sumArray(
+    select(
+      get(formData,
+        path('forecastCompletionsValidator', 'forecastStartsValidator', 'housingForecast', 'forecast')
+      ),
+      path('housingCompletions')
+    )
+  ) === Number(
+    get(formData,
+      path('forecastCompletionsValidator', 'forecastStartsValidator', 'totalUnits')
+    )
+  )
+);
 ",
             "properties": {
               "forecastCompletionsValidator": {
