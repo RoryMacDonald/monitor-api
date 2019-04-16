@@ -1,4 +1,4 @@
-describe HomesEngland::UseCase::GetProjectOverview, focus: true do
+describe HomesEngland::UseCase::GetProjectOverview do
   let(:find_project_spy) { spy(execute: found_project) }
   let(:claim_gateway_spy) { spy(get_all: found_claims) }
   let(:return_gateway_spy) { spy(get_returns: found_returns) }
