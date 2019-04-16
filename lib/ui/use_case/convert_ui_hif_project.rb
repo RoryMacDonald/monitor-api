@@ -232,21 +232,22 @@ class UI::UseCase::ConvertUIHIFProject
     return if @project[:outputs].nil?
     return if @project[:outputs][0].nil?
     return if @project[:outputs][0][:outputsForecast].nil?
-    return if @project[:outputs][0][:outputsForecast][:forecastStartsValidator].nil?
+    return if @project[:outputs][0][:outputsForecast][:forecastCompletionsValidator].nil?
+    return if @project[:outputs][0][:outputsForecast][:forecastCompletionsValidator][:forecastStartsValidator].nil?
 
     @converted_project[:outputsForecast] = {}
 
     @converted_project[:outputsForecast] = {
-      totalUnits: @project[:outputs][0][:outputsForecast][:forecastStartsValidator][:totalUnits],
-      disposalStrategy: @project[:outputs][0][:outputsForecast][:forecastStartsValidator][:disposalStrategy]
+      totalUnits: @project[:outputs][0][:outputsForecast][:forecastCompletionsValidator][:forecastStartsValidator][:totalUnits],
+      disposalStrategy: @project[:outputs][0][:outputsForecast][:forecastCompletionsValidator][:forecastStartsValidator][:disposalStrategy]
     }
 
     @converted_project[:outputsForecast].compact!
 
-    return if @project[:outputs][0][:outputsForecast][:forecastStartsValidator][:housingForecast].nil?
-    return if @project[:outputs][0][:outputsForecast][:forecastStartsValidator][:housingForecast][:forecast].nil?
+    return if @project[:outputs][0][:outputsForecast][:forecastCompletionsValidator][:forecastStartsValidator][:housingForecast].nil?
+    return if @project[:outputs][0][:outputsForecast][:forecastCompletionsValidator][:forecastStartsValidator][:housingForecast][:forecast].nil?
 
-    @converted_project[:outputsForecast][:housingForecast] = @project[:outputs][0][:outputsForecast][:forecastStartsValidator][:housingForecast][:forecast].map do |forecast|
+    @converted_project[:outputsForecast][:housingForecast] = @project[:outputs][0][:outputsForecast][:forecastCompletionsValidator][:forecastStartsValidator][:housingForecast][:forecast].map do |forecast|
       {
         period: forecast[:period],
         target: forecast[:target],

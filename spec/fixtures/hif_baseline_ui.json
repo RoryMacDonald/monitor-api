@@ -133,22 +133,24 @@
   "outputs": [
     {
       "outputsForecast": {
-        "forecastStartsValidator": {
-          "totalUnits": "10",
-          "disposalStrategy": "Disposal strategy",
-          "housingForecast": {
-            "forecast": [
-              {
-                "period": "18/19",
-                "target": "100",
-                "housingCompletions": "0"
-              },
-              {
-                "period": "19/20",
-                "target": "50",
-                "housingCompletions": "50"
-              }
-            ]
+        "forecastCompletionsValidator": {
+          "forecastStartsValidator": {
+            "totalUnits": "10",
+            "disposalStrategy": "Disposal strategy",
+            "housingForecast": {
+              "forecast": [
+                {
+                  "period": "18/19",
+                  "target": "100",
+                  "housingCompletions": "0"
+                },
+                {
+                  "period": "19/20",
+                  "target": "50",
+                  "housingCompletions": "50"
+                }
+              ]
+            }
           }
         }
       },
