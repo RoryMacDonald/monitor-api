@@ -20,6 +20,7 @@ class HomesEngland::UseCase::GetProjectOverview
     {
       name: project[:name],
       status: project[:status],
+      type: project[:type],
       data: project[:data],
       returns: returns.map { |r| { id: r.id, status: r.status } },
       claims: claims.map { |c| { id: c.id, status: c.status } },

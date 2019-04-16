@@ -46,6 +46,10 @@ describe HomesEngland::UseCase::GetProjectOverview do
       expect(response[:name]).to eq(expected_project_name)
     end
 
+    it 'Returns the project name' do
+      expect(response[:type]).to eq(expected_project_type)
+    end
+
     it 'Returns the project status' do
       expect(response[:status]).to eq(expected_project_status)
     end
@@ -72,6 +76,7 @@ describe HomesEngland::UseCase::GetProjectOverview do
       {
         name: 'Meow',
         status: 'Draft',
+        type: 'ca-at',
         data: {
           this_is: 'Some data'
         }
@@ -110,6 +115,7 @@ describe HomesEngland::UseCase::GetProjectOverview do
     let(:project_id) { 10 }
     let(:expected_project_name) { 'Meow' }
     let(:expected_project_status) { 'Draft' }
+    let(:expected_project_type) { 'ca-at' }
     let(:expected_project_data) { { this_is: 'Some data' } }
 
     let(:expected_return_information) do
@@ -145,6 +151,7 @@ describe HomesEngland::UseCase::GetProjectOverview do
       {
         name: 'Woof',
         status: 'Submitted',
+        type: 'wo-of',
         data: {
           this_is: 'More data'
         }
@@ -194,6 +201,7 @@ describe HomesEngland::UseCase::GetProjectOverview do
 
     let(:project_id) { 20 }
     let(:expected_project_name) { 'Woof' }
+    let(:expected_project_type) { 'wo-of' }
     let(:expected_project_status) { 'Submitted' }
     let(:expected_project_data) { { this_is: 'More data' } }
 

@@ -138,5 +138,14 @@ class HomesEngland::UseCases
         baseline_gateway: builder.get_gateway(:baseline)
       )
     end
+
+    builder.define_use_case :get_project_overview do
+      HomesEngland::UseCase::GetProjectOverview.new(
+        baseline_gateway: builder.get_gateway(:baseline),
+        claim_gateway: builder.get_gateway(:claim),
+        find_project: builder.get_use_case(:find_project),
+        return_gateway: builder.get_gateway(:return_gateway)
+      )
+    end
   end
 end
