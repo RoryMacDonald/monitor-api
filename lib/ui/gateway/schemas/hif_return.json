@@ -6496,6 +6496,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "changeToMilestonesConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to contractual milestones",
+                  "description": "Any change to contractual milestones will need to be agreed by Homes England"
                   "radio": true,
                   "s151WriteOnly": true,
                   "enum": [
@@ -6567,6 +6568,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "changesToEndDateConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to Funding End Date",
+                  "description": "Any change to funding end date will need to be agreed by Homes England"
                   "radio": true,
                   "s151WriteOnly": true,
                   "enum": [
@@ -6656,6 +6658,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "changesToLongstopDateConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to project completion date",
+                  "description": "Any change to longstop date will need to be agreed at an MHCLG/Homes England board and cannot be guaranteed"
                   "radio": true,
                   "s151WriteOnly": true,
                   "enum": [
