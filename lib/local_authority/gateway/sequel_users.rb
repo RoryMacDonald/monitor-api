@@ -34,7 +34,9 @@ class LocalAuthority::Gateway::SequelUsers
   end
 
   def update(user)
-    @database[:users].where(email: user.email).update(projects: Sequel.pg_array(user.projects))
+    @database[:users]
+      .where(email: user.email)
+      .update(projects: Sequel.pg_array(user.projects), role: user.role)
   end
 
   def get_users(project_id:)

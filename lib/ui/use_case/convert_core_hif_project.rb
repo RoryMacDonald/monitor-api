@@ -177,10 +177,12 @@ class UI::UseCase::ConvertCoreHIFProject
     return if @project[:fundingProfiles].nil?
 
     @converted_project[:fundingProfiles] = {
-      profilesHolder: {}
+      profilesHolder: {
+        profilesValidator: {}
+      }
     }
 
-    @converted_project[:fundingProfiles][:profilesHolder][:profiles] = @project[:fundingProfiles].map do |profile|
+    @converted_project[:fundingProfiles][:profilesHolder][:profilesValidator][:profiles] = @project[:fundingProfiles].map do |profile|
       {
         period: profile[:period],
         instalment1: profile[:instalment1],

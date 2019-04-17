@@ -61,6 +61,12 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :change_user_role do
+      HomesEngland::UseCase::ChangeUserRole.new(
+        user_gateway: builder.get_gateway(:users)
+      )
+    end
+
     builder.define_use_case :delete_user do
       HomesEngland::UseCase::DeleteUser.new(
         user_gateway: builder.get_gateway(:users)
@@ -130,6 +136,15 @@ class HomesEngland::UseCases
     builder.define_use_case :submit_baseline do
       HomesEngland::UseCase::SubmitBaseline.new(
         baseline_gateway: builder.get_gateway(:baseline)
+      )
+    end
+
+    builder.define_use_case :get_project_overview do
+      HomesEngland::UseCase::GetProjectOverview.new(
+        baseline_gateway: builder.get_gateway(:baseline),
+        claim_gateway: builder.get_gateway(:claim),
+        find_project: builder.get_use_case(:find_project),
+        return_gateway: builder.get_gateway(:return_gateway)
       )
     end
   end

@@ -2869,51 +2869,77 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                     ]
                                   }
                                 }
-                              },
-                              "balancesSecured": {
-                                "type": "object",
-                                "title": "Amount Secured",
-                                "horizontal": true,
-                                "properties": {
-                                  "amountSecured": {
-                                    "title": "To Date",
-                                    "type": "string",
-                                    "currency": true
+                              }
+                            },
+                            "dependencies": {
+                              "previousAmounts": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "previousAmounts": {
+                                        "properties": {
+                                          "baseline": {
+                                            "enum": ["0"]
+                                          }
+                                        }
+                                      }
+                                    }
                                   },
-                                  "amountSecuredLastReturn": {
-                                    "title": "",
-                                    "type": "string",
-                                    "hidden": true
-                                  },
-                                  "remainingToBeSecured": {
-                                    "title": "Remaining",
-                                    "type": "string",
-                                    "currency": true,
-                                    "readonly": true
-                                  },
-                                  "securedAgainstBaseline": {
-                                    "title": "Against the Baseline",
-                                    "type": "string",
-                                    "percentage": true,
-                                    "readonly": true
-                                  },
-                                  "securedAgainstBaselineLastReturn": {
-                                    "title": "",
-                                    "type": "string",
-                                    "hidden": true
-                                  },
-                                  "increaseOnLastReturn": {
-                                    "title": "Increase on Last Return",
-                                    "type": "string",
-                                    "readonly": true
-                                  },
-                                  "increaseOnLastReturnPercent": {
-                                    "title": "% Increase on Last Return",
-                                    "type": "string",
-                                    "percentage": true,
-                                    "readonly": true
+                                  {
+                                    "properties": {
+                                      "previousAmounts": {
+                                        "properties": {
+                                          "baseline": {}
+                                        }
+                                      },
+                                      "balancesSecured": {
+                                        "type": "object",
+                                        "title": "Amount Secured",
+                                        "horizontal": true,
+                                        "properties": {
+                                          "amountSecured": {
+                                            "title": "To Date",
+                                            "type": "string",
+                                            "currency": true
+                                          },
+                                          "amountSecuredLastReturn": {
+                                            "title": "",
+                                            "type": "string",
+                                            "hidden": true
+                                          },
+                                          "remainingToBeSecured": {
+                                            "title": "Remaining",
+                                            "type": "string",
+                                            "currency": true,
+                                            "readonly": true
+                                          },
+                                          "securedAgainstBaseline": {
+                                            "title": "Against the Baseline",
+                                            "type": "string",
+                                            "percentage": true,
+                                            "readonly": true
+                                          },
+                                          "securedAgainstBaselineLastReturn": {
+                                            "title": "",
+                                            "type": "string",
+                                            "hidden": true
+                                          },
+                                          "increaseOnLastReturn": {
+                                            "title": "Increase on Last Return",
+                                            "type": "string",
+                                            "readonly": true
+                                          },
+                                          "increaseOnLastReturnPercent": {
+                                            "title": "% Increase on Last Return",
+                                            "type": "string",
+                                            "percentage": true,
+                                            "readonly": true
+                                          }
+                                        }
+                                      }
+                                    }
                                   }
-                                }
+                                ]
                               }
                             }
                           },
@@ -3018,57 +3044,83 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                                   }
                                 }
                               },
-                              "balancesSecured": {
-                                "type": "object",
-                                "title": "Amount Secured",
-                                "horizontal": true,
-                                "properties": {
-                                  "amountSecured": {
-                                    "title": "To date",
-                                    "type": "string",
-                                    "currency": true
-                                  },
-                                  "amountSecuredLastReturn": {
-                                    "title": "",
-                                    "type": "string",
-                                    "hidden": true
-                                  },
-                                  "remainingToBeSecured": {
-                                    "title": "Remaining",
-                                    "type": "string",
-                                    "currency": true,
-                                    "readonly": true
-                                  },
-                                  "securedAgainstBaseline": {
-                                    "title": "Against the Baseline",
-                                    "type": "string",
-                                    "percentage": true,
-                                    "readonly": true
-                                  },
-                                  "securedAgainstBaselineLastReturn": {
-                                    "title": "",
-                                    "type": "string",
-                                    "hidden": true
-                                  },
-                                  "increaseOnLastReturn": {
-                                    "title": "Increase on Last Return",
-                                    "type": "string",
-                                    "currency": true,
-                                    "readonly": true
-                                  },
-                                  "increaseOnLastReturnPercent": {
-                                    "title": "% Increase on Last Return",
-                                    "type": "string",
-                                    "percentage": true,
-                                    "readonly": true
-                                  }
-                                }
-                              },
                               "comparisons": {
                                 "type": "object",
                                 "title": "",
                                 "horizontal": true,
                                 "properties": {}
+                              }
+                            },
+                            "dependencies": {
+                              "previousAmounts": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "previousAmounts": {
+                                        "properties": {
+                                          "baseline": {
+                                            "enum": ["0"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "previousAmounts": {
+                                        "properties": {
+                                          "baseline": {}
+                                        }
+                                      },
+                                      "balancesSecured": {
+                                        "type": "object",
+                                        "title": "Amount Secured",
+                                        "horizontal": true,
+                                        "properties": {
+                                          "amountSecured": {
+                                            "title": "To date",
+                                            "type": "string",
+                                            "currency": true
+                                          },
+                                          "amountSecuredLastReturn": {
+                                            "title": "",
+                                            "type": "string",
+                                            "hidden": true
+                                          },
+                                          "remainingToBeSecured": {
+                                            "title": "Remaining",
+                                            "type": "string",
+                                            "currency": true,
+                                            "readonly": true
+                                          },
+                                          "securedAgainstBaseline": {
+                                            "title": "Against the Baseline",
+                                            "type": "string",
+                                            "percentage": true,
+                                            "readonly": true
+                                          },
+                                          "securedAgainstBaselineLastReturn": {
+                                            "title": "",
+                                            "type": "string",
+                                            "hidden": true
+                                          },
+                                          "increaseOnLastReturn": {
+                                            "title": "Increase on Last Return",
+                                            "type": "string",
+                                            "currency": true,
+                                            "readonly": true
+                                          },
+                                          "increaseOnLastReturnPercent": {
+                                            "title": "% Increase on Last Return",
+                                            "type": "string",
+                                            "percentage": true,
+                                            "readonly": true
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
                               }
                             }
                           },
@@ -6114,6 +6166,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "changesToRequestConfirmation": {
                   "type": "string",
                   "title": "Please confirm there are no changes to the total HIF request",
+                  "description": "Any change to funding amount will need to be agreed at an MHCLG/Homes England board and cannot be guaranteed",
                   "radio": true,
                   "s151WriteOnly": true,
                   "enum": [
@@ -6443,6 +6496,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "changeToMilestonesConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to contractual milestones",
+                  "description": "Any change to contractual milestones will need to be agreed by Homes England",
                   "radio": true,
                   "s151WriteOnly": true,
                   "enum": [
@@ -6514,6 +6568,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "changesToEndDateConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to Funding End Date",
+                  "description": "Any change to funding end date will need to be agreed by Homes England",
                   "radio": true,
                   "s151WriteOnly": true,
                   "enum": [
@@ -6603,6 +6658,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                 "changesToLongstopDateConfirmation": {
                   "type": "string",
                   "title": "Please confirm that no changes are required to project completion date",
+                  "description": "Any change to longstop date will need to be agreed at an MHCLG/Homes England board and cannot be guaranteed",
                   "radio": true,
                   "s151WriteOnly": true,
                   "enum": [

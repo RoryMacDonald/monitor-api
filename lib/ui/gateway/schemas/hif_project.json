@@ -2,7 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "HIF Project",
   "type": "object",
-  "required": ["summary", "infrastructures", "fundingProfiles", "costs", "recovery", "s151", "outputs", "rmBaseline"],
+  "required": [
+    "summary",
+    "infrastructures",
+    "fundingProfiles",
+    "costs",
+    "recovery",
+    "s151",
+    "outputs",
+    "rmBaseline"
+  ],
   "sharedData": [
     {
       "from": [
@@ -27,6 +36,17 @@
         "s151",
         "s151ProjectLongstopDateValidator",
         "lastPeriod"
+      ]
+    },
+    {
+      "from": [
+        "summary",
+        "hifFundingAmount"
+      ],
+      "to": [
+        "fundingProfiles",
+        "profilesHolder",
+        "hifFundingAmount"
       ]
     }
   ],
@@ -1385,61 +1405,83 @@
           "type": "object",
           "calculation": "
 formData ?
-  periodTotal(formData, ['total'], 'profiles', 'instalment1', 'instalment2', 'instalment3', 'instalment4'):
+  periodTotal(get(formData, path('profilesValidator')), ['total'], 'profiles', 'instalment1', 'instalment2', 'instalment3', 'instalment4'):
   null;
-setCreate(formData, path('lastPeriod'), get(formData, path('profiles', -1, 'period')));
+
+setCreate(formData, path('lastPeriod'), get(formData, path('profilesValidator', 'profiles', -1, 'period')));
+
+setCreate(formData, path('profilesValidator', '_valid'),
+  parseMoney(
+    accumulateMoney(
+      get(formData, path('profilesValidator', 'profiles')),
+      'total',
+      2
+    )
+  ) === parseMoney(
+    get(formData, path('hifFundingAmount'))
+  )
+);
 ",
           "title": "",
-          "required": ["profiles"],
+          "required": ["profilesValidator"],
           "properties": {
-            "profiles": {
-              "type": "array",
-              "addable": true,
-              "quarterly": true,
-              "title": "Funding Profile",
-              "items": {
-                "type": "object",
-                "title": "",
-                "properties": {
-                  "period": {
-                    "type": "string",
-                    "title": "Period",
-                    "financialYear": true
-                  },
-                  "instalment1": {
-                    "type": "string",
-                    "title": "1st Instalment",
-                    "currency": true
-                  },
-                  "instalment2": {
-                    "type": "string",
-                    "title": "2nd Instalment",
-                    "currency": true
-                  },
-                  "instalment3": {
-                    "type": "string",
-                    "title": "3rd Instalment",
-                    "currency": true
-                  },
-                  "instalment4": {
-                    "type": "string",
-                    "title": "4th Instalment",
-                    "currency": true
-                  },
-                  "total": {
-                    "type": "string",
-                    "title": "Total",
-                    "currency": true,
-                    "readonly": true
+            "profilesValidator": {
+              "title": "",
+              "type": "object",
+              "validated": true,
+              "invalidText": "Not equal to HIF funding amount",
+              "requied": ["profiles"],
+              "properties": {
+                "profiles": {
+                  "type": "array",
+                  "addable": true,
+                  "quarterly": true,
+                  "title": "Funding Profile",
+                  "items": {
+                    "type": "object",
+                    "title": "",
+                    "properties": {
+                      "period": {
+                        "type": "string",
+                        "title": "Period",
+                        "financialYear": true
+                      },
+                      "instalment1": {
+                        "type": "string",
+                        "title": "1st Instalment",
+                        "currency": true
+                      },
+                      "instalment2": {
+                        "type": "string",
+                        "title": "2nd Instalment",
+                        "currency": true
+                      },
+                      "instalment3": {
+                        "type": "string",
+                        "title": "3rd Instalment",
+                        "currency": true
+                      },
+                      "instalment4": {
+                        "type": "string",
+                        "title": "4th Instalment",
+                        "currency": true
+                      },
+                      "total": {
+                        "type": "string",
+                        "title": "Total",
+                        "currency": true,
+                        "readonly": true
+                      }
+                    },
+                    "required": [
+                      "period",
+                      "instalment1",
+                      "instalment2",
+                      "instalment3",
+                      "instalment4"
+                    ]
                   }
-                },
-                "required": [
-                  "period",
-                  "instalment1",
-                  "instalment2",
-                  "instalment3",
-                  "instalment4"
-                ]
+                }
               }
             },
             "lastPeriod": {

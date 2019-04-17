@@ -15,15 +15,8 @@ describe 'validating a claim' do
 
     it 'should return invalid if it fails validation' do
       response = get_use_case(:ui_validate_claim).execute(type: 'hif', claim_data: invalid_project)
-      INVALID_PATH = [
-        %i[claimSummary AmountOfThisClaim]
-      ].freeze
-      PRETTY_INVALID_PATH = [
-        ['s151 Return - Claim', 'Summary of Claim', 'Amount of this Claim']
-      ].freeze
       expect(response[:valid]).to eq(false)
-      expect(response[:invalid_paths]).to eq(INVALID_PATH)
-      expect(response[:pretty_invalid_paths]).to eq(PRETTY_INVALID_PATH)
+      expect(response[:invalid_paths].count).to eq(2)
     end
   end
 end
