@@ -65,7 +65,9 @@ class UI::UseCase::ConvertCoreHIFProject
 
     unless infrastructure[:expectedInfrastructureStart].nil?
       converted_infrastructure[:summary][:expectedInfrastructureStart] = {
-        targetDateOfAchievingStart: infrastructure[:expectedInfrastructureStart][:targetDateOfAchievingStart]
+        targetDateOfAchievingStartValidator: {
+          targetDateOfAchievingStart: infrastructure[:expectedInfrastructureStart][:targetDateOfAchievingStart]
+        }
       }
     end
 

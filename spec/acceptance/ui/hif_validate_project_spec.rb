@@ -19,25 +19,27 @@ describe 'Validates HIF Project' do
     it 'should return invalid if fails validation' do
       valid_project = get_use_case(:ui_validate_project).execute(type: 'hif', project_data: invalid_project)
       invalid_paths = [
-        %i[summary jointBidAuthorityAreas],
-        %i[summary sitePlans],
+        [:summary, :jointBidAuthorityAreas],
+        [:summary, :sitePlans],
+        [:infrastructures, 0, :summary, :expectedInfrastructureStart, :targetDateOfAchievingStartValidator],
         [:infrastructures, 0, :planningStatus, :planningStatus, :fullPlanningStatus, :granted],
         [:costs, 0, :infrastructure, :fundedThroughHif, :descriptionOfFundingStack],
         [:costs, 0, :infrastructure, :baselineCashflows],
-        %i[recovery expectedAmount],
+        [:recovery, :expectedAmount],
         [:outputs],
         [:rmBaseline]
       ].freeze
 
       pretty_invalid_paths = [
-        ['HIF Project', 'Project Summary', 'Joint Bid Areas'],
-        ['HIF Project', 'Project Summary', 'Site Plans'],
-        ['HIF Project', 'Infrastructures', 'Infrastructure 1', 'Planning Status', '', 'Full Planning Status', 'Granted?'],
-        ['HIF Project', 'Costs', 'Infrastructure 1', 'Cost', '', 'Description of Funding Stack'],
-        ['HIF Project', 'Costs', 'Infrastructure 1', 'Cost', 'Baseline Cashflow(s)'],
-        ['HIF Project', 'Recovery', 'Expected Amount'],
-        ['HIF Project', 'Outputs'],
-        ['HIF Project', 'RM Baseline']
+        ["HIF Project", "Project Summary", "Joint Bid Areas"],
+        ["HIF Project", "Project Summary", "Site Plans"],
+        ["HIF Project", "Infrastructures", "Infrastructure 1", "Summary", "Expected infrastructure start on site", ""],
+        ["HIF Project", "Infrastructures", "Infrastructure 1", "Planning Status", "", "Full Planning Status", "Granted?"],
+        ["HIF Project", "Costs", "Infrastructure 1", "Cost", "", "Description of Funding Stack"],
+        ["HIF Project", "Costs", "Infrastructure 1", "Cost", "Baseline Cashflow(s)"],
+        ["HIF Project", "Recovery", "Expected Amount"],
+        ["HIF Project", "Outputs"],
+        ["HIF Project", "RM Baseline"]
       ].freeze
 
       expect(valid_project[:valid]).to eq(false)

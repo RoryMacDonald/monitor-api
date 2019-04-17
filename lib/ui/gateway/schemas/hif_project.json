@@ -15,6 +15,40 @@
   "sharedData": [
     {
       "from": [
+        "infrastructures",
+        "#",
+        "planningStatus",
+        "planningStatus",
+        "fullPlanningStatus",
+        "granted"
+      ],
+      "to": [
+        "infrastructures",
+        "#",
+        "summary",
+        "expectedInfrastructureStart",
+        "granted"
+      ]
+    },
+    {
+      "from": [
+        "infrastructures",
+        "#",
+        "planningStatus",
+        "planningStatus",
+        "fullPlanningStatus",
+        "grantedDate"
+      ],
+      "to": [
+        "infrastructures",
+        "#",
+        "summary",
+        "expectedInfrastructureStart",
+        "grantedDate"
+      ]
+    },
+    {
+      "from": [
         "fundingProfiles",
         "profilesHolder",
         "lastPeriod"
@@ -947,14 +981,31 @@
               "expectedInfrastructureStart": {
                 "type": "object",
                 "title": "Expected infrastructure start on site",
+                "calculation": "
+setCreate(formData,
+  path('targetDateOfAchievingStartValidator', '_valid'),
+  get(formData, path('granted')) !== 'Yes' ||
+    date(get(formData, path('targetDateOfAchievingStartValidator', 'targetDateOfAchievingStart'))) >=
+    date(get(formData, path('grantedDate'))
+  )
+);",
                 "properties": {
-                  "targetDateOfAchievingStart": {
-                    "type": "string",
-                    "format": "date",
-                    "title": "Target date of achieving start"
+                  "targetDateOfAchievingStartValidator": {
+                    "title": "",
+                    "type": "object",
+                    "validated": true,
+                    "invalidText": "Date should not be before planning achieved date",
+                    "required": ["targetDateOfAchievingStart"],
+                    "properties": {
+                      "targetDateOfAchievingStart": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Target date of achieving start"
+                      }
+                    }
                   }
                 },
-                "required": ["targetDateOfAchievingStart"]
+                "required": ["targetDateOfAchievingStartValidator"]
               },
               "expectedInfrastructureCompletion": {
                 "type": "object",
@@ -1063,7 +1114,7 @@
                                 "type": "string",
                                 "title": "Reference"
                               },
-                              "completedDate": {
+                              "grantedDate": {
                                 "title": "Completed Date",
                                 "type": "string",
                                 "format": "date"
