@@ -1062,6 +1062,11 @@
                               "grantedReference": {
                                 "type": "string",
                                 "title": "Reference"
+                              },
+                              "completedDate": {
+                                "title": "Completed Date",
+                                "type": "string",
+                                "format": "date"
                               }
                             },
                             "required": ["grantedReference"]

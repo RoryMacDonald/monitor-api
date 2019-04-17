@@ -85,6 +85,7 @@ class UI::UseCase::ConvertUIHIFProject
             converted_infrastructure[:fullPlanningStatus] = {
               granted: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:granted],
               grantedReference: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:grantedReference],
+              grantedDate: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:grantedDate],
               targetSubmission: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:targetSubmission],
               targetGranted: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:targetGranted],
               summaryOfCriticalPath: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:summaryOfCriticalPath]

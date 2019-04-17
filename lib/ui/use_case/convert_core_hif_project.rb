@@ -94,6 +94,7 @@ class UI::UseCase::ConvertCoreHIFProject
       converted_infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus] = {
         granted: infrastructure[:fullPlanningStatus][:granted],
         grantedReference: infrastructure[:fullPlanningStatus][:grantedReference],
+        grantedDate: infrastructure[:fullPlanningStatus][:grantedDate],
         targetSubmission: infrastructure[:fullPlanningStatus][:targetSubmission],
         targetGranted: infrastructure[:fullPlanningStatus][:targetGranted],
         summaryOfCriticalPath: infrastructure[:fullPlanningStatus][:summaryOfCriticalPath]

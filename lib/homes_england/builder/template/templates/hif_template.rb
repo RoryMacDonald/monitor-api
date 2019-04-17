@@ -255,6 +255,10 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                       grantedReference: {
                         type: 'string',
                         title: 'Reference'
+                      },
+                      grantedDate: {
+                        title: "Completed Date",
+                        type: 'string'
                       }
                     },
                     required: %w[grantedReference]

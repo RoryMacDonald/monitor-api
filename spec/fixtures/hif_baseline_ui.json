@@ -41,6 +41,7 @@
           "fullPlanningStatus": {
             "granted": "No",
             "grantedReference": "1234",
+            "grantedDate": "2020-04-01",
             "targetSubmission": "2020-03-01",
             "targetGranted": "2020-04-01",
             "summaryOfCriticalPath": "Summary of critical path"
