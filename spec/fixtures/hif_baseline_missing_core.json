@@ -58,6 +58,7 @@
       },
       "procurement": {
         "contractorProcured": "Yes",
+        "contractorDateProcured": "2020-01-01",
         "nameOfContractor": "Steve",
         "targetDate": "2020-01-01",
         "summaryOfCriticalPath": "Summary of critical meow"

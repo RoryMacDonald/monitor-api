@@ -1405,7 +1405,7 @@ setCreate(formData,
                         "type": "string",
                         "title": "Name of Contractor"
                       },
-                      "dateProcured": {
+                      "contractorDateProcured": {
                         "type": "string",
                         "title": "Date procured"
                       }

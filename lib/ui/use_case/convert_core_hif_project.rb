@@ -148,6 +148,7 @@ class UI::UseCase::ConvertCoreHIFProject
     unless infrastructure[:procurement].nil?
       converted_infrastructure[:procurement] = {
         contractorProcured: infrastructure[:procurement][:contractorProcured],
+        contractorDateProcured: infrastructure[:procurement][:contractorDateProcured],
         nameOfContractor: infrastructure[:procurement][:nameOfContractor],
         targetDate: infrastructure[:procurement][:targetDate],
         summaryOfCriticalPath: infrastructure[:procurement][:summaryOfCriticalPath]
