@@ -132,7 +132,8 @@
       "s151FundingEndDate": "2020-01-01"
     },
     "s151ProjectLongstopDateValidator": {
-      "s151ProjectLongstopDate": "2020-01-01"
+      "s151ProjectLongstopDate": "2020-01-01",
+      "lastPeriod": "2019-01-01"
     }
   },
   "outputs": [
@@ -152,7 +153,8 @@
               "target": "50",
               "housingCompletions": "50"
             }
-          ]
+          ],
+          "lastPeriod": "2020/21"
         }
       },
       "outputsActuals": {

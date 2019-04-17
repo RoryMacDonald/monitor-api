@@ -759,6 +759,10 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           type: 'string',
           format: 'date',
           title: 'Project Longstop date'
+        },
+        s151OutputsLastPeriod: {
+          type: 'string',
+          hidden: true
         }
       }
     }

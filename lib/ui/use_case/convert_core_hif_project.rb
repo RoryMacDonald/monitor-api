@@ -237,7 +237,8 @@ class UI::UseCase::ConvertCoreHIFProject
         s151FundingEndDate: @project[:s151][:s151FundingEndDate]
       },
       s151ProjectLongstopDateValidator: {
-        s151ProjectLongstopDate: @project[:s151][:s151ProjectLongstopDate]
+        s151ProjectLongstopDate: @project[:s151][:s151ProjectLongstopDate],
+        lastPeriod: @project[:s151][:s151OutputsLastPeriod]
       }
     }
   end
@@ -277,6 +278,8 @@ class UI::UseCase::ConvertCoreHIFProject
         housingCompletions: forecast[:housingCompletions]
       }
     end
+    converted_outputs_forecast[:housingForecast][:lastPeriod] = @project[:outputsForecast][:lastPeriod]
+
     converted_outputs_forecast
   end
 

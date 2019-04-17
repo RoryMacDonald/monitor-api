@@ -33,7 +33,9 @@ describe UI::UseCase::ConvertUIHIFProject do
   let(:returned_empty_project) do
     {
       infrastructures: [{}],
-      outputsForecast: {}
+      outputsForecast: {
+        lastPeriod: nil
+      }
     }
   end
 

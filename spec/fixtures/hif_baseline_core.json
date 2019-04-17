@@ -111,7 +111,8 @@
   "baselineCashFlow": { "summaryOfRequirement": "data-url" },
   "s151": {
     "s151FundingEndDate": "2020-01-01",
-    "s151ProjectLongstopDate": "2020-01-01"
+    "s151ProjectLongstopDate": "2020-01-01",
+    "s151OutputsLastPeriod": "2019-01-01"
   },
   "outputsForecast": {
     "totalUnits": "10",
@@ -127,7 +128,8 @@
         "target": "50",
         "housingCompletions": "50"
       }
-    ]
+    ],
+    "lastPeriod": "2020/21"
   },
   "outputsActuals": {
     "siteOutputs": [

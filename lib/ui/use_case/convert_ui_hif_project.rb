@@ -232,6 +232,7 @@ class UI::UseCase::ConvertUIHIFProject
 
     unless @project[:s151][:s151ProjectLongstopDateValidator].nil?
       @converted_project[:s151][:s151ProjectLongstopDate] = @project[:s151][:s151ProjectLongstopDateValidator][:s151ProjectLongstopDate]
+      @converted_project[:s151][:s151OutputsLastPeriod] = @project[:s151][:s151ProjectLongstopDateValidator][:lastPeriod]
     end
   end
 
@@ -247,7 +248,9 @@ class UI::UseCase::ConvertUIHIFProject
 
     @converted_project[:outputsForecast].compact!
 
+
     return if @project[:outputs][0][:outputsForecast][:housingForecast].nil?
+    @converted_project[:outputsForecast][:lastPeriod] = @project[:outputs][0][:outputsForecast][:housingForecast][:lastPeriod]
 
     return if @project[:outputs][0][:outputsForecast][:housingForecast][:forecast].nil?
 
