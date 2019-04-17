@@ -21,7 +21,6 @@ describe 'Validates HIF Project' do
       invalid_paths = [
         [:summary, :jointBidAuthorityAreas],
         [:summary, :sitePlans],
-        [:infrastructures, 0, :summary, :expectedInfrastructureStart, :targetDateOfAchievingStartValidator],
         [:infrastructures, 0, :planningStatus, :planningStatus, :fullPlanningStatus, :granted],
         [:costs, 0, :infrastructure, :fundedThroughHif, :descriptionOfFundingStack],
         [:costs, 0, :infrastructure, :baselineCashflows],
@@ -33,7 +32,6 @@ describe 'Validates HIF Project' do
       pretty_invalid_paths = [
         ["HIF Project", "Project Summary", "Joint Bid Areas"],
         ["HIF Project", "Project Summary", "Site Plans"],
-        ["HIF Project", "Infrastructures", "Infrastructure 1", "Summary", "Expected infrastructure start on site", ""],
         ["HIF Project", "Infrastructures", "Infrastructure 1", "Planning Status", "", "Full Planning Status", "Granted?"],
         ["HIF Project", "Costs", "Infrastructure 1", "Cost", "", "Description of Funding Stack"],
         ["HIF Project", "Costs", "Infrastructure 1", "Cost", "Baseline Cashflow(s)"],

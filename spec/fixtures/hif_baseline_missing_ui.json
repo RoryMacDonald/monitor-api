@@ -19,7 +19,11 @@
       "description": "A house of cats",
       "housingSitesBenefitting": "Housing Sites Benefitting",
       "expectedInfrastructureStart": {
-        "targetDateOfAchievingStart": "2020-01-01"
+        "procurementDateValidator": {
+          "grantedDateValidator": {
+            "targetDateOfAchievingStart": "2020-01-01"
+          }
+        }
       },
       "expectedInfrastructureCompletion": {
         "targetDateOfAchievingCompletion": "2020-01-01"

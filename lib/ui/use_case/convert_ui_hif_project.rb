@@ -57,10 +57,12 @@ class UI::UseCase::ConvertUIHIFProject
         converted_infrastructure[:housingSitesBenefitting] = infrastructure[:summary][:housingSitesBenefitting]
 
         unless infrastructure[:summary][:expectedInfrastructureStart].nil?
-          unless infrastructure[:summary][:expectedInfrastructureStart][:targetDateOfAchievingStartValidator].nil?
-            converted_infrastructure[:expectedInfrastructureStart] = {
-              targetDateOfAchievingStart: infrastructure[:summary][:expectedInfrastructureStart][:targetDateOfAchievingStartValidator][:targetDateOfAchievingStart]
-            }
+          unless infrastructure[:summary][:expectedInfrastructureStart][:procurementDateValidator].nil?
+            unless infrastructure[:summary][:expectedInfrastructureStart][:procurementDateValidator][:grantedDateValidator].nil?
+              converted_infrastructure[:expectedInfrastructureStart] = {
+                targetDateOfAchievingStart: infrastructure[:summary][:expectedInfrastructureStart][:procurementDateValidator][:grantedDateValidator][:targetDateOfAchievingStart]
+              }
+            end
           end
         end
 

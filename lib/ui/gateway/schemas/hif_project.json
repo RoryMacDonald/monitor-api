@@ -17,6 +17,36 @@
       "from": [
         "infrastructures",
         "#",
+        "procurement",
+        "contractorProcured"
+      ],
+      "to": [
+        "infrastructures",
+        "#",
+        "summary",
+        "expectedInfrastructureStart",
+        "contractorProcured"
+      ]
+    },
+    {
+      "from": [
+        "infrastructures",
+        "#",
+        "procurement",
+        "contractorDateProcured"
+      ],
+      "to": [
+        "infrastructures",
+        "#",
+        "summary",
+        "expectedInfrastructureStart",
+        "contractorDateProcured"
+      ]
+    },
+    {
+      "from": [
+        "infrastructures",
+        "#",
         "planningStatus",
         "planningStatus",
         "fullPlanningStatus",
@@ -983,29 +1013,44 @@
                 "title": "Expected infrastructure start on site",
                 "calculation": "
 setCreate(formData,
-  path('targetDateOfAchievingStartValidator', '_valid'),
+  path('procurementDateValidator', 'grantedDateValidator', '_valid'),
   get(formData, path('granted')) !== 'Yes' ||
-    date(get(formData, path('targetDateOfAchievingStartValidator', 'targetDateOfAchievingStart'))) >=
-    date(get(formData, path('grantedDate'))
-  )
-);",
+  date(get(formData, path('procurementDateValidator', 'grantedDateValidator', 'targetDateOfAchievingStart'))) >=
+    date(get(formData, path('grantedDate')))
+);
+
+setCreate(formData,
+  path('procurementDateValidator', '_valid'),
+  get(formData, path('contractorProcured')) !== 'Yes' ||
+  date(get(formData, path('procurementDateValidator', 'grantedDateValidator', 'targetDateOfAchievingStart'))) >=
+    date(get(formData, path('contractorDateProcured')))
+);
+",
                 "properties": {
-                  "targetDateOfAchievingStartValidator": {
+                  "procurementDateValidator": {
                     "title": "",
                     "type": "object",
                     "validated": true,
-                    "invalidText": "Date should not be before planning achieved date",
-                    "required": ["targetDateOfAchievingStart"],
                     "properties": {
-                      "targetDateOfAchievingStart": {
-                        "type": "string",
-                        "format": "date",
-                        "title": "Target date of achieving start"
+                      "grantedDateValidator": {
+                        "title": "",
+                        "type": "object",
+                        "validated": true,
+                        "invalidText": "Date should not be before planning achieved date",
+                        "required": ["targetDateOfAchievingStart"],
+                        "properties": {
+                          "targetDateOfAchievingStart": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Target date of achieving start"
+                          }
+                        }
                       }
-                    }
+                    },
+                    "required": ["grantedDateValidator"]
                   }
                 },
-                "required": ["targetDateOfAchievingStartValidator"]
+                "required": ["procurementDateValidator"]
               },
               "expectedInfrastructureCompletion": {
                 "type": "object",
@@ -1359,6 +1404,10 @@ setCreate(formData,
                       "nameOfContractor": {
                         "type": "string",
                         "title": "Name of Contractor"
+                      },
+                      "dateProcured": {
+                        "type": "string",
+                        "title": "Date procured"
                       }
                     },
                     "required": ["nameOfContractor"]
