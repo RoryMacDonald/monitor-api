@@ -145,7 +145,6 @@
               "uploadFile": "multiple",
               "type": "array",
               "s151WriteOnly": true,
-              "minItems": 1,
               "items": {
                 "type": "string"
               }
