@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-describe 'Migration 25' do
+fdescribe 'Migration 26' do
   include_context 'with database'
 
   def synchronize_to_non_migrated_version
-    migrator.migrate_to(database, 24)
+    migrator.migrate_to(database, 25)
   end
 
   def synchronize_to_migrated_version
-    migrator.migrate_to(database, 25)
+    migrator.migrate_to(database, 26)
   end
 
   let(:return_id) { nil }
@@ -34,23 +34,23 @@ describe 'Migration 25' do
 
     let(:data) do
       {
-        outputsActuals: [nil]
+        outputsActuals: []
       }
     end
 
     let(:second_data) do
       {
-        outputsActuals: [{cat: 'meow'}, nil]
+        outputsActuals: []
       }
     end
 
     it 'migrates successfully' do
       expect(get_return_update(0)).to eq({
-        outputsActuals: []
+        outputsActuals: [{}]
       })
 
       expect(get_return_update(1)).to eq({
-        outputsActuals: [{cat: 'meow'}]
+        outputsActuals: [{}]
       })
     end
   end
