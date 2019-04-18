@@ -24,6 +24,26 @@ describe 'Migration 25' do
       .all[index][:data].to_h)
   end
 
+  context 'makes a nil outputsActuals an array' do
+    before do
+      synchronize_to_non_migrated_version
+      create_return_update(data)
+      synchronize_to_migrated_version
+    end
+
+    let(:data) do
+      {
+        outputsActuals: nil
+      }
+    end
+
+    it 'migrates successfully' do
+      expect(get_return_update(0)).to eq({
+        outputsActuals: []
+      })
+    end
+  end
+
   context 'moving outputsActuals into an array' do
     before do
       synchronize_to_non_migrated_version

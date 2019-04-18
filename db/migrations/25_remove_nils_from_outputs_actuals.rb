@@ -5,7 +5,12 @@ Sequel.migration do
     updates = from(:return_updates)
     updates.each do |update|
       update[:data]["outputsActuals"].then do |outputsActuals|
-        update[:data][:outputsActuals] = outputsActuals.compact
+        if outputsActuals.nil?
+          update[:data][:outputsActuals] = []
+        else
+          update[:data][:outputsActuals] = outputsActuals.compact
+        end
+        
         from(:return_updates).where(id: update[:id]).update(data: update[:data])
       end
     end
