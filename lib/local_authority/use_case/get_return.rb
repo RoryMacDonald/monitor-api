@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LocalAuthority::UseCase::GetReturn
-  def initialize(return_gateway:,return_update_gateway:, get_returns:)
+  def initialize(return_gateway:, return_update_gateway:, get_returns:)
     @return_gateway = return_gateway
     @return_update_gateway = return_update_gateway
     @get_returns = get_returns
