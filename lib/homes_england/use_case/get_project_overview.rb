@@ -22,9 +22,9 @@ class HomesEngland::UseCase::GetProjectOverview
       status: project[:status],
       type: project[:type],
       data: project[:data],
-      returns: returns.map { |r| { id: r.id, status: r.status } },
+      returns: returns.map { |r| { id: r.id, status: r.status, timestamp: r.timestamp } },
       claims: claims.map { |c| { id: c.id, status: c.status } },
-      baselines: baselines.map { |b| { id: b.id, status: b.status } }
+      baselines: baselines.map { |b| { id: b.id, status: b.status, timestamp: b.timestamp } }
     }
   end
 end

@@ -97,6 +97,7 @@ describe HomesEngland::UseCase::GetProjectOverview do
         LocalAuthority::Domain::Return.new.tap do |r|
           r.id = 101
           r.status = 'Draft'
+          r.timestamp = 1234
         end
       ]
     end
@@ -106,6 +107,7 @@ describe HomesEngland::UseCase::GetProjectOverview do
         HomesEngland::Domain::Baseline.new.tap do |b|
           b.id = 303
           b.status = 'Draft'
+          b.timestamp = 5678
         end
       ]
     end
@@ -122,7 +124,8 @@ describe HomesEngland::UseCase::GetProjectOverview do
       [
         {
           id: 101,
-          status: 'Draft'
+          status: 'Draft',
+          timestamp: 1234
         }
       ]
     end
@@ -140,7 +143,8 @@ describe HomesEngland::UseCase::GetProjectOverview do
       [
         {
           id: 303,
-          status: 'Draft'
+          status: 'Draft',
+          timestamp: 5678
         }
       ]
     end
@@ -163,10 +167,12 @@ describe HomesEngland::UseCase::GetProjectOverview do
         LocalAuthority::Domain::Return.new.tap do |r|
           r.id = 111
           r.status = 'Submitted'
+          r.timestamp = 1234
         end,
         LocalAuthority::Domain::Return.new.tap do |r|
           r.id = 112
           r.status = 'Draft'
+          r.timestamp = 5678
         end
       ]
     end
@@ -189,10 +195,12 @@ describe HomesEngland::UseCase::GetProjectOverview do
         HomesEngland::Domain::Baseline.new.tap do |b|
           b.id = 333
           b.status = 'Submitted'
+          b.timestamp = 8765
         end,
         HomesEngland::Domain::Baseline.new.tap do |b|
           b.id = 334
           b.status = 'Draft'
+          b.timestamp = 4321
         end
       ]
     end
@@ -209,11 +217,13 @@ describe HomesEngland::UseCase::GetProjectOverview do
       [
         {
           id: 111,
-          status: 'Submitted'
+          status: 'Submitted',
+          timestamp: 1234
         },
         {
           id: 112,
-          status: 'Draft'
+          status: 'Draft',
+          timestamp: 5678
         }
       ]
     end
@@ -235,11 +245,13 @@ describe HomesEngland::UseCase::GetProjectOverview do
       [
         {
           id: 333,
-          status: 'Submitted'
+          status: 'Submitted',
+          timestamp: 8765
         },
         {
           id: 334,
-          status: 'Draft'
+          status: 'Draft',
+          timestamp: 4321
         }
       ]
     end

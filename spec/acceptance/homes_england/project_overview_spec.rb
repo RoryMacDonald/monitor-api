@@ -3,6 +3,8 @@ require_relative '../shared_context/dependency_factory'
 describe 'Getting the overview of a project' do
   include_context "dependency factory"
 
+  let(:current_time) { Time.now }
+
   let(:fixture_directory) { "#{__dir__}/../../fixtures" }
 
   let(:get_project_overview) { get_use_case(:get_project_overview) }
@@ -14,6 +16,14 @@ describe 'Getting the overview of a project' do
   end
 
   let(:project_overview) { get_project_overview.execute(id: created_project_id) }
+
+  before do
+    Timecop.freeze(current_time)
+  end
+
+  after do
+    Timecop.return
+  end
 
   context 'A newly created project' do
     it 'Gives the correct overview' do
@@ -48,8 +58,8 @@ describe 'Getting the overview of a project' do
       expect(project_overview[:returns]).to(
         eq(
           [
-            { id: return_one_id, status: 'Submitted' },
-            { id: return_two_id, status: 'Draft' }
+            { id: return_one_id, status: 'Submitted', timestamp: current_time.to_i },
+            { id: return_two_id, status: 'Draft', timestamp: 0 }
           ]
         )
       )
