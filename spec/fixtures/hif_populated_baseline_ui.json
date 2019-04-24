@@ -1,5 +1,9 @@
 {
-  "summary": {},
+  "summary": {
+    "projectManager": "Michael",
+    "sponsor": "MSPC",
+    "BIDReference": "HIF/MV/15"
+  },
   "infrastructures": [{}],
   "costs": [{}],
   "baselineCashFlow": {},
