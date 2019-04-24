@@ -2155,6 +2155,11 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                         'Consent granted'
                       ]
                     },
+                    incomeSoFarFromDisposals: {
+                      title: "Income so far from disposal(s) – land or units",
+                      type: "string",
+                      currency: true
+                    },
                     changeRequired: {
                       type: 'object',
                       title: 'Change Required?',
