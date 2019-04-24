@@ -2484,6 +2484,11 @@
                   "Reserved Matters granted"
                 ]
               },
+              "incomeSoFarFromDisposals": {
+                "title": "Income so far from disposal(s)",
+                "type": "string",
+                "currency": true
+              },
               "changeRequired": {
                 "type": "object",
                 "title": "Change Required?",

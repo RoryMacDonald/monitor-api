@@ -306,6 +306,7 @@
           }
         }],
         "planningStatus": "Required",
+        "incomeSoFarFromDisposals": "141592",
         "changeRequired": {
           "changeRequiredConfirmation": "confirmed",
           "reason": "reason"
