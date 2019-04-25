@@ -1,10 +1,6 @@
 require "erb"
 
 class HomesEngland::Gateway::Pcs
-  def initialize
-    @pcs_domain = ENV['PCS_DOMAIN']
-  end
-
   def get_project(bid_id:)
     actuals_data = request_pcs_data(bid_id, '/actuals')
     overview_data = request_pcs_data(bid_id, '')
@@ -19,7 +15,7 @@ class HomesEngland::Gateway::Pcs
   end
 
   def request_pcs_data(bid_id, endpoint)
-    pcs_domain_uri = URI(@pcs_domain)
+    pcs_domain_uri = URI(ENV['PCS_DOMAIN'])
     use_ssl = pcs_domain_uri.scheme == 'https'
     Net::HTTP.start(pcs_domain_uri.host, pcs_domain_uri.port, use_ssl: use_ssl) do |http|
       request = Net::HTTP::Get.new("/pcs-api/v1/Projects/#{encode_bid_id(bid_id)}#{endpoint}")
