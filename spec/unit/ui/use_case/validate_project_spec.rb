@@ -1276,4 +1276,61 @@ describe UI::UseCase::ValidateProject do
       end
     end
   end
+
+  context 'shows pattern validation' do
+    it_should_behave_like 'required field validation'
+    let(:template) do
+      Common::Domain::Template.new.tap do |p|
+        p.schema = {
+          title: 'HIF Project',
+          type: 'object',
+          required: ['cats'],
+          properties: {
+            cats: {
+              type: 'array',
+              title: 'Cat array',
+              items: {
+                type: 'object',
+                title: 'Cats',
+                properties: {
+                  toys: {
+                    type: 'array',
+                    title: 'Cat toys',
+                    items: {
+                      type: 'object',
+                      properties: {
+                        description: {
+                          title: 'Description',
+                          pattern: 'Yes',
+                          type: 'string'
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      end
+    end
+
+    let(:invalid_project_data) do
+      {
+        cats: [{ toys: [{ description: 'No' }] }]
+      }
+    end
+
+    let(:valid_project_data) do
+      {
+        cats: [{ toys: [{ description: 'Yes' }] }]
+      }
+    end
+
+    let(:invalid_project_data_paths) { [[:cats, 0, :toys, 0, :description]] }
+
+    let(:invalid_project_data_pretty_paths) do
+      [['Cats', '0', 'Cat toys', '0', 'Description']]
+    end
+  end
 end
