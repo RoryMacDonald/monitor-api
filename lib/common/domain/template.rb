@@ -64,14 +64,19 @@ class Common::Domain::Template
       error.each do |message|
         next if message.data.nil?
         next if message_is_array_index?(message)
-        next unless message.data.kind_of?(Array)
+        if message.data.kind_of?(Array)
+          path = message.path
+          path.shift
 
-        path = message.path
-        path.shift
+          message.data.each do |node|
+            full_path = Array.new(path)
+            paths.push(full_path.push(node))
+          end
+        elsif message.type == :pattern_failed
+          path = message.path
+          path.shift
 
-        message.data.each do |node|
-          full_path = Array.new(path)
-          paths.push(full_path.push(node))
+          paths.push(Array.new(path))
         end
       end
     end
