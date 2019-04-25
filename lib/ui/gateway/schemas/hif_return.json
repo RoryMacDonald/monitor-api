@@ -6404,9 +6404,11 @@ get(formData, 'previousAmounts', 'lastReturn') ?
             },
             "cashflowConfirmation": {
               "title": "Please confirm you are content with the submitted project cashflows",
+              "description": "It is a contractual condition that there is an agreed cashflow for the project",
               "type": "string",
-              "radio": true,
               "s151WriteOnly": true,
+              "enumCheckbox": true,
+              "pattern": "Yes",
               "enum": [
                 "Yes",
                 "No"
@@ -6760,8 +6762,10 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         "usedOnFutureHosuing": {
                           "type": "string",
                           "title": "Will/Has this been used on future housing?",
-                          "radio": true,
+                          "description": "It is a contractual condition that any recovery of funding is used on future housing",
                           "s151WriteOnly": true,
+                          "enumCheckbox": true,
+                          "pattern": "Yes",
                           "enum": [
                             "Yes",
                             "No"
