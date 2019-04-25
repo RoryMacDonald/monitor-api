@@ -505,11 +505,6 @@
                       "Outline or Reserved Matters consent granted"
                     ]
                   },
-                  "incomeReceived": {
-                    "type": "string",
-                    "title": "Income received by the local authority to date",
-                    "currency": true
-                  },
                   "finalIncome": {
                     "type": "string",
                     "title": "Expected final income for the local authority",
