@@ -41,6 +41,8 @@ class Common::Domain::Template
         end
       elsif error.type == :min_items_failed
         all_error_paths.push(symbolize_path(error_path))
+      elsif error.type == :pattern_failed
+        all_error_paths.push(symbolize_path(error_path))
       end
     end
     all_error_paths
@@ -82,7 +84,7 @@ class Common::Domain::Template
 
   def get_supported_errors(aggregated_errors)
     aggregated_errors.errors.select do |error|
-      %i[required_failed one_of_failed min_items_failed].include? error.type
+      %i[required_failed one_of_failed min_items_failed pattern_failed].include? error.type
     end
   end
 
