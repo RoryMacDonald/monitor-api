@@ -979,7 +979,6 @@
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
-                                "readonly": true,
                                 "title": "On Completed Date"
                               }
                             }
