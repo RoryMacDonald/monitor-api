@@ -1278,6 +1278,65 @@ describe UI::UseCase::ValidateProject do
   end
 
   context 'shows pattern validation' do
+    context 'Outside of a one of' do
+      it_should_behave_like 'required field validation'
+      let(:template) do
+        Common::Domain::Template.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            required: ['cats'],
+            properties: {
+              cats: {
+                type: 'array',
+                title: 'Cat array',
+                items: {
+                  type: 'object',
+                  title: 'Cats',
+                  properties: {
+                    toys: {
+                      type: 'array',
+                      title: 'Cat toys',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          description: {
+                            title: 'Description',
+                            pattern: 'Yes',
+                            type: 'string'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        end
+      end
+
+      let(:invalid_project_data) do
+        {
+          cats: [{ toys: [{ description: 'No' }] }]
+        }
+      end
+
+      let(:valid_project_data) do
+        {
+          cats: [{ toys: [{ description: 'Yes' }] }]
+        }
+      end
+
+      let(:invalid_project_data_paths) { [[:cats, 0, :toys, 0, :description]] }
+
+      let(:invalid_project_data_pretty_paths) do
+        [['Cats', '0', 'Cat toys', '0', 'Description']]
+      end
+    end
+  end
+
+  context 'Inside a one of' do
     it_should_behave_like 'required field validation'
     let(:template) do
       Common::Domain::Template.new.tap do |p|
@@ -1287,26 +1346,39 @@ describe UI::UseCase::ValidateProject do
           required: ['cats'],
           properties: {
             cats: {
-              type: 'array',
-              title: 'Cat array',
-              items: {
-                type: 'object',
-                title: 'Cats',
-                properties: {
-                  toys: {
-                    type: 'array',
-                    title: 'Cat toys',
-                    items: {
-                      type: 'object',
+              title: 'Cats',
+              type: 'object',
+              required: ['confirm'],
+              properties: {
+                confirm: {
+                  type: 'string',
+                  enum: %w[Yes No]
+                }
+              },
+              dependencies: {
+                confirm: {
+                  oneOf: [
+                    {
+                      required: ['doubleConfirm'],
                       properties: {
-                        description: {
-                          title: 'Description',
-                          pattern: 'Yes',
-                          type: 'string'
+                        confirm: {
+                          enum: ['Yes']
+                        },
+                        doubleConfirm: {
+                          title: 'Double confirm',
+                          type: 'string',
+                          pattern: 'Double yes'
+                        }
+                      }
+                    },
+                    {
+                      properties: {
+                        confirm: {
+                          enum: ['No']
                         }
                       }
                     }
-                  }
+                  ]
                 }
               }
             }
@@ -1317,20 +1389,20 @@ describe UI::UseCase::ValidateProject do
 
     let(:invalid_project_data) do
       {
-        cats: [{ toys: [{ description: 'No' }] }]
+        cats: { confirm: 'Yes', doubleConfirm: 'Nah' }
       }
     end
 
     let(:valid_project_data) do
       {
-        cats: [{ toys: [{ description: 'Yes' }] }]
+        cats: { confirm: 'Yes', doubleConfirm: 'Double yes' }
       }
     end
 
-    let(:invalid_project_data_paths) { [[:cats, 0, :toys, 0, :description]] }
+    let(:invalid_project_data_paths) { [[:cats, :doubleConfirm]] }
 
     let(:invalid_project_data_pretty_paths) do
-      [['Cats', '0', 'Cat toys', '0', 'Description']]
+      [['Cats', 'Double confirm']]
     end
   end
 end
