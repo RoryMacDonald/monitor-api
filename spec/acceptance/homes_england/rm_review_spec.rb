@@ -29,7 +29,7 @@ fdescribe 'RM Review' do
 
     review_id = get_use_case(:create_new_rm_review).execute(project_id: project[:id], review_data: {
       date: "25/08/2000"
-    })[:review_id]
+    })[:id]
 
     found_review = get_use_case(:get_rm_review).execute(review_id: review_id)
 
@@ -38,7 +38,8 @@ fdescribe 'RM Review' do
       project_id: project[:id],
       data: {
         date: "25/08/2000"
-      }
+      },
+      status: 'Draft'
     })
   end
 end

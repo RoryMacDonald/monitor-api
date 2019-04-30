@@ -14,6 +14,7 @@ fdescribe HomesEngland::Gateway::SequelReview do
       new_review_id = gateway.create(review)
       found_review = gateway.find_by(id: new_review_id)
 
+      expect(found_review.id).to eq(new_review_id)
       expect(found_review.project_id).to eq(1)
       expect(found_review.data).to eq({})
       expect(found_review.status).to eq('Draft')
@@ -29,6 +30,7 @@ fdescribe HomesEngland::Gateway::SequelReview do
       new_review_id = gateway.create(review)
       found_review = gateway.find_by(id: new_review_id)
 
+      expect(found_review.id).to eq(new_review_id)
       expect(found_review.project_id).to eq(2)
       expect(found_review.data).to eq({ cats: "meow" })
       expect(found_review.status).to eq('Submitted')
