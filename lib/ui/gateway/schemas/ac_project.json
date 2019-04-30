@@ -660,7 +660,6 @@ set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ?
           "quarterly": true,
           "addable": true,
           "title": "Funding Drawdown",
-          "minItems": 3,
           "items": {
             "type": "object",
             "required": [
