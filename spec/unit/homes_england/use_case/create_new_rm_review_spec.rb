@@ -4,24 +4,7 @@ describe HomesEngland::UseCase::CreateNewRmReview do
   let(:rm_review_id) { 0 }
   let(:rm_review_gateway) { spy(create: rm_review_id) }
   let(:project_gateway) { spy }
-  let(:use_case) do
-    described_class.new(
-      project_gateway: project_gateway,
-      rm_review_gateway: rm_review_gateway
-    )
-  end
-
-  context 'calls find_by in project gateway with the project_id' do
-    example 1 do
-      use_case.execute(project_id: 1, review_data: {})
-      expect(project_gateway).to have_received(:find_by).with(id: 1)
-    end
-
-    example 2 do
-      use_case.execute(project_id: 2, review_data: {})
-      expect(project_gateway).to have_received(:find_by).with(id: 2)
-    end
-  end
+  let(:use_case) { described_class.new(rm_review_gateway: rm_review_gateway) }
 
   context 'calls create in rm_review gateway' do
     example 1 do
@@ -39,7 +22,7 @@ describe HomesEngland::UseCase::CreateNewRmReview do
       })
       expect(rm_review_gateway).to have_received(:create) do |rm_review|
         expect(rm_review.project_id).to eq(7)
-        expect(rm_review.data).to eq({date: '24/01/2001'})
+        expect(rm_review.data).to eq({ date: '24/01/2001' })
         expect(rm_review.status).to eq('Draft')
       end
     end
