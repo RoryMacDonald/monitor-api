@@ -147,5 +147,11 @@ class HomesEngland::UseCases
         return_gateway: builder.get_gateway(:return_gateway)
       )
     end
+
+    builder.define_use_case :create_new_rm_review do
+      HomesEngland::UseCase::CreateNewRmReview.new(
+        rm_review_gateway: builder.get_gateway(:review)
+      )
+    end
   end
 end

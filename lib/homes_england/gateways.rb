@@ -21,5 +21,9 @@ class HomesEngland::Gateways
     builder.define_gateway :pcs do
       HomesEngland::Gateway::Pcs.new
     end
+
+    builder.define_gateway :review do
+      HomesEngland::Gateway::SequelReview.new(database: builder.database)
+    end
   end
 end
