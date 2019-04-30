@@ -1,9 +1,9 @@
 require_relative '../shared_context/dependency_factory'
 
-describe 'RM Review' do
+fdescribe 'RM Review Converting' do
   include_context 'dependency factory'
 
-  it 'Creates an RM review' do
+  it 'creates a review from ui data' do
     project_baseline = {
       summary: {
         project_name: 'Cats Protection League',
@@ -27,11 +27,11 @@ describe 'RM Review' do
       name: 'a project', type: 'hif', baseline: project_baseline, bid_id: 'HIF/MV/16'
     )
 
-    review_id = get_use_case(:create_new_rm_review).execute(project_id: project[:id], review_data: {
+    review_id = get_use_case(:ui_create_review).execute(project_id: project[:id], review_data: {
       date: "25/08/2000"
     })[:id]
 
-    found_review = get_use_case(:get_rm_review).execute(review_id: review_id)
+    found_review = get_use_case(:ui_get_review).execute(review_id: review_id)
 
     expect(found_review).to eq({
       id: review_id,
