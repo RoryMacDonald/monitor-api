@@ -1,6 +1,6 @@
 require_relative '../shared_context/dependency_factory'
 
-fdescribe 'RM Review' do
+describe 'RM Review' do
   include_context 'dependency factory'
 
   it 'Creating an RM review' do

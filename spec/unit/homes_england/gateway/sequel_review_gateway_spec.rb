@@ -1,4 +1,4 @@
-fdescribe HomesEngland::Gateway::SequelReview do
+describe HomesEngland::Gateway::SequelReview do
   include_context 'with database'
 
   let(:gateway) { described_class.new(database: database) }

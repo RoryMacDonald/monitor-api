@@ -1,4 +1,4 @@
-fdescribe 'Migration 27' do
+describe 'Migration 27' do
   include_context 'with database'
 
   def synchronize_to_non_migrated_version

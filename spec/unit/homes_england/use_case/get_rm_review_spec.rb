@@ -1,4 +1,4 @@
-fdescribe HomesEngland::UseCase::GetRmReview do
+describe HomesEngland::UseCase::GetRmReview do
 
   let(:rm_review_gateway_spy) { spy(find_by: review) }
   let(:get_review) do

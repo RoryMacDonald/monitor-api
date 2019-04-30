@@ -1,7 +1,7 @@
 require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
-fdescribe 'Creating a review' do
+describe 'Creating a review' do
   let(:api_key_gateway_spy) { nil }
   let(:api_key) { 'Cats' }
   let(:check_api_key_spy) { spy }
