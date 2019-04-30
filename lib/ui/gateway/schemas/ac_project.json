@@ -799,7 +799,7 @@ validateDatesSequential(formData,
           "properties": {
             "surveysAndDueDiligence": {
               "type": "object",
-              "title": "",
+              "title": "Surveys and Due Diligence",
               "horizontal": true,
               "required": ["commencementOfDueDiligence"],
               "properties": {
@@ -826,7 +826,7 @@ validateDatesSequential(formData,
             },
             "procurementProvision": {
               "type": "object",
-              "title": "",
+              "title": "Procurement of works",
               "horizontal": true,
               "required": ["procurementOfWorksCommencementDate"],
               "properties": {
@@ -853,7 +853,7 @@ validateDatesSequential(formData,
             },
             "worksDate": {
               "type": "object",
-              "title": "",
+              "title": "Commencement of works",
               "horizontal": true,
               "properties": {
                 "commencementDateHolder": {
@@ -888,7 +888,7 @@ validateDatesSequential(formData,
             },
             "outlinePlanning": {
               "type": "object",
-              "title": "",
+              "title": "Outline planning",
               "horizontal": true,
               "required": ["outlinePlanningGrantedDate"],
               "properties": {
@@ -920,7 +920,7 @@ validateDatesSequential(formData,
             },
             "contractSigned": {
               "type": "object",
-              "title": "",
+              "title": "Conditional contracts signed",
               "horizontal": true,
               "properties": {
                 "conditionalContractSignedHolder": {
@@ -955,7 +955,7 @@ validateDatesSequential(formData,
             },
             "workDates": {
               "type": "object",
-              "title": "",
+              "title": "Start dates",
               "horizontal": true,
               "properties": {
                 "startOnSiteDateHolder": {
@@ -990,7 +990,7 @@ validateDatesSequential(formData,
             },
             "completionDates": {
               "type": "object",
-              "title": "",
+              "title": "Completion dates",
               "horizontal": true,
               "required": ["projectCompletionDate"],
               "properties": {
