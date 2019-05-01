@@ -19,7 +19,7 @@ describe 'Getting a review' do
 
   before do
     stub_instances(
-      HomesEngland::UseCase::GetRmReview, get_rm_review_spy
+      UI::UseCase::UiGetReview, get_rm_review_spy
     )
     stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
     stub_instances(LocalAuthority::Gateway::InMemoryAPIKeyGateway, api_key_gateway_spy)
@@ -43,7 +43,7 @@ describe 'Getting a review' do
     before { get "review/get?id=#{project_id}&review_id=#{review_id}", {}.to_json, 'HTTP_API_KEY' => api_key }
 
     it 'calls the get review use case' do
-      expect(get_rm_review_spy).to have_received(:execute).with(id: review_id)
+      expect(get_rm_review_spy).to have_received(:execute).with(project_id: project_id, review_id: review_id)
     end
 
     it 'returns the review' do
@@ -76,7 +76,7 @@ describe 'Getting a review' do
     before { get "review/get?id=#{project_id}&review_id=#{review_id}", {}.to_json, 'HTTP_API_KEY' => api_key }
 
     it 'calls the get review use case' do
-      expect(get_rm_review_spy).to have_received(:execute).with(id: review_id)
+      expect(get_rm_review_spy).to have_received(:execute).with(project_id: project_id, review_id: review_id)
     end
 
     it 'returns the review' do

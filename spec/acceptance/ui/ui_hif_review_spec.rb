@@ -1,6 +1,6 @@
 require_relative '../shared_context/dependency_factory'
 
-fdescribe 'RM Review Converting' do
+describe 'RM Review Converting' do
   include_context 'dependency factory'
 
   it 'creates a review from ui data' do

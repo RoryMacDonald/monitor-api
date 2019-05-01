@@ -1,4 +1,4 @@
-fdescribe UI::UseCase::ConvertCoreReview do
+describe UI::UseCase::ConvertCoreReview do
   let(:convert_core_hif_review_spy) { spy(execute: {id: 1, project_id: 7, data:{ some_data:'cat' }, status:'Draft'}) }
   let(:usecase) do
     described_class.new(

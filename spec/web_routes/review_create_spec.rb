@@ -20,7 +20,7 @@ describe 'Creating a review' do
 
   before do
     stub_instances(
-      HomesEngland::UseCase::CreateNewRmReview, create_new_rm_review_spy
+      UI::UseCase::UiCreateReview, create_new_rm_review_spy
     )
     stub_instances(LocalAuthority::UseCase::CheckApiKey, check_api_key_spy)
     stub_instances(LocalAuthority::Gateway::InMemoryAPIKeyGateway, api_key_gateway_spy)
