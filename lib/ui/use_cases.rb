@@ -291,5 +291,23 @@ class UI::UseCases
         create_review: builder.get_use_case(:create_new_rm_review)
       )
     end
+
+    builder.define_use_case :convert_core_hif_review do
+      UI::UseCase::ConvertCoreHifReview.new
+    end
+
+    builder.define_use_case :convert_core_review do
+      UI::UseCase::ConvertCoreReview.new(
+        convert_core_hif_review: builder.get_use_case(:convert_core_hif_review)
+      )
+    end
+
+    builder.define_use_case :ui_get_review do
+      UI::UseCase::UiGetReview.new(
+        find_project: builder.get_use_case(:find_project),
+        convert_core_review: builder.get_use_case(:convert_core_review),
+        get_review: builder.get_use_case(:get_rm_review)
+      )
+    end
   end
 end

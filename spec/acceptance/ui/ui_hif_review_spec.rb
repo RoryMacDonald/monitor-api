@@ -31,7 +31,7 @@ fdescribe 'RM Review Converting' do
       date: "25/08/2000"
     })[:id]
 
-    found_review = get_use_case(:ui_get_review).execute(review_id: review_id)
+    found_review = get_use_case(:ui_get_review).execute(project_id: project[:id], review_id: review_id)
 
     expect(found_review).to eq({
       id: review_id,
