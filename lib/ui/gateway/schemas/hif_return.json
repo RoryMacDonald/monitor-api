@@ -6760,7 +6760,7 @@ get(formData, 'previousAmounts', 'lastReturn') ?
                         },
                         "usedOnFutureHosuing": {
                           "type": "string",
-                          "title": "Will/Has this been used on future housing?",
+                          "title": "Please confirm that this has (or will) been used on future housing",
                           "description": "It is a contractual condition that any recovery of funding is used on future housing",
                           "s151WriteOnly": true,
                           "enumCheckbox": true,
