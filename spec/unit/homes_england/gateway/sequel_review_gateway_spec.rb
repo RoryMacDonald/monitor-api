@@ -82,4 +82,21 @@ fdescribe HomesEngland::Gateway::SequelReview do
       expect(found_review.status).to eq('Draft')
     end
   end
+
+  it 'can submit a review' do
+    review = HomesEngland::Domain::RmReview.new.tap do |review|
+      review.project_id = 3
+      review.data = { cats: 'sock' }
+      review.status = 'Draft'
+    end
+
+    new_review_id = gateway.create(review)
+
+    gateway.submit(id: new_review_id)
+
+    found_review = gateway.find_by(id: new_review_id)
+
+    expect(found_review.id).to eq(new_review_id)
+    expect(found_review.status).to eq('Submitted')
+  end
 end

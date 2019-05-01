@@ -3,7 +3,7 @@ require_relative '../shared_context/dependency_factory'
 fdescribe 'RM Review' do
   include_context 'dependency factory'
 
-  it 'Creates and updates an RM review' do
+  it 'Creates, updates and submits an RM review' do
     project_baseline = {
       summary: {
         project_name: 'Cats Protection League',
@@ -56,6 +56,19 @@ fdescribe 'RM Review' do
         date: '01/01/1970'
       },
       status: 'Draft'
+    })
+
+    get_use_case(:submit_review).execute(review_id: review_id)
+
+    found_review = get_use_case(:get_rm_review).execute(review_id: review_id)
+
+    expect(found_review).to eq({
+      id: review_id,
+      project_id: project[:id],
+      data: {
+        date: '01/01/1970'
+      },
+      status: 'Submitted'
     })
   end
 end

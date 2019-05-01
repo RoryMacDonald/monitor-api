@@ -165,5 +165,11 @@ class HomesEngland::UseCases
         review_gateway: builder.get_gateway(:review)
       )
     end
+
+    builder.define_use_case :submit_review do
+      HomesEngland::UseCase::SubmitReview.new(
+        review_gateway: builder.get_gateway(:review)
+      )
+    end
   end
 end

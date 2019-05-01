@@ -25,4 +25,8 @@ class HomesEngland::Gateway::SequelReview
   def update(review)
     @database[:reviews].where(id: review.id).update(data: Sequel.pg_json(review.data))
   end
+
+  def submit(id:)
+    @database[:reviews].where(id: id).update(status: 'Submitted')
+  end
 end

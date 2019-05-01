@@ -309,5 +309,13 @@ class UI::UseCases
         get_review: builder.get_use_case(:get_rm_review)
       )
     end
+
+    builder.define_use_case :ui_update_review do
+      UI::UseCase::UpdateReview.new(
+        find_project: builder.get_use_case(:find_project),
+        convert_ui_review: builder.get_use_case(:convert_ui_review),
+        update_review: builder.get_use_case(:update_review)
+      )
+    end
   end
 end
