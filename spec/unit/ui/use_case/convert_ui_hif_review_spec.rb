@@ -1,4 +1,4 @@
-fdescribe UI::UseCase::ConvertUiHifReview do
+describe UI::UseCase::ConvertUiHifReview do
   let(:review_to_convert) do
     {
       date: '01/01/1990'

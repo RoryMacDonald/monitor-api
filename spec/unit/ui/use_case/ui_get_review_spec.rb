@@ -1,4 +1,4 @@
-fdescribe UI::UseCase::UiGetReview do
+describe UI::UseCase::UiGetReview do
   let(:usecase) { described_class.new(
     convert_core_review: convert_core_review_spy,
     get_review: get_review_spy,
