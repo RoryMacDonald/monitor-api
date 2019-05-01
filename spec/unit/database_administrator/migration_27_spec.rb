@@ -16,9 +16,9 @@ describe 'Migration 27' do
     synchronize_to_migrated_version
   end
 
-  it 'creates the reviews tab' do
+  it 'creates the monthly_catchups table' do
     expect(
-      database[:reviews].insert(data: Sequel.pg_json({}), project_id: 1, status: 'Draft')
+      database[:monthly_catchups].insert(data: Sequel.pg_json({}), project_id: 1, status: 'Draft')
     )
   end
 end

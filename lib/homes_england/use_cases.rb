@@ -148,27 +148,27 @@ class HomesEngland::UseCases
       )
     end
 
-    builder.define_use_case :create_new_rm_review do
-      HomesEngland::UseCase::CreateNewRmReview.new(
-        rm_review_gateway: builder.get_gateway(:review)
+    builder.define_use_case :create_new_monthly_catchup do
+      HomesEngland::UseCase::CreateNewRmMonthlyCatchup.new(
+        monthly_catchup_gateway: builder.get_gateway(:monthly_catchup)
       )
     end
 
-    builder.define_use_case :get_rm_review do
-      HomesEngland::UseCase::GetRmReview.new(
-        rm_review_gateway: builder.get_gateway(:review)
+    builder.define_use_case :get_monthly_catchup do
+      HomesEngland::UseCase::GetRmMonthlyCatchup.new(
+        monthly_catchup_gateway: builder.get_gateway(:monthly_catchup)
       )
     end
 
-    builder.define_use_case :update_review do
-      HomesEngland::UseCase::UpdateReview.new(
-        review_gateway: builder.get_gateway(:review)
+    builder.define_use_case :update_monthly_catchup do
+      HomesEngland::UseCase::UpdateMonthlyCatchup.new(
+        monthly_catchup_gateway: builder.get_gateway(:monthly_catchup)
       )
     end
 
-    builder.define_use_case :submit_review do
-      HomesEngland::UseCase::SubmitReview.new(
-        review_gateway: builder.get_gateway(:review)
+    builder.define_use_case :submit_monthly_catchup do
+      HomesEngland::UseCase::SubmitMonthlyCatchup.new(
+        monthly_catchup_gateway: builder.get_gateway(:monthly_catchup)
       )
     end
   end

@@ -22,8 +22,8 @@ class HomesEngland::Gateways
       HomesEngland::Gateway::Pcs.new
     end
 
-    builder.define_gateway :review do
-      HomesEngland::Gateway::SequelReview.new(database: builder.database)
+    builder.define_gateway :monthly_catchup do
+      HomesEngland::Gateway::SequelMonthlyCatchup.new(database: builder.database)
     end
   end
 end

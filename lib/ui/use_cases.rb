@@ -274,47 +274,47 @@ class UI::UseCases
       )
     end
 
-    builder.define_use_case :convert_ui_hif_review do
-      UI::UseCase::ConvertUiHifReview.new
+    builder.define_use_case :convert_ui_hif_monthly_catchup do
+      UI::UseCase::ConvertUiHifMonthlyCatchup.new
     end
 
-    builder.define_use_case :convert_ui_review do
-      UI::UseCase::ConvertUIReview.new(
-        convert_ui_hif_review: builder.get_use_case(:convert_ui_hif_review)
+    builder.define_use_case :convert_ui_monthly_catchup do
+      UI::UseCase::ConvertUIMonthlyCatchup.new(
+        convert_ui_hif_monthly_catchup: builder.get_use_case(:convert_ui_hif_monthly_catchup)
       )
     end
 
-    builder.define_use_case :ui_create_review do
-      UI::UseCase::UiCreateReview.new(
+    builder.define_use_case :ui_create_monthly_catchup do
+      UI::UseCase::UiCreateMonthlyCatchup.new(
         find_project: builder.get_use_case(:find_project),
-        convert_ui_review: builder.get_use_case(:convert_ui_review),
-        create_review: builder.get_use_case(:create_new_rm_review)
+        convert_ui_monthly_catchup: builder.get_use_case(:convert_ui_monthly_catchup),
+        create_monthly_catchup: builder.get_use_case(:create_new_monthly_catchup)
       )
     end
 
-    builder.define_use_case :convert_core_hif_review do
-      UI::UseCase::ConvertCoreHifReview.new
+    builder.define_use_case :convert_core_hif_monthly_catchup do
+      UI::UseCase::ConvertCoreHifMonthlyCatchup.new
     end
 
-    builder.define_use_case :convert_core_review do
-      UI::UseCase::ConvertCoreReview.new(
-        convert_core_hif_review: builder.get_use_case(:convert_core_hif_review)
+    builder.define_use_case :convert_core_monthly_catchup do
+      UI::UseCase::ConvertCoreMonthlyCatchup.new(
+        convert_core_hif_monthly_catchup: builder.get_use_case(:convert_core_hif_monthly_catchup)
       )
     end
 
-    builder.define_use_case :ui_get_review do
-      UI::UseCase::UiGetReview.new(
+    builder.define_use_case :ui_get_monthly_catchup do
+      UI::UseCase::UiGetMonthlyCatchup.new(
         find_project: builder.get_use_case(:find_project),
-        convert_core_review: builder.get_use_case(:convert_core_review),
-        get_review: builder.get_use_case(:get_rm_review)
+        convert_core_monthly_catchup: builder.get_use_case(:convert_core_monthly_catchup),
+        get_monthly_catchup: builder.get_use_case(:get_monthly_catchup)
       )
     end
 
-    builder.define_use_case :ui_update_review do
-      UI::UseCase::UpdateReview.new(
+    builder.define_use_case :ui_update_monthly_catchup do
+      UI::UseCase::UpdateMonthlyCatchup.new(
         find_project: builder.get_use_case(:find_project),
-        convert_ui_review: builder.get_use_case(:convert_ui_review),
-        update_review: builder.get_use_case(:update_review)
+        convert_ui_monthly_catchup: builder.get_use_case(:convert_ui_monthly_catchup),
+        update_monthly_catchup: builder.get_use_case(:update_monthly_catchup)
       )
     end
   end
