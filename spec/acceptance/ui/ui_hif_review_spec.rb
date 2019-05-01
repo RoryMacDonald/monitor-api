@@ -3,7 +3,7 @@ require_relative '../shared_context/dependency_factory'
 describe 'RM Review Converting' do
   include_context 'dependency factory'
 
-  it 'creates a review from ui data' do
+  it 'creates and updates a review from ui data' do
     project_baseline = {
       summary: {
         project_name: 'Cats Protection League',
@@ -38,6 +38,19 @@ describe 'RM Review Converting' do
       project_id: project[:id],
       data: {
         date: "25/08/2000"
+      },
+      status: 'Draft'
+    })
+
+    get_use_case(:ui_update_review).execute(project_id: project[:id], review_id: review_id, review_data: { date: '17/12/1998' })
+
+    found_review = get_use_case(:ui_get_review).execute(project_id: project[:id], review_id: review_id)
+
+    expect(found_review).to eq({
+      id: review_id,
+      project_id: project[:id],
+      data: {
+        date: '17/12/1998'
       },
       status: 'Draft'
     })
