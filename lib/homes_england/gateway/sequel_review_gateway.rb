@@ -21,4 +21,8 @@ class HomesEngland::Gateway::SequelReview
       end
     end
   end
+
+  def update(review)
+    @database[:reviews].where(id: review.id).update(data: Sequel.pg_json(review.data))
+  end
 end
