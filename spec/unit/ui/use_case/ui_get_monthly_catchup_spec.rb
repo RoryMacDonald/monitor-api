@@ -1,4 +1,4 @@
-fdescribe UI::UseCase::UiGetMonthlyCatchup do
+describe UI::UseCase::UiGetMonthlyCatchup do
   let(:schema) { nil }
   let(:usecase) { described_class.new(
     convert_core_monthly_catchup: convert_core_monthly_catchup_spy,

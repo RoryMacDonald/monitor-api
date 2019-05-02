@@ -1,6 +1,6 @@
 require_relative '../shared_context/dependency_factory'
 
-fdescribe 'Monthly Catchup Converting' do
+describe 'Monthly Catchup Converting' do
   include_context 'dependency factory'
   let(:schema) do
     File.open("#{__dir__}/../../../lib/ui/gateway/schemas/monthly_catchup/hif.json", 'r') do |f|

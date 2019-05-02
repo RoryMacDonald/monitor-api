@@ -11,6 +11,7 @@ class UI::UseCase::UiGetMonthlyCatchup
     schema = @catchup_schema_gateway.find_by(type: project[:type])
     monthly_catchup = @get_monthly_catchup.execute(monthly_catchup_id: monthly_catchup_id)
     monthly_catchup_data = @convert_core_monthly_catchup.execute(type: project[:type], monthly_catchup_data: monthly_catchup[:data])
+
     {
       id: monthly_catchup[:id],
       project_id: project_id,

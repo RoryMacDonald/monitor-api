@@ -1,6 +1,6 @@
 require_relative '../shared_context/dependency_factory'
 
-describe 'Monthly Catchup' do
+fdescribe 'Monthly Catchup' do
   include_context 'dependency factory'
 
   it 'Creates, updates and submits an RM monthly_catchup' do
@@ -26,6 +26,15 @@ describe 'Monthly Catchup' do
     project = get_use_case(:create_new_project).execute(
       name: 'a project', type: 'hif', baseline: project_baseline, bid_id: 'HIF/MV/16'
     )
+
+    base_monthly_catchup = get_use_case(:get_base_monthly_catchup).execute(project_id: project[:id])
+    expect(base_monthly_catchup).to eq({
+      base_monthly_catchup: {
+        id: project[:id],
+        data: {},
+        schema: {}
+      }
+    })
 
     monthly_catchup_id = get_use_case(:create_new_monthly_catchup).execute(project_id: project[:id], monthly_catchup_data: {
       date: '25/08/2000'
