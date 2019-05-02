@@ -306,7 +306,8 @@ class UI::UseCases
       UI::UseCase::UiGetMonthlyCatchup.new(
         find_project: builder.get_use_case(:find_project),
         convert_core_monthly_catchup: builder.get_use_case(:convert_core_monthly_catchup),
-        get_monthly_catchup: builder.get_use_case(:get_monthly_catchup)
+        get_monthly_catchup: builder.get_use_case(:get_monthly_catchup),
+        catchup_schema_gateway: builder.get_gateway(:ui_monthly_catchup_schema)
       )
     end
 

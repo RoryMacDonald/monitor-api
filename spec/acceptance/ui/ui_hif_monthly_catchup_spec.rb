@@ -1,7 +1,15 @@
 require_relative '../shared_context/dependency_factory'
 
-describe 'RM MonthlyCatchup Converting' do
+fdescribe 'Monthly Catchup Converting' do
   include_context 'dependency factory'
+  let(:schema) do
+    File.open("#{__dir__}/../../../lib/ui/gateway/schemas/monthly_catchup/hif.json", 'r') do |f|
+      return JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
+  end
 
   it 'creates and updates a monthly_catchup from ui data' do
     project_baseline = {
@@ -39,7 +47,8 @@ describe 'RM MonthlyCatchup Converting' do
       data: {
         date: "25/08/2000"
       },
-      status: 'Draft'
+      status: 'Draft',
+      schema: schema
     })
 
     get_use_case(:ui_update_monthly_catchup).execute(project_id: project[:id], monthly_catchup_id: monthly_catchup_id, monthly_catchup_data: { date: '17/12/1998' })
@@ -52,7 +61,8 @@ describe 'RM MonthlyCatchup Converting' do
       data: {
         date: '17/12/1998'
       },
-      status: 'Draft'
+      status: 'Draft',
+      schema: schema
     })
   end
 end

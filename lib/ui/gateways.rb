@@ -17,5 +17,9 @@ class UI::Gateways
     builder.define_gateway :ui_claim_schema do
       UI::Gateway::InMemoryClaimSchema.new
     end
+
+    builder.define_gateway :ui_monthly_catchup_schema do
+      UI::Gateway::InMemoryMonthlyCatchupSchemaGateway.new
+    end
   end
 end
