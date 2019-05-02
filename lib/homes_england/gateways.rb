@@ -25,5 +25,9 @@ class HomesEngland::Gateways
     builder.define_gateway :monthly_catchup do
       HomesEngland::Gateway::SequelMonthlyCatchup.new(database: builder.database)
     end
+
+    builder.define_gateway :monthly_catchup_template do
+      HomesEngland::Gateway::InMemoryMonthlyCatchupTemplate.new
+    end
   end
 end

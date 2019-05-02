@@ -30,7 +30,7 @@ fdescribe 'Monthly Catchup' do
     base_monthly_catchup = get_use_case(:get_base_monthly_catchup).execute(project_id: project[:id])
     expect(base_monthly_catchup).to eq({
       base_monthly_catchup: {
-        id: project[:id],
+        project_id: project[:id],
         data: {},
         schema: {}
       }

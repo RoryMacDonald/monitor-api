@@ -171,5 +171,12 @@ class HomesEngland::UseCases
         monthly_catchup_gateway: builder.get_gateway(:monthly_catchup)
       )
     end
+
+    builder.define_use_case :get_base_monthly_catchup do
+      HomesEngland::UseCase::GetBaseMonthlyCatchup.new(
+        find_project: builder.get_use_case(:find_project),
+        monthly_catchup_template_gateway: builder.get_gateway(:monthly_catchup_template)
+      )
+    end
   end
 end
