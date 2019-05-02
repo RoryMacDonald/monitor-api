@@ -1,6 +1,6 @@
 require_relative '../shared_context/dependency_factory'
 
-describe 'Monthly Catchup Converting' do
+fdescribe 'Monthly Catchup Converting' do
   include_context 'dependency factory'
   let(:schema) do
     File.open("#{__dir__}/../../../lib/ui/gateway/schemas/monthly_catchup/hif.json", 'r') do |f|
@@ -34,6 +34,14 @@ describe 'Monthly Catchup Converting' do
     project = get_use_case(:create_new_project).execute(
       name: 'a project', type: 'hif', baseline: project_baseline, bid_id: 'HIF/MV/16'
     )
+
+    base_monthly_catchup = get_use_case(:ui_get_base_monthly_catchup).execute(type: 'hif')
+
+    expect(base_monthly_catchup).to eq({
+      project_id: project[:id],
+      data: {},
+      schema: schema
+    })
 
     monthly_catchup_id = get_use_case(:ui_create_monthly_catchup).execute(project_id: project[:id], monthly_catchup_data: {
       date: "25/08/2000"
