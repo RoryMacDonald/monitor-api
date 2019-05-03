@@ -78,32 +78,32 @@ module DeliveryMechanism
       end
     end
 
-    get '/project/:id/return' do
-      guard_access env, params, request do |_request_hash|
-        return 400 if params['id'].nil?
+    # get '/project/:id/return' do
+    #   guard_access env, params, request do |_request_hash|
+    #     return 400 if params['id'].nil?
 
-        base_return = @dependency_factory.get_use_case(:ui_get_base_return).execute(
-          project_id: params['id'].to_i
-        )
+    #     base_return = @dependency_factory.get_use_case(:ui_get_base_return).execute(
+    #       project_id: params['id'].to_i
+    #     )
 
-        if base_return.empty?
-          response.status = 404
-        else
-          response.headers['Cache-Control'] = 'no-cache'
-          response.status = 200
-          response.body = { baseReturn: base_return[:base_return] }.to_json
-        end
-      end
-    end
+    #     if base_return.empty?
+    #       response.status = 404
+    #     else
+    #       response.headers['Cache-Control'] = 'no-cache'
+    #       response.status = 200
+    #       response.body = { baseReturn: base_return[:base_return] }.to_json
+    #     end
+    #   end
+    # end
 
-    get '/project/:id/returns' do
-      guard_access env, params, request do |_|
-        returns = @dependency_factory.get_use_case(:ui_get_returns).execute(project_id: params['id'].to_i)
-        response.headers['Cache-Control'] = 'no-cache'
-        response.status = returns.empty? ? 404 : 200
-        response.body = returns.to_json
-      end
-    end
+    # get '/project/:id/returns' do
+    #   guard_access env, params, request do |_|
+    #     returns = @dependency_factory.get_use_case(:ui_get_returns).execute(project_id: params['id'].to_i)
+    #     response.headers['Cache-Control'] = 'no-cache'
+    #     response.status = returns.empty? ? 404 : 200
+    #     response.body = returns.to_json
+    #   end
+    # end
 
     post '/project/create' do
       guard_access env, params, request do |request_hash|
@@ -134,17 +134,17 @@ module DeliveryMechanism
       update_response[:successful] || !update_response[:errors].empty?
     end
 
-    post '/project/submit' do
-      guard_access env, params, request do |request_hash|
-        @dependency_factory.get_use_case(:submit_project).execute(
-          project_id: request_hash[:project_id].to_i
-        )
+    # post '/project/submit' do
+    #   guard_access env, params, request do |request_hash|
+    #     @dependency_factory.get_use_case(:submit_project).execute(
+    #       project_id: request_hash[:project_id].to_i
+    #     )
 
-        @dependency_factory.get_use_case(:notify_project_members_of_creation).execute(project_id: request_hash[:project_id].to_i, url: request_hash[:url])
+    #     @dependency_factory.get_use_case(:notify_project_members_of_creation).execute(project_id: request_hash[:project_id].to_i, url: request_hash[:url])
 
-        response.status = 200
-      end
-    end
+    #     response.status = 200
+    #   end
+    # end
 
     unless ENV['BACK_TO_BASELINE'].nil?
       post '/project/unsubmit' do
