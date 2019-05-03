@@ -59,18 +59,6 @@ module DeliveryMechanism
       update_response[:successful] || !update_response[:errors].empty?
     end
 
-    unless ENV['BACK_TO_BASELINE'].nil?
-      post '/project/unsubmit' do
-        guard_access env, params, request do |request_hash|
-          @dependency_factory.get_use_case(:unsubmit_project).execute(
-            project_id: request_hash[:project_id].to_i
-          )
-
-          response.status = 200
-        end
-      end
-    end
-
     def get_hash(request)
       body = request.body.read
       return nil if body.to_s.empty?
