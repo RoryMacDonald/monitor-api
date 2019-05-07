@@ -2,9 +2,11 @@
 
 require 'rspec'
 require_relative '../shared_context/dependency_factory'
+require_relative '../shared_context/project_fixtures'
 
-describe 'Compiles project data' do
+describe 'Exporting project data' do
   include_context 'dependency factory'
+  include_context 'project fixtures'
 
   def expected_compiled_project(project_id = nil, return_id = nil)
     {
@@ -73,69 +75,103 @@ describe 'Compiles project data' do
     }
   end
 
-  it 'into a single hash' do
-    project_baseline = expected_compiled_project[:baseline][:data]
+  context 'Exporting information about a single project' do
+    let(:project_id) do
+      project_baseline = expected_compiled_project[:baseline][:data]
+      get_use_case(:create_new_project).execute(
+        name: expected_compiled_project[:baseline][:name],
+        type: expected_compiled_project[:baseline][:type],
+        baseline: project_baseline,
+        bid_id: 'HIF/MV/15'
+      )[:id]
+    end
 
-    project_id = get_use_case(:create_new_project).execute(
-      name: expected_compiled_project[:baseline][:name],
-      type: expected_compiled_project[:baseline][:type],
-      baseline: project_baseline,
-      bid_id: 'HIF/MV/15'
-    )[:id]
+    let(:return_id) do
+      initial_return = expected_compiled_project[:submitted_returns][0]
 
-    get_use_case(:submit_project).execute(project_id: project_id)
-    submitted_project = get_use_case(:find_project).execute(id: project_id)
+      get_use_case(:create_return).execute(
+        project_id: project_id,
+        data: initial_return[:data]
+      )[:id]
+    end
 
-    initial_return = expected_compiled_project[:submitted_returns][0]
+    def given_a_submitted_project
+      get_use_case(:submit_project).execute(project_id: project_id)
+    end
 
-    return_id = get_use_case(:create_return).execute(
-      project_id: project_id,
-      data: initial_return[:data]
-    )[:id]
+    def and_a_submitted_return
+      get_use_case(:submit_return).execute(return_id: return_id)
+    end
 
-    get_use_case(:submit_return).execute(return_id: return_id)
+    def then_the_exported_project_contains_the_baseline_and_submitted_return
+      compiled_project = get_use_case(:export_project_data).execute(project_id: project_id)[:compiled_project]
+      expect(compiled_project).to eq(expected_compiled_project(project_id, return_id))
+    end
 
-    compiled_project = get_use_case(:export_project_data).execute(project_id: project_id)[:compiled_project]
-    expect(compiled_project).to eq(expected_compiled_project(project_id, return_id))
+    it 'Exports the project with its submitted returns' do
+      given_a_submitted_project
+      and_a_submitted_return
+      then_the_exported_project_contains_the_baseline_and_submitted_return
+    end
   end
 
-  it 'export multiple projects' do
-    project_baseline = expected_compiled_project[:baseline][:data]
-    project_id = get_use_case(:create_new_project).execute(
-      name: expected_compiled_project[:baseline][:name],
-      type: expected_compiled_project[:baseline][:type],
-      baseline: project_baseline,
-      bid_id: 'HIF/MV/15'
-    )[:id]
-    project_id_second = get_use_case(:create_new_project).execute(
-      name: expected_compiled_project[:baseline][:name],
-      type: expected_compiled_project[:baseline][:type],
-      baseline: project_baseline,
-      bid_id: 'HIF/MV/535'
-    )[:id]
+  context 'Exporting information about all projects' do
+    let(:project_baseline) { expected_compiled_project[:baseline][:data] }
+    let(:first_project_id) do
+      get_use_case(:create_new_project).execute(
+        name: expected_compiled_project[:baseline][:name],
+        type: expected_compiled_project[:baseline][:type],
+        baseline: project_baseline,
+        bid_id: 'HIF/MV/15'
+      )[:id]
+    end
+    let(:second_project_id) do
+      get_use_case(:create_new_project).execute(
+        name: expected_compiled_project[:baseline][:name],
+        type: expected_compiled_project[:baseline][:type],
+        baseline: project_baseline,
+        bid_id: 'HIF/MV/535'
+      )[:id]
+    end
 
-    get_use_case(:submit_project).execute(project_id: project_id)
-    submitted_project = get_use_case(:find_project).execute(id: project_id)
+    let(:initial_return) { expected_compiled_project[:submitted_returns][0] }
+    let(:first_return_id) do
+      get_use_case(:create_return).execute(
+        project_id: first_project_id,
+        data: initial_return[:data]
+      )[:id]
+    end
+    let(:second_return_id) do
+      get_use_case(:create_return).execute(
+        project_id: second_project_id,
+        data: initial_return[:data]
+      )[:id]
+    end
 
-    get_use_case(:submit_project).execute(project_id: project_id_second)
-    submitted_project = get_use_case(:find_project).execute(id: project_id_second)
+    def given_multiple_submitted_projects
+      get_use_case(:submit_project).execute(project_id: first_project_id)
+      get_use_case(:submit_project).execute(project_id: second_project_id)
+    end
 
-    initial_return = expected_compiled_project[:submitted_returns][0]
+    def and_submitted_returns
+      get_use_case(:submit_return).execute(return_id: first_return_id)
+      get_use_case(:submit_return).execute(return_id: second_return_id)
+    end
 
-    return_id = get_use_case(:create_return).execute(
-      project_id: project_id,
-      data: initial_return[:data]
-    )[:id]
+    def then_both_projects_are_exported_with_their_returns
+      compiled_project = get_use_case(:export_all_projects).execute[:compiled_projects]
+      expect(compiled_project).to eq(
+        [
+          expected_compiled_project(first_project_id, first_return_id),
+          expected_compiled_project(second_project_id, second_return_id)
+        ]
+      )
+    end
 
-    return_id_second = get_use_case(:create_return).execute(
-      project_id: project_id_second,
-      data: initial_return[:data]
-    )[:id]
-
-    get_use_case(:submit_return).execute(return_id: return_id)
-    get_use_case(:submit_return).execute(return_id: return_id_second)
-
-    compiled_project = get_use_case(:export_all_projects).execute()[:compiled_projects]
-    expect(compiled_project).to eq([expected_compiled_project(project_id, return_id), expected_compiled_project(project_id_second, return_id_second)])
+    it 'Exports all projects and their submitted returns' do
+      given_multiple_submitted_projects
+      and_submitted_returns
+      then_both_projects_are_exported_with_their_returns
+    end
   end
 end
