@@ -9,7 +9,7 @@ module Simulator
       @url = url
     end
 
-    def send_notification(to:)
+    def stub_send_notification(to:)
       @stub_request = @test_suite.stub_request(
         :post,
         "#{@url}v2/notifications/email").with(
