@@ -4,7 +4,7 @@ require 'rspec'
 require_relative '../shared_context/dependency_factory'
 require_relative '../shared_context/project_fixtures'
 
-fdescribe 'Creating a new project' do
+describe 'Creating a new HIF-MVF project' do
   include_context 'dependency factory'
   include_context 'project fixtures'
 

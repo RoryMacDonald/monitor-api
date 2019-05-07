@@ -1,7 +1,7 @@
 require_relative '../shared_context/dependency_factory'
 require_relative '../shared_context/project_fixtures'
 
-fdescribe 'PCS integration with HIF MVF' do
+describe 'PCS integration with HIF MVF' do
   include_context 'dependency factory'
   include_context 'project fixtures'
 
