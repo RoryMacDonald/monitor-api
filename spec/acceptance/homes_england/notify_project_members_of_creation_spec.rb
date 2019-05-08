@@ -38,7 +38,7 @@ describe 'Notifying project members of project creation' do
     environment_before
     ENV['GOV_NOTIFY_API_KEY'] = 'cafe-cafecafe-cafe-cafe-cafe-cafecafecafe-cafecafe-cafe-cafe-cafe-cafecafecafe'
     ENV['GOV_NOTIFY_API_URL'] = notification_url
-    simulator.send_notification(to: 'cat@meow.com')
+    simulator.stub_send_notification(to: 'cat@meow.com')
   end
 
   after do
