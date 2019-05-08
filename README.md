@@ -54,3 +54,7 @@ This project was developed using [ATDD](https://en.wikipedia.org/wiki/Acceptance
 `make test`
 
 This test suite will run continuously as you save your work.
+
+### Further documentation
+[Schemas](docs/SCHEMAS.md)
+[Authentication](docs/AUTHENTICATION.md)
