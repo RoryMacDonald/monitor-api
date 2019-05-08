@@ -8,90 +8,34 @@ describe 'Performing Claims on HIF Project' do
 
   let(:expected_base_claim) do
     {
-      "claimSummary": {
-        "hifTotalFundingRequest": "123456",
-        "hifSpendToDate": nil
-      },
-      "supportingEvidence": {
-        "lastQuarterMonthSpend": {
-          "forecast": nil
-        }
-      }
-    }
-  end
-
-  let(:expected_second_base_claim) do
-    {
-      "claimSummary": {
-        "hifTotalFundingRequest": "123456",
-        "hifSpendToDate": "23"
-      },
-      "supportingEvidence": {
-        "lastQuarterMonthSpend": {
-          "forecast": "4567"
-        }
-      }
-    }
-  end
-
-  let(:initial_claim) do
-    {
-      data: {
-        claimSummary: {
-          certifiedClaimForm: "some form",
-          hifTotalFundingRequest: "Funding",
-          hifSpendToDate: "45.0",
-          AmountOfThisClaim: "lots",
-          runningClaimTotal: "23"
-        },
-        supportingEvidence: {
-          lastQuarterMonthSpend: {
-            forecast: "500",
-            actual: "400",
-            varianceReason: "Areason",
-            variance: {
-              varianceAgainstForcastAmount: "456728",
-              varianceAgainstForcastPercentage: "123456"
-            }
-          },
-          evidenceOfSpendPastQuarter: "Much",
-          breakdownOfNextQuarterSpend: {
-            forecast: "4567",
-            descriptionOfSpend: "Spending Money",
-            evidenceOfSpendNextQuarter: "NOt got any"
-          }
-        }
-      }
-    }
-  end
-
-  let(:updated_claim) do
-    {
       claimSummary: {
-        certifiedClaimForm: "changed",
-        hifTotalFundingRequest: "Funding",
-        hifSpendToDate: "0.0",
-        AmountOfThisClaim: "lots",
-        runningClaimTotal: "23"
+        hifTotalFundingRequest: "123456",
+        hifSpendToDate: nil
       },
       supportingEvidence: {
         lastQuarterMonthSpend: {
-          forecast: "100",
-          actual: "100",
-          varianceReason: "Areason",
-          variance: {
-            varianceAgainstForcastAmount: "456728",
-            varianceAgainstForcastPercentage: "123456"
-          }
-        },
-        evidenceOfSpendPastQuarter: "Much",
-        breakdownOfNextQuarterSpend: {
-          forecast: "4567",
-          descriptionOfSpend: "Spending Money",
-          evidenceOfSpendNextQuarter: "NOt got any"
+          forecast: nil
         }
       }
     }
+  end
+
+  let(:initial_claim_data) do
+    File.open("#{__dir__}/../../fixtures/hif_claim_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
+  end
+
+  let(:updated_claim) do
+    File.open("#{__dir__}/../../fixtures/hif_updated_claim_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:baseline_data) do
@@ -111,33 +55,124 @@ describe 'Performing Claims on HIF Project' do
     )[:id]
   end
 
-  it 'Performs a claim' do
-    base_claim = get_use_case(:get_base_claim).execute(project_id: project_id)
 
-    expect(base_claim[:base_claim][:data]).to eq(expected_base_claim)
-
-    id = get_use_case(:create_claim).execute(
+  let(:base_claim) { get_use_case(:get_base_claim).execute(project_id: project_id) }
+  let(:id) do
+    get_use_case(:create_claim).execute(
       project_id: project_id,
-      claim_data: initial_claim[:data]
+      claim_data: initial_claim_data
     )[:claim_id]
+  end
 
-    claim = get_use_case(:get_claim).execute(claim_id: id)
+  def when_getting_a_base_claim
+    base_claim
+  end
 
-    expect(claim[:status]).to eq('Draft')
-    expect(claim[:type]).to eq('hif')
-    expect(claim[:project_id]).to eq(project_id)
-    expect(claim[:data]).to eq(initial_claim[:data])
+  def given_a_project
+    project_id
+  end
 
-    get_use_case(:update_claim).execute(claim_id: id, claim_data: updated_claim)
-    claim = get_use_case(:get_claim).execute(claim_id: id)
-    expect(claim[:data]).to eq(updated_claim)
+  context do
+    def then_it_provides_a_base_claim
+      expect(base_claim[:base_claim][:data]).to eq(expected_base_claim)
+    end
 
-    get_use_case(:submit_claim).execute(claim_id: id)
-    claim = get_use_case(:get_claim).execute(claim_id: id)
-    expect(claim[:status]).to eq('Submitted')
+    it 'Gets base claim' do
+      given_a_project
+      when_getting_a_base_claim
+      then_it_provides_a_base_claim
+    end
+  end
 
-    second_base_claim = get_use_case(:get_base_claim).execute(project_id: project_id)
+  context do
+    let(:claim) { get_use_case(:get_claim).execute(claim_id: id) }
 
-    expect(second_base_claim[:base_claim][:data]).to eq(expected_second_base_claim)
+    def when_a_new_claim_is_created
+      id
+    end
+
+    def and_when_the_claim_is_retrieved
+      claim
+    end
+
+    def then_it_has_the_correct_data
+      expect(claim[:status]).to eq('Draft')
+      expect(claim[:type]).to eq('hif')
+      expect(claim[:project_id]).to eq(project_id)
+      expect(claim[:data]).to eq(initial_claim_data)
+    end
+
+    it 'Creates and retrieves a claim' do
+      given_a_project
+      when_a_new_claim_is_created
+      and_when_the_claim_is_retrieved
+      then_it_has_the_correct_data
+    end
+
+    def given_a_new_claim
+      id
+    end
+
+    def when_the_claim_is_updated
+      get_use_case(:update_claim).execute(claim_id: id, claim_data: updated_claim)
+    end
+
+    def then_the_claim_had_the_updated_data
+      expect(claim[:data]).to eq(updated_claim)
+    end
+
+    it 'Updates a claim' do
+      given_a_new_claim
+      when_the_claim_is_updated
+      and_when_the_claim_is_retrieved
+      then_the_claim_had_the_updated_data
+    end
+
+    def when_the_claim_is_submited
+      get_use_case(:submit_claim).execute(claim_id: id)
+    end
+
+    def then_the_claim_status_is_submitted
+      expect(claim[:status]).to eq('Submitted')
+    end
+
+    it 'Submits a claim' do
+      given_a_new_claim
+      when_the_claim_is_submited
+      and_when_the_claim_is_retrieved
+      then_the_claim_status_is_submitted
+    end
+  end
+
+  context do
+    def given_a_project_with_a_submitted_claim
+      project_id
+      id
+      get_use_case(:submit_claim).execute(claim_id: id)
+    end
+
+    let(:expected_base_claim) do
+      {
+        claimSummary: {
+          hifTotalFundingRequest: "123456",
+          hifSpendToDate: "23"
+        },
+        supportingEvidence: {
+          lastQuarterMonthSpend: {
+            forecast: "4567"
+          }
+        }
+      }
+    end
+
+    def then_the_base_claim_includes_data_from_previous_claim
+      expect(base_claim[:base_claim][:data]).to eq(expected_base_claim)
+    end
+
+    it 'Submitting a claim changes future base claims' do
+      given_a_project_with_a_submitted_claim
+      when_getting_a_base_claim
+      then_the_base_claim_includes_data_from_previous_claim
+    end
   end
 end
