@@ -16,6 +16,7 @@ The API currently supports the MVF and AC contract schemes.
 ## Technical documentation
 
 ### Directory Structure
+ - `docs/` - Further documentation
  - `spec/` - The test suite  
   - `acceptance/` - Tests that describe functionality central to user stories
     - `*/` - Acceptance tests for a given actor
