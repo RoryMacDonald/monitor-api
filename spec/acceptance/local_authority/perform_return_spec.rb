@@ -36,15 +36,6 @@ describe 'Performing Return on HIF Project' do
     end
   end
 
-  let(:expected_ac_base_return) do
-    File.open("#{__dir__}/../../fixtures/ac_base_return.json") do |f|
-      JSON.parse(
-        f.read,
-        symbolize_names: true
-      )
-    end
-  end
-
   let(:expected_second_base_return) do
     File.open("#{__dir__}/../../fixtures/second_base_return.json") do |f|
       JSON.parse(
@@ -87,184 +78,12 @@ describe 'Performing Return on HIF Project' do
   end
 
   let(:updated_return_data) do
-    {
-      s151: {
-        supportingEvidence: {
-          lastQuarterMonthSpend: {
-            forecast: '1'
-          }
-        }
-      },
-      fundingPackages: {
-        fundingStack: [
-          {
-            currentFundingStackDescription: 'describe',
-            fundedThroughHIF: 'Yes',
-            totalCost: {
-              currentAmount: '34'
-            },
-            hifSpend: {
-              currentAmount: '23'
-            },
-            public: {
-              currentAmount: '23',
-              balancesSecured: {
-                securedAgainstBaseline: '123'
-              },
-              amountSecured: '12'
-            },
-            private: {
-              currentAmount: '12',
-              balancesSecured: {
-                securedAgainstBaseline: '124'
-              },
-              amountSecured: '13'
-            }
-          }
-        ]
-      },
-      summary: {
-        project_name: 'Dogs Protection League',
-        description: 'A new headquarters for all the Dogs',
-        lead_authority: 'Made Tech'
-      },
-      infrastructures: [
-        {
-          type: 'Dog Bathroom',
-          description: 'Bathroom for Dogs',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
-            submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer',
-            planningNotGranted: {
-              fieldOne: {
-                varianceCalculations: {
-                  varianceAgainstLastReturn: {
-                    varianceLastReturnFullPlanningPermissionSubmitted: nil
-                  }
-                }
-              }
-            },
-            outlinePlanning: {
-              planningSubmitted: {
-                status: 'Completed',
-                completedDate: '111',
-                percentComplete: '12',
-                onCompletedReference: 'REFPLAN'
-              },
-              planningGranted: {
-                status: 'On Schedule',
-                percentComplete: '34',
-                completedDate: '222'
-              }
-            },
-            fullPlanning: {
-              submitted: {
-                status: 'On Shedule',
-                completedDate: '211',
-                percentComplete: '45',
-                onCompletedReference: 'REF2PLAN'
-              },
-              granted: {
-                status: 'Delayed',
-                percentComplete: '56',
-                completedDate: '333'
-              }
-            }
-          },
-          landOwnership: {
-            laDoesNotControlSite: {
-              allLandAssemblyAchieved: {
-                current: 'Tomorrow',
-                status: 'complete',
-                completedDate: 'today',
-                percentComplete: '89'
-              }
-            }
-          },
-          procurement: {
-            procurementStatusAgainstLastReturn: {
-              statusAgainstLastReturn: 'Complete'
-            },
-            procurementCompletedDate: '23',
-            procurementCompletedNameOfContractor: 'Mr'
-          },
-          milestones: {
-            keyMilestones: [
-              {
-                currentReturn: '12/12/2012',
-                statusAgainstLastReturn: 'Complete',
-                milestoneCompletedDate: '1'
-              }
-            ],
-            expectedInfrastructureStartOnSite: {
-              status: 'Done',
-              completedDate: '2'
-            },
-            expectedCompletionDateOfInfra: {
-              status: 'not done',
-              completedDate: '3'
-            }
-          },
-          risks: {
-            baselineRisks: [
-              {
-                riskMetDate: 'Yes',
-                riskCompletionDate: '01/01/2018'
-              }
-            ]
-          }
-        }
-      ],
-      outputsForecast: {
-        inYearHousingStarts: {
-          currentAmounts: {
-            quarter1: '12',
-            quarter2: '23',
-            quarter3: '34',
-            quarter4: '45'
-          }
-        },
-        inYearHousingCompletions: {
-          currentAmounts: {
-            quarter1: '12',
-            quarter2: '23',
-            quarter3: '34',
-            quarter4: '45'
-          }
-        }
-      },
-      funding: [
-        {
-          fundingPackages: [
-            fundingPackage: {
-              overview: {
-                hifSpendSinceLastReturn: {
-                  hifSpendCurrentReturn: '25565'
-                }
-              }
-            }
-          ]
-        }
-      ],
-      financial: {
-        total_amount_estimated: '£ 1000000.00',
-        total_amount_actual: nil,
-        total_amount_changed_reason: nil
-      },
-      hifRecovery: {
-        recovery: {
-          expectedAmountToRecover: {
-            changeToBaseline: {
-              confirmation: 'Yes',
-              lastReturn: '12',
-              currentCopy: '14'
-            }
-          }
-        }
-      }
-    }
+    File.open("#{__dir__}/../../fixtures/hif_updated_return_core.json") do |f|
+      JSON.parse(
+        f.read,
+        symbolize_names: true
+      )
+    end
   end
 
   let(:expected_updated_return) do
@@ -457,6 +276,15 @@ describe 'Performing Return on HIF Project' do
     end
 
     let(:ac_base_return) { get_use_case(:get_base_return).execute(project_id: ac_project_id) }
+
+    let(:expected_ac_base_return) do
+      File.open("#{__dir__}/../../fixtures/ac_base_return.json") do |f|
+        JSON.parse(
+          f.read,
+          symbolize_names: true
+        )
+      end
+    end
 
     def given_a_new_ac_project
       ac_project_id
