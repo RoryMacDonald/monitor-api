@@ -30,7 +30,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
       before do
         notification_request
         ENV['GOV_NOTIFY_API_URL'] = 'https://meow.com'
-        simulator.send_notification(to: 'cat@cathouse.com')
+        simulator.stub_send_notification(to: 'cat@cathouse.com')
         described_class.new.send_notification(to: 'cat@cathouse.com', url: 'http://cats.com', access_token: 'CatAccess')
       end
 
@@ -58,7 +58,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
       before do
         notification_request
         ENV['GOV_NOTIFY_API_URL'] = 'https://dog.woof'
-        simulator.send_notification(to: 'dog@doghouse.com')
+        simulator.stub_send_notification(to: 'dog@doghouse.com')
         described_class.new.send_notification(to: 'dog@doghouse.com', url: 'http://dogs.com', access_token: 'DogAccess')
       end
 
@@ -79,7 +79,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
       let(:notification_url) { 'https://dog.woof/' }
       before do
         ENV['GOV_NOTIFY_API_URL'] = 'https://dog.woof'
-        simulator.send_notification(to: 'dog@doghouse.com')
+        simulator.stub_send_notification(to: 'dog@doghouse.com')
         described_class.new.send_return_notification(to: 'dog@doghouse.com', url: 'http://dogs.com', by: 'Dog', project_name: 'Kennel')
       end
 
@@ -99,7 +99,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
 
       before do
         ENV['GOV_NOTIFY_API_URL'] = 'https://meow.com'
-        simulator.send_notification(to: 'cat@cathouse.com')
+        simulator.stub_send_notification(to: 'cat@cathouse.com')
         described_class.new.send_return_notification(to: 'cat@cathouse.com', url: 'http://cats.com', by: 'Cat', project_name: 'Flap')
       end
 
@@ -120,7 +120,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
       let(:notification_url) { 'https://dog.woof/' }
       before do
         ENV['GOV_NOTIFY_API_URL'] = 'https://dog.woof'
-        simulator.send_notification(to: 'dog@doghouse.com')
+        simulator.stub_send_notification(to: 'dog@doghouse.com')
         described_class.new.send_claim_notification(to: 'dog@doghouse.com', url: 'http://dogs.com', by: 'Dog', project_name: 'Kennel')
       end
 
@@ -140,7 +140,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
 
       before do
         ENV['GOV_NOTIFY_API_URL'] = 'https://meow.com'
-        simulator.send_notification(to: 'cat@cathouse.com')
+        simulator.stub_send_notification(to: 'cat@cathouse.com')
         described_class.new.send_claim_notification(to: 'cat@cathouse.com', url: 'http://cats.com', by: 'Cat', project_name: 'Flap')
       end
 
@@ -161,7 +161,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
       let(:notification_url) { 'https://dog.woof/' }
       before do
         ENV['GOV_NOTIFY_API_URL'] = 'https://dog.woof'
-        simulator.send_notification(to: 'dog@doghouse.com')
+        simulator.stub_send_notification(to: 'dog@doghouse.com')
         described_class.new.send_project_creation_notification(to: 'dog@doghouse.com', url: 'http://dogs.com')
       end
 
@@ -181,7 +181,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
 
       before do
         ENV['GOV_NOTIFY_API_URL'] = 'https://meow.com'
-        simulator.send_notification(to: 'cat@cathouse.com')
+        simulator.stub_send_notification(to: 'cat@cathouse.com')
         described_class.new.send_project_creation_notification(to: 'cat@cathouse.com', url: 'http://cats.com')
       end
 

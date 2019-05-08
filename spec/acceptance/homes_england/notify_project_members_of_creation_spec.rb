@@ -3,7 +3,7 @@ require_relative '../../simulator/notification'
 
 describe 'Notifying project members' do
   include_context 'dependency factory'
-  
+
   let(:notification_url) { 'http://meow.cat/' }
   let(:notification_request) do
     stub_request(:post, "#{notification_url}v2/notifications/email").to_return(status: 200, body: {}.to_json)
@@ -23,7 +23,7 @@ describe 'Notifying project members' do
 
     @project_id = dependency_factory.get_gateway(:project).create(new_project)
     dependency_factory.get_use_case(:add_user_to_project).execute(project_id: @project_id, email: 'cat@meow.com')
-    simulator.send_notification(to: 'cat@meow.com')
+    simulator.stub_send_notification(to: 'cat@meow.com')
   end
 
   it 'notifies project members' do
