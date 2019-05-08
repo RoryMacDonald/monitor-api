@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative '../shared_context/dependency_factory'
 
-fdescribe 'Updating the role of a user' do
+describe 'Updating the role of a user' do
   include_context 'dependency factory'
 
   let(:environment_before) { ENV }
