@@ -1,7 +1,7 @@
 require_relative '../web_routes.rb'
 
 DeliveryMechanism::WebRoutes.get '/return/get' do
-  guard_access env, params, request do |_|
+  guard_access env, params, request do
     return 400 if params[:returnId].nil?
     return_id = params[:returnId].to_i
 

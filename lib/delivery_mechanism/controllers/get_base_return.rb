@@ -1,7 +1,7 @@
 require_relative '../web_routes.rb'
 
 DeliveryMechanism::WebRoutes.get '/project/:id/return' do
-  guard_access env, params, request do |_request_hash|
+  guard_access env, params, request do 
     return 400 if params['id'].nil?
 
     base_return = @dependency_factory.get_use_case(:ui_get_base_return).execute(
