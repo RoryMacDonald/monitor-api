@@ -5,76 +5,50 @@ require 'timecop'
 describe 'Getting multiple returns' do
   include_context 'dependency factory'
 
-  let(:returns_for_project_1) do
-    [
-      {
-        id: 1,
-        project_id: project_id,
-        data:
-        {
-          summary: {
-            project_name: 'Cats Protection League',
-            description: 'A new headquarters for all the Cats',
-            lead_authority: 'Made Tech'
-          },
-          infrastructure: {
-            type: 'Cat Bathroom',
-            description: 'Bathroom for Cats',
-            completion_date: '2018-12-25'
-          },
-          financial: {
-            date: '2017-12-25',
-            funded_through_HIF: true
-          }
-        }
-      },
-      {
-        id: 2,
-        project_id: 1,
-        data:
-        {
-          summary: {
-            project_name: 'Cats Embassy',
-            description: 'Embassy for cats in the UK',
-            lead_authority: 'Made Tech'
-          },
-          infrastructure: {
-            type: 'Cat waiting room',
-            description: 'A waiting room for cats',
-            completion_date: '2019-09-01'
-          },
-          financial: {
-            date: '2019-09-01',
-            funded_through_HIF: true
-          }
-        }
-      }
-
-    ]
-  end
-
-  it 'can get multiple returns by project id from a gateway' do
-    project_id = get_use_case(:create_new_project).execute(
+  let(:project_id) do
+    get_use_case(:create_new_project).execute(
       name: 'cat hif project',
       type: 'hif',
       baseline: {},
       bid_id: nil
     )[:id]
+  end
 
-    return1_id = get_use_case(:create_return).execute(
+  let(:return1_id) do
+    get_use_case(:create_return).execute(
       project_id: project_id, data: { cats: 'meow' }
     )[:id]
+  end
 
-    get_use_case(:submit_return).execute(return_id: return1_id)
-
-    return2_id = get_use_case(:create_return).execute(
+  let(:return2_id) do
+    get_use_case(:create_return).execute(
       project_id: project_id, data: { dogs: 'woof' }
     )[:id]
+  end
 
+  def given_a_project_with_two_returns
+    get_use_case(:submit_return).execute(return_id: return1_id)
+    return2_id
+  end
+
+  def freeze_time_to_current_time()
     time_now = Time.now
     Timecop.freeze(time_now)
-    time_now = time_now.to_i
+    time_now
+  end
 
+  let(:frozen_time) do
+    freeze_time_to_current_time.to_i
+  end
+
+  let(:returns_for_project) { get_use_case(:get_returns).execute(project_id: project_id) }
+
+  def when_getting_returns_for_the_project
+    frozen_time
+    returns_for_project
+  end
+
+  def then_all_returns_are_provided
     expected_returns = [
       {
         id: return1_id,
@@ -83,7 +57,7 @@ describe 'Getting multiple returns' do
           { cats: 'meow' }
         ],
         status: 'Submitted',
-        timestamp: time_now
+        timestamp: frozen_time
       },
       {
         id: return2_id,
@@ -96,8 +70,14 @@ describe 'Getting multiple returns' do
       }
     ]
 
-    expect(get_use_case(:get_returns).execute(project_id: project_id)[:returns]).to(
+    expect(returns_for_project[:returns]).to(
       eq(expected_returns)
     )
+  end
+
+  it 'can get multiple returns by project id from a gateway' do
+    given_a_project_with_two_returns
+    when_getting_returns_for_the_project
+    then_all_returns_are_provided
   end
 end
