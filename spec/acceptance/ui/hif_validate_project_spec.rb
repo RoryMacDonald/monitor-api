@@ -19,7 +19,6 @@ describe 'Validates HIF Project' do
     it 'should return invalid if fails validation' do
       valid_project = get_use_case(:ui_validate_project).execute(type: 'hif', project_data: invalid_project)
       INVALID_PATH = [
-        %i[summary jointBidAuthorityAreas],
         %i[summary sitePlans],
         [:infrastructures, 0, :planningStatus, :planningStatus, :fullPlanningStatus, :granted],
         [:costs, 0, :infrastructure, :fundedThroughHif, :descriptionOfFundingStack],
@@ -29,7 +28,6 @@ describe 'Validates HIF Project' do
         [:rmBaseline]
       ].freeze
       PRETTY_INVALID_PATH = [
-        ['HIF Project', 'Project Summary', 'Joint Bid Areas'],
         ['HIF Project', 'Project Summary', 'Site Plans'],
         ['HIF Project', 'Infrastructures', 'Infrastructure 1', 'Planning Status', '', 'Full Planning Status', 'Granted?'],
         ['HIF Project', 'Costs', 'Infrastructure 1', 'Cost', '', 'Description of Funding Stack'],
