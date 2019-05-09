@@ -166,7 +166,7 @@ describe LocalAuthority::UseCase::FindPathData do
           }
         }
       end
-      let(:path) do 
+      let(:path) do
         [
           :return_or_baseline,
           [:baseline_data, :infrastructures, :cats, :puppies],
@@ -191,7 +191,7 @@ describe LocalAuthority::UseCase::FindPathData do
           }
         }
       end
-      let(:path) do 
+      let(:path) do
         [
           :return_or_baseline,
           [:baseline_data, :infrastructures, :cats, :puppies],
@@ -201,6 +201,97 @@ describe LocalAuthority::UseCase::FindPathData do
 
       it 'can get the data from the baseline data' do
         expect(use_case).to eq(found: 'Get me this data')
+      end
+    end
+
+    context 'return data doesnt exist in an array' do
+      let(:baseline_data) do
+        {
+          baseline_data: {
+            infrastructures: [
+              puppies: 'Get me this data'
+            ]
+          }
+        }
+      end
+      let(:path) do
+        [
+          :return_or_baseline,
+          [:baseline_data, :infrastructures, :puppies],
+          [:return_data, :infrastructure, :puppies]
+        ]
+      end
+
+      it 'can get the data from the baseline data' do
+        expect(use_case).to eq(found: ['Get me this data'])
+      end
+    end
+
+    context 'some return data exists' do
+      context 'example 1' do
+        let(:baseline_data) do
+          {
+            baseline_data: {
+              infrastructures: [
+                {item: 1},
+                {},
+                {item: 3}
+              ]
+            },
+            return_data: {
+              infrastructures: [
+                {item: 6},
+                {item: 2}
+              ]
+            }
+          }
+        end
+
+        let(:path) do
+          [
+            :return_or_baseline,
+            [:baseline_data, :infrastructures, :item],
+            [:return_data, :infrastructures, :item]
+          ]
+        end
+
+        it 'pulls only the data not present' do
+          expect(use_case).to eq(found: [6, 2, 3])
+        end
+      end
+
+      context 'example 2' do
+        let(:baseline_data) do
+          {
+            baseline_data: {
+              infrastructures: [
+                {name: 'Dan'},
+                {name: 'Robin'},
+                {name: 'Barry'},
+                {name: 'Chris'}
+              ]
+            },
+            return_data: {
+              infrastructures: [
+                {},
+                {},
+                {name: 'Faissal'}
+              ]
+            }
+          }
+        end
+
+        let(:path) do
+          [
+            :return_or_baseline,
+            [:return_data, :infrastructures, :name],
+            [:baseline_data, :infrastructures, :name]
+          ]
+        end
+
+        it 'pulls only the data not present' do
+          expect(use_case).to eq(found: ['Dan', 'Robin', 'Faissal', 'Chris'])
+        end
       end
     end
   end
