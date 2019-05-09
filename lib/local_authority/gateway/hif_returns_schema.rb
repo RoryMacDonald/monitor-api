@@ -1230,7 +1230,10 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           # from risksToAchievingTimescales.mitigationOfRisk
                           riskBaselineMitigationsInPlace: {
-                            sourceKey: %i[baseline_data infrastructures risksToAchievingTimescales mitigationOfRisk],
+                            sourceKey: [:return_or_baseline,
+                              [:baseline_data, :infrastructures, :risksToAchievingTimescales, :mitigationOfRisk],
+                              [:return_data, :infrastructures, :risks, :baselineRisks, :riskCurrentReturnMitigationsInPlace]
+                            ],
                             type: 'string',
                             title: 'Mitigation in place',
                             readonly: true

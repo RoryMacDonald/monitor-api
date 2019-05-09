@@ -1635,12 +1635,6 @@
                       ]
                     },
                     "riskBaselineMitigationsInPlace": {
-                      "sourceKey": [
-                        "baseline_data",
-                        "infrastructures",
-                        "risksToAchievingTimescales",
-                        "mitigationOfRisk"
-                      ],
                       "type": "string",
                       "title": "Mitigation in place",
                       "readonly": true
