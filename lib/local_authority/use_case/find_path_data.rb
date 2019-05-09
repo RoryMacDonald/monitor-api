@@ -19,9 +19,13 @@ class LocalAuthority::UseCase::FindPathData
     found_baseline_data = search_hash(data, get_baseline_path(path))
     found_return_data = search_hash(data, get_return_path(path))
 
+    merge_baseline_return_data(found_baseline_data, found_return_data)
+  end
+
+  def merge_baseline_return_data(found_baseline_data, found_return_data)
     if found_baseline_data.class == Array && found_return_data.class == Array
       found_baseline_data.zip(found_return_data).map do |baseline_value, return_value|
-        prefer_return_value(baseline_value, return_value)
+        merge_baseline_return_data(baseline_value, return_value)
       end
     else
       prefer_return_value(found_baseline_data, found_return_data)

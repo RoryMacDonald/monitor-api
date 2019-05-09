@@ -1,5 +1,4 @@
 describe LocalAuthority::UseCase::FindPathData do
-
   let(:use_case) do
     described_class.new.execute(
       data: baseline_data,
@@ -233,15 +232,16 @@ describe LocalAuthority::UseCase::FindPathData do
           {
             baseline_data: {
               infrastructures: [
-                {item: 1},
+                {item: [{},{value: 2},{}]},
                 {},
-                {item: 3}
+                {item: [{value: 4}, {value: 5}, {value: 6}]}
               ]
             },
             return_data: {
               infrastructures: [
-                {item: 6},
-                {item: 2}
+                {item: [{value: 1},{value: 2},{value: 3}]},
+                {item: [{value: 0}]},
+                {item: [{}, {}, {}]}
               ]
             }
           }
@@ -250,13 +250,13 @@ describe LocalAuthority::UseCase::FindPathData do
         let(:path) do
           [
             :return_or_baseline,
-            [:baseline_data, :infrastructures, :item],
-            [:return_data, :infrastructures, :item]
+            [:baseline_data, :infrastructures, :item, :value],
+            [:return_data, :infrastructures, :item, :value]
           ]
         end
 
         it 'pulls only the data not present' do
-          expect(use_case).to eq(found: [6, 2, 3])
+          expect(use_case).to eq(found: [[1,2,3], [0], [4,5,6]])
         end
       end
 
