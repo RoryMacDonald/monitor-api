@@ -608,7 +608,8 @@
                           },
                           "s106SummaryOfRequirement": {
                             "type": "string",
-                            "title": "Summary of S016 Requirement ",
+                            "title": "Summary of S106 Requirement ",
+                            "extendedText": true,
                             "sourceKey": [
                               "baseline_data",
                               "infrastructures",
