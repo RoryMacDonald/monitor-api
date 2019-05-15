@@ -12,6 +12,12 @@ The API currently supports the MVF and AC contract schemes.
  - Acceptance tests - Tests that describe a user story
  - Unit tests - Tests that describe micro-features
  - Delivery Mechanism - The method by which data is sent and received from the user
+ - Project - A project is made up of a scheme type, baseline and returns
+ - Baseline - A form that declares the initial conditions of the project
+ - Return - A typically quarterly update to the status of a project
+ - AC - [Accelerated Construction](https://www.gov.uk/government/publications/accelerated-construction-local-authorities-expressions-of-interest)
+ - MVF - [Marginal Viability Fund](https://www.gov.uk/government/publications/housing-infrastructure-fund)
+ - HIF - Housing Infrastructure Fund, now a legacy term referring to MVF. Going forward HIF is a broader term referring to a subset of Homes England schemes.
 
 ## Technical documentation
 
