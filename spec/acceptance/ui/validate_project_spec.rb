@@ -20,22 +20,25 @@ describe 'Validates HIF Project' do
       validated_project = get_use_case(:ui_validate_project).execute(type: 'hif', project_data: invalid_project)
       expect(validated_project[:valid]).to eq(false)
 
-      expect(validated_project[:invalid_paths][0]).to eq([:summary, :sitePlans])
-      expect(validated_project[:invalid_paths][1]).to eq([:infrastructures, 0, :planningStatus, :planningStatus, :fullPlanningStatus, :granted])
-      expect(validated_project[:invalid_paths][2]).to eq([:costs, 0, :infrastructure, :fundedThroughHif, :descriptionOfFundingStack])
-      expect(validated_project[:invalid_paths][3]).to eq([:costs, 0, :infrastructure, :baselineCashflows])
-      expect(validated_project[:invalid_paths][4]).to eq([:recovery, :expectedAmount])
-      expect(validated_project[:invalid_paths][5]).to eq([:outputs])
-      expect(validated_project[:invalid_paths][6]).to eq([:rmBaseline])
-      expect(validated_project[:invalid_paths].length).to eq(7)
+      expect(validated_project[:invalid_paths]).to eq([
+        [:summary, :sitePlans],
+        [:infrastructures, 0, :planningStatus, :planningStatus, :fullPlanningStatus, :granted],
+        [:costs, 0, :infrastructure, :fundedThroughHif, :descriptionOfFundingStack],
+        [:costs, 0, :infrastructure, :baselineCashflows],
+        [:recovery, :expectedAmount],
+        [:outputs],
+        [:rmBaseline]
+      ])
 
-      expect(validated_project[:pretty_invalid_paths][0]).to eq(["HIF Project", "Project Summary", "Site Plans"])
-      expect(validated_project[:pretty_invalid_paths][1]).to eq(["HIF Project", "Infrastructures", "Infrastructure 1", "Planning Status", "", "Full Planning Status", "Granted?"])
-      expect(validated_project[:pretty_invalid_paths][2]).to eq(["HIF Project", "Costs", "Infrastructure 1", "Cost", "", "Description of Funding Stack"])
-      expect(validated_project[:pretty_invalid_paths][3]).to eq(["HIF Project", "Costs", "Infrastructure 1", "Cost", "Baseline Cashflow(s)"])
-      expect(validated_project[:pretty_invalid_paths][4]).to eq(["HIF Project", "Recovery", "Expected Amount"])
-      expect(validated_project[:pretty_invalid_paths][5]).to eq(["HIF Project", "Outputs"])
-      expect(validated_project[:pretty_invalid_paths][6]).to eq(["HIF Project", "RM Baseline"])
+      expect(validated_project[:pretty_invalid_paths]).to eq([
+        ['HIF Project', 'Project Summary', 'Site Plans'],
+        ['HIF Project', 'Infrastructures', 'Infrastructure 1', 'Planning Status', '', 'Full Planning Status', 'Granted?'],
+        ['HIF Project', 'Costs', 'Infrastructure 1', 'Cost', '', 'Description of Funding Stack'],
+        ['HIF Project', 'Costs', 'Infrastructure 1', 'Cost', 'Baseline Cashflow(s)'],
+        ['HIF Project', 'Recovery', 'Expected Amount'],
+        ['HIF Project', 'Outputs'],
+        ['HIF Project', 'RM Baseline']
+      ])
     end
   end
 end
